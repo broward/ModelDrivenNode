@@ -92,7 +92,7 @@ public enum ResourceList {
 		}
 
 		// write out object graph stats
-		ObjectGrapher.INSTANCE.writeXsdWrapper();
+		ObjectGrapher.INSTANCE.writeObjectGraph();
 
 		// make the sort list our master copy.
 		resources = sortList;
