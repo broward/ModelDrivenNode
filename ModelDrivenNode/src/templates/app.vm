@@ -28,7 +28,20 @@ require('./routes/Broutes')(app, mongooseB, modelsB);
   app.get('/', function(req, res){
       
     res.render('index', {
-      title: 'Model-Driven Node: Reference Implementation',
+      title: 'Model-Driven Node: Reference Implementation'
+    });
+  });
+
+// Entry page
+  app.get('/api', function(req, res){
+  
+    console.log(app.routes.get);
+      
+    res.render('api.jade', {
+      titleGet: 'REST GET API',
+      titlePost: 'REST POST API',
+      apisget: app.routes.get,
+      apispost: app.routes.post
     });
   });
 

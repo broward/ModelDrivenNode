@@ -93,6 +93,6 @@ public class ModelDrivenNode {
 
 		// Build second schema
 		ModelDrivenNode.SCHEMA = "B";
-		nb.buildServer("schema/axis/PNRChangeRQ.xsd");
+		nb.buildServer("schema/Star/BODs/Developer/ShowRepairOrder.xsd");
 	}
 }

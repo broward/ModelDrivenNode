@@ -28,7 +28,33 @@ public class Resource {
 			String type = jFieldVar.type().name();
 
 			// convert parameterized lists to their base type
-			if (type.contains("List<")) {
+			if (type.contains("List<JAXBElement<? extends ")) {
+				int start = 28;
+
+				// check for class argument
+				int stop = type.indexOf(">");
+				type = type.substring(start, stop);
+
+				// this is a reference to resource
+				// make sure we create a phantom resource for it
+					if (!MongoTypeConverter.isPrimitive(type)) {
+						Resource resource = new Resource(type);
+						ResourceList.INSTANCE.add(resource);
+					}
+					
+			} else if (type.contains("List<JAXBElement<")) {
+				int start = 17;
+				int stop = type.indexOf(">");
+				type = type.substring(start, stop);
+
+				// this is a reference to resource
+				// make sure we create a phantom resource for it
+					if (!MongoTypeConverter.isPrimitive(type)) {
+						Resource resource = new Resource(type);
+						ResourceList.INSTANCE.add(resource);
+					}
+					
+			} else if (type.contains("List<")) {
 				int start = type.indexOf("<") + 1;
 
 				// check for class argument
@@ -44,8 +70,8 @@ public class Resource {
 						Resource resource = new Resource(type);
 						ResourceList.INSTANCE.add(resource);
 					}
-			}
-			if (type.contains("Map<")) {
+					
+			} else if (type.contains("Map<")) {
 				int start = type.indexOf(",") + 1;
 				int stop = type.indexOf(">");
 				type = type.substring(start, stop);
@@ -56,8 +82,8 @@ public class Resource {
 						Resource resource = new Resource(type);
 						ResourceList.INSTANCE.add(resource);
 					}
-			}
-			if (type.contains("[]")) {
+					
+			} else if (type.contains("[]")) {
 				int start = 0;
 				int stop = type.indexOf("[");
 				type = type.substring(start, stop);
