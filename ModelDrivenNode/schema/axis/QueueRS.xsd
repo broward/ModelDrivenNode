@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<xsd:include schemaLocation="CommonTypes.xsd"/>
+	<xsd:element name="QueueRS">
+		<xsd:annotation>
+			<xsd:documentation>Queue response root element</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:choice>
+				<xsd:element ref="InfoGroup" minOccurs="0"/>
+				<xsd:choice>
+					<xsd:element ref="Count" minOccurs="0" maxOccurs="unbounded"/>
+					<xsd:element ref="List" minOccurs="0"/>
+					<xsd:element ref="Move" minOccurs="0"/>
+					<xsd:element ref="Place" minOccurs="0"/>
+					<xsd:element ref="Remove" minOccurs="0"/>
+					<xsd:element ref="Clean" minOccurs="0"/>
+					<xsd:element ref="Exit" minOccurs="0"/>
+					<xsd:element ref="PNRViewRS" minOccurs="0"/>
+				</xsd:choice>
+			</xsd:choice>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="Count">
+		<xsd:annotation>
+			<xsd:documentation>Count response group</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="PseudoCityCode"/>
+				<xsd:element ref="CurrentDate"/>
+				<xsd:element ref="CurrentTime"/>
+				<xsd:element ref="QueueNumber"/>
+				<xsd:element ref="QueueName" minOccurs="0"/>
+				<xsd:element ref="NumberOfPNRS"/>
+				<xsd:element ref="CategoryDataCount" minOccurs="0" maxOccurs="unbounded"/>
+			</xsd:sequence>
+			<xsd:attribute ref="Source"/>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="List">
+		<xsd:annotation>
+			<xsd:documentation>List response group</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="PseudoCityCode"/>
+				<xsd:element ref="CurrentDate" minOccurs="0"/>
+				<xsd:element ref="CurrentTime" minOccurs="0"/>
+				<xsd:element ref="QueueNumber"/>
+				<xsd:element ref="QueueName" minOccurs="0"/>
+				<xsd:element ref="QueueCategory" minOccurs="0"/>
+				<xsd:element ref="Queues" maxOccurs="unbounded"/>
+			</xsd:sequence>
+			<xsd:attribute ref="Source"/>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="Move">
+		<xsd:annotation>
+			<xsd:documentation>Move response group</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="NumberOfPNRS">
+					<xsd:annotation>
+						<xsd:documentation>Number of PNRs moved from one queue to  the other.
+
+Example: 5</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element ref="From"/>
+				<xsd:element ref="To"/>
+				<xsd:element ref="Text"/>
+			</xsd:sequence>
+			<xsd:attribute ref="Source"/>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="Place">
+		<xsd:annotation>
+			<xsd:documentation>Place response group</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="Text"/>
+				<xsd:element ref="PseudoCityCode"/>
+				<xsd:element ref="QueueNumber"/>
+				<xsd:element ref="QueueName" minOccurs="0"/>
+				<xsd:element ref="CurrentTime"/>
+				<xsd:element ref="CurrentDate"/>
+				<xsd:element ref="RecordLocator"/>
+			</xsd:sequence>
+			<xsd:attribute ref="Source"/>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="Remove">
+		<xsd:annotation>
+			<xsd:documentation>Remove response group</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="Text"/>
+				<xsd:element ref="PseudoCityCode" minOccurs="0"/>
+				<xsd:element ref="QueueNumber"/>
+				<xsd:element ref="QueueName" minOccurs="0"/>
+			</xsd:sequence>
+			<xsd:attribute ref="Source"/>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="Clean">
+		<xsd:annotation>
+			<xsd:documentation>Removes from a specific queue, pnrs that have past dates or have no itineraries</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="Text"/>
+				<xsd:element ref="PseudoCityCode"/>
+				<xsd:element ref="QueueNumber"/>
+				<xsd:element ref="QueueName" minOccurs="0"/>
+			</xsd:sequence>
+			<xsd:attribute ref="Source"/>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="Exit">
+		<xsd:annotation>
+			<xsd:documentation>Exit response group</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="Text"/>
+				<xsd:element ref="PseudoCityCode"/>
+				<xsd:element ref="QueueNumber"/>
+				<xsd:element ref="QueueName" minOccurs="0"/>
+			</xsd:sequence>
+			<xsd:attribute ref="Source"/>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="PNRViewRS" type="xsd:string">
+		<xsd:annotation>
+			<xsd:documentation>PNRView response</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="PseudoCityCode" type="xsd:string">
+		<xsd:annotation>
+			<xsd:documentation>Agency's pseudo city code.  Example: AX49</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="QueueNumber" type="xsd:string">
+		<xsd:annotation>
+			<xsd:documentation>Queue number.  Example: 11</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="NumberOfPNRS" type="xsd:string">
+		<xsd:annotation>
+			<xsd:documentation>Number of pnrs in queue or queue/category combination.  Example: 5</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="CurrentDate" type="Date">
+		<xsd:annotation>
+			<xsd:documentation>Current date in ISO 8601 format (yyyy-mm-dd).  Example: 2002-08-02</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="CurrentTime" type="Time">
+		<xsd:annotation>
+			<xsd:documentation>Current time in ISO 8601 format (hh:mm).  Example: 12:45</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="RecordLocator" type="xsd:string">
+		<xsd:annotation>
+			<xsd:documentation>PNR record locator.  Example: LNJ20K</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="DatePlacedInQueue" type="Date">
+		<xsd:annotation>
+			<xsd:documentation>Date placed in queue in ISO 8601 format (yyyy-mm-yy).  Example: 2002-08-02</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="TimePlacedInQueue" type="Time">
+		<xsd:annotation>
+			<xsd:documentation>Time placed in queue in ISO 8601 format (hh:mm).  Example: 12:45</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="PlacedBy">
+		<xsd:annotation>
+			<xsd:documentation>Placed by group</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="PseudoCityCode"/>
+				<xsd:element name="UserID"/>
+				<xsd:element name="Agency"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="Queues">
+		<xsd:annotation>
+			<xsd:documentation>Queue list group</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="RecordLocator"/>
+				<xsd:element name="AgentID" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Returns only PNRs created by this AgentID.  Possible value: Y</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element ref="DatePlacedInQueue"/>
+				<xsd:element ref="TimePlacedInQueue"/>
+				<xsd:element name="Name">
+					<xsd:annotation>
+						<xsd:documentation>Name of first traveler in PNR</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="Surname" type="xsd:string"/>
+							<xsd:element name="GivenName" type="xsd:string"/>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+				<xsd:element name="ItineraryStartDate" type="xsd:date" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Itinerary start date in ISO 8601 format.  Example: 2001-12-25</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="DepartureCode" type="xsd:string" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>3LC for Departure in first segment</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="ArrivalCode" type="xsd:string" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>3LC for Arrival in first segment</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="Vendor" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Vendor data for first segment</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="Code" type="xsd:string">
+								<xsd:annotation>
+									<xsd:documentation>Vendor Code e.g. LH=Lufthansa</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+							<xsd:element name="FlightNumber" type="xsd:string" minOccurs="0">
+								<xsd:annotation>
+									<xsd:documentation>Flight number when vendor type = A (Airline)</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+							<xsd:element name="Name" type="xsd:string">
+								<xsd:annotation>
+									<xsd:documentation>Vendor Name e.g. United Airlines</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+							<xsd:element name="Type">
+								<xsd:annotation>
+									<xsd:documentation>Vendor Type:
+A=Airline, 
+C=Car, 
+H=Hotel, X=Unrecognized</xsd:documentation>
+								</xsd:annotation>
+								<xsd:simpleType>
+									<xsd:restriction base="xsd:string">
+										<xsd:length value="1"/>
+										<xsd:enumeration value="A"/>
+										<xsd:enumeration value="C"/>
+										<xsd:enumeration value="H"/>
+										<xsd:enumeration value="X"/>
+									</xsd:restriction>
+								</xsd:simpleType>
+							</xsd:element>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+				<xsd:element ref="PlacedBy"/>
+			</xsd:sequence>
+			<xsd:attribute name="LineNumber" type="xsd:integer">
+				<xsd:annotation>
+					<xsd:documentation>Line number returning queued pnr info.  Example: 2</xsd:documentation>
+				</xsd:annotation>
+			</xsd:attribute>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="From">
+		<xsd:annotation>
+			<xsd:documentation>From group</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="PseudoCityCode"/>
+				<xsd:element ref="QueueNumber"/>
+				<xsd:element ref="QueueName" minOccurs="0"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="To">
+		<xsd:annotation>
+			<xsd:documentation>To group</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="PseudoCityCode"/>
+				<xsd:element ref="QueueNumber"/>
+				<xsd:element ref="QueueName" minOccurs="0"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="QueueName" type="xsd:string">
+		<xsd:annotation>
+			<xsd:documentation>Queue name.  Example: Schedule Changes</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="CategoryPNRCount" type="xsd:string">
+		<xsd:annotation>
+			<xsd:documentation>Category PNR count.  Example: 15</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="CategoryDataCount">
+		<xsd:annotation>
+			<xsd:documentation>Category data count group</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="QueueCategory"/>
+				<xsd:element ref="CategoryPNRCount"/>
+				<xsd:element name="CategoryName" type="xsd:string" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Name of category. Example:  AIR</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="DateRangeDataCount" minOccurs="0" maxOccurs="unbounded">
+					<xsd:annotation>
+						<xsd:documentation>DateRange data count group</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="DateRange" type="xsd:string">
+								<xsd:annotation>
+									<xsd:documentation>Date range identifier. The format of the identifier is CRS/GDS dependent.
+
+Example: 2</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+							<xsd:element name="BeginDate" type="Date">
+								<xsd:annotation>
+									<xsd:documentation>Start date of date range in ISO 8601 format (yyyy-mm-dd).  Example: 2002-08-02</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+							<xsd:element name="EndDate" type="Date">
+								<xsd:annotation>
+									<xsd:documentation>End date of date range in ISO 8601 format (yyyy-mm-dd).  Example: 2002-08-02</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+							<xsd:element name="DateRangePNRCount" type="xsd:string">
+								<xsd:annotation>
+									<xsd:documentation>Number of PNRs in this date range. Example: 12</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="QueueCategory" type="xsd:string">
+		<xsd:annotation>
+			<xsd:documentation>Queue category.  Example: 10</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+</xsd:schema>

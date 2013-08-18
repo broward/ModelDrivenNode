@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:element name="TicketRefundVoidRQ">
+		<xsd:annotation>
+			<xsd:documentation>Comment describing your root element</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="IATA" type="xsd:string">
+					<xsd:annotation>
+						<xsd:documentation>IATA number of the agency originating the request.
+Example: 123456</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="PseudoCityCode" type="xsd:string">
+					<xsd:annotation>
+						<xsd:documentation>Pseudo City Code of the agency requesting the void/cancel. Used to verify if it has the authority for this request.
+Example: LNJ2</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="TicketNumber" type="xsd:string">
+					<xsd:annotation>
+						<xsd:documentation>The 13-digit number of the refunded ticket for which the refund transaction is to be voided. 
+
+Example: 0012345678912
+
+NOTE: In case of a conjunctive ticket, all tickets belonging to this set will be voided.
+
+Hence, it is not necessary to specify all ticket numbers of the tickets forming part of the conjunctive set.</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="RecordLocator">
+					<xsd:annotation>
+						<xsd:documentation>The record locator of the PNR from which the ticket has been issued.</xsd:documentation>
+					</xsd:annotation>
+					<xsd:simpleType>
+						<xsd:restriction base="xsd:string">
+							<xsd:minLength value="1"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>

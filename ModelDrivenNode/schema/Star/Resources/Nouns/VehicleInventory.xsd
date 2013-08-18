@@ -1,0 +1,365 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:star="http://www.starstandard.org/STAR/5"
+   xmlns:oacl="http://www.openapplications.org/oagis/9/codelists" xmlns:sqdt="http://www.starstandard.org/STAR/5/qualifieddatatypes/1.0"
+   xmlns="http://www.starstandard.org/STAR/5" xmlns:ccts="urn:un:unece:uncefact:documentation:1.1" xmlns:sudt="http://www.starstandard.org/STAR/5/unqualifieddatatypes/1.0"
+   xmlns:scl="http://www.starstandard.org/STAR/5/codelists" targetNamespace="http://www.starstandard.org/STAR/5"
+   elementFormDefault="qualified" attributeFormDefault="unqualified" blockDefault="#all"
+   xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1"
+   xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"   
+>
+    <xsd:annotation>
+        <xsd:documentation source="http://www.starstandard.org/STAR/5">
+            This schema is made available under an Eclipse Public Licenses 1.0.  This
+            license may be found in the STAR/License directory as well as the STAR BOD
+            Guidelines.
+        </xsd:documentation>
+    </xsd:annotation>
+    <xsd:include schemaLocation="../Components/Common/Meta.xsd" />
+   <xsd:import namespace="http://www.starstandard.org/STAR/5/qualifieddatatypes/1.0" schemaLocation="../Components/Common/QualifiedDataTypes.xsd"/>
+   <xsd:import namespace="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" schemaLocation="../Components/OAGIS/CoreComponents/UnqualifiedDataTypes.xsd"/>
+   <xsd:import namespace="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1" schemaLocation="../Components/OAGIS/CoreComponents/QualifiedDataTypes.xsd"/>
+   <xsd:import namespace="http://www.starstandard.org/STAR/5/codelists" schemaLocation="../Components/Common/CodeLists.xsd"/>
+   <xsd:import namespace="http://www.openapplications.org/oagis/9" schemaLocation="../Components/OAGIS/Common/Components.xsd" />
+    <xsd:element name="VehicleInventory" type="VehicleInventoryType">
+        <xsd:annotation>
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">
+                VehicleInventory supports the transmission of  Vehicle Inventory information 
+                to the dealership. Vehicle Inventory is the task of sending the Vehicle 
+                Inventory information electronically between Dealer and OEM systems. 
+            </xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    <xsd:element name="VehicleInventoryHeader" type="VehicleInventoryHeaderType">
+        <xsd:annotation>
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">
+                Vehicle Inventory Header
+            </xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    <xsd:complexType name="VehicleInventoryType">
+        <xsd:annotation xmlns="http://www.starstandards.org/STAR">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">STAR Version 3.0 - Draft</xsd:documentation>
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">STAR Version 2.1, STAR approved 04/20/2005; effective date 07/04/2005</xsd:documentation>
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">STAR Version 2.0, STAR approved 05/07/2004; effective date 07/04/2004</xsd:documentation>
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">STAR Version 1.0 STAR approved 11/22/2002; OAGI approved 3/15/2003; effective date 01/01/2003</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element ref="VehicleInventoryHeader"/>
+            <xsd:element name="Invoice" type="VehicleInventoryInvoiceType" minOccurs="0" maxOccurs="unbounded">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        Deprecated: Use VehicleInventoryInvoice.  This field was deperecated to align with the naming
+                        and design rules.   This is left in for compatibility reasons, but will be removed in the next
+                        major version of STAR.
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element ref="VehicleInventoryInvoice" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="VehicleInventoryHeaderType">
+        <xsd:annotation xmlns="http://www.starstandards.org/STAR">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="HeaderBaseType">
+                <xsd:sequence>
+                    <!--<xsd:element ref="DocumentID" minOccurs="0" />-->
+                    <xsd:element name="InvoiceDate" type="udt:DateType" minOccurs="0">
+                  <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Date of
+            invoice.</xsd:documentation>
+        </xsd:annotation>
+               </xsd:element>
+                    <xsd:element name="TransactionTypeCode" type="scl:TransactionTypeEnumeratedType" minOccurs="0">
+                  <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Type of
+            transaction</xsd:documentation>
+        </xsd:annotation>
+               </xsd:element>
+                    <xsd:element ref="SoldToParty" minOccurs="0"/>
+                    <xsd:element ref="ShipToParty" minOccurs="0"/>
+                    <xsd:element ref="ManufacturerParty" minOccurs="0"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:element name="VehicleInventoryInvoice" type="VehicleInventoryInvoiceType">
+        <xsd:annotation>
+            <xsd:documentation>
+                Detailed information regarding a vehicle in inventory.
+            </xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    <xsd:complexType name="VehicleInventoryInvoiceType">
+        <xsd:annotation xmlns="http://www.starstandards.org/STAR">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element name="InvoiceNumberString" type="qdt:StringType" minOccurs="0">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Invoice
+            number</xsd:documentation>
+        </xsd:annotation>
+         </xsd:element>
+            <xsd:element name="InvoiceTotalAmount" type="udt:AmountType" minOccurs="0">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Invoice
+            Total</xsd:documentation>
+        </xsd:annotation>
+         </xsd:element>
+            <xsd:element name="LoadNumberString" type="qdt:StringType" minOccurs="0">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Shipment carrier-assigned
+                load number</xsd:documentation>
+        </xsd:annotation>
+         </xsd:element>
+            <xsd:element name="BorderCrossingIndicator" type="udt:IndicatorType" minOccurs="0">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">BorderCrossing
+            Indicator</xsd:documentation>
+        </xsd:annotation>
+         </xsd:element>
+            <xsd:element name="ETADate" type="udt:DateType" minOccurs="0">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Estimated time of
+            arrival</xsd:documentation>
+        </xsd:annotation>
+         </xsd:element>
+            <xsd:element name="CarrierID" type="udt:IdentifierType" minOccurs="0">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Carrier
+            Code</xsd:documentation>
+        </xsd:annotation>
+         </xsd:element>
+            <xsd:element name="WarehouseID" type="udt:IdentifierType" minOccurs="0">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Warehouse
+            Number</xsd:documentation>
+        </xsd:annotation>
+         </xsd:element>
+            <xsd:element name="OrderDate" type="udt:DateType" minOccurs="0">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Date order originally
+                placed</xsd:documentation>
+        </xsd:annotation>
+         </xsd:element>
+            <xsd:element ref="VehicleInventoryVehicleLineItem" minOccurs="0" maxOccurs="unbounded"/>
+            <xsd:element ref="Tax" minOccurs="0" maxOccurs="unbounded"/>
+            <xsd:element name="DealerAssignedNumberString" type="qdt:StringType" minOccurs="0">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">The number given to an
+                order by a dealer</xsd:documentation>
+        </xsd:annotation>
+         </xsd:element>
+            <xsd:element name="StatusDate" type="udt:DateType" minOccurs="0">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">The date the current
+                status was recorded</xsd:documentation>
+        </xsd:annotation>
+         </xsd:element>
+            <xsd:element name="TargetBuildDate" type="udt:DateType" minOccurs="0">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">The date the OEM expects
+                to build the vehicle</xsd:documentation>
+        </xsd:annotation>
+         </xsd:element>
+            <xsd:element name="RejectCode" type="udt:CodeType" minOccurs="0">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">A code representing a
+                reject reason</xsd:documentation>
+        </xsd:annotation>
+         </xsd:element>
+            <xsd:element name="OptionRestrictionStatements" type="udt:TextType" minOccurs="0">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Information about option
+                restrictions on the vehicle</xsd:documentation>
+        </xsd:annotation>
+         </xsd:element>
+            <xsd:element name="HoldCodeIndicator" type="udt:IndicatorType" minOccurs="0">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Representing hold
+            status</xsd:documentation>
+        </xsd:annotation>
+         </xsd:element>
+            <xsd:element name="RejectResponsibilityCode" type="udt:CodeType" minOccurs="0">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">A code indicating who has
+                action to take to address a reject</xsd:documentation>
+        </xsd:annotation>
+         </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="VehicleInventoryVehicleLineItem" type="VehicleInventoryVehicleLineItemType">
+        <xsd:annotation>
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">
+                Detail information regarding a vehicle for a particular invoice.
+            </xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    <xsd:complexType name="VehicleInventoryVehicleLineItemType">
+        <xsd:annotation xmlns="http://www.starstandards.org/STAR">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element ref="Vehicle" minOccurs="0" maxOccurs="1"/>
+            <xsd:element ref="BrandedInfo" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="OriginalSoldDate" type="udt:DateType" minOccurs="0" maxOccurs="1">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">The date the item, e.g.,
+                a vehicle, engine, boat, part, etc. was sold.</xsd:documentation>
+        </xsd:annotation>
+         </xsd:element>
+            <xsd:element name="DeliveryDistanceMeasure" type="sqdt:LengthMeasureType" minOccurs="0" maxOccurs="1">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Odometer reading of
+                vehicle at time of delivery</xsd:documentation>
+        </xsd:annotation>
+         </xsd:element>
+            <xsd:element name="DoorKeyNumberString" type="qdt:StringType" minOccurs="0" maxOccurs="1">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Door Key
+            Number</xsd:documentation>
+        </xsd:annotation>
+         </xsd:element>
+            <xsd:element name="IgnitionKeyNumberString" type="qdt:StringType" minOccurs="0" maxOccurs="1">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Vehicle Ignition Key
+                Number</xsd:documentation>
+        </xsd:annotation>
+         </xsd:element>
+            <xsd:element name="NonUSVehicleIndicator" type="udt:IndicatorType" minOccurs="0" maxOccurs="1">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Indicates whether the
+                vehicle was produced for the United States or not</xsd:documentation>
+        </xsd:annotation>
+         </xsd:element>
+            <xsd:element name="OdometerStatus" type="udt:TextType" minOccurs="0" maxOccurs="1">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Status of odometer at
+                trade-in. Example:: Replaced, Tampered, Miles&gt; 90,000,
+            etc.</xsd:documentation>
+        </xsd:annotation>
+         </xsd:element>
+            <xsd:element ref="OwnerParty" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="RestrictionIndicator" type="udt:IndicatorType" minOccurs="0" maxOccurs="1">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Indication that vehicle
+                has restrictions on its use</xsd:documentation>
+        </xsd:annotation>
+         </xsd:element>
+            <xsd:element name="RestrictionDescription" type="udt:TextType" minOccurs="0" maxOccurs="1">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Description of vehicle
+                use restrictions</xsd:documentation>
+        </xsd:annotation>
+         </xsd:element>
+            <xsd:element ref="ShipToParty" minOccurs="0" maxOccurs="1"/>
+            <xsd:element ref="SoldToParty" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="TelematicsServiceIndicator" type="udt:IndicatorType" minOccurs="0" maxOccurs="1">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Indication whether
+                Telematics Service Subscription is turned on</xsd:documentation>
+        </xsd:annotation>
+         </xsd:element>
+            <xsd:element name="VehicleAllocatedDate" type="udt:DateType" minOccurs="0" maxOccurs="1">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Date vehicle was
+                allocated and/or a delivery work order was cut</xsd:documentation>
+        </xsd:annotation>
+         </xsd:element>
+            <xsd:element name="VehicleDemoIndicator" type="udt:IndicatorType" minOccurs="0" maxOccurs="1">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Indicates whether vehicle
+                was ever a demo</xsd:documentation>
+        </xsd:annotation>
+         </xsd:element>
+            <xsd:element name="VehicleOrderNumber" type="udt:TextType" minOccurs="0" maxOccurs="1">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Vehicle Order Number
+                (VON)</xsd:documentation>
+        </xsd:annotation>
+         </xsd:element>
+            <xsd:element name="VehicleShipDate" type="udt:DateType" minOccurs="0" maxOccurs="1">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Date shipped from
+                warehouse or distribution center</xsd:documentation>
+        </xsd:annotation>
+         </xsd:element>
+            <xsd:element name="VehicleStockString" type="qdt:StringType" minOccurs="0" maxOccurs="1">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Dealer assigned vehicle
+                stock number</xsd:documentation>
+        </xsd:annotation>
+         </xsd:element>
+            <xsd:element ref="Pricing" minOccurs="0" maxOccurs="unbounded"/>
+            <xsd:element ref="Tax" minOccurs="0" maxOccurs="unbounded"/>
+            <xsd:element ref="FleetAccount" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="LicenseNumberString" type="qdt:StringType" minOccurs="0" maxOccurs="1">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">State License plate
+                number of vehicle</xsd:documentation>
+        </xsd:annotation>
+         </xsd:element>
+            <xsd:element name="VehicleStatusCode" type="udt:CodeType" minOccurs="0" maxOccurs="1">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Vehicle status code -
+                Example status could be Built, Scheduled, Shipped, In-Transit, Sold,
+            etc.</xsd:documentation>
+        </xsd:annotation>
+         </xsd:element>
+         <xsd:element ref="Option" minOccurs="0" maxOccurs="unbounded"/>
+         <xsd:element name="VehicleActivityStatus" type="udt:TextType" minOccurs="0" maxOccurs="1">
+         	<xsd:annotation>
+         		<xsd:documentation source="http://www.starstandard.org/STAR/5">
+         			An indicator of vehicle's logisitics information as it relates to its progress 
+         			through the distribution pipeline. This differs from VehicleStatusCode as it 
+         			provides status on logistics activity, not a status category code. Sample Data:
+					BUILT, CREDT, DMGD, JAPAN, PORT, R-TRK ETA         			         		
+         		</xsd:documentation>
+         	</xsd:annotation>
+         </xsd:element>
+         <xsd:element name="AcquisitionMethod" type="udt:CodeType" minOccurs="0" maxOccurs="1">
+         	<xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+               xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+         		<xsd:documentation source="http://www.starstandard.org/STAR/5">
+         			Communicates the method of acquisition of the used vehicle.
+         			Sample Values: Auction, Trade-In
+         		</xsd:documentation>
+         	</xsd:annotation>
+         </xsd:element>
+         <xsd:element name="ItemAcquisitionDate" type="udt:DateType" minOccurs="0" maxOccurs="1">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+               xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+               <xsd:documentation source="http://www.starstandard.org/STAR/5">
+               		Date the vehicle was acquired.
+               </xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+            <xsd:element name="LocationID" type="udt:IdentifierType" minOccurs="0" maxOccurs="1">
+                <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+                    xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+                    <xsd:documentation source="http://www.starstandard.org/STAR/5">
+                        The localtion where the vehicle is physically stored. Can be used to track the lot where the vehicle is sotored at.
+                    </xsd:documentation>
+                </xsd:annotation>
+         </xsd:element>
+            <xsd:element name="VehicleStatusDate" type="udt:DateType" minOccurs="0" maxOccurs="1">
+                <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+                    xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+                    <xsd:documentation source="http://www.starstandard.org/STAR/5">
+                        Date of the Vehicle Status change. It should be used with the VehicleStatusCode element above.
+                    </xsd:documentation>
+                </xsd:annotation>
+         </xsd:element>  
+            <xsd:element name="VehicleActivityStatusDate" type="udt:DateType" minOccurs="0" maxOccurs="1">
+                <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+                    xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+                    <xsd:documentation source="http://www.starstandard.org/STAR/5">
+                        Date of the Vehicle Activity Status Date change. It should be used with the VehicleActivityStatus element above.
+                    </xsd:documentation>
+                </xsd:annotation>
+         </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+</xsd:schema>

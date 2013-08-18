@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:include schemaLocation="CommonTypes.xsd"/>
+	<xsd:element name="TicketExchangeRS">
+		<xsd:annotation>
+			<xsd:documentation>The ticket exchange response.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="InfoGroup" minOccurs="0"/>
+				<xsd:element name="RecordLocator" type="xsd:string">
+					<xsd:annotation>
+						<xsd:documentation>The record locator of the PNR for which the ticket to be exchanged has been issued.</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="Traveler">
+					<xsd:annotation>
+						<xsd:documentation>Traveler details group</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="TravelerElementNumber" type="xsd:string">
+								<xsd:annotation>
+									<xsd:documentation>Element number of traveler associated to this item.  Example: 1</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+							<xsd:element name="TravelerName">
+								<xsd:annotation>
+									<xsd:documentation>Name group</xsd:documentation>
+								</xsd:annotation>
+								<xsd:complexType>
+									<xsd:sequence>
+										<xsd:element ref="Surname"/>
+										<xsd:element ref="GivenName"/>
+										<xsd:element ref="NativeGivenName" minOccurs="0"/>
+									</xsd:sequence>
+								</xsd:complexType>
+							</xsd:element>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+				<xsd:element name="ExchangeRequestNumber">
+					<xsd:annotation>
+						<xsd:documentation>The number of the exchange request as stored by the GDS. Needed for the subsequent TicketIssueRQ.</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:simpleContent>
+							<xsd:extension base="xsd:string">
+								<xsd:attribute ref="Source"/>
+							</xsd:extension>
+						</xsd:simpleContent>
+					</xsd:complexType>
+				</xsd:element>
+				<xsd:element name="Refund" minOccurs="0">
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="BaseFare" type="xsd:int" minOccurs="0">
+								<xsd:annotation>
+									<xsd:documentation>The base fare amount that is being refunded.
+Example: 23000</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+							<xsd:element name="Taxes" type="xsd:int" minOccurs="0">
+								<xsd:annotation>
+									<xsd:documentation>The total amount of taxes that is being refunded.
+Example: 1800</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+						</xsd:sequence>
+						<xsd:attribute name="NumberOfDecimals" type="xsd:int" use="required">
+							<xsd:annotation>
+								<xsd:documentation>The number of decimals of all amounts shown in this group.
+Example: 2</xsd:documentation>
+							</xsd:annotation>
+						</xsd:attribute>
+						<xsd:attribute name="Amount" type="xsd:int" use="required">
+							<xsd:annotation>
+								<xsd:documentation>The total amount that is to be refunded (BaseFare + Taxes).
+Example: 13510</xsd:documentation>
+							</xsd:annotation>
+						</xsd:attribute>
+					</xsd:complexType>
+				</xsd:element>
+				<xsd:element name="AdditionalCollection" minOccurs="0">
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="BaseFare" type="xsd:int" minOccurs="0">
+								<xsd:annotation>
+									<xsd:documentation>The base fare amount that is to be collected.
+Example: 15000</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+							<xsd:element name="Taxes" type="xsd:int" minOccurs="0">
+								<xsd:annotation>
+									<xsd:documentation>The total amount of taxes that is to be collected.
+Example: 1200</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+						</xsd:sequence>
+						<xsd:attribute name="NumberOfDecimals" type="xsd:int" use="required">
+							<xsd:annotation>
+								<xsd:documentation>The number of decimals of all amounts shown in this group.
+Example: 2</xsd:documentation>
+							</xsd:annotation>
+						</xsd:attribute>
+						<xsd:attribute name="Amount" type="xsd:int" use="required">
+							<xsd:annotation>
+								<xsd:documentation>The total amount that is to be collected.
+Example: 11200</xsd:documentation>
+							</xsd:annotation>
+						</xsd:attribute>
+					</xsd:complexType>
+				</xsd:element>
+			</xsd:sequence>
+			<xsd:attribute name="Version" type="xsd:string">
+				<xsd:annotation>
+					<xsd:documentation>Message version.
+Example: 2.2</xsd:documentation>
+				</xsd:annotation>
+			</xsd:attribute>
+			<xsd:attribute name="TypeOfExchange" type="xsd:string">
+				<xsd:annotation>
+					<xsd:documentation>The type of exchange that to be performed.
+Possible values:
+E = Even exchange
+A = Add / collect exchange
+R = Residual exchange</xsd:documentation>
+				</xsd:annotation>
+			</xsd:attribute>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="Surname" type="xsd:string">
+		<xsd:annotation>
+			<xsd:documentation>Traveler family name.  Example: SMITH</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="GivenName" type="xsd:string">
+		<xsd:annotation>
+			<xsd:documentation>Traveler given (first) name. This field is populated by parsing the given name data returned by the GDS. Because the GDSs accept free form text for the given name (although there is a convention) this field may also contain second name, initials and/or title. NOTE: see also NativeGivenName field. Example: JANE</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="NativeGivenName" type="xsd:string">
+		<xsd:annotation>
+			<xsd:documentation>This field contains the given (first) name as it is returned from the GDS (free form text which contains given name, initial and title). In addition the given name as it comes from the GDS is parsed according to the GDS convention and the content is returned in sibling elments GivenName, Initial and Title. NOTE: client applications which implement their own parsing algorithm should use the content of this field! EXAMPLE: JOHN A MR</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+</xsd:schema>

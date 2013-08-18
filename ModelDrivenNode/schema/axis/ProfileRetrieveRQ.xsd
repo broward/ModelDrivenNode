@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<xsd:element name="ProfileRetrieveRQ">
+		<xsd:annotation>
+			<xsd:documentation>Profile retrieve request root element.  It will allow to retrieve multiple profiles (Traveler and/or Company profiles)</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="ProfileIndex" maxOccurs="unbounded">
+					<xsd:annotation>
+						<xsd:documentation>The profile index of the desired traveler and/or company profile.
+
+Example: 
+5251
+1234</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:attribute ref="PIN">
+							<xsd:annotation>
+								<xsd:documentation>Security ID to access requested profile. Mostly used on agency portals.
+
+Example: 1234</xsd:documentation>
+							</xsd:annotation>
+						</xsd:attribute>
+						<xsd:attribute name="Type" type="xsd:string">
+							<xsd:annotation>
+								<xsd:documentation>Type of profile to retrieve.  Values are: 
+
+C = Company profile 
+T = Traveler Profile</xsd:documentation>
+							</xsd:annotation>
+						</xsd:attribute>
+						<xsd:attribute name="PseudoCityCode">
+							<xsd:annotation>
+								<xsd:documentation>Pseudo city code.  This PCC has ownership of the profile.
+Example: LNJ2</xsd:documentation>
+							</xsd:annotation>
+						</xsd:attribute>
+					</xsd:complexType>
+				</xsd:element>
+			</xsd:sequence>
+			<xsd:attribute name="DisplayType">
+				<xsd:annotation>
+					<xsd:documentation>How to return multiple profiles.
+
+U = unmerged
+M = merged (default)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:attribute>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="PseudoCityCode">
+		<xsd:annotation>
+			<xsd:documentation>Pseudo city code.  Example: LNJ2</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:attribute name="PIN"/>
+	<xsd:element name="ProfileIndex"/>
+</xsd:schema>

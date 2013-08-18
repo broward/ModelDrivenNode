@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:annox="http://annox.dev.java.net" xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
+	jaxb:version="2.0">
+
+	<xs:element name="Account">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="Users" />
+			</xs:sequence>
+			<xs:attribute name="id" type="xs:integer" />
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:element name="Users" type="Users" />
+	<xs:complexType name="Users">
+		<xs:sequence>
+			<xs:element ref="User" minOccurs="0" maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:element name="User" type="User" />
+	<xs:complexType name="User">
+		<xs:attribute name="id" type="xs:integer" />
+		<xs:attribute name="accountId" type="xs:integer" />
+		<xs:attribute name="userName" type="xs:string" />
+		<xs:attribute name="friendlyName" type="xs:string" />
+		<xs:attribute name="password" type="xs:string" />
+		<xs:attribute name="isPrimary" type="xs:boolean" />
+		<xs:attribute name="isAdmin" type="xs:boolean" />
+		<xs:attribute name="entitlementId" type="xs:integer" />
+		<xs:attribute name="preferencesId" type="xs:integer" />
+		<xs:attribute name="presenceDeviceId" type="xs:boolean" />
+		<xs:attribute name="qualifierId" type="xs:integer" />
+		<xs:attribute name="email" type="xs:string" />
+	</xs:complexType>
+
+</xs:schema>

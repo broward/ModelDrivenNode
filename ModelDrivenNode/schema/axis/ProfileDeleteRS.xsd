@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:element name="ProfileDeleteRS">
+		<xs:annotation>
+			<xs:documentation>response root element</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="InfoGroup" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Error and information group</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="ForInfo" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>Information group</xs:documentation>
+								</xs:annotation>
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="Text" maxOccurs="unbounded">
+											<xs:annotation>
+												<xs:documentation>Information text or error text. Example: Free flow text.  </xs:documentation>
+											</xs:annotation>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="Error" minOccurs="0" maxOccurs="unbounded">
+								<xs:annotation>
+									<xs:documentation>Error group</xs:documentation>
+								</xs:annotation>
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="Code"/>
+										<xs:element name="Text" maxOccurs="unbounded">
+											<xs:annotation>
+												<xs:documentation>Information text or error text. Example: Free flow text.  </xs:documentation>
+											</xs:annotation>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="Status">
+					<xs:annotation>
+						<xs:documentation>Request result status. 
+
+Values are:
+0 = succesfully stored 
+1 = error, not stored
+
+Example: 0</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

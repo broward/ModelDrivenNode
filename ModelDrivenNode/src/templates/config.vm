@@ -1,0 +1,32 @@
+module.exports = function(app, express, mongoose){
+
+  var config = this;
+
+  app.requireAuth = false;
+
+  //generic config
+  app.configure(function(){
+  app.set('port', process.env.PORT || 3000);
+  app.set('views', __dirname + '/views');
+  app.set('view engine', 'jade');
+  app.set('view options', {layout: false});
+  app.use(express.favicon());
+  app.use(express.logger('dev'));
+  app.use(express.bodyParser());
+  app.use(express.methodOverride());
+  app.use(express.static(__dirname + '/public'));
+  app.use(app.router);
+  app.use(require('stylus').middleware(__dirname + '/public'));
+  });
+
+
+  //env specific config
+
+  app.configure('development', function(){
+    app.use(express.errorHandler());
+
+    config.default_db_uri ='mongodb://nodejitsu:609b5cbec106fcc84163bf7e1375a6cd@paulo.mongohq.com:10091/nodejitsudb2317988581';
+  });
+
+  return config;
+};

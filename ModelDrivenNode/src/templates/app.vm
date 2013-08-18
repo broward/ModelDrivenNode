@@ -1,0 +1,35 @@
+var express = require('express');  
+var app = express();
+
+var config = require('./config.js')(app, express);
+
+var mongooseA = require('mongoose');
+var mongooseB = new mongooseA.Mongoose();
+
+//mongooseA.connect('mongodb://nodejitsu:609b5cbec106fcc84163bf7e1375a6cd@paulo.mongohq.com:10091/nodejitsudb2317988581');
+//mongooseB.connect('mongodb://nodejitsu_broward:u441n9r0luvs042hjojoi58hmo@ds027718.mongolab.com:27718/nodejitsu_broward_nodejitsudb9743335631');
+
+mongooseA.connect('mongodb://localhost/schemaA');
+mongooseB.connect('mongodb://localhost/schemaB');
+console.log('connected to nodejitsu');
+
+var modelsA = {};
+var modelsB = {};
+modelsA = require('./models/Amodels')(mongooseA);
+modelsB = require('./models/Bmodels')(mongooseB);
+
+require('./models/Atestdata')(mongooseA, modelsA);
+require('./models/Btestdata')(mongooseB, modelsB);
+
+require('./routes/Aroutes')(app, mongooseA, modelsA);
+require('./routes/Broutes')(app, mongooseB, modelsB);
+
+// Entry page
+  app.get('/', function(req, res){
+      
+    res.render('index', {
+      title: 'Model-Driven Node: Reference Implementation',
+    });
+  });
+
+app.listen(process.env.PORT || 3000);

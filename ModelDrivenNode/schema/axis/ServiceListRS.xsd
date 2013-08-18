@@ -1,0 +1,1916 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<xsd:include schemaLocation="CommonTypes.xsd"/>
+	<xsd:element name="ServiceListRS">
+		<xsd:annotation>
+			<xsd:documentation>Response root element for services request for existing PNRs</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="InfoGroup" minOccurs="0"/>
+				<xsd:element name="OptionalServices" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>This node is returned when merchandizing options are available for any of the selected flights, regardless of the method used. 
+1) Fare Integrated Options
+2) EMD charged Options
+3) Directly settled Options</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element ref="CurrencyCode" minOccurs="0"/>
+							<xsd:element ref="Service" maxOccurs="unbounded"/>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+				<xsd:element name="Images" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>contains any images or URL video links used for the services offered</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:choice>
+								<xsd:element name="Image" maxOccurs="unbounded">
+									<xsd:annotation>
+										<xsd:documentation>Image in base64 code</xsd:documentation>
+									</xsd:annotation>
+									<xsd:complexType>
+										<xsd:simpleContent>
+											<xsd:extension base="xsd:string">
+												<xsd:attribute name="ServiceType">
+													<xsd:annotation>
+														<xsd:documentation>The ATPCO defined code for the type of service (also referred to as 'Flight/Ticket/Merchandise Byte 21)':
+
+F = Flight (TypeValue=2)
+R = Rule Buster (Type Value = 5)
+T = Ticket (TypeValue=3 if EMD-S is issued, 4 if other)
+M = Merchandise (TypeValue=1 if EMD-S is issued, 4 if other)</xsd:documentation>
+													</xsd:annotation>
+												</xsd:attribute>
+												<xsd:attribute name="ServiceCode" use="required">
+													<xsd:annotation>
+														<xsd:documentation>Additional unique ATPCO code.
+Example: OC</xsd:documentation>
+													</xsd:annotation>
+												</xsd:attribute>
+												<xsd:attribute name="SubCode" use="required">
+													<xsd:annotation>
+														<xsd:documentation>ATPCO RFISC (ReasonForIssuance  SubCode).
+Example of RFISC: 0CC  </xsd:documentation>
+													</xsd:annotation>
+												</xsd:attribute>
+												<xsd:attribute name="Caption">
+													<xsd:annotation>
+														<xsd:documentation>The caption used for this image</xsd:documentation>
+													</xsd:annotation>
+												</xsd:attribute>
+											</xsd:extension>
+										</xsd:simpleContent>
+									</xsd:complexType>
+								</xsd:element>
+								<xsd:element name="ImageID" minOccurs="0" maxOccurs="unbounded">
+									<xsd:annotation>
+										<xsd:documentation>ImageID provides an unique ID for any available image related to the services included in this response.
+(ImageRQ/RS will utilize these IDs to retrieve the full image as needed)</xsd:documentation>
+									</xsd:annotation>
+									<xsd:complexType>
+										<xsd:simpleContent>
+											<xsd:extension base="xsd:string">
+												<xsd:attribute name="ServiceType">
+													<xsd:annotation>
+														<xsd:documentation>The ATPCO defined code for the type of service (also referred to as 'Flight/Ticket/Merchandise Byte 21)':
+
+F = Flight (TypeValue=2)
+R = Rule Buster (Type Value = 5)
+T = Ticket (TypeValue=3 if EMD-S is issued, 4 if other)
+M = Merchandise (TypeValue=1 if EMD-S is issued, 4 if other)</xsd:documentation>
+													</xsd:annotation>
+												</xsd:attribute>
+												<xsd:attribute name="ServiceCode" use="required">
+													<xsd:annotation>
+														<xsd:documentation>Additional unique ATPCO code.
+Example: OC</xsd:documentation>
+													</xsd:annotation>
+												</xsd:attribute>
+												<xsd:attribute name="SubCode" use="required">
+													<xsd:annotation>
+														<xsd:documentation>ATPCO RFISC (ReasonForIssuance  SubCode).
+Example of RFISC: 0CC  </xsd:documentation>
+													</xsd:annotation>
+												</xsd:attribute>
+												<xsd:attribute name="Caption">
+													<xsd:annotation>
+														<xsd:documentation>The caption used for this image (and can be displayed if retrieval of an image fails)</xsd:documentation>
+													</xsd:annotation>
+												</xsd:attribute>
+											</xsd:extension>
+										</xsd:simpleContent>
+									</xsd:complexType>
+								</xsd:element>
+							</xsd:choice>
+							<xsd:element name="Video" minOccurs="0" maxOccurs="unbounded">
+								<xsd:annotation>
+									<xsd:documentation>Add link or object to access a video</xsd:documentation>
+								</xsd:annotation>
+								<xsd:complexType>
+									<xsd:simpleContent>
+										<xsd:extension base="xsd:string">
+											<xsd:attribute name="ServiceType">
+												<xsd:annotation>
+													<xsd:documentation>The ATPCO defined code for the type of service (also referred to as 'Flight/Ticket/Merchandise Byte 21)':
+
+F = Flight (TypeValue=2)
+R = Rule Buster (Type Value = 5)
+T = Ticket (TypeValue=3 if EMD-S is issued, 4 if other)
+M = Merchandise (TypeValue=1 if EMD-S is issued, 4 if other)</xsd:documentation>
+												</xsd:annotation>
+											</xsd:attribute>
+											<xsd:attribute name="ServiceCode" use="required">
+												<xsd:annotation>
+													<xsd:documentation>Additional unique ATPCO code.
+Example: OC</xsd:documentation>
+												</xsd:annotation>
+											</xsd:attribute>
+											<xsd:attribute name="SubCode" use="required">
+												<xsd:annotation>
+													<xsd:documentation>ATPCO RFISC (ReasonForIssuance  SubCode).
+Example of RFISC: 0CC  </xsd:documentation>
+												</xsd:annotation>
+											</xsd:attribute>
+											<xsd:attribute name="Caption">
+												<xsd:annotation>
+													<xsd:documentation>The caption used for this image (and can be displayed if retrieval of an image fails)</xsd:documentation>
+												</xsd:annotation>
+											</xsd:attribute>
+										</xsd:extension>
+									</xsd:simpleContent>
+								</xsd:complexType>
+							</xsd:element>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+			</xsd:sequence>
+			<xsd:attribute name="version" type="xsd:string" use="optional">
+				<xsd:annotation>
+					<xsd:documentation>Version number.  Example: 1.0</xsd:documentation>
+				</xsd:annotation>
+			</xsd:attribute>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="Change">
+		<xsd:annotation>
+			<xsd:documentation>Change penalty group</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="Amount" minOccurs="0"/>
+				<xsd:element ref="Text" minOccurs="0" maxOccurs="unbounded"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="Cancel">
+		<xsd:annotation>
+			<xsd:documentation>Cancel penalty group</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="Amount" minOccurs="0"/>
+				<xsd:element ref="Text" minOccurs="0" maxOccurs="unbounded"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="TicketByDate">
+		<xsd:annotation>
+			<xsd:documentation>Ticket by date in ISO 8601 format (yyyy-mm-dd).  Example: 2002-12-25</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:simpleContent>
+				<xsd:extension base="xsd:date">
+					<xsd:attribute ref="Time"/>
+				</xsd:extension>
+			</xsd:simpleContent>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:attribute name="Time">
+		<xsd:annotation>
+			<xsd:documentation>Time in ISO 8601 format.  Example: 12:35 or 19:45</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleType>
+			<xsd:restriction base="xsd:string">
+				<xsd:pattern value="([0-1][0-9]|2[0-4]):[0-5][0-9]">
+					<xsd:annotation>
+						<xsd:documentation>
+</xsd:documentation>
+					</xsd:annotation>
+				</xsd:pattern>
+			</xsd:restriction>
+		</xsd:simpleType>
+	</xsd:attribute>
+	<xsd:element name="Amount">
+		<xsd:annotation>
+			<xsd:documentation>Penalty amount in currency amount or percentage.  Example: 7500</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:simpleContent>
+				<xsd:extension base="xsd:integer">
+					<xsd:attribute name="Unit" use="required">
+						<xsd:annotation>
+							<xsd:documentation>Penalty amount unit.  Possible values are:
+M = currency money value 
+P = percentage  Example: M</xsd:documentation>
+						</xsd:annotation>
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:minLength value="1"/>
+								<xsd:maxLength value="1"/>
+								<xsd:enumeration value="M"/>
+								<xsd:enumeration value="P"/>
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:simpleContent>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="ServiceDate" type="xsd:date">
+		<xsd:annotation>
+			<xsd:documentation>Date of service in ISO 8601 format (yyyy-mm-dd).  Example: 2001-12-25</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="Penalties">
+		<xsd:annotation>
+			<xsd:documentation>Option Penalty group</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="Change" minOccurs="0"/>
+				<xsd:element ref="Cancel" minOccurs="0"/>
+			</xsd:sequence>
+			<xsd:attribute name="Refundable" use="optional">
+				<xsd:annotation>
+					<xsd:documentation>Indicates if option is refundable.  Values are:
+Y = Option refundable
+N = Option not refundable
+Example: Y</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:enumeration value="Y"/>
+						<xsd:enumeration value="N"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:attribute>
+			<xsd:attribute name="Reusable" use="optional">
+				<xsd:annotation>
+					<xsd:documentation>Indicates if option is reusable.  Values are:
+Y = Funds are reusable
+N = Funds are not reusable (default)
+Example: Y</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:enumeration value="Y"/>
+						<xsd:enumeration value="N"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:attribute>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="ServicePrice">
+		<xsd:annotation>
+			<xsd:documentation>Price for this service; not to be used for 'included' options (no charge options)
+
+This node uses the Currency/Decimals of the FareGroup root level</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="BasePrice">
+					<xsd:annotation>
+						<xsd:documentation>Base (net) price of Option</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:attribute name="Amount" use="required">
+							<xsd:annotation>
+								<xsd:documentation>Net price of option.
+Example: 6750</xsd:documentation>
+							</xsd:annotation>
+						</xsd:attribute>
+					</xsd:complexType>
+				</xsd:element>
+				<xsd:element name="Taxes" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Tax Group</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="Tax" minOccurs="0" maxOccurs="unbounded">
+								<xsd:annotation>
+									<xsd:documentation>Tax break down information group </xsd:documentation>
+								</xsd:annotation>
+								<xsd:complexType>
+									<xsd:sequence minOccurs="0">
+										<xsd:element name="Designator">
+											<xsd:annotation>
+												<xsd:documentation>Tax or surcharge designator.  Example: US</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="Description" minOccurs="0">
+											<xsd:annotation>
+												<xsd:documentation>Tax or surcharge description.  Example: US national transportation</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+									</xsd:sequence>
+									<xsd:attribute name="Amount" use="required">
+										<xsd:annotation>
+											<xsd:documentation>Individual tax amount.  Example: 250</xsd:documentation>
+										</xsd:annotation>
+									</xsd:attribute>
+								</xsd:complexType>
+							</xsd:element>
+						</xsd:sequence>
+						<xsd:attribute name="Amount" use="required">
+							<xsd:annotation>
+								<xsd:documentation>Total taxes amount.  Example: 750</xsd:documentation>
+							</xsd:annotation>
+						</xsd:attribute>
+					</xsd:complexType>
+				</xsd:element>
+			</xsd:sequence>
+			<xsd:attribute name="Total" type="xsd:integer" use="required">
+				<xsd:annotation>
+					<xsd:documentation>Total amount for this service based on FQTV status and chosen Price Class.
+
+Total = base price +  total amount of taxes.
+
+Example: 7500</xsd:documentation>
+				</xsd:annotation>
+			</xsd:attribute>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="Service">
+		<xsd:annotation>
+			<xsd:documentation>Service Details</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="SegmentIDRef" minOccurs="0" maxOccurs="unbounded">
+					<xsd:annotation>
+						<xsd:documentation>Mandatory for flight related service(s).
+This is either the
+a) SegmentElementNumber 
+of a booked flight in PNR, Example: 4 
+(b) or the ID reference passed in with the request, Example:  F1
+
+Mandatory for flight related/associated services.</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:simpleContent>
+							<xsd:extension base="xsd:string"/>
+						</xsd:simpleContent>
+					</xsd:complexType>
+				</xsd:element>
+				<xsd:element ref="TravelerIDRef" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>This is either the value passed in with the ServiceListRQ and can be the
+a) TravelerElementNumber 
+of the booked PNR, Example: 1
+(b) or the traveler's ID reference (optionally) assigned by and passed in with the request, Example:  T1</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="ServiceLocation" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Also considered the 'Point of Delivery'.  This is the location (city/airport code) where a non-flight associated service is being fullfilled.  
+
+Example: DFW</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element ref="ServiceDate" minOccurs="0"/>
+				<xsd:element name="Description">
+					<xsd:annotation>
+						<xsd:documentation>Title description (Commercial Name) of offered service.
+
+Example: "3rd Bag Fee"</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="DescriptionDetails" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Detailed description of this service</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="Text" maxOccurs="unbounded"/>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+				<xsd:element name="Amount" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Price for this option (or option differential in case of upsell).
+
+This node is a string showing the value with decimal point (not linked to a currency code)
+
+Sample:  25.50</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element ref="ServicePrice" minOccurs="0"/>
+				<xsd:element name="ServicePriceCalculation" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Allows to track the calculation of a dynamic service taking various qualifying events into consideration</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="Operation" minOccurs="0" maxOccurs="unbounded">
+								<xsd:annotation>
+									<xsd:documentation>Provides data related to each step of the calculation</xsd:documentation>
+								</xsd:annotation>
+								<xsd:complexType>
+									<xsd:sequence>
+										<xsd:element name="Adjustment">
+											<xsd:annotation>
+												<xsd:documentation>The amount of the adjustment made representing the actual adjustment amount.
+Example: 12.50</xsd:documentation>
+											</xsd:annotation>
+											<xsd:complexType>
+												<xsd:simpleContent>
+													<xsd:extension base="xsd:string">
+														<xsd:attribute name="Type">
+															<xsd:annotation>
+																<xsd:documentation>Possible values:
+Premium
+Discount
+Round
+PriceCap</xsd:documentation>
+															</xsd:annotation>
+															<xsd:simpleType>
+																<xsd:restriction base="xsd:string">
+																	<xsd:enumeration value="Premium"/>
+																	<xsd:enumeration value="Discount"/>
+																	<xsd:enumeration value="Round"/>
+																	<xsd:enumeration value="PriceCap"/>
+																</xsd:restriction>
+															</xsd:simpleType>
+														</xsd:attribute>
+														<xsd:attribute name="Percentage">
+															<xsd:annotation>
+																<xsd:documentation>If calculation is percentage based the percentage value is provided here.
+e.g. 12.5</xsd:documentation>
+															</xsd:annotation>
+														</xsd:attribute>
+														<xsd:attribute name="Input" type="xsd:decimal" use="required">
+															<xsd:annotation>
+																<xsd:documentation>The actual price prior to calculation. 
+75.00</xsd:documentation>
+															</xsd:annotation>
+														</xsd:attribute>
+														<xsd:attribute name="Result" type="xsd:decimal" use="required">
+															<xsd:annotation>
+																<xsd:documentation>The actual price AFTER the completed calculation of this event
+e.g. 82.50</xsd:documentation>
+															</xsd:annotation>
+														</xsd:attribute>
+													</xsd:extension>
+												</xsd:simpleContent>
+											</xsd:complexType>
+										</xsd:element>
+										<xsd:element name="Description" type="xsd:string" minOccurs="0">
+											<xsd:annotation>
+												<xsd:documentation>Summary description (one liner) for this event</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="DescriptionDetails" minOccurs="0">
+											<xsd:annotation>
+												<xsd:documentation>Detailed description of this event</xsd:documentation>
+											</xsd:annotation>
+											<xsd:complexType>
+												<xsd:sequence>
+													<xsd:element name="Text" maxOccurs="unbounded"/>
+												</xsd:sequence>
+											</xsd:complexType>
+										</xsd:element>
+										<xsd:element name="Reason" type="xsd:string" minOccurs="0">
+											<xsd:annotation>
+												<xsd:documentation>Reason or reason code for this adjustment</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="Diag" type="xsd:string" minOccurs="0">
+											<xsd:annotation>
+												<xsd:documentation>Diagnostics  ID</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="Designator" type="xsd:string">
+											<xsd:annotation>
+												<xsd:documentation>Unique designator for this adjustment</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+									</xsd:sequence>
+									<xsd:attribute name="Seq" type="xsd:integer" use="required">
+										<xsd:annotation>
+											<xsd:documentation>Identifies the position within a sequence of calculations</xsd:documentation>
+										</xsd:annotation>
+									</xsd:attribute>
+								</xsd:complexType>
+							</xsd:element>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+				<xsd:element ref="TicketByDate" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Date (in ISO 8601 format: (yyyy-mm-dd) by which this service must be issued.
+
+Example: 2010-05-07</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element ref="Penalties" minOccurs="0"/>
+				<xsd:element name="Commission" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Commission amount or percentage for this option</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:complexContent>
+							<xsd:extension base="CommissionType"/>
+						</xsd:complexContent>
+					</xsd:complexType>
+				</xsd:element>
+				<xsd:element name="Endorsement" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Endorsements for this service.
+
+Example: NONREF</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element ref="Text" maxOccurs="unbounded">
+								<xsd:annotation>
+									<xsd:documentation>Freeflow text.</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+				<xsd:element name="ValidatingCarrier" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Allows to override the Validating Carrier assigned to the entire FareGroup</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="ReferenceKey" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Unique reference key. If present in pricing response messages, must be included.</xsd:documentation>
+					</xsd:annotation>
+					<xsd:simpleType>
+						<xsd:restriction base="xsd:string">
+							<xsd:minLength value="1"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+				<xsd:element ref="Attributes" minOccurs="0"/>
+				<xsd:element ref="BookingInstructions" minOccurs="0"/>
+				<xsd:element name="Combinability" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Identifies service which are NOT combinable with this particular service</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="ServiceItem" maxOccurs="unbounded">
+								<xsd:annotation>
+									<xsd:documentation>A list of services which are not combinable with this service</xsd:documentation>
+								</xsd:annotation>
+								<xsd:complexType>
+									<xsd:attribute name="SubCode" use="required">
+										<xsd:annotation>
+											<xsd:documentation>ATPCO RFISC (ReasonForIssuance  Subcode).
+Example of RFISC: 0CC  </xsd:documentation>
+										</xsd:annotation>
+									</xsd:attribute>
+									<xsd:attribute name="ServiceCode">
+										<xsd:annotation>
+											<xsd:documentation>Additional unique ATPCO code.
+Example: OC</xsd:documentation>
+										</xsd:annotation>
+									</xsd:attribute>
+								</xsd:complexType>
+							</xsd:element>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+				<xsd:element name="Diagnostics" minOccurs="0">
+					<xsd:complexType>
+						<xsd:attribute name="ID" use="required">
+							<xsd:annotation>
+								<xsd:documentation>Diagnstic ID to track this offer.
+
+Example: 0D4E58C8</xsd:documentation>
+							</xsd:annotation>
+						</xsd:attribute>
+					</xsd:complexType>
+				</xsd:element>
+			</xsd:sequence>
+			<xsd:attribute ref="Source" use="required"/>
+			<xsd:attribute name="Method" use="required">
+				<xsd:annotation>
+					<xsd:documentation>Values are:
+
+F = FareIntegrated
+EA = EMD Associated
+ES = EMD Standalone 
+MA = Flight Associated but settled via MCO
+MS = Standalone but settle via MCO
+D = DirectSettlement</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:enumeration value="F"/>
+						<xsd:enumeration value="EA"/>
+						<xsd:enumeration value="MA"/>
+						<xsd:enumeration value="ES"/>
+						<xsd:enumeration value="MS"/>
+						<xsd:enumeration value="D"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:attribute>
+			<xsd:attribute name="TypeValue">
+				<xsd:annotation>
+					<xsd:documentation>EMD Type Value as defined by ATPCO
+
+1 = Standalone
+2 = Associated to a flight
+3 = Standalone associated to  a ticket (but not flight)
+4 = no EMD, carrier directed type
+5 = E-Ticket </xsd:documentation>
+				</xsd:annotation>
+			</xsd:attribute>
+			<xsd:attribute name="ServiceType">
+				<xsd:annotation>
+					<xsd:documentation>The ATPCO defined code for the type of service (also referred to as 'Flight/Ticket/Merchandise Byte 21)':
+
+F = Flight (TypeValue=2)
+R = Rule Buster (Type Value = 5)
+T = Ticket (TypeValue=3 if EMD-S is issued, 4 if other)
+M = Merchandise (TypeValue=1 if EMD-S is issued, 4 if other)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:attribute>
+			<xsd:attribute name="ReasonCode" use="required">
+				<xsd:annotation>
+					<xsd:documentation>IATA RFIC (ReasonFor IssuanceCode, a 1-character main code)
+Example of RFIC: A  
+
+Note: Only services of same RFIC code can be combined on an EMD-A document.  For example, if there are services of RFIC code "A" and "B", two separate EMD documents are needed, issuing all services of "A" and "B" on seperate docs.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:attribute>
+			<xsd:attribute name="SubCode" use="required">
+				<xsd:annotation>
+					<xsd:documentation>ATPCO RFISC (ReasonForIssuance  Subcode).
+Example of RFISC: 0CC  </xsd:documentation>
+				</xsd:annotation>
+			</xsd:attribute>
+			<xsd:attribute name="ServiceCode">
+				<xsd:annotation>
+					<xsd:documentation>Additional unique ATPCO code.
+Example: OC</xsd:documentation>
+				</xsd:annotation>
+			</xsd:attribute>
+			<xsd:attribute name="FareBrand">
+				<xsd:annotation>
+					<xsd:documentation>Service is part of a bundle associated to this fare brand</xsd:documentation>
+				</xsd:annotation>
+			</xsd:attribute>
+			<xsd:attribute name="Status">
+				<xsd:annotation>
+					<xsd:documentation>Values are:
+NN = "Requested"
+HK = "Confirmed"</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:enumeration value="NN"/>
+						<xsd:enumeration value="HK"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:attribute>
+			<xsd:attribute name="DealID">
+				<xsd:annotation>
+					<xsd:documentation>This ID represents an airline  promotion for a special target market and applies only for FQTV numbers identified for this promotion</xsd:documentation>
+				</xsd:annotation>
+			</xsd:attribute>
+			<xsd:attribute name="Type" use="required">
+				<xsd:annotation>
+					<xsd:documentation>Indicator if this option is a discount or a surcharge;
+
+Values are: 
+"Discount"  1)
+"Surcharge"
+"Included"  2)
+"Not applicable" 3)
+
+1) only applicable when using methof F, applying option directly to a fare (not used in an EMD solution)
+
+2) This item is free of charge due to FQTV status or chosen Price Class
+
+3) This item is not available/applicable due to FQTV status or chosen Price Class.
+
+Sample:  Earning extra miles may only be allowed for a Top tier FQTV status and is not applicable for any other traveler.</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:enumeration value="Discount"/>
+						<xsd:enumeration value="Surcharge"/>
+						<xsd:enumeration value="Included"/>
+						<xsd:enumeration value="Not applicable"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:attribute>
+			<xsd:attribute name="FQTVStatus">
+				<xsd:annotation>
+					<xsd:documentation>The status (tier level) of the traveler's FQTV account.
+
+This is available as a query results against the airline's FQTV database.
+
+Samples:
+AA(American AAdvantage):
+-- Gold
+-- Platinum
+-- Executive Platinum
+
+LH (Miles and More):
+-- Frequent Traveller
+-- Senator
+-- HON Circle
+
+EK (Emirates Skywards):
+-- Silver
+-- Gold</xsd:documentation>
+				</xsd:annotation>
+			</xsd:attribute>
+			<xsd:attribute name="FQTVNumber">
+				<xsd:annotation>
+					<xsd:documentation>This is the actual FrequentFlyer number associated to the FQTVStatus.  This will allow the POS GUI to associate the actual traveler with the respective option/price</xsd:documentation>
+				</xsd:annotation>
+			</xsd:attribute>
+			<xsd:attribute name="NotValidBefore" type="xsd:date" use="optional">
+				<xsd:annotation>
+					<xsd:documentation>Option is not available/usable until the date entered</xsd:documentation>
+				</xsd:annotation>
+			</xsd:attribute>
+			<xsd:attribute name="NotValidAfter" type="xsd:date" use="optional">
+				<xsd:annotation>
+					<xsd:documentation>Option is not available/usable after the date entered</xsd:documentation>
+				</xsd:annotation>
+			</xsd:attribute>
+			<xsd:attribute name="Slice">
+				<xsd:annotation>
+					<xsd:documentation>In case of a "Change Of Gauge" flight, this determines to which slice of the flight the option belongs.
+
+Default = 0 (or absence)
+
+Example:
+YY 465 SFO FRA with change of gauge in ORD
+
+Slice 0 = SFO to ORD
+Slice 1 = ORD to FRA</xsd:documentation>
+				</xsd:annotation>
+			</xsd:attribute>
+			<xsd:attribute name="Icon">
+				<xsd:annotation>
+					<xsd:documentation>Any icon associated to this service.  An icon will be used by the UI to retrieve respective icon image.
+
+Example: MEALS</xsd:documentation>
+				</xsd:annotation>
+			</xsd:attribute>
+			<xsd:attribute name="DisplayPriority">
+				<xsd:annotation>
+					<xsd:documentation>Allowed values:
+P=Primary display (default)
+S=Secondary display
+
+Allows the GUI to display this service in a primary or secondary display.  Desired e.g. for special chargeable services such as
+"Pet Fee"
+"Bike Fee"
+"Unaccompanied Minor"
+
+Example: S</xsd:documentation>
+				</xsd:annotation>
+			</xsd:attribute>
+			<xsd:attribute name="MaxQuantity">
+				<xsd:annotation>
+					<xsd:documentation>Will determine what the maximum number can be for the Quantity.  This attribute is only used when more than a single item/service can be ordered.
+
+Possible Values: 
+2-99
+
+Example: 5</xsd:documentation>
+				</xsd:annotation>
+			</xsd:attribute>
+			<xsd:attribute name="ProviderIDRef">
+				<xsd:annotation>
+					<xsd:documentation>Allows to associate this service to a unique provider tag/id/ref</xsd:documentation>
+				</xsd:annotation>
+			</xsd:attribute>
+			<xsd:attribute name="CanUnbundle">
+				<xsd:annotation>
+					<xsd:documentation>Identifies (included) services which can or must be explicitly selected.
+Allowed Values: Y/N</xsd:documentation>
+				</xsd:annotation>
+			</xsd:attribute>
+			<xsd:attribute name="ApplyToAll">
+				<xsd:annotation>
+					<xsd:documentation>Identifies that this offer, if selected, applies to all passengers in the PNR
+
+Allowed value: "Y"</xsd:documentation>
+				</xsd:annotation>
+			</xsd:attribute>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="Attributes">
+		<xsd:annotation>
+			<xsd:documentation>ATPCO S5 record attributes</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="Group">
+					<xsd:annotation>
+						<xsd:documentation>Samples:
+BG = Baggage
+FF = Frequent Flyer
+GT = Ground Transportation
+         and Non Air Services
+IE = In-flight entertainment
+LG = Lounge
+MD = Medical
+ML = Meal/Beverage
+PT = Pets
+RO = Rule Override
+SA = Prereserved Seat
+         Assignment
+SB = Standby
+ST = Store
+TS = Travel Services
+UN = Unaccompanied
+         Travel (Escort)
+UP = Upgrades</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="Code"/>
+							<xsd:element name="Text" minOccurs="0"/>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+				<xsd:element name="SubGroup" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Samples for group "BG"
+CT = Container
+PP = Pre-paid excess
+         baggage
+
+Samples group "GT"
+BU = Bus
+LI = Limo, etc
+
+Samples group "IE"
+IT = Internet access
+TV = Television, etc</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="Code"/>
+							<xsd:element name="Text" minOccurs="0"/>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+				<xsd:element name="Desc1" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Description codes.
+Examples:
+05 = up to 5 kg
+1Y = One Year
+AI = Aisle
+B1 = First Bag
+etc.</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="Code"/>
+							<xsd:element name="Text" minOccurs="0"/>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+				<xsd:element name="Desc2" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Description codes.
+Examples:
+HT = Hot
+KO = Kosher
+etc.</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="Code"/>
+							<xsd:element name="Text" minOccurs="0"/>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="SSRCode" type="xsd:string">
+		<xsd:annotation>
+			<xsd:documentation>Special service request code.  IATA standard.  Example: VGML</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="BookingInstructions">
+		<xsd:annotation>
+			<xsd:documentation>Contains instructions how to book this service with respective source</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="SSRCode" minOccurs="0" maxOccurs="unbounded"/>
+				<xsd:element name="OSIText" minOccurs="0" maxOccurs="unbounded"/>
+				<xsd:element name="Method" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Allowed Values are:
+SSR
+API
+OSI</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="UpgradeMethod" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Allowed Values:
+A = AutoUpgrade
+S = SSR request</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:simpleContent>
+							<xsd:extension base="xsd:string">
+								<xsd:attribute name="NewClass">
+									<xsd:annotation>
+										<xsd:documentation>Instructs which new class to book</xsd:documentation>
+									</xsd:annotation>
+								</xsd:attribute>
+							</xsd:extension>
+						</xsd:simpleContent>
+					</xsd:complexType>
+				</xsd:element>
+				<xsd:element ref="Text" minOccurs="0" maxOccurs="unbounded">
+					<xsd:annotation>
+						<xsd:documentation>Any freeflow to instruct DC</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="UserInput" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>User input or selection required for this service</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="UserText" minOccurs="0" maxOccurs="unbounded">
+								<xsd:annotation>
+									<xsd:documentation>Individual user input </xsd:documentation>
+								</xsd:annotation>
+								<xsd:complexType>
+									<xsd:attribute name="InputID" use="required">
+										<xsd:annotation>
+											<xsd:documentation>Identifies this input value for backend component.
+Sample: 
+PUTime,
+DOTime,
+Address,
+etc</xsd:documentation>
+										</xsd:annotation>
+									</xsd:attribute>
+									<xsd:attribute name="UserInstruction">
+										<xsd:annotation>
+											<xsd:documentation>Provides instructions for user regarding the required input.  A client app should use this as a label for the user input box</xsd:documentation>
+										</xsd:annotation>
+									</xsd:attribute>
+									<xsd:attribute name="Required">
+										<xsd:annotation>
+											<xsd:documentation>Indicates if the user input is mandatory (required) or not (optional)
+
+Allowed values: Y/N</xsd:documentation>
+										</xsd:annotation>
+									</xsd:attribute>
+								</xsd:complexType>
+							</xsd:element>
+							<xsd:element name="UserDropdown" minOccurs="0">
+								<xsd:annotation>
+									<xsd:documentation>User selection based on a dropdown menu</xsd:documentation>
+								</xsd:annotation>
+								<xsd:complexType>
+									<xsd:sequence>
+										<xsd:element name="MenuItem" maxOccurs="unbounded">
+											<xsd:annotation>
+												<xsd:documentation>Description of item as it should be displayed as a dropdown menu value</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+									</xsd:sequence>
+									<xsd:attribute name="InputID" use="required">
+										<xsd:annotation>
+											<xsd:documentation>Identifies this input value for backend component.
+Sample: 
+PUTime,
+DOTime,
+Address,
+etc</xsd:documentation>
+										</xsd:annotation>
+									</xsd:attribute>
+									<xsd:attribute name="UserInstruction">
+										<xsd:annotation>
+											<xsd:documentation>Provides instructions for user regarding the required dropdown selection.  A client app should use this as a label for the user dropdown menu instruction</xsd:documentation>
+										</xsd:annotation>
+									</xsd:attribute>
+									<xsd:attribute name="Required">
+										<xsd:annotation>
+											<xsd:documentation>Indicates if the user input is mandatory (required) or not (optional)
+
+Allowed values: Y/N</xsd:documentation>
+										</xsd:annotation>
+									</xsd:attribute>
+								</xsd:complexType>
+							</xsd:element>
+							<xsd:element name="UserChoices" minOccurs="0">
+								<xsd:annotation>
+									<xsd:documentation>provides arrays of choices from which the user has to choose from</xsd:documentation>
+								</xsd:annotation>
+								<xsd:complexType>
+									<xsd:sequence>
+										<xsd:element ref="FlightOptions"/>
+									</xsd:sequence>
+									<xsd:attribute name="UserInstruction" use="required">
+										<xsd:annotation>
+											<xsd:documentation>Provides instructions for user regarding the required input.  A client app should use this as a label for the user input box
+Sample: Select desired flight option</xsd:documentation>
+										</xsd:annotation>
+									</xsd:attribute>
+									<xsd:attribute name="Required" use="required">
+										<xsd:annotation>
+											<xsd:documentation>Indicates if the user input is mandatory (required) or not (optional)
+
+Allowed values: Y/N</xsd:documentation>
+										</xsd:annotation>
+									</xsd:attribute>
+								</xsd:complexType>
+							</xsd:element>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="FlightOptions">
+		<xsd:annotation>
+			<xsd:documentation>Alternate flights offered w/this service, such as stand by flight choices (or reaccommodation flights)</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="Flight" maxOccurs="unbounded">
+					<xsd:annotation>
+						<xsd:documentation>Flight group</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+			</xsd:sequence>
+			<xsd:attribute name="DepartureCode" use="required">
+				<xsd:annotation>
+					<xsd:documentation>Departure airport or city code for overall OD.  Example: JFK</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="3"/>
+						<xsd:maxLength value="3"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:attribute>
+			<xsd:attribute name="ArrivalCode" use="required">
+				<xsd:annotation>
+					<xsd:documentation>Arrival airport or city code for overall OD.  Example: MIA</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="3"/>
+						<xsd:maxLength value="3"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:attribute>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:attribute name="PriceClassName" type="xsd:string">
+		<xsd:annotation>
+			<xsd:documentation>Label of the price group associated to this price, e.g. TANGO</xsd:documentation>
+		</xsd:annotation>
+	</xsd:attribute>
+	<xsd:element name="JourneyTime">
+		<xsd:annotation>
+			<xsd:documentation>Total journey time of the flight.  Example: 13:45</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleType>
+			<xsd:restriction base="xsd:string">
+				<xsd:minLength value="5"/>
+				<xsd:maxLength value="5"/>
+				<xsd:pattern value="[0-9][0-9]:[0-5][0-9]">
+					<xsd:annotation>
+						<xsd:documentation>
+</xsd:documentation>
+					</xsd:annotation>
+				</xsd:pattern>
+			</xsd:restriction>
+		</xsd:simpleType>
+	</xsd:element>
+	<xsd:element name="PriceGroup">
+		<xsd:annotation>
+			<xsd:documentation>List of prices offered for this OD and flight component, e.g. 3 PriceClasses are offered:
+Tango - $200.00
+Tango Plus - 300.00
+Executive - 450.00</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="PriceClass" maxOccurs="unbounded"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="PriceClass">
+		<xsd:annotation>
+			<xsd:documentation>Identifies the price group associated to this price, e.g. TANGO</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="Price" maxOccurs="unbounded">
+					<xsd:annotation>
+						<xsd:documentation>Price group</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="BaseFare">
+								<xsd:annotation>
+									<xsd:documentation>Base fare group</xsd:documentation>
+								</xsd:annotation>
+								<xsd:complexType>
+									<xsd:complexContent>
+										<xsd:restriction base="BaseFareType">
+											<xsd:all>
+												<xsd:element ref="FiledIn" minOccurs="0"/>
+												<xsd:element name="Surcharges" type="SurchargesType" minOccurs="0">
+													<xsd:annotation>
+														<xsd:documentation>Surcharges group</xsd:documentation>
+													</xsd:annotation>
+												</xsd:element>
+											</xsd:all>
+										</xsd:restriction>
+									</xsd:complexContent>
+								</xsd:complexType>
+							</xsd:element>
+							<xsd:element ref="Taxes"/>
+						</xsd:sequence>
+						<xsd:attribute name="Total" type="xsd:integer" use="required">
+							<xsd:annotation>
+								<xsd:documentation>Total Fare amount for one traveler of the specified passenger type.  Total price = base fare amount + taxes amount.  Example: 230000</xsd:documentation>
+							</xsd:annotation>
+						</xsd:attribute>
+						<xsd:attribute ref="TypeRequested"/>
+						<xsd:attribute ref="TypePriced"/>
+					</xsd:complexType>
+				</xsd:element>
+				<xsd:element ref="FareRefKey" minOccurs="0"/>
+				<xsd:element ref="FareBasisCode" minOccurs="0"/>
+				<xsd:element ref="ExchangeInfo" minOccurs="0"/>
+			</xsd:sequence>
+			<xsd:attribute name="Name">
+				<xsd:annotation>
+					<xsd:documentation>references to the respective PriceClass as defind in the 'PriceClassComments' element.
+Sample: TANGO</xsd:documentation>
+				</xsd:annotation>
+			</xsd:attribute>
+			<xsd:attribute name="ClassOfService" use="required">
+				<xsd:annotation>
+					<xsd:documentation>some carriers have an actual ClassofService linked to a PriceClass.
+Sample: T</xsd:documentation>
+				</xsd:annotation>
+			</xsd:attribute>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="Taxes">
+		<xsd:annotation>
+			<xsd:documentation>Taxes group</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="Tax" minOccurs="0" maxOccurs="unbounded"/>
+			</xsd:sequence>
+			<xsd:attribute name="Amount" type="xsd:integer" use="required">
+				<xsd:annotation>
+					<xsd:documentation>Total taxes amount.  Example: 30000</xsd:documentation>
+				</xsd:annotation>
+			</xsd:attribute>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="Tax">
+		<xsd:annotation>
+			<xsd:documentation>Tax break down information group</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="Designator" minOccurs="0"/>
+				<xsd:element ref="Nature" minOccurs="0"/>
+				<xsd:element ref="Description" minOccurs="0"/>
+				<xsd:element name="CollectionPoint" minOccurs="0" maxOccurs="unbounded">
+					<xsd:annotation>
+						<xsd:documentation>For XF and ZP taxes. 
+Tax data break down for each collection point.  
+
+The sum of individual amounts entered here must  be equal to the Amount entered in the Tax element.</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element ref="AirportCode"/>
+							<xsd:element name="AirportAmount">
+								<xsd:annotation>
+									<xsd:documentation>The amount actually filed by the airport in the currency applicable to the geographical location of the airport
+(same as shown in FareCalculation line)</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+							<xsd:element ref="CurrencyCode"/>
+						</xsd:sequence>
+						<xsd:attribute name="Amount" type="xsd:integer">
+							<xsd:annotation>
+								<xsd:documentation>Individual amount for collection point.  
+Example: 2500</xsd:documentation>
+							</xsd:annotation>
+						</xsd:attribute>
+					</xsd:complexType>
+				</xsd:element>
+			</xsd:sequence>
+			<xsd:attribute name="Amount" type="xsd:integer" use="required">
+				<xsd:annotation>
+					<xsd:documentation>Individual tax amount.  Example: 2500</xsd:documentation>
+				</xsd:annotation>
+			</xsd:attribute>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="Designator" type="xsd:string">
+		<xsd:annotation>
+			<xsd:documentation>Tax or surcharge designator.  Example: US</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="Nature" type="xsd:string">
+		<xsd:annotation>
+			<xsd:documentation>Tax nature.  Example: US2</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="Description" type="xsd:string">
+		<xsd:annotation>
+			<xsd:documentation>Tax or surcharge description.  Example: US national transportation</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="FareBasisCode" type="xsd:string">
+		<xsd:annotation>
+			<xsd:documentation>Fare basis code.  Example: Y26</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:attribute name="TypeRequested">
+		<xsd:annotation>
+			<xsd:documentation>Passenger type being requested for pricing.  If the passenger type returned is not in the below predefined list, then it is shown as is. Predefined values are: 
+ADT= Adult
+CHD = Child
+INF = Infant
+GOV = Government
+MIL = Military
+SRC = Senior citizen
+STD = Student
+YTH = Youth
+Example: CHD</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleType>
+			<xsd:restriction base="xsd:string"/>
+		</xsd:simpleType>
+	</xsd:attribute>
+	<xsd:attribute name="TypePriced" type="xsd:string">
+		<xsd:annotation>
+			<xsd:documentation>Passenger type being priced. This type can be different from the type requested if there is no available fare for the requested type.  For example the requested type is GOV and the priced type is ADT because there is no available fare for type GOV and there is an available fare for type ADT. 
+If the passenger type sent by the GDS is not the below predefined list, then it is shown as is. 
+Predefined values are:
+ADT= Adult
+CHD = Child
+INF = Infant
+GOV = Government
+MIL = Military
+SRC = Senior citizen
+STD = Student
+YTH = Youth 
+Example: ADT</xsd:documentation>
+		</xsd:annotation>
+	</xsd:attribute>
+	<xsd:element name="Flight">
+		<xsd:annotation>
+			<xsd:documentation>Group of different flight options</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="JourneyTime" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Total journey time of the flight(s) for entire OD.  Example:. 13:45</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element ref="PriceGroup" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>List of prices offered for this OD and flight component, e.g. 3 PriceClasses are offered:
+Tango - $200.00
+Tango Plus - 300.00
+Executive - 450.00</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element ref="Segment" maxOccurs="unbounded"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="Segment">
+		<xsd:annotation>
+			<xsd:documentation>Segment information group</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="Departure"/>
+				<xsd:element ref="Arrival"/>
+				<xsd:element ref="Carrier"/>
+				<xsd:element ref="OperatingCarrier" minOccurs="0"/>
+				<xsd:element ref="Equipment"/>
+				<xsd:element ref="NumberOfStops" minOccurs="0"/>
+				<xsd:element ref="StopInformation" minOccurs="0"/>
+				<xsd:element ref="Meals" minOccurs="0"/>
+				<xsd:element ref="Frequency" minOccurs="0"/>
+				<xsd:element ref="FlightDuration" minOccurs="0"/>
+				<xsd:element ref="OnTimeInfo" minOccurs="0"/>
+				<xsd:element ref="ElectronicTicketing" minOccurs="0"/>
+				<xsd:element ref="Ticketless" minOccurs="0"/>
+				<xsd:element ref="InstantPurchase" minOccurs="0"/>
+				<xsd:element ref="TrafficRestrictions" minOccurs="0"/>
+				<xsd:element ref="LegMiles" minOccurs="0"/>
+				<xsd:element ref="Classes" minOccurs="0"/>
+			</xsd:sequence>
+			<xsd:attribute name="ChangeOfAirport" use="required">
+				<xsd:annotation>
+					<xsd:documentation>Change of airport indicator. Values are: Y = there is a change of airport in the connection
+N = there is no change of airport in the connection.  Example: Y</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1"/>
+						<xsd:maxLength value="1"/>
+						<xsd:enumeration value="Y"/>
+						<xsd:enumeration value="N"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:attribute>
+			<xsd:attribute name="MarriedSegment" use="optional">
+				<xsd:annotation>
+					<xsd:documentation>Indicates if married segment.  Values are: 
+B= beginning of married segments group
+I = interim flight segments
+E = end of married segments group
+Example: B
+</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1"/>
+						<xsd:maxLength value="1"/>
+						<xsd:enumeration value="B"/>
+						<xsd:enumeration value="I"/>
+						<xsd:enumeration value="E"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:attribute>
+			<xsd:attribute name="CnxxIndicator" use="optional">
+				<xsd:annotation>
+					<xsd:documentation>Connection indicator.  Example: Y = Yes, N = No</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string"/>
+				</xsd:simpleType>
+			</xsd:attribute>
+			<xsd:attribute name="SellIndicator">
+				<xsd:annotation>
+					<xsd:documentation>Internal sell indicator used to identify segment grouping listed in a fare search response recommendation. If present in the response must be used as-is in PNRCreateRQ request for air sell. See PNRCreateRQ/CompletePNRElements/Itinerary/Flight.
+
+NOTE: Usage required for Amadeus MasterPricer TravelBoardSearch -  improves bookability of recommendations.</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:attribute>
+			<xsd:attribute name="SecureFlight" use="optional">
+				<xsd:annotation>
+					<xsd:documentation>Indicates if Secure Flight data is required for this flight.  
+Values:
+Y = Secure flight data must be provided
+N = (Default) flight does not require Secure Flight data</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:enumeration value="Y"/>
+						<xsd:enumeration value="N"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:attribute>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="StopInformation">
+		<xsd:annotation>
+			<xsd:documentation>Stop information group
+
+A Change of Gauge flight requires the @ChangeOfGauge attribte to be set to Y; it also requires to map the new equipment used from this stop forward.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="AirportCode"/>
+				<xsd:element ref="AirportName"/>
+				<xsd:element ref="ArrivalDate"/>
+				<xsd:element name="ArrivalTime" type="Time">
+					<xsd:annotation>
+						<xsd:documentation>Stop arrival time in ISO 8601 format (hh:mm).  Example: 14:50</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element ref="DepartureDate"/>
+				<xsd:element name="DepartureTime" type="Time">
+					<xsd:annotation>
+						<xsd:documentation>Stop departure time in ISO 8601 format (hh:mm).  Example: 14:50</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element ref="Equipment" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>ONLY used in case of a Change of Gauge flight the equipment for the continuation of the flight is mapped here.</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+			</xsd:sequence>
+			<xsd:attribute name="ChangeOfGauge">
+				<xsd:annotation>
+					<xsd:documentation>Possible Value: Y
+
+Set if the flight is a Change of Gauge flight which will also require to map the NEW equipment (for the next leg of this flight) to the "Equipment" node</xsd:documentation>
+				</xsd:annotation>
+			</xsd:attribute>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="Departure">
+		<xsd:annotation>
+			<xsd:documentation>Segment departure group</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="AirportCode"/>
+				<xsd:element ref="AirportName"/>
+				<xsd:element ref="Date"/>
+				<xsd:element ref="Time"/>
+				<xsd:element ref="Terminal" minOccurs="0"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="Arrival">
+		<xsd:annotation>
+			<xsd:documentation>Segment arrival group</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="AirportCode"/>
+				<xsd:element ref="AirportName"/>
+				<xsd:element ref="Date"/>
+				<xsd:element ref="ChangeOfDay" minOccurs="0"/>
+				<xsd:element ref="Time"/>
+				<xsd:element ref="Terminal" minOccurs="0"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="AirlineCode">
+		<xsd:annotation>
+			<xsd:documentation>Airline code.  Example: AA</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleType>
+			<xsd:restriction base="xsd:string">
+				<xsd:minLength value="2"/>
+				<xsd:maxLength value="2"/>
+			</xsd:restriction>
+		</xsd:simpleType>
+	</xsd:element>
+	<xsd:element name="AirlineName" type="xsd:string">
+		<xsd:annotation>
+			<xsd:documentation>Airline name.  Example: American Airlines</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="NumberOfStops">
+		<xsd:annotation>
+			<xsd:documentation>Number of stops.  Example: 0</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleType>
+			<xsd:restriction base="xsd:integer">
+				<xsd:minInclusive value="0"/>
+				<xsd:maxInclusive value="9"/>
+			</xsd:restriction>
+		</xsd:simpleType>
+	</xsd:element>
+	<xsd:element name="Meals">
+		<xsd:annotation>
+			<xsd:documentation>Indicates what types of meals are served.  Meal codes are IATA standard:
+B = Breakfast
+K = Continental Breakfast
+V = Continental Breakfast
+L = Lunch
+D = Dinner
+S = Snack or Brunch
+O = Cold Meal
+H = Hot Meal
+M = Meal (Non-Specific)
+R = Refreshment
+C = Alcoholic Beverages Complimentary
+F = Food for Purchase
+P = Alcoholic Beverages for Purchase
+Y = Duty Free Sales Available
+G = Light Lunch
+ Example: B</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleType>
+			<xsd:restriction base="xsd:string">
+				<xsd:enumeration value="B"/>
+				<xsd:enumeration value="K"/>
+				<xsd:enumeration value="V"/>
+				<xsd:enumeration value="L"/>
+				<xsd:enumeration value="D"/>
+				<xsd:enumeration value="S"/>
+				<xsd:enumeration value="O"/>
+				<xsd:enumeration value="H"/>
+				<xsd:enumeration value="M"/>
+				<xsd:enumeration value="R"/>
+				<xsd:enumeration value="C"/>
+				<xsd:enumeration value="F"/>
+				<xsd:enumeration value="P"/>
+				<xsd:enumeration value="Y"/>
+				<xsd:enumeration value="G"/>
+			</xsd:restriction>
+		</xsd:simpleType>
+	</xsd:element>
+	<xsd:element name="Frequency" type="xsd:string">
+		<xsd:annotation>
+			<xsd:documentation>This indicates which days of the week the flight operates on- i.e. 1234567, 123, 467
+1 = Monday
+2 = Tuesday
+3 = Wednesday
+4 = Thursday
+5 = Friday
+6 = Saturday
+7 = Sunday
+
+Example: 13456</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="FlightDuration">
+		<xsd:annotation>
+			<xsd:documentation>Segment total flying time.  Example: 01:30</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleType>
+			<xsd:restriction base="xsd:string">
+				<xsd:pattern value="[0-9][0-9]:[0-5][0-9]">
+					<xsd:annotation>
+						<xsd:documentation>
+</xsd:documentation>
+					</xsd:annotation>
+				</xsd:pattern>
+			</xsd:restriction>
+		</xsd:simpleType>
+	</xsd:element>
+	<xsd:element name="OnTimeInfo">
+		<xsd:annotation>
+			<xsd:documentation>Indicates the on time performance.  Valid values are:
+9 = 90-100 percent
+8 = 80-89 percent
+7 = 70-79 percent
+6 = 60-69 percent
+5 = 50-59 percent
+4 = 40-49 percent
+3 = 30-39 percent
+2 = 20-29 percent
+1 = 10-19 percent
+0 = Less than 10 percent
+N = New flight - no performance
+U = No flight data available
+X = International or city where reporting is not required.	
+Example: 6</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleType>
+			<xsd:restriction base="xsd:string">
+				<xsd:minLength value="0"/>
+				<xsd:maxLength value="1"/>
+				<xsd:enumeration value="0"/>
+				<xsd:enumeration value="1"/>
+				<xsd:enumeration value="2"/>
+				<xsd:enumeration value="3"/>
+				<xsd:enumeration value="4"/>
+				<xsd:enumeration value="5"/>
+				<xsd:enumeration value="6"/>
+				<xsd:enumeration value="7"/>
+				<xsd:enumeration value="8"/>
+				<xsd:enumeration value="9"/>
+				<xsd:enumeration value="O"/>
+				<xsd:enumeration value="N"/>
+				<xsd:enumeration value="U"/>
+				<xsd:enumeration value="X"/>
+			</xsd:restriction>
+		</xsd:simpleType>
+	</xsd:element>
+	<xsd:element name="Ticketless">
+		<xsd:annotation>
+			<xsd:documentation>Fare can be purchased without issuing a ticket.  Values are:
+Y = Ticketless purchase possible
+N = Ticketless purchase not possible
+Example: Y</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleType>
+			<xsd:restriction base="xsd:string">
+				<xsd:minLength value="1"/>
+				<xsd:maxLength value="1"/>
+				<xsd:enumeration value="Y"/>
+				<xsd:enumeration value="N"/>
+			</xsd:restriction>
+		</xsd:simpleType>
+	</xsd:element>
+	<xsd:element name="ElectronicTicketing">
+		<xsd:annotation>
+			<xsd:documentation>Electronic ticketing indicator.  Values are: Y = eticket can be issued
+N = no eticket possible. 
+Example: Y</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleType>
+			<xsd:restriction base="xsd:string">
+				<xsd:minLength value="1"/>
+				<xsd:maxLength value="1"/>
+				<xsd:enumeration value="Y"/>
+				<xsd:enumeration value="N"/>
+			</xsd:restriction>
+		</xsd:simpleType>
+	</xsd:element>
+	<xsd:element name="TrafficRestrictions">
+		<xsd:annotation>
+			<xsd:documentation>Traffic restriction information.  Valid values are:
+A = No traffic permitted
+B = Not for connections
+C = Not for international connections
+H = Restricted by market
+I = Technical stop - no traffic
+J = Conditional traffic
+K = Connecting traffic
+L = Online Connecting traffic
+M = International online stopover traffic only
+N = International online traffic only
+O = International online connection traffic only
+P = Subject to government approval
+Q = International online connection or stopover traffic
+R = Permanent request
+S = Stopover traffic only
+T = Online stopover traffic
+U = International stopover traffic
+V = Connection or stopover traffic
+W = International connection or stopover traffic only
+X = Online connection or stopover traffic only
+Y = Online connections
+Blank = no restrictions 
+Example: X</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleType>
+			<xsd:restriction base="xsd:string">
+				<xsd:minLength value="0"/>
+				<xsd:maxLength value="1"/>
+				<xsd:enumeration value="A"/>
+				<xsd:enumeration value="B"/>
+				<xsd:enumeration value="C"/>
+				<xsd:enumeration value="H"/>
+				<xsd:enumeration value="I"/>
+				<xsd:enumeration value="J"/>
+				<xsd:enumeration value="K"/>
+				<xsd:enumeration value="L"/>
+				<xsd:enumeration value="M"/>
+				<xsd:enumeration value="N"/>
+				<xsd:enumeration value="O"/>
+				<xsd:enumeration value="P"/>
+				<xsd:enumeration value="Q"/>
+				<xsd:enumeration value="R"/>
+				<xsd:enumeration value="S"/>
+				<xsd:enumeration value="T"/>
+				<xsd:enumeration value="U"/>
+				<xsd:enumeration value="V"/>
+				<xsd:enumeration value="W"/>
+				<xsd:enumeration value="X"/>
+				<xsd:enumeration value="Y"/>
+				<xsd:enumeration value=""/>
+			</xsd:restriction>
+		</xsd:simpleType>
+	</xsd:element>
+	<xsd:element name="AirportCode">
+		<xsd:annotation>
+			<xsd:documentation>Segment departure or arrival airport code.  Example: JFK</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleType>
+			<xsd:restriction base="xsd:string">
+				<xsd:minLength value="3"/>
+				<xsd:maxLength value="3"/>
+			</xsd:restriction>
+		</xsd:simpleType>
+	</xsd:element>
+	<xsd:element name="AirportName" type="xsd:string">
+		<xsd:annotation>
+			<xsd:documentation>Segment departure or arrival airport name.  Example: John Fitzerald Kennedy</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="Date" type="xsd:date">
+		<xsd:annotation>
+			<xsd:documentation>Segment departure or arrival date in ISO 8601 format (yyyy-mm-dd).  Example: 2001-12-25</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="Time">
+		<xsd:annotation>
+			<xsd:documentation>Segment departure or arrival  time in ISO 8601 (hh:mm).  Example: 14:30</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleType>
+			<xsd:restriction base="xsd:string">
+				<xsd:pattern value="([0-1][0-9]|2[0-4]):[0-5][0-9]"/>
+			</xsd:restriction>
+		</xsd:simpleType>
+	</xsd:element>
+	<xsd:element name="Terminal" type="xsd:string">
+		<xsd:annotation>
+			<xsd:documentation>Segment departure or arrival airport terminal.  Example: 2B</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="ChangeOfDay" type="xsd:string">
+		<xsd:annotation>
+			<xsd:documentation>Change of day information.  Example: 01</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="Carrier">
+		<xsd:annotation>
+			<xsd:documentation>Carrier group</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="AirlineCode"/>
+				<xsd:element ref="AirlineName"/>
+				<xsd:element ref="FlightNumber"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="OperatingCarrier">
+		<xsd:annotation>
+			<xsd:documentation>Operating carrier group</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="AirlineCode"/>
+				<xsd:element ref="AirlineName"/>
+				<xsd:element ref="FlightNumber" minOccurs="0"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="InstantPurchase">
+		<xsd:annotation>
+			<xsd:documentation>Instant Purchase indicator.  Values are:
+CC = Purchase is immediately charged to CC
+AP = Purchase is using AirPass credit(s)
+PP = Purchase is charged via PayPal (future use)
+N = not an instant purchase (default)
+
+Example: CC</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleType>
+			<xsd:restriction base="xsd:string">
+				<xsd:minLength value="1"/>
+				<xsd:maxLength value="2"/>
+				<xsd:enumeration value="CC"/>
+				<xsd:enumeration value="AP"/>
+				<xsd:enumeration value="PP"/>
+				<xsd:enumeration value="N"/>
+			</xsd:restriction>
+		</xsd:simpleType>
+	</xsd:element>
+	<xsd:element name="Equipment">
+		<xsd:annotation>
+			<xsd:documentation>Equipment group</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="Code"/>
+				<xsd:element ref="Name"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="Name" type="xsd:string">
+		<xsd:annotation>
+			<xsd:documentation>Airplane type name.  Example: Boeing 747 series</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="LegMiles" type="xsd:string">
+		<xsd:annotation>
+			<xsd:documentation>Number of miles for segment.  Example: 2143</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="Classes">
+		<xsd:annotation>
+			<xsd:documentation>Flight Classes group</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="ClassOfService">
+					<xsd:annotation>
+						<xsd:documentation>Booking class of service to be applied for this Segment when booked as part of this FareGroup.  
+Example: B</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:simpleContent>
+							<xsd:extension base="COSType">
+								<xsd:attribute name="Status">
+									<xsd:annotation>
+										<xsd:documentation>Numeric status (available seats).  Values are: A = Seats are available, L = Waitlist Open for a segment, C = Waitlist closed, R = Seats on request only to airline, S = waitlist closed, 0 - 9 = number of at least available seats, 'empty' = no information.  Example: 9</xsd:documentation>
+									</xsd:annotation>
+									<xsd:simpleType>
+										<xsd:restriction base="xsd:string">
+											<xsd:enumeration value="A"/>
+											<xsd:enumeration value="L"/>
+											<xsd:enumeration value="C"/>
+											<xsd:enumeration value="R"/>
+											<xsd:enumeration value="S"/>
+											<xsd:enumeration value="0"/>
+											<xsd:enumeration value="1"/>
+											<xsd:enumeration value="2"/>
+											<xsd:enumeration value="3"/>
+											<xsd:enumeration value="4"/>
+											<xsd:enumeration value="5"/>
+											<xsd:enumeration value="6"/>
+											<xsd:enumeration value="7"/>
+											<xsd:enumeration value="8"/>
+											<xsd:enumeration value="9"/>
+											<xsd:enumeration value=""/>
+										</xsd:restriction>
+									</xsd:simpleType>
+								</xsd:attribute>
+								<xsd:attribute ref="PriceClassName">
+									<xsd:annotation>
+										<xsd:documentation>Price Class associated to this CoS, e.g. TANGO</xsd:documentation>
+									</xsd:annotation>
+								</xsd:attribute>
+							</xsd:extension>
+						</xsd:simpleContent>
+					</xsd:complexType>
+				</xsd:element>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="DepartureDate" type="xsd:date">
+		<xsd:annotation>
+			<xsd:documentation>Fare info departure date.  Indicates the departure date of one or more segments related to this FareInfo group.  The departure date will be returned when the FareSearch is based on departure date. Example: 2002-12-25</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="ArrivalDate" type="xsd:date">
+		<xsd:annotation>
+			<xsd:documentation>Fare info arrival date.  Indicates the arrival date of one or more flights related to this FareInfo group. The arrival date will be returned when the FareSearch is based on arrival date. For departure dates please refer to specific flight segments in this case.  Example: 2002-12-25</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="ExchangeInfo">
+		<xsd:annotation>
+			<xsd:documentation>Information returned by an Auto-Exchange application (e.g. ITA Reshop)</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="CurrencyCode"/>
+				<xsd:element name="Penalty" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Penalty/Change Fee amount returned by the auto-exchange application for requested transaction</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:attribute name="Amount">
+							<xsd:annotation>
+								<xsd:documentation>The total fare amount including taxes of a fare alternative.</xsd:documentation>
+							</xsd:annotation>
+						</xsd:attribute>
+					</xsd:complexType>
+				</xsd:element>
+				<xsd:element name="CommPenalty" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Commission allowed on penalty expressed as an amount</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:attribute name="Amount">
+							<xsd:annotation>
+								<xsd:documentation>The commission amount.</xsd:documentation>
+							</xsd:annotation>
+						</xsd:attribute>
+					</xsd:complexType>
+				</xsd:element>
+				<xsd:element name="ValueOfOldTicket" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>This is the old ticketed total fare.</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:attribute name="Amount">
+							<xsd:annotation>
+								<xsd:documentation>The total fare amount including taxes of the old ticketed fare</xsd:documentation>
+							</xsd:annotation>
+						</xsd:attribute>
+					</xsd:complexType>
+				</xsd:element>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>

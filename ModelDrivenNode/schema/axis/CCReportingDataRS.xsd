@@ -1,0 +1,386 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<xsd:element name="CCReportingDataRS">
+		<xsd:annotation>
+			<xsd:documentation>response root element</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="InfoGroup" minOccurs="0">
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="ForInfo" minOccurs="0" maxOccurs="unbounded">
+								<xsd:complexType>
+									<xsd:sequence>
+										<xsd:element name="Text" type="xsd:string" maxOccurs="unbounded">
+											<xsd:annotation>
+												<xsd:documentation>Information text</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+									</xsd:sequence>
+									<xsd:attribute name="Source" type="xsd:string">
+										<xsd:annotation>
+											<xsd:documentation>Identifies the source of this  element. In other words where the content originates from. Not limited to GDS, applicable to direct connect as well. Example: 1A, 1V, or other. </xsd:documentation>
+										</xsd:annotation>
+									</xsd:attribute>
+									<xsd:attribute name="SourceRef" type="xsd:string">
+										<xsd:annotation>
+											<xsd:documentation>PNR Record Locator associated to Source attribute.</xsd:documentation>
+										</xsd:annotation>
+									</xsd:attribute>
+								</xsd:complexType>
+							</xsd:element>
+							<xsd:element name="Error" minOccurs="0" maxOccurs="unbounded">
+								<xsd:complexType>
+									<xsd:sequence>
+										<xsd:element name="Code" type="xsd:string">
+											<xsd:annotation>
+												<xsd:documentation>Error Code</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="Text" type="xsd:string">
+											<xsd:annotation>
+												<xsd:documentation>Error text</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+									</xsd:sequence>
+									<xsd:attribute name="ErrorType">
+										<xsd:annotation>
+											<xsd:documentation>Type of error.  Example: Air</xsd:documentation>
+										</xsd:annotation>
+									</xsd:attribute>
+									<xsd:attribute name="Source" type="xsd:string">
+										<xsd:annotation>
+											<xsd:documentation>Identifies the source of this  element. In other words where the content originates from. Not limited to GDS, applicable to direct connect as well. Example: 1A, 1V, or other. </xsd:documentation>
+										</xsd:annotation>
+									</xsd:attribute>
+									<xsd:attribute name="SourceRef" type="xsd:string">
+										<xsd:annotation>
+											<xsd:documentation>PNR Record Locator associated to Source attribute.</xsd:documentation>
+										</xsd:annotation>
+									</xsd:attribute>
+								</xsd:complexType>
+							</xsd:element>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+				<xsd:element name="CreditCardData" maxOccurs="unbounded">
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element ref="CCCode">
+								<xsd:annotation>
+									<xsd:documentation>Credit card code.  Example: TP</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+							<xsd:element ref="CCNumber">
+								<xsd:annotation>
+									<xsd:documentation>Credit card number.  Example: 1920236654652341</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+							<xsd:element ref="CCExpiration" minOccurs="0"/>
+							<xsd:element name="RequiredElements">
+								<xsd:annotation>
+									<xsd:documentation>Reporting data element required for this particular credit card account (corporation)</xsd:documentation>
+								</xsd:annotation>
+								<xsd:complexType>
+									<xsd:sequence>
+										<xsd:element name="AccountNumber" minOccurs="0">
+											<xsd:annotation>
+												<xsd:documentation>Corporation's account number</xsd:documentation>
+											</xsd:annotation>
+											<xsd:complexType>
+												<xsd:simpleContent>
+													<xsd:extension base="xsd:string">
+														<xsd:attribute name="Min">
+															<xsd:annotation>
+																<xsd:documentation>minimum length</xsd:documentation>
+															</xsd:annotation>
+														</xsd:attribute>
+														<xsd:attribute name="Max">
+															<xsd:annotation>
+																<xsd:documentation>maximum length</xsd:documentation>
+															</xsd:annotation>
+														</xsd:attribute>
+														<xsd:attribute name="Format">
+															<xsd:annotation>
+																<xsd:documentation>A - alphanumeric (default)
+N - numeric
+D - ISO date format</xsd:documentation>
+															</xsd:annotation>
+														</xsd:attribute>
+														<xsd:attribute name="Mandatory">
+															<xsd:annotation>
+																<xsd:documentation>O - optional (default)
+M - mandatory</xsd:documentation>
+															</xsd:annotation>
+														</xsd:attribute>
+														<xsd:attribute name="DataElementID" use="required">
+															<xsd:annotation>
+																<xsd:documentation>Vendor code assigned to this reporting element
+Example:  BK</xsd:documentation>
+															</xsd:annotation>
+														</xsd:attribute>
+														<xsd:attribute name="DataElementName" use="required">
+															<xsd:annotation>
+																<xsd:documentation>Vendor element name assigned to this reporting element
+Example:  Corperate ID</xsd:documentation>
+															</xsd:annotation>
+														</xsd:attribute>
+													</xsd:extension>
+												</xsd:simpleContent>
+											</xsd:complexType>
+										</xsd:element>
+										<xsd:element name="CostCenter" minOccurs="0">
+											<xsd:annotation>
+												<xsd:documentation>Cost center number/code</xsd:documentation>
+											</xsd:annotation>
+											<xsd:complexType>
+												<xsd:simpleContent>
+													<xsd:extension base="xsd:string">
+														<xsd:attribute name="Min">
+															<xsd:annotation>
+																<xsd:documentation>minimum length</xsd:documentation>
+															</xsd:annotation>
+														</xsd:attribute>
+														<xsd:attribute name="Max">
+															<xsd:annotation>
+																<xsd:documentation>maximum length</xsd:documentation>
+															</xsd:annotation>
+														</xsd:attribute>
+														<xsd:attribute name="Format">
+															<xsd:annotation>
+																<xsd:documentation>A - alphanumeric (default)
+N - numeric
+D - ISO date format</xsd:documentation>
+															</xsd:annotation>
+														</xsd:attribute>
+														<xsd:attribute name="Mandatory">
+															<xsd:annotation>
+																<xsd:documentation>O - optional (default)
+M - mandatory</xsd:documentation>
+															</xsd:annotation>
+														</xsd:attribute>
+														<xsd:attribute name="DataElementID" use="required">
+															<xsd:annotation>
+																<xsd:documentation>Vendor code assigned to this reporting element
+Example:  BK</xsd:documentation>
+															</xsd:annotation>
+														</xsd:attribute>
+														<xsd:attribute name="DataElementName" use="required">
+															<xsd:annotation>
+																<xsd:documentation>Vendor element name assigned to this reporting element
+Example:  Corperate ID</xsd:documentation>
+															</xsd:annotation>
+														</xsd:attribute>
+													</xsd:extension>
+												</xsd:simpleContent>
+											</xsd:complexType>
+										</xsd:element>
+										<xsd:element name="Department" minOccurs="0">
+											<xsd:annotation>
+												<xsd:documentation>Department description  for this Traveler in this association.
+Example: Marketing</xsd:documentation>
+											</xsd:annotation>
+											<xsd:complexType>
+												<xsd:simpleContent>
+													<xsd:extension base="xsd:string">
+														<xsd:attribute name="Min">
+															<xsd:annotation>
+																<xsd:documentation>minimum length</xsd:documentation>
+															</xsd:annotation>
+														</xsd:attribute>
+														<xsd:attribute name="Max">
+															<xsd:annotation>
+																<xsd:documentation>maximum length</xsd:documentation>
+															</xsd:annotation>
+														</xsd:attribute>
+														<xsd:attribute name="Format">
+															<xsd:annotation>
+																<xsd:documentation>A - alphanumeric (default)
+N - numeric
+D - ISO date format</xsd:documentation>
+															</xsd:annotation>
+														</xsd:attribute>
+														<xsd:attribute name="Mandatory">
+															<xsd:annotation>
+																<xsd:documentation>O - optional (default)
+M - mandatory</xsd:documentation>
+															</xsd:annotation>
+														</xsd:attribute>
+														<xsd:attribute name="DataElementID" use="required">
+															<xsd:annotation>
+																<xsd:documentation>Vendor code assigned to this reporting element
+Example:  BK</xsd:documentation>
+															</xsd:annotation>
+														</xsd:attribute>
+														<xsd:attribute name="DataElementName" use="required">
+															<xsd:annotation>
+																<xsd:documentation>Vendor element name assigned to this reporting element
+Example:  Corperate ID</xsd:documentation>
+															</xsd:annotation>
+														</xsd:attribute>
+													</xsd:extension>
+												</xsd:simpleContent>
+											</xsd:complexType>
+										</xsd:element>
+										<xsd:element name="EmployeeID" minOccurs="0">
+											<xsd:annotation>
+												<xsd:documentation>EmployeeID of traveler for this association.
+Example 476254</xsd:documentation>
+											</xsd:annotation>
+											<xsd:complexType>
+												<xsd:simpleContent>
+													<xsd:extension base="xsd:string">
+														<xsd:attribute name="Min">
+															<xsd:annotation>
+																<xsd:documentation>minimum length</xsd:documentation>
+															</xsd:annotation>
+														</xsd:attribute>
+														<xsd:attribute name="Max">
+															<xsd:annotation>
+																<xsd:documentation>maximum length</xsd:documentation>
+															</xsd:annotation>
+														</xsd:attribute>
+														<xsd:attribute name="Format">
+															<xsd:annotation>
+																<xsd:documentation>A - alphanumeric (default)
+N - numeric
+D - ISO date format</xsd:documentation>
+															</xsd:annotation>
+														</xsd:attribute>
+														<xsd:attribute name="Mandatory">
+															<xsd:annotation>
+																<xsd:documentation>O - optional (default)
+M - mandatory</xsd:documentation>
+															</xsd:annotation>
+														</xsd:attribute>
+														<xsd:attribute name="DataElementID" use="required">
+															<xsd:annotation>
+																<xsd:documentation>Vendor code assigned to this reporting element
+Example:  BK</xsd:documentation>
+															</xsd:annotation>
+														</xsd:attribute>
+														<xsd:attribute name="DataElementName" use="required">
+															<xsd:annotation>
+																<xsd:documentation>Vendor element name assigned to this reporting element
+Example:  Corperate ID</xsd:documentation>
+															</xsd:annotation>
+														</xsd:attribute>
+													</xsd:extension>
+												</xsd:simpleContent>
+											</xsd:complexType>
+										</xsd:element>
+										<xsd:element name="GenericElement" minOccurs="0" maxOccurs="unbounded">
+											<xsd:annotation>
+												<xsd:documentation>These are elements provided by CC vendor and could include elements such as
+- ProjectNumber
+- AccountingUnit
+- ActionNumber
+- DepartingDate
+- FinalDestination
+
+Above sample reflects data elements from UATP/Airplus requirements</xsd:documentation>
+											</xsd:annotation>
+											<xsd:complexType>
+												<xsd:simpleContent>
+													<xsd:extension base="xsd:string">
+														<xsd:attribute name="Min">
+															<xsd:annotation>
+																<xsd:documentation>minimum length</xsd:documentation>
+															</xsd:annotation>
+														</xsd:attribute>
+														<xsd:attribute name="Max">
+															<xsd:annotation>
+																<xsd:documentation>maximum length</xsd:documentation>
+															</xsd:annotation>
+														</xsd:attribute>
+														<xsd:attribute name="Format">
+															<xsd:annotation>
+																<xsd:documentation>A - alphanumeric (default)
+N - numeric
+D - ISO date format</xsd:documentation>
+															</xsd:annotation>
+														</xsd:attribute>
+														<xsd:attribute name="Mandatory">
+															<xsd:annotation>
+																<xsd:documentation>O - optional (default)
+M - mandatory</xsd:documentation>
+															</xsd:annotation>
+														</xsd:attribute>
+														<xsd:attribute name="DataElementID" use="required">
+															<xsd:annotation>
+																<xsd:documentation>Vendor code assigned to this reporting element
+Example:  PN</xsd:documentation>
+															</xsd:annotation>
+														</xsd:attribute>
+														<xsd:attribute name="DataElementName" use="required">
+															<xsd:annotation>
+																<xsd:documentation>Vendor element name assigned to this reporting element
+Example:  Project Number</xsd:documentation>
+															</xsd:annotation>
+														</xsd:attribute>
+														<xsd:attribute name="SystemProcess">
+															<xsd:annotation>
+																<xsd:documentation>Allowed value: Y
+If set this identifies that this data content for this element is system generated (not provide by user input or profiles)</xsd:documentation>
+															</xsd:annotation>
+														</xsd:attribute>
+													</xsd:extension>
+												</xsd:simpleContent>
+											</xsd:complexType>
+										</xsd:element>
+									</xsd:sequence>
+								</xsd:complexType>
+							</xsd:element>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="CCCode" type="xsd:string">
+		<xsd:annotation>
+			<xsd:documentation>Credit card code.  Example: VI</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="CCNumber" type="xsd:string">
+		<xsd:annotation>
+			<xsd:documentation>Credit card number.  Example: 4011236654652341</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="CCExpiration">
+		<xsd:annotation>
+			<xsd:documentation>Credit card expiration group</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="Month"/>
+				<xsd:element ref="Year">
+					<xsd:annotation>
+						<xsd:documentation>Last two digits of the credit card expiration year.  Example: 16</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="Month">
+		<xsd:annotation>
+			<xsd:documentation>Credit card expiration month.  Example: 02</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleType>
+			<xsd:restriction base="xsd:string">
+				<xsd:length value="2"/>
+			</xsd:restriction>
+		</xsd:simpleType>
+	</xsd:element>
+	<xsd:element name="Year">
+		<xsd:annotation>
+			<xsd:documentation>Last two digits of the credit card expiration year.  Example: 06</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleType>
+			<xsd:restriction base="xsd:string">
+				<xsd:length value="2"/>
+			</xsd:restriction>
+		</xsd:simpleType>
+	</xsd:element>
+</xsd:schema>

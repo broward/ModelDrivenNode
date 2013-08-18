@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:star="http://www.starstandard.org/STAR/5"
+   xmlns:oacl="http://www.openapplications.org/oagis/9/codelists" xmlns:sqdt="http://www.starstandard.org/STAR/5/qualifieddatatypes/1.0"
+   xmlns="http://www.starstandard.org/STAR/5" xmlns:ccts="urn:un:unece:uncefact:documentation:1.1" xmlns:sudt="http://www.starstandard.org/STAR/5/unqualifieddatatypes/1.0"
+   xmlns:scl="http://www.starstandard.org/STAR/5/codelists" targetNamespace="http://www.starstandard.org/STAR/5"
+   elementFormDefault="qualified" attributeFormDefault="unqualified" blockDefault="#all"
+   xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1"
+   xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"   
+>
+    <xsd:annotation>
+        <xsd:documentation source="http://www.starstandard.org/STAR/5">
+            This schema is made available under an Eclipse Public Licenses 1.0.  This
+            license may be found in the STAR/License directory as well as the STAR BOD
+            Guidelines.
+        </xsd:documentation>
+    </xsd:annotation>
+    <xsd:include schemaLocation="../Components/Common/Meta.xsd" />
+   <xsd:import namespace="http://www.starstandard.org/STAR/5/qualifieddatatypes/1.0" schemaLocation="../Components/Common/QualifiedDataTypes.xsd"/>
+   <xsd:import namespace="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" schemaLocation="../Components/OAGIS/CoreComponents/UnqualifiedDataTypes.xsd"/>
+   <xsd:import namespace="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1" schemaLocation="../Components/OAGIS/CoreComponents/QualifiedDataTypes.xsd"/>
+   <xsd:import namespace="http://www.starstandard.org/STAR/5/codelists" schemaLocation="../Components/Common/CodeLists.xsd"/>
+   <xsd:import namespace="http://www.openapplications.org/oagis/9" schemaLocation="../Components/OAGIS/Common/Components.xsd" />
+    <xsd:element name="DispositionPayments" type="PaymentsType">
+        <xsd:annotation>
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">
+                Contains Information for request that was submitted. This component may contain
+                additional sub-components with detail on reason for change in disposition of request for payment.
+            </xsd:documentation>
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">This definition came from the ServiceProcessingAdvisoryHeader Component</xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    <xsd:element name="ServiceProcessingAdvisory" type="ServiceProcessingAdvisoryType">
+        <xsd:annotation>
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">
+                ServiceProcessingAdvisory is an advisory to a Dealer from an OEM 
+                on the status of a Warranty Claim submitted to the OEM by the Dealer. Service Processing 
+                Advisory is the task of sending the advisory information electronically between OEM and 
+                Dealer systems. 
+            </xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    <xsd:element name="ServiceProcessingAdvisoryHeader" type="ServiceProcessingAdvisoryHeaderType">
+        <xsd:annotation>
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">
+                Service Processing Advisory Header
+            </xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    <xsd:complexType name="ServiceProcessingAdvisoryType">
+        <xsd:annotation xmlns="http://www.starstandards.org/STAR">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">STAR Version 3.0 - Draft</xsd:documentation>
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">STAR Version 2.1, STAR approved 04/20/2005; effective date 07/04/2005</xsd:documentation>
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">STAR Version 2.0, STAR approved 05/07/2004; effective date 07/04/2004</xsd:documentation>
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">STAR Version 1.0, STAR approved 8/7/2002; OAGI approved 8/16/2002; effective date 1/01/2003</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element ref="ServiceProcessingAdvisoryHeader"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="ServiceProcessingAdvisoryHeaderType">
+        <xsd:annotation xmlns="http://www.starstandards.org/STAR">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="HeaderBaseType">
+                <xsd:sequence>
+                    <!--<xsd:element ref="DocumentID" minOccurs="0" />-->
+                    <xsd:element name="SettlementTypeCode" type="scl:SettlementTypeEnumeratedType" minOccurs="0">
+                  <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Method that was used for
+                settlement transfer of funds</xsd:documentation>
+        </xsd:annotation>
+               </xsd:element>
+                    <xsd:element name="SettlementDate" type="udt:DateType" minOccurs="0">
+                  <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Date that funds are
+                transferred</xsd:documentation>
+        </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="PaymentCycleStartDate" type="udt:DateType" 
+               	minOccurs="0" maxOccurs="1">
+               		<xsd:annotation>
+               			<xsd:documentation source="http://www.starstandard.org/STAR/5">
+               				Beginning date of range for approved claims.
+               			</xsd:documentation>
+               		</xsd:annotation>
+               </xsd:element>
+                    <xsd:element name="PaymentCycleEndDate" type="udt:DateType" minOccurs="0">
+                  <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Ending date of Payment
+                Cycle</xsd:documentation>
+        </xsd:annotation>
+               </xsd:element>
+                    <xsd:element name="PaymentCycleID" type="udt:IdentifierType" minOccurs="0">
+                  <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Identifies a Payment
+                Cycle</xsd:documentation>
+        </xsd:annotation>
+               </xsd:element>
+                    <xsd:element name="ClaimCountNumeric" type="udt:NumericType" minOccurs="0">
+                  <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Identifies the total
+                number of Claims</xsd:documentation>
+        </xsd:annotation>
+               </xsd:element>
+                    <xsd:element name="JobCountNumeric" type="udt:NumericType" minOccurs="0">
+                  <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Identifies the total
+                number of jobs</xsd:documentation>
+        </xsd:annotation>
+               </xsd:element>
+                    <xsd:element name="TotalAmount" type="udt:AmountType" minOccurs="0">
+                  <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Total price (cost +
+                markup)</xsd:documentation>
+        </xsd:annotation>
+               </xsd:element>
+                    <xsd:element ref="Payments" minOccurs="0" maxOccurs="unbounded">
+                        <xsd:annotation>
+                            <xsd:documentation>
+                                Contains Information for request that was   submitted. This component may contain
+                                additional sub-components with detail on request for payment.
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="Disposition" type="PaymentsType" minOccurs="0" maxOccurs="unbounded">
+                        <xsd:annotation>
+                            <xsd:documentation>
+                                Deprecated: Use DispositionPayments.  This field was deprecated to align with STAR 5
+                                naming and design rules.  It will be removed in the next major version of STAR.
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element ref="DealerParty" minOccurs="0" maxOccurs="1"/>
+                    <xsd:element name="DispositionCountNumeric" type="udt:NumericType" minOccurs="0" maxOccurs="1">
+                  <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Contains the total number
+                of Disposition elements that are included in this transaction
+            summary.</xsd:documentation>
+        </xsd:annotation>
+               </xsd:element>
+                    <xsd:element ref="DispositionPayments" minOccurs="0" maxOccurs="unbounded"/>
+                    <xsd:element name="ESPRegistrationAmount" type="udt:AmountType"
+                    	minOccurs="0" maxOccurs="1">
+                    	<xsd:annotation>
+                    		<xsd:documentation source="http://www.starstandard.org/STAR/5">
+                    			Amount of Extended Service Plan contracts sold withheld from 
+                    			dealer payment for a claim processing period (day).
+                    		</xsd:documentation>
+                    	</xsd:annotation>
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+</xsd:schema>

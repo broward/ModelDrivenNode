@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:star="http://www.starstandard.org/STAR/5"
+   xmlns:oacl="http://www.openapplications.org/oagis/9/codelists" xmlns:sqdt="http://www.starstandard.org/STAR/5/qualifieddatatypes/1.0"
+   xmlns="http://www.starstandard.org/STAR/5" xmlns:ccts="urn:un:unece:uncefact:documentation:1.1" xmlns:sudt="http://www.starstandard.org/STAR/5/unqualifieddatatypes/1.0"
+   xmlns:scl="http://www.starstandard.org/STAR/5/codelists" targetNamespace="http://www.starstandard.org/STAR/5"
+   elementFormDefault="qualified" attributeFormDefault="unqualified" blockDefault="#all"
+   xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1"
+   xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"   
+>
+   <xsd:annotation>
+      <xsd:documentation source="http://www.starstandard.org/STAR/5"> This schema is made available under an Eclipse Public Licenses 1.0.
+         This license may be found in the STAR/License directory as well as the STAR BOD Guidelines.</xsd:documentation>
+   </xsd:annotation>
+    <xsd:include schemaLocation="../Components/Common/Meta.xsd" />
+   <xsd:import namespace="http://www.starstandard.org/STAR/5/qualifieddatatypes/1.0" schemaLocation="../Components/Common/QualifiedDataTypes.xsd"/>
+   <xsd:import namespace="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" schemaLocation="../Components/OAGIS/CoreComponents/UnqualifiedDataTypes.xsd"/>
+   <xsd:import namespace="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1" schemaLocation="../Components/OAGIS/CoreComponents/QualifiedDataTypes.xsd"/>
+   <xsd:import namespace="http://www.starstandard.org/STAR/5/codelists" schemaLocation="../Components/Common/CodeLists.xsd"/>
+   <xsd:import namespace="http://www.openapplications.org/oagis/9" schemaLocation="../Components/OAGIS/Common/Components.xsd" />
+   <xsd:element name="PartsTransfer" type="PartsTransferType">
+      <xsd:annotation>
+         <xsd:documentation source="http://www.starstandard.org/STAR/5">Parts Transfer. This Noun communicates information regarding
+            the transfer of parts from one dealer location to another dealer location.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element name="PartsTransferHeader" type="PartsTransferHeaderType">
+      <xsd:annotation>
+         <xsd:documentation source="http://www.starstandard.org/STAR/5"> Part Transfer Header</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element name="PartsTransferLineItem" type="PartsTransferLineItemType">
+      <xsd:annotation>
+         <xsd:documentation source="http://www.starstandard.org/STAR/5"> Parts Transfer Line Items</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:complexType name="PartsTransferType">
+      <xsd:annotation xmlns="http://www.starstandards.org/STAR">
+         <xsd:documentation source="http://www.starstandard.org/STAR/5"> This Noun was added to the repository starting with STAR 5.3.3.
+         </xsd:documentation>
+      </xsd:annotation>
+      <xsd:sequence>
+         <xsd:element ref="PartsTransferHeader" minOccurs="1" maxOccurs="1" />
+         <xsd:element ref="PartsTransferLineItem" minOccurs="0" maxOccurs="unbounded" />
+      </xsd:sequence>
+   </xsd:complexType>
+   <xsd:complexType name="PartsTransferHeaderType">
+      <xsd:annotation xmlns="http://www.starstandards.org/STAR">
+         <xsd:documentation source="http://www.starstandard.org/STAR/5">Parts Transfer Header information.</xsd:documentation>
+      </xsd:annotation>
+      <xsd:complexContent>
+         <xsd:extension base="HeaderBaseType">
+            <xsd:sequence>
+               <xsd:element ref="FreeFormTextGroup" minOccurs="0" maxOccurs="1" />
+        		<xsd:element name="TransferStatusCode" type="scl:TransferStatusEnumeratedType" minOccurs="0" maxOccurs="1">
+	            	<xsd:annotation xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1" xmlns:scl="http://www.starstandard.org/STAR/5/codelists">
+	            		<xsd:documentation source="http://www.starstandard.org/STAR/5">A code that that identifies the recommended transfer as either Processed or Unprocessed.</xsd:documentation>
+	       		 	</xsd:annotation>
+       			</xsd:element>
+       			<xsd:element ref="DocumentReference" minOccurs="0" maxOccurs="unbounded"/>
+               <xsd:element name="TransferCode" type="udt:CodeType" minOccurs="0" maxOccurs="1">
+	            	<xsd:annotation xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1" xmlns:scl="http://www.starstandard.org/STAR/5/codelists">
+	            		<xsd:documentation source="http://www.starstandard.org/STAR/5">An identifier that indicates the type of transfer. (e.g.,  Direct Ship, Daily Ship, Transfer Order).</xsd:documentation>
+	       		 	</xsd:annotation>
+       			</xsd:element> 
+       		<xsd:element name="RouteMessageIndicator" type="udt:CodeType" minOccurs="0" maxOccurs="1">
+	            	<xsd:annotation xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1" xmlns:scl="http://www.starstandard.org/STAR/5/codelists">
+	            		<xsd:documentation source="http://www.starstandard.org/STAR/5">An indicator field used to dictate whether or not to route associated messages to corresponding locations.</xsd:documentation>
+	       		 	</xsd:annotation>
+       		</xsd:element>
+
+       		<xsd:element ref="TransferType" minOccurs="0" maxOccurs="1" /> 
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:complexType name="PartsTransferLineItemType">
+      <xsd:annotation xmlns="http://www.starstandards.org/STAR">
+         <xsd:documentation source="http://www.starstandard.org/STAR/5">Parts Transfer Line items contain detail information about the
+            individual parts being transferred.</xsd:documentation>
+      </xsd:annotation>
+      <xsd:sequence>
+       		<xsd:element name="CriticalTransferIndicator" type="udt:IndicatorType" minOccurs="0" maxOccurs="1">
+	            	<xsd:annotation xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1" xmlns:scl="http://www.starstandard.org/STAR/5/codelists">
+	            		<xsd:documentation source="http://www.starstandard.org/STAR/5">Indicator to distinguish if transfer line item is critical for transfer-to location.</xsd:documentation>
+	       		 	</xsd:annotation>
+       		</xsd:element>
+       		<xsd:element ref="FreeFormTextGroup" minOccurs="0" maxOccurs="1" />
+       		<xsd:element ref="Pricing" minOccurs="0" maxOccurs="1" />
+       		<xsd:element ref="TransferType" minOccurs="0" maxOccurs="1" />
+      </xsd:sequence>
+   </xsd:complexType>
+</xsd:schema>

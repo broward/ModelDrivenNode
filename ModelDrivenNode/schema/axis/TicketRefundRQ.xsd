@@ -1,0 +1,645 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:include schemaLocation="CommonTicketingTypes.xsd"/>
+	<xsd:element name="TicketRefundRQ">
+		<xsd:annotation>
+			<xsd:documentation>Ticket Refund Request Root Element </xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="RecordLocator" type="xsd:string">
+					<xsd:annotation>
+						<xsd:documentation>PNR record locator.  Example: R1A3SK</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="Traveler">
+					<xsd:annotation>
+						<xsd:documentation>Traveler details group</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="TravelerName">
+								<xsd:annotation>
+									<xsd:documentation>Name group</xsd:documentation>
+								</xsd:annotation>
+								<xsd:complexType>
+									<xsd:sequence>
+										<xsd:element ref="Surname"/>
+										<xsd:element ref="GivenName"/>
+									</xsd:sequence>
+								</xsd:complexType>
+							</xsd:element>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+				<xsd:element name="OriginalIssueData">
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="TktIssueDate" type="xsd:date">
+								<xsd:annotation>
+									<xsd:documentation>Date in ISO 8601 format (yyyy-mm-dd).  Example: 2001-12-25</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+							<xsd:element name="TktIssueTime" type="xsd:time" minOccurs="0">
+								<xsd:annotation>
+									<xsd:documentation>Time in ISO 8601 format (hh:mm).  Example: 14:00</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+							<xsd:element name="IATA" type="xsd:string">
+								<xsd:annotation>
+									<xsd:documentation>IATA number of the agency originating the request.
+Example: 123456</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+							<xsd:element name="PseudoCityCode">
+								<xsd:annotation>
+									<xsd:documentation>Pseudo City Code of the agency requesting the void/cancel. Used to verify if it has the authority for this request.
+Example: LNJ2</xsd:documentation>
+								</xsd:annotation>
+								<xsd:complexType>
+									<xsd:simpleContent>
+										<xsd:extension base="xsd:string"/>
+									</xsd:simpleContent>
+								</xsd:complexType>
+							</xsd:element>
+							<xsd:element name="Commission" minOccurs="0">
+								<xsd:annotation>
+									<xsd:documentation>The commision that was originally collected (if any)
+Example: 200</xsd:documentation>
+								</xsd:annotation>
+								<xsd:complexType>
+									<xsd:simpleContent>
+										<xsd:extension base="xsd:string">
+											<xsd:attribute name="Type" type="xsd:string" use="required">
+												<xsd:annotation>
+													<xsd:documentation>The type of commission: Percentage (P) or Amount (A).
+Example: A</xsd:documentation>
+												</xsd:annotation>
+											</xsd:attribute>
+											<xsd:attribute name="NumberOfDecimals" type="xsd:int">
+												<xsd:annotation>
+													<xsd:documentation>The number of decimals if the commission type is A.
+Example: 2</xsd:documentation>
+												</xsd:annotation>
+											</xsd:attribute>
+										</xsd:extension>
+									</xsd:simpleContent>
+								</xsd:complexType>
+							</xsd:element>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+				<xsd:element name="TicketData">
+					<xsd:annotation>
+						<xsd:documentation>Contains the breakdown of the REFUND and/or CREDIT PORTION of the ticket values (Base fare, Taxes, Commission).  This applies to full as well as partial refunds.</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="Ticket" maxOccurs="4">
+								<xsd:annotation>
+									<xsd:documentation>Data of the coupons to be refunded. In case of a conjunctive ticket, all ticket numbers must be supplied with the coupon numbers that are to be refunded.</xsd:documentation>
+								</xsd:annotation>
+								<xsd:complexType>
+									<xsd:sequence>
+										<xsd:element name="CouponNumber" type="xsd:int" maxOccurs="4">
+											<xsd:annotation>
+												<xsd:documentation>The number of the coupoun to be refunded.
+Example: 1</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+									</xsd:sequence>
+									<xsd:attribute name="Number" type="xsd:string" use="required">
+										<xsd:annotation>
+											<xsd:documentation>The 13 digt ticket number of the ticket to be refunded.
+Example: 0012345467891</xsd:documentation>
+										</xsd:annotation>
+									</xsd:attribute>
+								</xsd:complexType>
+							</xsd:element>
+							<xsd:sequence>
+								<xsd:element name="FormOfPayment" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>Form of payment identifies which amount is refunded to each FOP</xsd:documentation>
+									</xsd:annotation>
+									<xsd:complexType>
+										<xsd:sequence>
+											<xsd:element ref="CreditCard" minOccurs="0" maxOccurs="unbounded"/>
+											<xsd:element name="Other" minOccurs="0" maxOccurs="unbounded">
+												<xsd:annotation>
+													<xsd:documentation>Other payment information.  Example: CHECK 113</xsd:documentation>
+												</xsd:annotation>
+												<xsd:complexType>
+													<xsd:simpleContent>
+														<xsd:extension base="xsd:string">
+															<xsd:attribute name="ActualAmount" type="xsd:positiveInteger">
+																<xsd:annotation>
+																	<xsd:documentation>This is the amount actually allocated for refund to this FOP</xsd:documentation>
+																</xsd:annotation>
+															</xsd:attribute>
+														</xsd:extension>
+													</xsd:simpleContent>
+												</xsd:complexType>
+											</xsd:element>
+										</xsd:sequence>
+									</xsd:complexType>
+								</xsd:element>
+								<xsd:element name="Credit" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>This node identifies the amount to be credited for future travel and the document being issued for said credit</xsd:documentation>
+									</xsd:annotation>
+									<xsd:complexType>
+										<xsd:sequence>
+											<xsd:element name="DocNumber">
+												<xsd:annotation>
+													<xsd:documentation>The 13-digit document number (no check digit) of the 'accountable' document providing the credit, such as eCert, voucher, MCO, EMD, etc
+Example: 0061234567890</xsd:documentation>
+												</xsd:annotation>
+											</xsd:element>
+											<xsd:element name="InReferenceTo">
+												<xsd:annotation>
+													<xsd:documentation>reference to the document for which this credit has been issued for</xsd:documentation>
+												</xsd:annotation>
+												<xsd:complexType>
+													<xsd:sequence>
+														<xsd:element name="DocNumber">
+															<xsd:annotation>
+																<xsd:documentation>The 13-digit document number (no check digit) of the document/ticket for which this credit has been issued for.
+Example: 0061234567890</xsd:documentation>
+															</xsd:annotation>
+														</xsd:element>
+														<xsd:element name="DocIssuePlace" type="xsd:string">
+															<xsd:annotation>
+																<xsd:documentation>Three letter IATA code of the town where the document/ticket originally has been issued.
+Example: MIA</xsd:documentation>
+															</xsd:annotation>
+														</xsd:element>
+														<xsd:element name="DocIssueDate" type="xsd:date">
+															<xsd:annotation>
+																<xsd:documentation>Date in ISO 8601 format (yyyy-mm-dd).  Example: 2001-12-25</xsd:documentation>
+															</xsd:annotation>
+														</xsd:element>
+													</xsd:sequence>
+												</xsd:complexType>
+											</xsd:element>
+										</xsd:sequence>
+										<xsd:attribute name="Amount" type="xsd:integer" use="required">
+											<xsd:annotation>
+												<xsd:documentation>Total credit amount </xsd:documentation>
+											</xsd:annotation>
+										</xsd:attribute>
+										<!--update_add-->
+									</xsd:complexType>
+								</xsd:element>
+							</xsd:sequence>
+							<xsd:element name="FareData">
+								<xsd:annotation>
+									<xsd:documentation>Base Fare, Taxes, and Total Fare data to be refunded</xsd:documentation>
+								</xsd:annotation>
+								<xsd:complexType>
+									<xsd:sequence>
+										<xsd:element name="CurrencyCode">
+											<xsd:annotation>
+												<xsd:documentation>Currency code.  Example: USD</xsd:documentation>
+											</xsd:annotation>
+											<xsd:complexType>
+												<xsd:simpleContent>
+													<xsd:extension base="xsd:string">
+														<xsd:attribute name="NumberOfDecimals" type="xsd:positiveInteger" use="required">
+															<xsd:annotation>
+																<xsd:documentation>Decimal position in fare amount.  Example: 2</xsd:documentation>
+															</xsd:annotation>
+														</xsd:attribute>
+													</xsd:extension>
+												</xsd:simpleContent>
+											</xsd:complexType>
+										</xsd:element>
+										<xsd:element name="Price">
+											<xsd:annotation>
+												<xsd:documentation>Price group</xsd:documentation>
+											</xsd:annotation>
+											<xsd:complexType>
+												<xsd:sequence>
+													<xsd:element name="BaseFare">
+														<xsd:complexType>
+															<xsd:sequence>
+																<xsd:element name="Surcharges" minOccurs="0">
+																	<xsd:annotation>
+																		<xsd:documentation>Sourcharges group</xsd:documentation>
+																	</xsd:annotation>
+																	<xsd:complexType>
+																		<xsd:sequence>
+																			<xsd:element name="Surcharge" type="SurchargeTypeBasic" maxOccurs="unbounded">
+																				<xsd:annotation>
+																					<xsd:documentation>Surcharges break down information.</xsd:documentation>
+																				</xsd:annotation>
+																			</xsd:element>
+																		</xsd:sequence>
+																		<xsd:attribute name="Amount" type="xsd:integer" use="required">
+																			<xsd:annotation>
+																				<xsd:documentation>Total surcharges amount.  Example: 2000</xsd:documentation>
+																			</xsd:annotation>
+																		</xsd:attribute>
+																	</xsd:complexType>
+																</xsd:element>
+															</xsd:sequence>
+															<xsd:attribute name="Amount" type="xsd:integer" use="required">
+																<xsd:annotation>
+																	<xsd:documentation>Total base fare amount that includes surcharges (if any).  Example: 200000</xsd:documentation>
+																</xsd:annotation>
+															</xsd:attribute>
+														</xsd:complexType>
+													</xsd:element>
+													<xsd:element name="Taxes">
+														<xsd:annotation>
+															<xsd:documentation>Tax break down information group </xsd:documentation>
+														</xsd:annotation>
+														<xsd:complexType>
+															<xsd:sequence>
+																<xsd:element name="Tax" maxOccurs="unbounded">
+																	<xsd:annotation>
+																		<xsd:documentation>Tax break down information group </xsd:documentation>
+																	</xsd:annotation>
+																	<xsd:complexType>
+																		<xsd:complexContent>
+																			<xsd:extension base="TaxType">
+																				<xsd:attribute name="Refundable" use="optional">
+																					<xsd:annotation>
+																						<xsd:documentation>Indicates if tax is refundable.  Values are:
+Y = Tax refundable (default)
+N = Tax not refundable
+Example: N</xsd:documentation>
+																					</xsd:annotation>
+																					<xsd:simpleType>
+																						<xsd:restriction base="xsd:string">
+																							<xsd:enumeration value="Y"/>
+																							<xsd:enumeration value="N"/>
+																						</xsd:restriction>
+																					</xsd:simpleType>
+																				</xsd:attribute>
+																			</xsd:extension>
+																		</xsd:complexContent>
+																	</xsd:complexType>
+																</xsd:element>
+															</xsd:sequence>
+															<xsd:attribute name="Amount" type="xsd:integer" use="required">
+																<xsd:annotation>
+																	<xsd:documentation>Total taxes amount.  Example: 30000</xsd:documentation>
+																</xsd:annotation>
+															</xsd:attribute>
+														</xsd:complexType>
+													</xsd:element>
+												</xsd:sequence>
+												<xsd:attribute name="Total" type="xsd:positiveInteger" use="required">
+													<xsd:annotation>
+														<xsd:documentation>Total fare amount for one traveler of the specified passenger type.  Total price = base fare amount + taxes amount.  Example: 230000</xsd:documentation>
+													</xsd:annotation>
+												</xsd:attribute>
+											</xsd:complexType>
+										</xsd:element>
+										<xsd:element name="FareRules">
+											<xsd:annotation>
+												<xsd:documentation>Fare rules information</xsd:documentation>
+											</xsd:annotation>
+											<xsd:complexType>
+												<xsd:sequence>
+													<xsd:element name="TourCode" type="xsd:string" minOccurs="0">
+														<xsd:annotation>
+															<xsd:documentation>Tour code identifier. Example: ITGF12
+(Galileo / Apollo)</xsd:documentation>
+														</xsd:annotation>
+													</xsd:element>
+												</xsd:sequence>
+											</xsd:complexType>
+										</xsd:element>
+										<xsd:element name="Commission" minOccurs="0">
+											<xsd:annotation>
+												<xsd:documentation>Represents the commission to be returned to airline</xsd:documentation>
+											</xsd:annotation>
+											<xsd:complexType>
+												<xsd:simpleContent>
+													<xsd:extension base="xsd:string">
+														<xsd:attribute name="Type" type="xsd:string" use="required">
+															<xsd:annotation>
+																<xsd:documentation>The type of commission: Percentage (P) or Amount (A).
+Example: A</xsd:documentation>
+															</xsd:annotation>
+														</xsd:attribute>
+														<xsd:attribute name="NumberOfDecimals" type="xsd:int">
+															<xsd:annotation>
+																<xsd:documentation>The number of decimals if the commission type is A.
+Example: 2</xsd:documentation>
+															</xsd:annotation>
+														</xsd:attribute>
+													</xsd:extension>
+												</xsd:simpleContent>
+											</xsd:complexType>
+										</xsd:element>
+									</xsd:sequence>
+								</xsd:complexType>
+							</xsd:element>
+							<xsd:element name="TicketRemark" minOccurs="0" maxOccurs="unbounded">
+								<xsd:annotation>
+									<xsd:documentation>Ticket remark group</xsd:documentation>
+								</xsd:annotation>
+								<xsd:complexType>
+									<xsd:sequence>
+										<xsd:element name="Text" type="xsd:string" maxOccurs="unbounded">
+											<xsd:annotation>
+												<xsd:documentation>Information text.  Example: Free flow text</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+									</xsd:sequence>
+								</xsd:complexType>
+							</xsd:element>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+				<xsd:element name="RefundData">
+					<xsd:annotation>
+						<xsd:documentation>Data specific to the monetary refund</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="CurrencyCode">
+								<xsd:annotation>
+									<xsd:documentation>Currency code.  Example: USD</xsd:documentation>
+								</xsd:annotation>
+								<xsd:complexType>
+									<xsd:simpleContent>
+										<xsd:extension base="xsd:string">
+											<xsd:attribute name="NumberOfDecimals" type="xsd:positiveInteger" use="required">
+												<xsd:annotation>
+													<xsd:documentation>Decimal position in fare amount.  Example: 2</xsd:documentation>
+												</xsd:annotation>
+											</xsd:attribute>
+										</xsd:extension>
+									</xsd:simpleContent>
+								</xsd:complexType>
+							</xsd:element>
+							<xsd:element name="FeesAndPenalties" minOccurs="0">
+								<xsd:annotation>
+									<xsd:documentation>Total fees and penalties</xsd:documentation>
+								</xsd:annotation>
+								<xsd:complexType>
+									<xsd:sequence>
+										<xsd:element name="Tax" type="TaxType" minOccurs="0" maxOccurs="unbounded">
+											<xsd:annotation>
+												<xsd:documentation>Tax break down information group. Non-refundable taxes (treated as a penalty).  Tax break-down needed for some settlement authorities such as BSP </xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="CancellationCommission" minOccurs="0">
+											<xsd:annotation>
+												<xsd:documentation>The amount of commission taken on the cancellation penalty.
+Example: 100</xsd:documentation>
+											</xsd:annotation>
+											<xsd:complexType>
+												<xsd:simpleContent>
+													<xsd:extension base="xsd:string">
+														<xsd:attribute name="Type" use="required">
+															<xsd:annotation>
+																<xsd:documentation>The type of commission: Percentage (P) or Amount (A).
+Example: A</xsd:documentation>
+															</xsd:annotation>
+															<xsd:simpleType>
+																<xsd:restriction base="xsd:string">
+																	<xsd:enumeration value="A"/>
+																	<xsd:enumeration value="P"/>
+																</xsd:restriction>
+															</xsd:simpleType>
+														</xsd:attribute>
+													</xsd:extension>
+												</xsd:simpleContent>
+											</xsd:complexType>
+										</xsd:element>
+										<xsd:element name="CancellationPenalty" minOccurs="0">
+											<xsd:annotation>
+												<xsd:documentation>The amount that is to be paid as cancellation penalty.
+Example: 100</xsd:documentation>
+											</xsd:annotation>
+											<xsd:complexType>
+												<xsd:simpleContent>
+													<xsd:extension base="xsd:int"/>
+												</xsd:simpleContent>
+											</xsd:complexType>
+										</xsd:element>
+										<xsd:element name="CommFee" type="xsd:nonNegativeInteger" minOccurs="0">
+											<xsd:annotation>
+												<xsd:documentation>non-refundable commission fee amount charged (if any).  Example: 1000</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="PenaltyFee" type="xsd:nonNegativeInteger" minOccurs="0">
+											<xsd:annotation>
+												<xsd:documentation>penalty fee amount charged based on the original fare rules (if any).  Example: 1000</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="AdminFee" type="xsd:nonNegativeInteger" minOccurs="0">
+											<xsd:annotation>
+												<xsd:documentation>Administrative fee amount charged for the processing of the refund transaction (if any).  Example: 1000</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+									</xsd:sequence>
+									<xsd:attribute name="Amount" type="xsd:integer" use="required">
+										<xsd:annotation>
+											<xsd:documentation>Total fees and penalties amount.  Example: 30000</xsd:documentation>
+										</xsd:annotation>
+									</xsd:attribute>
+								</xsd:complexType>
+							</xsd:element>
+							<xsd:sequence>
+								<xsd:element name="TotalRefund" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>The total refund amount</xsd:documentation>
+									</xsd:annotation>
+									<xsd:complexType>
+										<xsd:attribute name="Amount" type="xsd:integer" use="required">
+											<xsd:annotation>
+												<xsd:documentation>Amount EXCLUDING any fees and penalties. </xsd:documentation>
+											</xsd:annotation>
+										</xsd:attribute>
+										<xsd:attribute name="Refund" use="required">
+											<xsd:annotation>
+												<xsd:documentation>Amount INCLUDING any fees and penalties. This is the exact amount returned as a refund</xsd:documentation>
+											</xsd:annotation>
+										</xsd:attribute>
+									</xsd:complexType>
+								</xsd:element>
+								<xsd:element name="TotalCredit" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>The total credit amount (but excluding any fees and penalties)</xsd:documentation>
+									</xsd:annotation>
+									<xsd:complexType>
+										<xsd:attribute name="Amount" type="xsd:integer" use="required">
+											<xsd:annotation>
+												<xsd:documentation>[Credit] Amount EXCLUDING any fees and penalties. </xsd:documentation>
+											</xsd:annotation>
+										</xsd:attribute>
+										<xsd:attribute name="Refund" use="required">
+											<xsd:annotation>
+												<xsd:documentation>Amount INCLUDING any fees and penalties. This is the exact amount issued as a credit (MCO/EMD, etc)</xsd:documentation>
+											</xsd:annotation>
+										</xsd:attribute>
+									</xsd:complexType>
+								</xsd:element>
+							</xsd:sequence>
+							<xsd:element ref="RefundAuthNumber" minOccurs="0"/>
+							<xsd:element ref="WaiverCode" minOccurs="0"/>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+				<xsd:element name="FlownSegment" minOccurs="0" maxOccurs="15">
+					<xsd:annotation>
+						<xsd:documentation>Information about coupons that have already been used. To be specified for a partial refund.</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="BaseFareUsed">
+								<xsd:annotation>
+									<xsd:documentation>Base fare amount used for this coupon.</xsd:documentation>
+								</xsd:annotation>
+								<xsd:complexType>
+									<xsd:simpleContent>
+										<xsd:extension base="xsd:integer">
+											<xsd:attribute name="NumberOfDecimals" type="xsd:integer" use="required"/>
+										</xsd:extension>
+									</xsd:simpleContent>
+								</xsd:complexType>
+							</xsd:element>
+							<xsd:element name="FareBasisCode" type="xsd:string">
+								<xsd:annotation>
+									<xsd:documentation>Fare basis code of the fare on flown segment.</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+							<xsd:element name="TicketDesignator" type="xsd:string">
+								<xsd:annotation>
+									<xsd:documentation>The ticket designator of the segment flown.</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+							<xsd:element name="SurchargesUsed" minOccurs="0">
+								<xsd:annotation>
+									<xsd:documentation>The surcharges used by this coupon</xsd:documentation>
+								</xsd:annotation>
+								<xsd:complexType>
+									<xsd:simpleContent>
+										<xsd:extension base="xsd:integer">
+											<xsd:attribute name="NumberOfDecimals" type="xsd:integer" use="required"/>
+										</xsd:extension>
+									</xsd:simpleContent>
+								</xsd:complexType>
+							</xsd:element>
+						</xsd:sequence>
+						<xsd:attribute name="CouponNumber" type="xsd:int" use="required">
+							<xsd:annotation>
+								<xsd:documentation>The coupon number of the segment flown.</xsd:documentation>
+							</xsd:annotation>
+						</xsd:attribute>
+						<xsd:attribute name="TicketNumber" type="xsd:long" use="required">
+							<xsd:annotation>
+								<xsd:documentation>The ticket number of the segment flown. In case of a conjunctive ticket, give the exact ticket number, not the first one of the conjunctive set.</xsd:documentation>
+							</xsd:annotation>
+						</xsd:attribute>
+					</xsd:complexType>
+				</xsd:element>
+				<xsd:element name="PrinterGroup" type="TktPrinterGroup" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>The PrinterGroup specifies the printer(s) to print to.
+
+NOTE: The PrinterGroup is mandatory for all GDS, although it may not be required on other CRS!</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+			</xsd:sequence>
+			<xsd:attribute name="Type" use="required">
+				<xsd:annotation>
+					<xsd:documentation>Possible values are: "Full" or "Partial"</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:enumeration value="Full"/>
+						<xsd:enumeration value="Partial"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:attribute>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="CreditCard">
+		<xsd:annotation>
+			<xsd:documentation>Credit card group</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="CCCode"/>
+				<xsd:element ref="CCNumber"/>
+				<xsd:element ref="CCExpiration"/>
+				<xsd:sequence minOccurs="0">
+					<xsd:element ref="CardholderFirstName" minOccurs="0"/>
+					<xsd:element ref="CardholderLastName"/>
+				</xsd:sequence>
+			</xsd:sequence>
+			<xsd:attribute name="ActualAmount" type="xsd:positiveInteger">
+				<xsd:annotation>
+					<xsd:documentation>This is the amount actually allocated for refund to this FOP</xsd:documentation>
+				</xsd:annotation>
+			</xsd:attribute>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="CCCode">
+		<xsd:annotation>
+			<xsd:documentation>Credit card code.  Example: VI</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleType>
+			<xsd:restriction base="xsd:string"/>
+		</xsd:simpleType>
+	</xsd:element>
+	<xsd:element name="CCNumber" type="xsd:string">
+		<xsd:annotation>
+			<xsd:documentation>Credit card number.  Example: 4011236654652341</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="CCExpiration">
+		<xsd:annotation>
+			<xsd:documentation>Credit card expiration group</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="Month">
+					<xsd:annotation>
+						<xsd:documentation>Credit card expiration month as found on card.
+Example: 08</xsd:documentation>
+					</xsd:annotation>
+					<xsd:simpleType>
+						<xsd:restriction base="xsd:integer">
+							<xsd:minInclusive value="01"/>
+							<xsd:maxInclusive value="12"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+				<xsd:element name="Year">
+					<xsd:annotation>
+						<xsd:documentation>Credit card expiration year as found on card.
+Example: 09</xsd:documentation>
+					</xsd:annotation>
+					<xsd:simpleType>
+						<xsd:restriction base="xsd:integer">
+							<xsd:maxInclusive value="9999"/>
+							<xsd:minInclusive value="1950"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="CardholderFirstName">
+		<xsd:annotation>
+			<xsd:documentation>Credit card holder's first name.  Example: JOHN</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleType>
+			<xsd:restriction base="xsd:string">
+				<xsd:minLength value="1"/>
+			</xsd:restriction>
+		</xsd:simpleType>
+	</xsd:element>
+	<xsd:element name="CardholderLastName" type="xsd:string">
+		<xsd:annotation>
+			<xsd:documentation>Credit card holder's last name.  This is only required for Sabre.  Example: SMITH</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+</xsd:schema>

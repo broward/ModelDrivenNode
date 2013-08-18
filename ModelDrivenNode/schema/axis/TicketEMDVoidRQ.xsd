@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:element name="TicketEMDVoidRQ">
+		<xsd:annotation>
+			<xsd:documentation>Root element of a combined VOID request.  This API is designed to void any EMD-A documents associated to the ticket to be voided</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="TicketVoidRQ">
+					<xsd:annotation>
+						<xsd:documentation>Ticket to be voided</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element ref="EMDVoidRQ" maxOccurs="unbounded">
+					<xsd:annotation>
+						<xsd:documentation>List of all EMD-A documents associated to the ticket to be voided.</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="TicketVoidRQ">
+		<xsd:annotation>
+			<xsd:documentation>Comment describing your root element</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="IATA" type="xsd:string">
+					<xsd:annotation>
+						<xsd:documentation>IATA number of the agency originating the request.
+Example: 123456</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="PseudoCityCode" type="xsd:string">
+					<xsd:annotation>
+						<xsd:documentation>Pseudo City Code of the agency requesting the void/cancel. Used to verify if it has the authority for this request.
+Example: LNJ2</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="TicketNumber" type="xsd:string">
+					<xsd:annotation>
+						<xsd:documentation>The 14-digit number (incl check digit) of the ticket to be voided. 
+Example: 00123456789126
+NOTE: In case of a conjunctive ticket, all tickets belonging to this set will be voided.Hence, it is not necessary to specify all ticket numbers of the tickets forming part of the conjunctive set.</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="RecordLocator">
+					<xsd:annotation>
+						<xsd:documentation>The record locator of the PNR from which the ticket has been issued.</xsd:documentation>
+					</xsd:annotation>
+					<xsd:simpleType>
+						<xsd:restriction base="xsd:string">
+							<xsd:minLength value="1"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="EMDVoidRQ">
+		<xsd:annotation>
+			<xsd:documentation>Comment describing your root element</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="IATA" type="xsd:string">
+					<xsd:annotation>
+						<xsd:documentation>IATA number of the agency originating the request.
+Example: 123456</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="PseudoCityCode" type="xsd:string">
+					<xsd:annotation>
+						<xsd:documentation>Pseudo City Code of the agency requesting the void/cancel. Used to verify if it has the authority for this request.
+Example: LNJ2</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="DocumentNumber" type="xsd:string">
+					<xsd:annotation>
+						<xsd:documentation>The 14-digit number (incl check digit) of the document to be voided. 
+Example: 00123456789126
+NOTE: In case of a conjunctive ticket, all documents belonging to this set will be voided.Hence, it is not necessary to specify all document numbers of a conjunctive set.</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="RecordLocator">
+					<xsd:annotation>
+						<xsd:documentation>The record locator of the PNR from which the ticket has been issued.</xsd:documentation>
+					</xsd:annotation>
+					<xsd:simpleType>
+						<xsd:restriction base="xsd:string">
+							<xsd:minLength value="1"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>

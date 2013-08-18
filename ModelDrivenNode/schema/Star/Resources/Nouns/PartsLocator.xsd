@@ -1,0 +1,436 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:star="http://www.starstandard.org/STAR/5"
+   xmlns:oacl="http://www.openapplications.org/oagis/9/codelists" xmlns:sqdt="http://www.starstandard.org/STAR/5/qualifieddatatypes/1.0"
+   xmlns="http://www.starstandard.org/STAR/5" xmlns:ccts="urn:un:unece:uncefact:documentation:1.1" xmlns:sudt="http://www.starstandard.org/STAR/5/unqualifieddatatypes/1.0"
+   xmlns:scl="http://www.starstandard.org/STAR/5/codelists" targetNamespace="http://www.starstandard.org/STAR/5"
+   elementFormDefault="qualified" attributeFormDefault="unqualified" blockDefault="#all"
+   xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1"
+   xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"   
+>
+    <xsd:annotation>
+        <xsd:documentation source="http://www.starstandard.org/STAR/5">
+            This schema is made available under an Eclipse Public Licenses 1.0.  This
+            license may be found in the STAR/License directory as well as the STAR BOD
+            Guidelines.
+        </xsd:documentation>
+    </xsd:annotation>
+    <xsd:include schemaLocation="../Components/Common/Meta.xsd" />
+   <xsd:import namespace="http://www.starstandard.org/STAR/5/qualifieddatatypes/1.0" schemaLocation="../Components/Common/QualifiedDataTypes.xsd"/>
+   <xsd:import namespace="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" schemaLocation="../Components/OAGIS/CoreComponents/UnqualifiedDataTypes.xsd"/>
+   <xsd:import namespace="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1" schemaLocation="../Components/OAGIS/CoreComponents/QualifiedDataTypes.xsd"/>
+   <xsd:import namespace="http://www.starstandard.org/STAR/5/codelists" schemaLocation="../Components/Common/CodeLists.xsd"/>
+   <xsd:import namespace="http://www.openapplications.org/oagis/9" schemaLocation="../Components/OAGIS/Common/Components.xsd" />
+    <xsd:element name="LineStatusMinimumAcknowledgementStatus" type="MinimumAcknowledgementStatusType">
+        <xsd:annotation>
+            <xsd:documentation xmlns:star="http://www.starstandards.org/STAR" xmlns="http://www.starstandards.org/STAR" source="http://www.starstandard.org/STAR/5">The Line Status component provides a reason for the availability status of a part and may also provide additional information about the part. .</xsd:documentation>
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">This definition came from the LocatedLine Component</xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    <xsd:element name="PartyPartsLocatorSupplyingParty" type="PartsLocatorSupplyingPartyType">
+        <xsd:annotation>
+            <xsd:documentation xmlns:star="http://www.starstandards.org/STAR" xmlns="http://www.starstandards.org/STAR" source="http://www.starstandard.org/STAR/5">Represents the parts for which pricing and availability was determined.</xsd:documentation>
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">This definition came from the SupplyingParties Component</xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    <xsd:element name="PartsLocator" type="PartsLocatorType">
+        <xsd:annotation>
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">
+            	PartsLocator defines the Part Locator process for individual dealers 
+            	who use either OEM or third party part locator services to locate parts at nearby local 
+            	dealerships. For each Parts Locator represented in the Data Area of the PartsLocator BOD, 
+            	there must be one occurrence of the PartsLocator component.     
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:key name="RequestedLinesKey">
+            <xsd:selector xpath="star:RequestedLines/star:RequestedLine"/>
+            <xsd:field xpath="star:RequestedLineUIDID"/>
+        </xsd:key>
+        <xsd:unique name="RequestedLinesAlternateKey">
+            <xsd:selector xpath="star:RequestedLines/star:RequestedLine"/>
+            <xsd:field xpath="star:LineNumber"/>
+        </xsd:unique>
+        <xsd:key name="SupplyingPartiesKey">
+            <xsd:selector xpath="star:SupplyingParties/star:Party"/>
+            <xsd:field xpath="star:SupplyingPartyUIDID"/>
+        </xsd:key>
+        <xsd:unique name="SupplyingPartiesAlternateKey">
+            <xsd:selector xpath="star:SupplyingParties/star:Party"/>
+            <xsd:field xpath="star:PartyId"/>
+        </xsd:unique>
+        <xsd:key name="SupplierPartyLocationsKey">
+            <xsd:selector xpath="star:SupplyingPartyLocations/star:SupplyingPartyLocation"/>
+            <xsd:field xpath="star:SupplyingPartyLocationUIDID"/>
+            <xsd:field xpath="star:SupplyingPartyUIDID"/>
+        </xsd:key>
+        <xsd:key name="LocatedLinesKey">
+            <xsd:selector xpath="star:LocatedLines/star:LocatedLine"/>
+            <xsd:field xpath="star:LocatedLineUIDID"/>
+        </xsd:key>
+        <xsd:keyref name="SupplierLocationsRef" refer="SupplyingPartiesKey">
+            <xsd:selector xpath="star:SupplyingLocations/star:Location"/>
+            <xsd:field xpath="star:SupplyingPartyUIDID"/>
+        </xsd:keyref>
+        <xsd:keyref name="LocatedLinesRef" refer="RequestedLinesKey">
+            <xsd:selector xpath="star:LocatedLines/star:LocatedLine"/>
+            <xsd:field xpath="star:RequestedLineUIDID"/>
+        </xsd:keyref>
+        <xsd:keyref name="LocatedLinesSelfJoinRef" refer="LocatedLinesKey">
+            <xsd:selector xpath="star:LocatedLines/star:LocatedLine"/>
+            <xsd:field xpath="star:ParentLocatedLineUIDID"/>
+        </xsd:keyref>
+        <xsd:keyref name="LocatedLinesSupplyingPartyRef" refer="SupplyingPartiesKey">
+            <xsd:selector xpath="star:LocatedLines/star:LocatedLine"/>
+            <xsd:field xpath="star:SupplyingPartyUIDID"/>
+        </xsd:keyref>
+        <xsd:keyref name="LocatedLinesSupplierLocationsRef" refer="SupplierPartyLocationsKey">
+            <xsd:selector xpath="star:LocatedLines/star:LocatedLine"/>
+            <xsd:field xpath="star:SupplyingPartyLocationUIDID"/>
+            <xsd:field xpath="star:SupplyingPartyUIDID"/>
+        </xsd:keyref>
+    </xsd:element>
+    <xsd:element name="PartsLocatorHeader" type="PartsLocatorHeaderType">
+        <xsd:annotation>
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">
+                For each Parts Locator represented in the DataArea of the PartsLocator Business Object Document, there must be one occurrence of the Header component.
+            </xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    <xsd:element name="RequestedLines" type="RequestedLinesType">
+        <xsd:annotation>
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">
+                The Line component is used to communicate the type of search to be performed.  This component can occur multiple times to request a range of dealer numbers for Parts Locator.  The start Dealer Number would be the first occurrence of the Line component.  The end dealer number would be the second occurrence of the Line component.  The request however is not restricted to dealer numbers.  The component can be used to request specific dealers, specific districts, zones, etc.                
+            </xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    <xsd:element name="LocatedLines" type="LocatedLinesType">
+        <xsd:annotation>
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">
+                Located Lines
+            </xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    <xsd:element name="SupplyingParties" type="SupplyingPartiesType">
+        <xsd:annotation>
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">
+                Supplying Parties
+            </xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    <xsd:element name="SupplyingPartyLocations" type="SupplyingPartyLocationsType">
+        <xsd:annotation>
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Supplying Party Location</xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    <xsd:element name="RequestedLine" type="RequestedLineType">
+        <xsd:annotation>
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">
+                Requested Line
+            </xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    <xsd:element name="LocatedLine" type="LocatedLineType">
+        <xsd:annotation>
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">
+                Located Line
+            </xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    <xsd:complexType name="PartsLocatorType">
+        <xsd:annotation xmlns:star="http://www.starstandards.org/STAR" xmlns="http://www.starstandards.org/STAR">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">STAR Version 3.0 - Draft</xsd:documentation>
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">STAR Version 2.1, STAR approved 04/20/2005; effective date 07/04/2005</xsd:documentation>
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">STAR Version 2.0, STAR approved 05/07/2004; effective date 07/04/2004</xsd:documentation>
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">STAR Version 1.0, STAR approved 10/4/2002; OAGI approved 10/17/2002; effective date 1/01/2003</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element ref="PartsLocatorHeader"/>
+            <xsd:element ref="RequestedLines" minOccurs="0"/>
+            <xsd:element ref="LocatedLines" minOccurs="0"/>
+            <xsd:element ref="SupplyingParties" minOccurs="0"/>
+            <xsd:element ref="SupplyingPartyLocations" minOccurs="0"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="PartsLocatorHeaderType">
+        <xsd:annotation xmlns:star="http://www.starstandards.org/STAR" xmlns="http://www.starstandards.org/STAR">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="HeaderBaseType">
+                <xsd:sequence>
+                <!--    <xsd:element ref="DocumentID" /> -->
+                    <xsd:element name="LocatorCode" type="udt:CodeType" minOccurs="0">
+                  <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Identifies the type of
+                locator transaction being performed.</xsd:documentation>
+        </xsd:annotation>
+               </xsd:element>
+                    <xsd:element name="RequestedSearchCriteriaTypeCode" type="scl:RequestedSearchCriteriaTypeEnumeratedType" minOccurs="0">
+                  <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Defines whether the
+                search applies to Dealers, Suppliers or both Dealers and
+            Suppliers.</xsd:documentation>
+        </xsd:annotation>
+               </xsd:element>
+                    <xsd:element ref="RequestedSearchCriteria" minOccurs="0"/>
+                    <xsd:element ref="RequestorDealerParty" minOccurs="0"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:complexType name="RequestedLinesType">
+        <xsd:annotation xmlns:star="http://www.starstandards.org/STAR" xmlns="http://www.starstandards.org/STAR">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Represents the parts for which pricing and availability is being requested.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element ref="RequestedLine" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="LocatedLinesType">
+        <xsd:annotation xmlns:star="http://www.starstandards.org/STAR" xmlns="http://www.starstandards.org/STAR">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Represents the parts for which pricing and availability is being requested.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element ref="LocatedLine" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="SupplyingPartiesType">
+        <xsd:annotation xmlns:star="http://www.starstandards.org/STAR" xmlns="http://www.starstandards.org/STAR">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Represents the parts for which pricing and availability is being requested.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element name="Party" type="PartsLocatorSupplyingPartyType" maxOccurs="unbounded">
+                <xsd:annotation>
+                    <xsd:documentation>Deprecated:  Use PartsLocatorSupplyingParty.  This was changed to align with naming and design rules.  It is kept here for compatibility reasons.</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element ref="PartsLocatorSupplyingParty" minOccurs="1" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="SupplyingPartyLocationsType">
+        <xsd:annotation xmlns:star="http://www.starstandards.org/STAR" xmlns="http://www.starstandards.org/STAR">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Represents the parts for which pricing and availability is being requested.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element ref="SupplyingPartyLocation" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="RequestedLineType">
+        <xsd:annotation xmlns:star="http://www.starstandards.org/STAR" xmlns="http://www.starstandards.org/STAR">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Represents the parts for which pricing and availability is being requested.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element name="RequestedLineUIDID" type="udt:IdentifierType">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Only populated for
+                LocatedLine components that do not have a parent LocatedLine, this field represents
+                the LineNumber of the RequestedLine for which the pricing/availability is for. Must
+                be equal to one of the RequestedLine.LineNumber values.</xsd:documentation>
+        </xsd:annotation>
+         </xsd:element>
+            <xsd:element name="LineNumberString" type="qdt:StringType" minOccurs="0">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">The number of the given
+                Line Component within the document. LineNumbers are assigned by the sending
+            system.</xsd:documentation>
+        </xsd:annotation>
+         </xsd:element>
+            <xsd:element ref="ShipPart" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="ItemQuantity" type="sqdt:QuantityType" minOccurs="0">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Quantity of Part
+            number.</xsd:documentation>
+        </xsd:annotation>
+         </xsd:element>
+            <xsd:element name="DealerNetPriceAmount" type="udt:AmountType" minOccurs="0">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Dealer net price of the individual part for the quantity indicated.  This is the dealer net price to the dealer.</xsd:documentation>
+        </xsd:annotation>
+         </xsd:element>
+            <xsd:element name="SuggestedRetailPriceAmount" type="udt:AmountType" minOccurs="0">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Suggested retail price of the individual part for the quantity indicated.  This is the price that the manufacturer suggests the dealer sells the part for.</xsd:documentation>
+        </xsd:annotation>
+         </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="LocatedLineType">
+        <xsd:annotation xmlns:star="http://www.starstandards.org/STAR" xmlns="http://www.starstandards.org/STAR">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Represents the parts for which pricing and availability was determined.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element name="LocatedLineUIDID" type="udt:IdentifierType">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">A unique identifier of
+                the record. This value should have no business meaning and serves the purpose as the
+                primary key in this component.</xsd:documentation>
+        </xsd:annotation>
+         </xsd:element>
+            <xsd:element name="ParentLocatedLineUIDID" type="udt:IdentifierType" minOccurs="0">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">For a child LocatedLine,
+                this value is equal to the LocatedLine.LocatedLineUID value of the parent
+                LocatedLine.</xsd:documentation>
+        </xsd:annotation>
+         </xsd:element>
+            <xsd:element name="SupplyingPartyUIDID" type="udt:IdentifierType">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">This field identifies the
+                supplying party for the located line and must be equal to one of the
+                SupplyingParties.Party.SupplyingPartyUID values.</xsd:documentation>
+        </xsd:annotation>
+         </xsd:element>
+            <xsd:element name="SupplyingPartyLocationUIDID" type="udt:IdentifierType" minOccurs="0">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">The
+                SupplyingPartyLocation.SupplyingPartyLocationUID of the supplying party's location.
+                The combination of SupplyingPartyUID and SupplyingPartyLocationUID must equal one of
+                the records in SupplyingPartyLocations. This field is only poplated when the
+                LocatedLine has no child lines.</xsd:documentation>
+        </xsd:annotation>
+         </xsd:element>
+            <xsd:element name="RequestedLineUIDID" type="udt:IdentifierType" minOccurs="0">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Only populated for
+                LocatedLine components that do not have a parent LocatedLine, this field represents
+                the LineNumber of the RequestedLine for which the pricing/availability is for. Must
+                be equal to one of the RequestedLine.LineNumber values.</xsd:documentation>
+        </xsd:annotation>
+         </xsd:element>
+            <xsd:element name="LineNumberString" type="qdt:StringType" minOccurs="0">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">The number of the given
+                Line Component within the document. LineNumbers are assigned by the sending
+            system.</xsd:documentation>
+        </xsd:annotation>
+         </xsd:element>
+            <xsd:element ref="PartsProductItem"/>
+            <xsd:element name="ItemQuantity" type="sqdt:QuantityType">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Quantity of Part
+            number.</xsd:documentation>
+        </xsd:annotation>
+         </xsd:element>
+            <xsd:element name="DealerNetPriceAmount" type="udt:AmountType" minOccurs="0">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Dealer net price of the individual part for the quantity indicated.  This is the dealer net price to the dealer.</xsd:documentation>
+        </xsd:annotation>
+         </xsd:element>
+            <xsd:element name="SuggestedRetailPriceAmount" type="udt:AmountType" minOccurs="0">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Suggested retail price of the individual part for the quantity indicated.  This is the price that the manufacturer suggests the dealer sells the part for.</xsd:documentation>
+        </xsd:annotation>
+         </xsd:element>
+            <xsd:element name="AvailabilityStatusCode" type="scl:AvailabilityStatusEnumeratedType" minOccurs="0">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Indicates the status of
+                the part at the supplying location.</xsd:documentation>
+        </xsd:annotation>
+         </xsd:element>
+            <xsd:element name="ChildLineReasonCode" type="scl:ChildLineReasonCodeEnumeratedType" minOccurs="0">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">The reason this line has
+                child lines.</xsd:documentation>
+        </xsd:annotation>
+         </xsd:element>
+            <xsd:element name="ChildLinePricingAppliesIndicator" type="udt:IndicatorType" minOccurs="0">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Identifies if the pricing
+                of the child line(s) applies.</xsd:documentation>
+        </xsd:annotation>
+         </xsd:element>
+            <xsd:element name="LastSoldDate" type="udt:DateType" minOccurs="0">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Last date this item was
+                sold.</xsd:documentation>
+        </xsd:annotation>
+         </xsd:element>
+            <xsd:element name="LastInventoryDate" type="udt:DateType" minOccurs="0">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">The last date inventory
+                was updated for this part.</xsd:documentation>
+        </xsd:annotation>
+         </xsd:element>
+            <xsd:element name="PriceDescription" type="udt:TextType" minOccurs="0">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">A textual description of
+                price.</xsd:documentation>
+        </xsd:annotation>
+         </xsd:element>
+            <xsd:element name="SupplierItemID" type="udt:IdentifierType" minOccurs="0">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Supplier identification
+                of part on order.</xsd:documentation>
+        </xsd:annotation>
+         </xsd:element>
+            <xsd:element ref="LineStatus" minOccurs="0"/>
+            <xsd:element name="AlternateItemID" type="udt:IdentifierType" minOccurs="0" maxOccurs="1">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">An alternate identifier
+                for an item or part in addition to the item number or part number. This may be a
+                unique identifier used for a independent after market(non dealer) sales
+            part.</xsd:documentation>
+        </xsd:annotation>
+         </xsd:element>
+            <xsd:element name="SupersedingPartNumberID" type="udt:IdentifierType" minOccurs="0" maxOccurs="1">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Part number superseding
+                this one.</xsd:documentation>
+        </xsd:annotation>
+         </xsd:element>
+            <xsd:element name="OvernightIndicator" type="udt:IndicatorType" minOccurs="0" maxOccurs="1">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">A flag which indicates if
+                the part is available for overnight shipping.</xsd:documentation>
+        </xsd:annotation>
+         </xsd:element>
+            <xsd:element name="DealerToDealerTradePriceAmount" type="udt:AmountType" minOccurs="0" maxOccurs="1">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">The price for a dealer
+                trade of a part. Dealer to Dealer Trade.</xsd:documentation>
+        </xsd:annotation>
+         </xsd:element>
+            <xsd:element name="CorePriceAmount" type="udt:AmountType" minOccurs="0" maxOccurs="1">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5"> The value of a used part
+                if returned to the OEM for refurbishing.</xsd:documentation>
+        </xsd:annotation>
+         </xsd:element>
+            <xsd:element name="ShipDirectStandardServiceIndicator" type="udt:IndicatorType" minOccurs="0" maxOccurs="1">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">The
+                ShipDirectStandardServiceIndicator indicates the ability for a facility to offer
+                direct ship as a standard (and not exception) service.</xsd:documentation>
+        </xsd:annotation>
+         </xsd:element>
+            <xsd:element name="PartToBeReturnedIndicator" type="udt:IndicatorType" minOccurs="0" maxOccurs="1">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Indicates whether or not
+                the part should be returned or retained.</xsd:documentation>
+        </xsd:annotation>
+         </xsd:element>
+            <xsd:element name="QuantityAvailable" type="sqdt:QuantityType" minOccurs="0" maxOccurs="1">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">The quantity the dealer
+                has available for release from inventory. It is traditionally defined as Quantity On
+                Hand minus reserved or encumbered parts.</xsd:documentation>
+        </xsd:annotation>
+         </xsd:element>
+            <xsd:element name="QuantityOnHand" type="sqdt:QuantityType" minOccurs="0" maxOccurs="1">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">The quantity of part
+                currently in inventory.</xsd:documentation>
+        </xsd:annotation>
+         </xsd:element>
+            <xsd:element name="EstimatedFreightCostAmount" type="udt:AmountType" minOccurs="0" maxOccurs="1">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Is used to the describe
+                the estimated cost of transporting the items or products being sold, produced or
+                purchased. This amount is usually determined at the time the sales order is created
+                and is quoted to the customer, before the actual shipping method, weight or number
+                of units is known. This is also customarily known as a general Shipping and Handling
+                charge.</xsd:documentation>
+        </xsd:annotation>
+         </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+</xsd:schema>

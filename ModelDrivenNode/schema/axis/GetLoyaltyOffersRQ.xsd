@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<xsd:element name="GetLoyaltyOffersRQ">
+		<xsd:annotation>
+			<xsd:documentation>Profile create root element</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="EventType">
+					<xsd:annotation>
+						<xsd:documentation>ENR = Enrollment
+ANN = Anniversary
+REV = Revenue Treshold</xsd:documentation>
+					</xsd:annotation>
+					<xsd:simpleType>
+						<xsd:restriction base="xsd:string">
+							<xsd:enumeration value="ENR"/>
+							<xsd:enumeration value="ANN"/>
+							<xsd:enumeration value="REV"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+				<xsd:element name="LoyaltyMemberID">
+					<xsd:annotation>
+						<xsd:documentation>Account ID
+Example: AC7890</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="ProgramName">
+					<xsd:annotation>
+						<xsd:documentation>The loyalty program name
+Example: SME</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="GroupID" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Associates this account to a pre-defined group</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="RevenueDataGroup" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Needed for the following events:
+
+RevenueTreshold
+Booking
+</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="CurrentYearBalance">
+								<xsd:annotation>
+									<xsd:documentation>accrued revenue for current year</xsd:documentation>
+								</xsd:annotation>
+								<xsd:complexType>
+									<xsd:attribute name="Amount" use="required">
+										<xsd:annotation>
+											<xsd:documentation>accrued balance for the current year (flown revenue)</xsd:documentation>
+										</xsd:annotation>
+									</xsd:attribute>
+								</xsd:complexType>
+							</xsd:element>
+							<xsd:element name="LifetimeBalance">
+								<xsd:annotation>
+									<xsd:documentation>accrued revenue over the life of this membership</xsd:documentation>
+								</xsd:annotation>
+								<xsd:complexType>
+									<xsd:attribute name="Amount" use="required">
+										<xsd:annotation>
+											<xsd:documentation>accrued balance over the flifetime of the account</xsd:documentation>
+										</xsd:annotation>
+									</xsd:attribute>
+								</xsd:complexType>
+							</xsd:element>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="CurrencyCode">
+		<xsd:annotation>
+			<xsd:documentation>Currency code.  Example: USD</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:simpleContent>
+				<xsd:restriction base="CurrencyCodeType">
+					<xsd:pattern value="[A-Z0-9]{3}"/>
+					<xsd:attribute name="NumberOfDecimals" type="xsd:integer" use="required">
+						<xsd:annotation>
+							<xsd:documentation>Decimal position in fare amount.  Example: 2</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:restriction>
+			</xsd:simpleContent>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:complexType name="CurrencyCodeType">
+		<xsd:annotation>
+			<xsd:documentation>Defines currency code (ISO 3-letter code) and optional number of decimals. Not that for request messages the NumberOfDecimals has no effect and is not needed.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleContent>
+			<xsd:extension base="xsd:string">
+				<xsd:attribute name="NumberOfDecimals" type="xsd:integer" use="optional">
+					<xsd:annotation>
+						<xsd:documentation>Decimal position in fare amount.  Example: 2</xsd:documentation>
+					</xsd:annotation>
+				</xsd:attribute>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+</xsd:schema>

@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:element name="BoardingPassRQ">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="RecordLocator">
+					<xsd:annotation>
+						<xsd:documentation>The record locator of the PNR for which the ticket(s) are to be issued.
+Example: XQ23AX</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="CheckInInfo" minOccurs="0" maxOccurs="unbounded">
+					<xsd:complexType>
+						<xsd:annotation>
+							<xsd:documentation>Holds all the data associated with the check in of a passenger.</xsd:documentation>
+						</xsd:annotation>
+						<xsd:sequence>
+							<xsd:element ref="TravelerElementNumber"/>
+							<xsd:element ref="SegmentElementNumber"/>
+							<xsd:element name="TicketNumber" type="xsd:string">
+								<xsd:annotation>
+									<xsd:documentation>13-digit ticket number of the ticket.  In case of a conjunctive set this is the primary number of the set. 
+Example: 1761233215673</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+							<xsd:element name="SoldAs" type="xsd:string" minOccurs="0">
+								<xsd:annotation>
+									<xsd:documentation> to do ... </xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+							<xsd:element name="CheckInStatus" type="xsd:string">
+								<xsd:annotation>
+									<xsd:documentation>Check-in status information</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+							<xsd:element name="DepartureInfo">
+								<xsd:complexType>
+									<xsd:sequence>
+										<xsd:element name="Origin" type="xsd:string">
+											<xsd:annotation>
+												<xsd:documentation>The 3-character IATA flight origin airport code. (need to check) </xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="Destination" type="xsd:string">
+											<xsd:annotation>
+												<xsd:documentation>The 3-character IATA flight destination airport code. (need to check) </xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="Terminal">
+											<xsd:annotation>
+												<xsd:documentation>Departure Terminal Designator
+Example: A</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="Gate">
+											<xsd:annotation>
+												<xsd:documentation>(Numeric) Departure Gate
+Example: 35</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element ref="DepartureDateTime"/>
+									</xsd:sequence>
+								</xsd:complexType>
+							</xsd:element>
+							<xsd:element name="TravelerInfo">
+								<xsd:complexType>
+									<xsd:sequence>
+										<xsd:element name="LastName" type="xsd:string">
+											<xsd:annotation>
+												<xsd:documentation>Passenger LAST name as returned by host system</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="MiddleName" minOccurs="0">
+											<xsd:annotation>
+												<xsd:documentation>Passenger MIDDLE name as returned by host system</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="FirstName" type="xsd:string">
+											<xsd:annotation>
+												<xsd:documentation>Passenger FIRST name as returned by host system</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="PassengerId" type="xsd:string" minOccurs="0">
+											<xsd:annotation>
+												<xsd:documentation>Passenger Host System ID</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="FQTVNumber" type="xsd:string" minOccurs="0">
+											<xsd:annotation>
+												<xsd:documentation>The FFN/Loyalty number for mileage accrual for this flight (will show on BP)</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="FQTVStatus" type="xsd:string" minOccurs="0">
+											<xsd:annotation>
+												<xsd:documentation>The FQTV Loyalty Level (Tier Level) associated to the FQTV Number used for this flights.</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="Selectee" minOccurs="0">
+											<xsd:annotation>
+												<xsd:documentation>Possible Value: "Y"
+
+Flagged to be screened during the security process</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+									</xsd:sequence>
+								</xsd:complexType>
+							</xsd:element>
+							<xsd:element name="BoardingInfo">
+								<xsd:complexType>
+									<xsd:sequence>
+										<xsd:element name="CarrierCode" type="xsd:string">
+											<xsd:annotation>
+												<xsd:documentation>The 2-character IATA Carrier code</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="FlightNumber" type="xsd:string">
+											<xsd:annotation>
+												<xsd:documentation>Flight number</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="CabinClass" type="xsd:string">
+											<xsd:annotation>
+												<xsd:documentation>Cabin class for this check-in</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="SeatNumber" type="xsd:string">
+											<xsd:annotation>
+												<xsd:documentation>Passengers seat number</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="CheckInSequenceNumber" type="xsd:string">
+											<xsd:annotation>
+												<xsd:documentation>Sequence number to print on boarding pass. </xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element ref="BoardingDateTime"/>
+										<xsd:element name="ExitRowSeat" minOccurs="0">
+											<xsd:annotation>
+												<xsd:documentation>Identifies is assigned seat is an Exit Row seat </xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="GroupNumber" type="xsd:string" minOccurs="0">
+											<xsd:annotation>
+												<xsd:documentation>Boarding Group Number</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="PriorityAccess" minOccurs="0">
+											<xsd:annotation>
+												<xsd:documentation>Possible Value: "Y"
+
+Indicates if this passenger is eligible for priority access or boarding. </xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="PremiumSeat" type="xsd:string" minOccurs="0">
+											<xsd:annotation>
+												<xsd:documentation>Possible Value: "Y"
+
+Triggers the printing of an identifier on the BoardingPass</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="DesiredUpgrade" minOccurs="0">
+											<xsd:annotation>
+												<xsd:documentation>Possible Value: "Y"
+
+Whether or not this passenger desires upgrade. </xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+									</xsd:sequence>
+								</xsd:complexType>
+							</xsd:element>
+						</xsd:sequence>
+						<xsd:attribute ref="Source"/>
+						<xsd:attribute name="BoardingPassStatus">
+							<xsd:annotation>
+								<xsd:documentation>Values: 
+P = Printed
+R = Re-Printed
+X = Cancelled</xsd:documentation>
+							</xsd:annotation>
+						</xsd:attribute>
+					</xsd:complexType>
+				</xsd:element>
+			</xsd:sequence>
+			<xsd:attribute name="Version" type="xsd:string">
+				<xsd:annotation>
+					<xsd:documentation>Version number.
+Example: 2.0</xsd:documentation>
+				</xsd:annotation>
+			</xsd:attribute>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:attribute name="Source">
+		<xsd:annotation>
+			<xsd:documentation>This is the source of the Ticket issuing/validating carrier
+
+Example: AA</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleType>
+			<xsd:restriction base="xsd:string">
+				<xsd:minLength value="1"/>
+			</xsd:restriction>
+		</xsd:simpleType>
+	</xsd:attribute>
+	<xsd:element name="TravelerElementNumber">
+		<xsd:annotation>
+			<xsd:documentation>Element number of traveler associated to this item.  Example: 1</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:simpleContent>
+				<xsd:extension base="xsd:string"/>
+			</xsd:simpleContent>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="SegmentElementNumber">
+		<xsd:annotation>
+			<xsd:documentation>Segment element number associated to this item.  Example: 1</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:simpleContent>
+				<xsd:extension base="xsd:integer"/>
+			</xsd:simpleContent>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="DepartureDateTime" type="xsd:string">
+		<xsd:annotation>
+			<xsd:documentation>Departure date/time in ISO 8601 format including GMT offset time.  
+
+Example: 2010-02-05T10:50:00.000-05:00</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="BoardingDateTime" type="xsd:string">
+		<xsd:annotation>
+			<xsd:documentation>Boarding date/time in ISO 8601 format.
+
+Example: 2010-02-05T10:50:00.000</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+</xsd:schema>
