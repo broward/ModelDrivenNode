@@ -6,11 +6,11 @@ var config = require('./config.js')(app, express);
 var mongooseAppA = require('mongoose');
 var mongooseAppB = new mongooseAppA.Mongoose();
 
-mongooseAppA.connect('mongodb://nodejitsu:841d65d300bf52d33fac1970f4482e46@paulo.mongohq.com:10003/nodejitsudb7417266459');
-mongooseAppB.connect('mongodb://nodejitsu_broward:o015i6bnbq3trrs1mkav02m1qv@ds027718.mongolab.com:27718/nodejitsu_broward_nodejitsudb2848693635');
+//mongooseAppA.connect('mongodb://nodejitsu:841d65d300bf52d33fac1970f4482e46@paulo.mongohq.com:10003/nodejitsudb7417266459');
+//mongooseAppB.connect('mongodb://nodejitsu_broward:o015i6bnbq3trrs1mkav02m1qv@ds027718.mongolab.com:27718/nodejitsu_broward_nodejitsudb2848693635');
 
-//mongooseAppA.connect('mongodb://localhost/AppA');
-//mongooseAppB.connect('mongodb://localhost/AppB');
+mongooseAppA.connect('mongodb://localhost/AppA');
+mongooseAppB.connect('mongodb://localhost/AppB');
 console.log('connected to nodejitsu');
 
 var modelsAppB = {};

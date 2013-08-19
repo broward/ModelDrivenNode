@@ -36,7 +36,9 @@ public class ModelDrivenNode {
 	}
 
 	public void buildServer(String schema) {
+		ObjectGrapher.INSTANCE.clear();
 		ResourceList.INSTANCE.getResources().clear();
+		
 		ResourceBuilder.INSTANCE.addSchema(schema); 
 		ResourceBuilder.INSTANCE.go();
 

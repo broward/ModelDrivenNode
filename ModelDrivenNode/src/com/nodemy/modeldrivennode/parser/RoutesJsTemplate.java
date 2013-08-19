@@ -17,6 +17,8 @@ public class RoutesJsTemplate extends ModelDrivenNode {
 	public RoutesJsTemplate() {
 		context.put("list", ResourceList.INSTANCE.getResources());
 		context.put("schema", SCHEMA);
+		context.put("entryPoints", ObjectGrapher.INSTANCE.getEntrypoints());
+
 		String fileName = ROUTE_OUTPUT + SCHEMA + "routes.js";
 		Template t = ve.getTemplate(TEMPLATES + "routes.vm");
 		Writer writer;
@@ -28,8 +30,6 @@ public class RoutesJsTemplate extends ModelDrivenNode {
 			e.printStackTrace();
 		}
 		
-		context.put("list", ResourceList.INSTANCE.getResources());
-		context.put("schema", SCHEMA);
 		fileName = ROUTE_OUTPUT + "jade.js";
 		t = ve.getTemplate(TEMPLATES + "jade.vm");
 		try {

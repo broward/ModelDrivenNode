@@ -71,4 +71,37 @@ module.exports = function(app, mongoose, models){
          res.redirect('/');
      });
   });
+
+
+
+  var graphs = new Array();
+#set($recordId = 0)
+#foreach ($entryPoint in $entryPoints)
+  graphs[${recordId}] = '${entryPoint}';
+#set($recordId = $recordId + 1)
+#end
+
+  function isObjectGraph(element, index, array) {
+    for (var i = 0; i < graphs.length; i++) {
+        if (element == graphs[i]) return true;
+    } 
+    return false;
+  }
+
+  /**
+   *  Filtered index listing of collections
+   */
+  app.get('/graph/${schema}', function(req, res){
+
+    //get all the examples
+    var modelNames = mongoose.modelNames();
+    modelNames = modelNames.filter(isObjectGraph);
+       
+    res.render('models.jade', {
+      title: modelNames.length + ' Generated Models for ${schema} Schema',
+      schema: '${schema}',
+      models: modelNames
+    });
+  });
+
 };
