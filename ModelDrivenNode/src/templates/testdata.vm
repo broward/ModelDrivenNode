@@ -1,6 +1,6 @@
 // Build mongoose schemas and test records
 #set($recordId = 1)
-module.exports = function(mongoose, models) {
+module.exports = function(mongoose, models, moment) {
 
 // Generate test records in hierarchical order.
 #foreach ($resource in $list)

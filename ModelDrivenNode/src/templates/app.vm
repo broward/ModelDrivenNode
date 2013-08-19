@@ -2,6 +2,7 @@ var express = require('express');
 var app = express();
 
 var config = require('./config.js')(app, express);
+var moment = require('moment');
 
 var mongooseAppA = require('mongoose');
 var mongooseAppB = new mongooseAppA.Mongoose();
@@ -18,8 +19,8 @@ var modelsAppB = {};
 modelsAppA = require('./models/AppAmodels')(mongooseAppA);
 modelsAppB = require('./models/AppBmodels')(mongooseAppB);
 
-require('./models/AppAtestdata')(mongooseAppA, modelsAppA);
-require('./models/AppBtestdata')(mongooseAppB, modelsAppB);
+require('./models/AppAtestdata')(mongooseAppA, modelsAppA, moment);
+require('./models/AppBtestdata')(mongooseAppB, modelsAppB, moment);
 
 require('./routes/AppAroutes')(app, mongooseAppA, modelsAppA);
 require('./routes/AppBroutes')(app, mongooseAppB, modelsAppB);

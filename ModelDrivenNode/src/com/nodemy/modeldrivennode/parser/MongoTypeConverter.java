@@ -33,7 +33,7 @@ public class MongoTypeConverter {
 		types.put(BigInteger.class.getSimpleName(), NUMBER);
 		types.put(int.class.getSimpleName(), NUMBER);
 		types.put(char.class.getSimpleName(), STRING);
-		types.put(XMLGregorianCalendar.class.getSimpleName(), STRING);
+		types.put(XMLGregorianCalendar.class.getSimpleName(), DATE);
 		types.put(Object.class.getSimpleName(), STRING);
 		types.put(BigDecimal.class.getSimpleName(), NUMBER);
 		types.put(Byte.class.getSimpleName(), NUMBER);

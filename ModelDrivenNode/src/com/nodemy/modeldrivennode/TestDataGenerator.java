@@ -70,6 +70,6 @@ public enum TestDataGenerator {
 	}
 	
 	private String generateDateData() {
-		return "'date data'";
+		return "moment(1318781876406)";
 	}
 }

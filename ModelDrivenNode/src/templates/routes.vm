@@ -73,7 +73,9 @@ module.exports = function(app, mongoose, models){
   });
 
 
-
+/**
+ *  Build list of collections with an object graph deeper than 3 (for now)
+ */
   var graphs = new Array();
 #set($recordId = 0)
 #foreach ($entryPoint in $entryPoints)
@@ -98,7 +100,7 @@ module.exports = function(app, mongoose, models){
     modelNames = modelNames.filter(isObjectGraph);
        
     res.render('models.jade', {
-      title: modelNames.length + ' Generated Models for ${schema} Schema',
+      title: modelNames.length + ' Top-Level Models for ${schema} Schema',
       schema: '${schema}',
       models: modelNames
     });
