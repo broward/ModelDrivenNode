@@ -3,26 +3,26 @@ var app = express();
 
 var config = require('./config.js')(app, express);
 
-var mongooseA = require('mongoose');
-var mongooseB = new mongooseA.Mongoose();
+var mongooseAppA = require('mongoose');
+var mongooseAppB = new mongooseAppA.Mongoose();
 
-mongooseA.connect('mongodb://nodejitsu:841d65d300bf52d33fac1970f4482e46@paulo.mongohq.com:10003/nodejitsudb7417266459');
-mongooseB.connect('mongodb://nodejitsu_broward:o015i6bnbq3trrs1mkav02m1qv@ds027718.mongolab.com:27718/nodejitsu_broward_nodejitsudb2848693635');
+mongooseAppA.connect('mongodb://nodejitsu:841d65d300bf52d33fac1970f4482e46@paulo.mongohq.com:10003/nodejitsudb7417266459');
+mongooseAppB.connect('mongodb://nodejitsu_broward:o015i6bnbq3trrs1mkav02m1qv@ds027718.mongolab.com:27718/nodejitsu_broward_nodejitsudb2848693635');
 
-//mongooseA.connect('mongodb://localhost/schemaA');
-//mongooseB.connect('mongodb://localhost/schemaB');
+//mongooseAppA.connect('mongodb://localhost/AppA');
+//mongooseAppB.connect('mongodb://localhost/AppB');
 console.log('connected to nodejitsu');
 
-var modelsA = {};
-var modelsB = {};
-modelsA = require('./models/Amodels')(mongooseA);
-modelsB = require('./models/Bmodels')(mongooseB);
+var modelsAppB = {};
+var modelsAppB = {};
+modelsAppA = require('./models/AppAmodels')(mongooseAppA);
+modelsAppB = require('./models/AppBmodels')(mongooseAppB);
 
-require('./models/Atestdata')(mongooseA, modelsA);
-require('./models/Btestdata')(mongooseB, modelsB);
+require('./models/AppAtestdata')(mongooseAppA, modelsAppA);
+require('./models/AppBtestdata')(mongooseAppB, modelsAppB);
 
-require('./routes/Aroutes')(app, mongooseA, modelsA);
-require('./routes/Broutes')(app, mongooseB, modelsB);
+require('./routes/AppAroutes')(app, mongooseAppA, modelsAppA);
+require('./routes/AppBroutes')(app, mongooseAppB, modelsAppB);
 
 // Entry page
   app.get('/', function(req, res){

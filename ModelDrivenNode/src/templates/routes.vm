@@ -9,7 +9,7 @@ module.exports = function(app, mongoose, models){
     var modelNames = mongoose.modelNames();
       
     res.render('models.jade', {
-      title: modelNames.length + ' Generated Models for Schema ${schema}',
+      title: modelNames.length + ' Generated Models for ${schema} Schema',
       schema: '${schema}',
       models:modelNames
     });
@@ -40,13 +40,14 @@ module.exports = function(app, mongoose, models){
    */
   app.get('/${schema}/:collection/:id', function(req, res){
     
-    console.log("my schema=" + req.params.collection);
-    
     mongoose.model(req.params.collection).findById(req.params.id, function(err, doc){
+
+      console.log("doc=" + doc);
       
       //render the view page
       res.render('doc.jade', {
-            title: 'My Test Record',
+            title: 'Test Record for ' + req.params.collection,
+            schema: '${schema}',
             doc: doc
       });
 
@@ -54,9 +55,11 @@ module.exports = function(app, mongoose, models){
   });  
   
    /**
-   *  delete a doc
+   *  delete a doc.  yes I know the verb thing.
    */ 
-  app.post('/${schema}/:collection:id', function(req, res){
+  app.get('/${schema}/delete/:collection/:id', function(req, res){
+
+    console.log("hello baby!");
 
     mongoose.model(req.params.collection).findById(req.params.id, function(err, doc){
          doc.remove();

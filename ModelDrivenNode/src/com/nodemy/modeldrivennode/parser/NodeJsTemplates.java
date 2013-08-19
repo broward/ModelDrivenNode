@@ -24,6 +24,7 @@ public class NodeJsTemplates extends ModelDrivenNode {
 	
 	private void run(String templateFile, String nodeFile, String path) {
 		context.put("list", ResourceList.INSTANCE.getResources());
+		context.put("schema", SCHEMA);
 
 		Template t = ve.getTemplate(TEMPLATES + templateFile);
 		Writer writer;
