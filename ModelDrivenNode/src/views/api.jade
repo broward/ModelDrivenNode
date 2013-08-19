@@ -1,0 +1,21 @@
+extends layout
+
+block content
+    h1= titleGet
+      #apisget
+        - for (var i = 0; i < apisget.length; i++) {
+           - var x = apisget[i].path;
+             - console.log("my x = " + x);
+                ol
+                   h4     
+                     a(href="/") #{x}
+        - }
+    h1=titlePost
+      #apispost
+        - for (var i = 0; i < apispost.length; i++) {
+           - var x = apispost[i].path;
+             - console.log("my x = " + x);
+                ol
+                   h4 
+                     a(href="/") #{x}
+        - }

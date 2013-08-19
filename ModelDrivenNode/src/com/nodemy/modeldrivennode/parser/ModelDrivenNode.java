@@ -89,10 +89,11 @@ public class ModelDrivenNode {
 		// Build first schema
 		ModelDrivenNode nb = new ModelDrivenNode();
 		nb.clean();
-		nb.buildServer("schema/OTA/OTA_HotelEvent.xsd");
+		ModelDrivenNode.SCHEMA = "A";
+		nb.buildServer("schema/OTA/OTA_profile.xsd");
 
 		// Build second schema
 		ModelDrivenNode.SCHEMA = "B";
-		nb.buildServer("schema/Star/BODs/Developer/ShowRepairOrder.xsd");
+		nb.buildServer("schema/OTA/OTA_HotelEvent.xsd");
 	}
 }

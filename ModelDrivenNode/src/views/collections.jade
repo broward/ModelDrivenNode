@@ -1,0 +1,12 @@
+extends layout
+
+block content
+    h1= title
+     - var count = 0
+     #collectionName
+     #collections
+        - each collection in collections
+             - count++
+             ol
+                  h4 #{count}<sp><sp><sp><sp>     
+                     a(href="/") #{collection}

@@ -1,0 +1,11 @@
+extends layout
+
+block content
+    h1= title
+     - var count = 0
+     #models
+        - each model in models
+             - count++
+             ol
+                  h4 #{count}<sp><sp><sp><sp>     
+                     a(href="/#{schema}/#{model}") #{model} 

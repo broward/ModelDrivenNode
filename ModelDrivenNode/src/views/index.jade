@@ -1,0 +1,28 @@
+extends layout
+
+block content
+  h1= title
+    img(class="artifact-img", src="/img/ReferenceImplementation.png")
+  p
+    h2  My target reference model for the Model-Driven Node.  This diagram represents what a real enterprise-level organization could look like with componentized node.js applications organized into an holistic system. This current example has generated models, collections, test data and API for 2000 collections derived from two open source xsd schemas, the <a href="http://www.opentravel.org">Open Travel Alliance</a> and the <a href="http://www.starstandard.org">Star Standard for Automobile Retail.</a>
+
+    h3
+         "App A" Reference
+    ul
+      li 
+         h4
+            a(href="/A") Schema Models
+      li
+         h4
+            a(href="/api") REST API  
+  p 
+    h3 
+         "App B" Reference
+    ul
+      li 
+         h4 
+            a(href="/B") Schema Models
+      li
+         h4 
+            a(href="/api") REST API
+
