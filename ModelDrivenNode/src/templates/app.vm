@@ -7,11 +7,11 @@ var moment = require('moment');
 var mongooseAppA = require('mongoose');
 var mongooseAppB = new mongooseAppA.Mongoose();
 
-//mongooseAppA.connect('mongodb://nodejitsu:841d65d300bf52d33fac1970f4482e46@paulo.mongohq.com:10003/nodejitsudb7417266459');
-//mongooseAppB.connect('mongodb://nodejitsu_broward:o015i6bnbq3trrs1mkav02m1qv@ds027718.mongolab.com:27718/nodejitsu_broward_nodejitsudb2848693635');
+mongooseAppA.connect('mongodb://nodejitsu:be4d8fdcd8f572b2cbea53acc213eae1@paulo.mongohq.com:10030/nodejitsudb430192188');
+mongooseAppB.connect('mongodb://nodejitsu:e24c1205f87356c25a2869715153e7bb@paulo.mongohq.com:10029/nodejitsudb96122706');
 
-mongooseAppA.connect('mongodb://localhost/AppA');
-mongooseAppB.connect('mongodb://localhost/AppB');
+//mongooseAppA.connect('mongodb://localhost/AppA');
+//mongooseAppB.connect('mongodb://localhost/AppB');
 console.log('connected to nodejitsu');
 
 var modelsAppB = {};
@@ -19,8 +19,13 @@ var modelsAppB = {};
 modelsAppA = require('./models/AppAmodels')(mongooseAppA);
 modelsAppB = require('./models/AppBmodels')(mongooseAppB);
 
-require('./models/AppAtestdata')(mongooseAppA, modelsAppA, moment);
-require('./models/AppBtestdata')(mongooseAppB, modelsAppB, moment);
+require('./models/AppAtestdata1')(mongooseAppA, modelsAppA, moment);
+require('./models/AppAtestdata2')(mongooseAppA, modelsAppA, moment);
+require('./models/AppAtestdata3')(mongooseAppA, modelsAppA, moment);
+
+require('./models/AppBtestdata1')(mongooseAppB, modelsAppB, moment);
+require('./models/AppBtestdata2')(mongooseAppB, modelsAppB, moment);
+require('./models/AppBtestdata3')(mongooseAppB, modelsAppB, moment);
 
 require('./routes/AppAroutes')(app, mongooseAppA, modelsAppA);
 require('./routes/AppBroutes')(app, mongooseAppB, modelsAppB);

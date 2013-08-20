@@ -10,7 +10,8 @@
     "jade": ">= 0.31.0",
     "stylus": "*",
     "mongodb": ">= 0.9.6-7",
-    "mongoose": ">= 2.5.10"
+    "mongoose": ">= 2.5.10",
+    "moment": ">= 2.1.0"
   },
   "engines": {
     "node": "0.8.x",

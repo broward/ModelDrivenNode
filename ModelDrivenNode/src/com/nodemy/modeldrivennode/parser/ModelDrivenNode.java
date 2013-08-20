@@ -49,6 +49,7 @@ public class ModelDrivenNode {
 			// Run javascript templates for node.js
 			new NodeJsTemplates();
 			new RoutesJsTemplate();
+			new TestDataTemplates();
 			System.out.println("NodeServer for " + SCHEMA + " built!");
 		} catch (Exception e) {
 			e.printStackTrace();

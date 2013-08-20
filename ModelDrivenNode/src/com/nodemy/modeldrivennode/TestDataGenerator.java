@@ -1,5 +1,7 @@
 package com.nodemy.modeldrivennode;
 
+import java.util.Date;
+
 import com.nodemy.modeldrivennode.parser.MongoTypeConverter;
 
 
@@ -69,7 +71,11 @@ public enum TestDataGenerator {
 		}
 	}
 	
+	@SuppressWarnings("deprecation")
 	private String generateDateData() {
-		return "moment(1318781876406)";
+		double random = (int) (Math.random() * 100000000);
+		Date now = new Date();
+		random = now.getTime() - (random*100);
+		return "moment(" + random + ")";
 	}
 }

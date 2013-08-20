@@ -12,13 +12,12 @@ import org.apache.velocity.Template;
  * @author broward
  * 
  */
-public class NodeJsTemplates extends ModelDrivenNode {
+public class TestDataTemplates extends ModelDrivenNode {
 
-	public NodeJsTemplates() {
-		run("app.vm", "app.js", SERVER_ROOT);
-		run("config.vm", "config.js", SERVER_ROOT);
-		run("package.vm", "package.json", SERVER_ROOT);
-		run("models.vm", SCHEMA + "models.js", MODEL_OUTPUT);
+	public TestDataTemplates() {
+		run("testdata.vm", SCHEMA + "testdata1.js", MODEL_OUTPUT);
+		run("testdata.vm", SCHEMA + "testdata2.js", MODEL_OUTPUT);
+		run("testdata.vm", SCHEMA + "testdata3.js", MODEL_OUTPUT);
 	}
 	
 	private void run(String templateFile, String nodeFile, String path) {

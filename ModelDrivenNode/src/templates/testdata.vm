@@ -1,10 +1,11 @@
 // Build mongoose schemas and test records
-#set($recordId = 1)
+#set($recordId = $randomId)
 module.exports = function(mongoose, models, moment) {
 
 // Generate test records in hierarchical order.
 #foreach ($resource in $list)
 #set($recordId = $recordId + 1)
+
 var ${resource.name}Schema = models.${resource.name};
 var ${resource.name} = models.${resource.name};
 var ${resource.name}Record = new ${resource.name}();
@@ -14,9 +15,12 @@ var ${resource.name}Record = new ${resource.name}();
      ${resource.name}Record.mdnId = ${recordId};
 #end
 
-// Post test record to database enmass to children are
-// referenced by parents, etc.
+
+// Post test records in ascending order so children exist
+// before they're referenced by parents, etc.
+
 #foreach ($resource in $list)
+
 ${resource.name}Record.save(function (err) {
   if (err) // ...
   console.log('${resource.name} meowed');
