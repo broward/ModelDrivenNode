@@ -17,16 +17,20 @@ import org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader;
  */
 public class ModelDrivenNode {
 	public static String resourceDir = "/Dev/GitHub/ModelDrivenNode/ModelDrivenNode/src";
+	public static String SCHEMA = "A";
+	public static String VERSION = "v1";
 	public static final String SERVER_ROOT = "/Dev/nodejs/mdn/";
 	public static final String TEMPLATES = "templates/";
 	public static final String VIEWS = "views/";
-	public static final String MODEL_OUTPUT = SERVER_ROOT + "models/";
-	public static final String ROUTE_OUTPUT = SERVER_ROOT + "routes/";
-	public static final String JADE_OUTPUT = SERVER_ROOT + VIEWS;
+
+	public static final String MODEL_OUTPUT = SERVER_ROOT + "models-" + VERSION
+			+ "/";
+	public static final String ROUTE_OUTPUT = SERVER_ROOT + "routes-" + VERSION
+			+ "/";
+	public static final String JADE_OUTPUT = SERVER_ROOT + "views-" + VERSION
+			+ "/";
 	public static VelocityEngine ve = new VelocityEngine();
 	public static VelocityContext context = new VelocityContext();
-	public static String SCHEMA = "A";
-	public static String VERSION = "v1";
 
 	static {
 		ve.setProperty(RuntimeConstants.RESOURCE_LOADER, "classpath");
@@ -41,8 +45,8 @@ public class ModelDrivenNode {
 	public void buildServer(String schema) {
 		ObjectGrapher.INSTANCE.clear();
 		ResourceList.INSTANCE.getResources().clear();
-		
-		ResourceBuilder.INSTANCE.addSchema(schema); 
+
+		ResourceBuilder.INSTANCE.addSchema(schema);
 		ResourceBuilder.INSTANCE.go();
 
 		System.out.println("resources:"
@@ -88,10 +92,12 @@ public class ModelDrivenNode {
 		// nb.buildServer("schema/OTA/OTA_CruiseInfoRS.xsd"); // works
 		// nb.buildServer("schema/OTA/OTA_profile.xsd"); //works
 		// nb.buildServer("schema/RIX/RIXML-2_3_1.xsd"); // works
-		// nb.buildServer("schema/rets/RETS-Syndication-Archive/RETSCommons/2011-06/Person.xsd"); // works
+		// nb.buildServer("schema/rets/RETS-Syndication-Archive/RETSCommons/2011-06/Person.xsd");
+		// // works
 		// nb.buildServer("schema/axis/PNRViewRS.xsd"); // works
 		// nb.buildServer("schema/axis/PNRChangeRQ.xsd"); // works
-		// nb.buildServer("schema/Star/BODs/Developer/ShowRepairOrder.xsd"); // almost works 990!
+		// nb.buildServer("schema/Star/BODs/Developer/ShowRepairOrder.xsd"); //
+		// almost works 990!
 		// nb.buildServer("schema/Star/BODs/StandAlone/GetVehicleOrder.xsd");
 		// nb.buildServer("schema/OpenHR/BODs/RespondTimeCard.xsd");
 

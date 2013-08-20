@@ -15,7 +15,7 @@ import org.apache.velocity.Template;
 public class TestDataTemplates extends ModelDrivenNode {
 
 	public TestDataTemplates() {
-		run("testdata.vm", SCHEMA + "testdata1-" + VERSION + ".js", MODEL_OUTPUT);
+		run("testdata.vm", SCHEMA + "testdata1.js", MODEL_OUTPUT);
 	}
 	
 	private void run(String templateFile, String nodeFile, String path) {

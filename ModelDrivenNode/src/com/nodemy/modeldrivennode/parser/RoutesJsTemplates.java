@@ -20,7 +20,7 @@ public class RoutesJsTemplates extends ModelDrivenNode {
 		context.put("version", VERSION);
 		context.put("entryPoints", ObjectGrapher.INSTANCE.getEntrypoints());
 
-		String fileName = ROUTE_OUTPUT + SCHEMA + "routes-" + VERSION + ".js";
+		String fileName = ROUTE_OUTPUT + SCHEMA + "routes.js";
 		Template t = ve.getTemplate(TEMPLATES + "routes.vm");
 		Writer writer;
 		try {

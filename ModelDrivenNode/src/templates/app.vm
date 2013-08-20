@@ -1,5 +1,8 @@
 var express = require('express');  
-var app = express();
+var io = require('socket.io');  
+var app = express()
+  , server = require('http').createServer(app)
+  , io = io.listen(server);
 
 var config = require('./config.js')(app, express);
 var moment = require('moment');
@@ -16,14 +19,14 @@ console.log('connected to nodejitsu');
 
 var modelsAppB = {};
 var modelsAppB = {};
-modelsAppA = require('./models/AppAmodels-${version}')(mongooseAppA);
-modelsAppB = require('./models/AppBmodels-${version}')(mongooseAppB);
+modelsAppA = require('./models-${version}/AppAmodels')(mongooseAppA);
+modelsAppB = require('./models-${version}/AppBmodels')(mongooseAppB);
 
-require('./models/AppAtestdata1-${version}')(mongooseAppA, modelsAppA, moment);
-require('./models/AppBtestdata1-${version}')(mongooseAppB, modelsAppB, moment);
+require('./models-${version}/AppAtestdata1')(mongooseAppA, modelsAppA, moment);
+require('./models-${version}/AppBtestdata1')(mongooseAppB, modelsAppB, moment);
 
-require('./routes/AppAroutes-${version}')(app, mongooseAppA, modelsAppA);
-require('./routes/AppBroutes-${version}')(app, mongooseAppB, modelsAppB);
+require('./routes-${version}/AppAroutes')(app, mongooseAppA, modelsAppA);
+require('./routes-${version}/AppBroutes')(app, mongooseAppB, modelsAppB);
 
 // Entry page
   app.get('/', function(req, res){

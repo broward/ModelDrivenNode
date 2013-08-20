@@ -18,7 +18,7 @@ public class NodeJsTemplates extends ModelDrivenNode {
 		run("app.vm", "app.js", SERVER_ROOT);
 		run("config.vm", "config.js", SERVER_ROOT);
 		run("package.vm", "package.json", SERVER_ROOT);
-		run("models.vm", SCHEMA + "models-" + VERSION + ".js", MODEL_OUTPUT);
+		run("models.vm", SCHEMA + "models.js", MODEL_OUTPUT);
 	}
 	
 	private void run(String templateFile, String nodeFile, String path) {
