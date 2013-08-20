@@ -12,7 +12,7 @@
     "mongodb": ">= 0.9.6-7",
     "mongoose": ">= 2.5.10",
     "moment": ">= 2.1.0",
-    "socket": ">= 0.9.0"
+    "socket.io": ">= 0.9.0"
   },
   "engines": {
     "node": "0.8.x",

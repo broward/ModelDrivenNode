@@ -19,16 +19,20 @@ public class ModelDrivenNode {
 	public static String resourceDir = "/Dev/GitHub/ModelDrivenNode/ModelDrivenNode/src";
 	public static String SCHEMA = "A";
 	public static String VERSION = "v1";
-	public static final String SERVER_ROOT = "/Dev/nodejs/mdn/";
-	public static final String TEMPLATES = "templates/";
-	public static final String VIEWS = "views/";
+	public static String VERSION_PATH = "-" + VERSION + "/";
+	public static String ROOT = "/Dev/nodejs/mdn/";
+	
+	// template input paths
+	public static String TEMPLATES = "templates/";
+	public static String VIEWS = "views/";
+	public static String SOCKETS = "sockets/";
 
-	public static final String MODEL_OUTPUT = SERVER_ROOT + "models-" + VERSION
-			+ "/";
-	public static final String ROUTE_OUTPUT = SERVER_ROOT + "routes-" + VERSION
-			+ "/";
-	public static final String JADE_OUTPUT = SERVER_ROOT + "views-" + VERSION
-			+ "/";
+	// template output paths
+	public static String MODEL_OUTPUT = ROOT + "models" + VERSION_PATH;
+	public static String ROUTE_OUTPUT = ROOT + "routes" + VERSION_PATH;
+	public static String JADE_OUTPUT = ROOT + "views" + VERSION_PATH;
+	public static String SOCKET_OUTPUT = ROOT + "sockets" + VERSION_PATH;
+
 	public static VelocityEngine ve = new VelocityEngine();
 	public static VelocityContext context = new VelocityContext();
 
@@ -43,9 +47,11 @@ public class ModelDrivenNode {
 	}
 
 	public void buildServer(String schema) {
+		// clear any previous entries
 		ObjectGrapher.INSTANCE.clear();
 		ResourceList.INSTANCE.getResources().clear();
 
+		// Read the xsd schema
 		ResourceBuilder.INSTANCE.addSchema(schema);
 		ResourceBuilder.INSTANCE.go();
 
@@ -53,10 +59,11 @@ public class ModelDrivenNode {
 				+ ResourceList.INSTANCE.getResources().size());
 
 		try {
-			// Run javascript templates for node.js
+			// Run the templates and build the node.js server
 			new NodeJsTemplates();
 			new JadeTemplates();
 			new RoutesJsTemplates();
+			new SocketJsTemplates();
 			new TestDataTemplates();
 			System.out.println("NodeServer for " + SCHEMA + " built!");
 		} catch (Exception e) {
@@ -70,11 +77,13 @@ public class ModelDrivenNode {
 			FileUtils.deleteDirectory(new File(MODEL_OUTPUT));
 			FileUtils.deleteDirectory(new File(ROUTE_OUTPUT));
 			FileUtils.deleteDirectory(new File(JADE_OUTPUT));
+			FileUtils.deleteDirectory(new File(SOCKET_OUTPUT));
 
 			// Recreate directories
 			FileUtils.forceMkdir(new File(MODEL_OUTPUT));
 			FileUtils.forceMkdir(new File(ROUTE_OUTPUT));
 			FileUtils.forceMkdir(new File(JADE_OUTPUT));
+			FileUtils.forceMkdir(new File(SOCKET_OUTPUT));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

@@ -1,0 +1,14 @@
+module.exports = function(io, server, models) {
+
+  
+
+  server.listen(1111);
+  io.listen(server);
+
+  io.sockets.on('connection', function (socket) {
+    socket.emit('news', { hello: 'world' });
+    socket.on('my other event', function (data) {
+      console.log(data);
+    });
+  });
+}

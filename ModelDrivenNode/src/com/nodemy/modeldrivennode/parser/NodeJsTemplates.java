@@ -15,9 +15,9 @@ import org.apache.velocity.Template;
 public class NodeJsTemplates extends ModelDrivenNode {
 
 	public NodeJsTemplates() {
-		run("app.vm", "app.js", SERVER_ROOT);
-		run("config.vm", "config.js", SERVER_ROOT);
-		run("package.vm", "package.json", SERVER_ROOT);
+		run("app.vm", "app.js", ROOT);
+		run("config.vm", "config.js", ROOT);
+		run("package.vm", "package.json", ROOT);
 		run("models.vm", SCHEMA + "models.js", MODEL_OUTPUT);
 	}
 	

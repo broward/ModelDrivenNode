@@ -1,8 +1,8 @@
 var express = require('express');  
 var io = require('socket.io');  
 var app = express()
-  , server = require('http').createServer(app)
-  , io = io.listen(server);
+  , httpserver = require('http').createServer(app)
+  , io = io.listen(httpserver);
 
 var config = require('./config.js')(app, express);
 var moment = require('moment');
@@ -27,6 +27,8 @@ require('./models-${version}/AppBtestdata1')(mongooseAppB, modelsAppB, moment);
 
 require('./routes-${version}/AppAroutes')(app, mongooseAppA, modelsAppA);
 require('./routes-${version}/AppBroutes')(app, mongooseAppB, modelsAppB);
+
+require('./sockets-${version}/AppAsockets')(io, app, modelsAppA)
 
 // Entry page
   app.get('/', function(req, res){
