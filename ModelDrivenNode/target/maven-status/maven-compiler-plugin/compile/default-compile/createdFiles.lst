@@ -5,11 +5,12 @@ com\nodemy\modeldrivennode\parser\Resource.class
 com\nodemy\modeldrivennode\parser\ResourceBuilder$1.class
 com\nodemy\modeldrivennode\parser\Utils.class
 com\nodemy\modeldrivennode\parser\ResourceBuilder.class
+com\nodemy\modeldrivennode\parser\JadeTemplates.class
 com\nodemy\modeldrivennode\parser\ModelDrivenNode.class
 com\nodemy\modeldrivennode\parser\Mdn.class
 com\nodemy\modeldrivennode\parser\ObjectGrapher.class
 com\nodemy\modeldrivennode\parser\NodeJsTemplates.class
-com\nodemy\modeldrivennode\parser\RoutesJsTemplate.class
+com\nodemy\modeldrivennode\parser\RoutesJsTemplates.class
 com\nodemy\modeldrivennode\parser\TestDataTemplates.class
 com\nodemy\modeldrivennode\parser\ResourceList.class
 com\nodemy\modeldrivennode\parser\ResourceProperty.class

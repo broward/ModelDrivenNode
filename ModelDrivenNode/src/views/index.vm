@@ -10,23 +10,26 @@ block content
          "App A" Reference
     ol
          h2
-            a(href="/AppA") Schema Models
-    ol
-         h2
-            a(href="/api") REST API  
+            a(href="/${version}/Schema/AppAMain") Main Schema Models (most lookup tables filtered)
     ol   
          h2
-            a(href="/graph/AppA") "Best-fit" REST API (no lookup tables)
+            a(href="/${version}/Schema/AppA") All Schema Models
+    ol
+         h2
+            a(href="/${version}/Api/Current") Dynamic REST API  
+
   p 
-    h1 
+    h1
          "App B" Reference
     ol
-         h2 
-            a(href="/AppB") Schema Models
-         h2 
-            a(href="/api") REST API
+         h2
+            a(href="/${version}/Schema/AppBMain") Main Schema Models (most lookup tables filtered)
     ol   
          h2
-            a(href="/graph/AppB") "Best-fit" REST API (no lookup tables)
+            a(href="/${version}/Schema/AppB") All Schema Models
+    ol
+         h2
+            a(href="/${version}/Api/Current") Dynamic REST API  
+
 
 

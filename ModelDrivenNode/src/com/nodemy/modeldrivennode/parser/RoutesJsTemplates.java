@@ -12,26 +12,17 @@ import org.apache.velocity.Template;
  * @author broward
  * 
  */
-public class RoutesJsTemplate extends ModelDrivenNode {
+public class RoutesJsTemplates extends ModelDrivenNode {
 
-	public RoutesJsTemplate() {
+	public RoutesJsTemplates() {
 		context.put("list", ResourceList.INSTANCE.getResources());
 		context.put("schema", SCHEMA);
+		context.put("version", VERSION);
 		context.put("entryPoints", ObjectGrapher.INSTANCE.getEntrypoints());
 
-		String fileName = ROUTE_OUTPUT + SCHEMA + "routes.js";
+		String fileName = ROUTE_OUTPUT + SCHEMA + "routes-" + VERSION + ".js";
 		Template t = ve.getTemplate(TEMPLATES + "routes.vm");
 		Writer writer;
-		try {
-			writer = new FileWriter(fileName);
-			t.merge(context, writer);
-			writer.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-		fileName = ROUTE_OUTPUT + "jade.js";
-		t = ve.getTemplate(TEMPLATES + "jade.vm");
 		try {
 			writer = new FileWriter(fileName);
 			t.merge(context, writer);

@@ -16,19 +16,14 @@ console.log('connected to nodejitsu');
 
 var modelsAppB = {};
 var modelsAppB = {};
-modelsAppA = require('./models/AppAmodels')(mongooseAppA);
-modelsAppB = require('./models/AppBmodels')(mongooseAppB);
+modelsAppA = require('./models/AppAmodels-${version}')(mongooseAppA);
+modelsAppB = require('./models/AppBmodels-${version}')(mongooseAppB);
 
-require('./models/AppAtestdata1')(mongooseAppA, modelsAppA, moment);
-require('./models/AppAtestdata2')(mongooseAppA, modelsAppA, moment);
-require('./models/AppAtestdata3')(mongooseAppA, modelsAppA, moment);
+require('./models/AppAtestdata1-${version}')(mongooseAppA, modelsAppA, moment);
+require('./models/AppBtestdata1-${version}')(mongooseAppB, modelsAppB, moment);
 
-require('./models/AppBtestdata1')(mongooseAppB, modelsAppB, moment);
-require('./models/AppBtestdata2')(mongooseAppB, modelsAppB, moment);
-require('./models/AppBtestdata3')(mongooseAppB, modelsAppB, moment);
-
-require('./routes/AppAroutes')(app, mongooseAppA, modelsAppA);
-require('./routes/AppBroutes')(app, mongooseAppB, modelsAppB);
+require('./routes/AppAroutes-${version}')(app, mongooseAppA, modelsAppA);
+require('./routes/AppBroutes-${version}')(app, mongooseAppB, modelsAppB);
 
 // Entry page
   app.get('/', function(req, res){
@@ -39,7 +34,15 @@ require('./routes/AppBroutes')(app, mongooseAppB, modelsAppB);
   });
 
 // Entry page
-  app.get('/api', function(req, res){
+  app.get('/${version}', function(req, res){
+      
+    res.render('index', {
+      title: 'Model-Driven Node: Reference Implementation'
+    });
+  });
+
+// Entry page
+  app.get('/${version}/Api/Current', function(req, res){
   
     console.log(app.routes.get);
       

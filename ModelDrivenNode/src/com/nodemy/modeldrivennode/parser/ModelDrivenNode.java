@@ -19,11 +19,14 @@ public class ModelDrivenNode {
 	public static String resourceDir = "/Dev/GitHub/ModelDrivenNode/ModelDrivenNode/src";
 	public static final String SERVER_ROOT = "/Dev/nodejs/mdn/";
 	public static final String TEMPLATES = "templates/";
+	public static final String VIEWS = "views/";
 	public static final String MODEL_OUTPUT = SERVER_ROOT + "models/";
 	public static final String ROUTE_OUTPUT = SERVER_ROOT + "routes/";
+	public static final String JADE_OUTPUT = SERVER_ROOT + VIEWS;
 	public static VelocityEngine ve = new VelocityEngine();
 	public static VelocityContext context = new VelocityContext();
 	public static String SCHEMA = "A";
+	public static String VERSION = "v1";
 
 	static {
 		ve.setProperty(RuntimeConstants.RESOURCE_LOADER, "classpath");
@@ -48,7 +51,8 @@ public class ModelDrivenNode {
 		try {
 			// Run javascript templates for node.js
 			new NodeJsTemplates();
-			new RoutesJsTemplate();
+			new JadeTemplates();
+			new RoutesJsTemplates();
 			new TestDataTemplates();
 			System.out.println("NodeServer for " + SCHEMA + " built!");
 		} catch (Exception e) {
@@ -61,10 +65,12 @@ public class ModelDrivenNode {
 		try {
 			FileUtils.deleteDirectory(new File(MODEL_OUTPUT));
 			FileUtils.deleteDirectory(new File(ROUTE_OUTPUT));
+			FileUtils.deleteDirectory(new File(JADE_OUTPUT));
 
 			// Recreate directories
 			FileUtils.forceMkdir(new File(MODEL_OUTPUT));
 			FileUtils.forceMkdir(new File(ROUTE_OUTPUT));
+			FileUtils.forceMkdir(new File(JADE_OUTPUT));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

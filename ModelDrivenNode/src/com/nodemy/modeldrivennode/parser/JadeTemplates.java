@@ -12,18 +12,22 @@ import org.apache.velocity.Template;
  * @author broward
  * 
  */
-public class TestDataTemplates extends ModelDrivenNode {
+public class JadeTemplates extends ModelDrivenNode {
 
-	public TestDataTemplates() {
-		run("testdata.vm", SCHEMA + "testdata1-" + VERSION + ".js", MODEL_OUTPUT);
+	public JadeTemplates() {
+		run("api.vm", "api.jade", JADE_OUTPUT);
+		run("collections.vm", "collections.jade", JADE_OUTPUT);
+		run("doc.vm", "doc.jade", JADE_OUTPUT);
+		run("index.vm", "index.jade", JADE_OUTPUT);
+		run("layout.vm", "layout.jade", JADE_OUTPUT);
+		run("models.vm", "models.jade", JADE_OUTPUT);
 	}
-	
-	private void run(String templateFile, String nodeFile, String path) {
-		context.put("list", ResourceList.INSTANCE.getResources());
-		context.put("schema", SCHEMA);
-		context.put("randomId", (int) (Math.random() * 100)); 
 
-		Template t = ve.getTemplate(TEMPLATES + templateFile);
+	private void run(String templateFile, String nodeFile, String path) {
+		context.put("schema", SCHEMA);
+		context.put("version", VERSION);
+
+		Template t = ve.getTemplate(VIEWS + templateFile);
 		Writer writer;
 		try {
 			writer = new FileWriter(path + nodeFile);

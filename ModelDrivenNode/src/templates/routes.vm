@@ -3,9 +3,8 @@ module.exports = function(app, mongoose, models){
   /**
    *  Index listing of collections
    */
-  app.get('/${schema}', function(req, res){
+  app.get('/${version}/Schema/${schema}', function(req, res){
 
-    //get all the examples
     var modelNames = mongoose.modelNames();
       
     res.render('models.jade', {
@@ -19,7 +18,7 @@ module.exports = function(app, mongoose, models){
   /**
    *  Listing
    */
-  app.get('/${schema}/:collection', function(req, res){
+  app.get('/${version}/Schema/${schema}/:collection', function(req, res){
     
     mongoose.model(req.params.collection).find({}, function(err, docs){
       
@@ -38,13 +37,10 @@ module.exports = function(app, mongoose, models){
   /**
    *  View
    */
-  app.get('/${schema}/:collection/:id', function(req, res){
+  app.get('/${version}/Schema/${schema}/:collection/:id', function(req, res){
     
     mongoose.model(req.params.collection).findById(req.params.id, function(err, doc){
-
-      console.log("doc=" + doc);
       
-      //render the view page
       res.render('doc.jade', {
             title: 'Test Record for ' + req.params.collection,
             schema: '${schema}',
@@ -57,9 +53,7 @@ module.exports = function(app, mongoose, models){
    /**
    *  delete a doc.  yes I know the verb thing.
    */ 
-  app.get('/${schema}/delete/:collection/:id', function(req, res){
-
-    console.log("hello baby!");
+  app.get('/${version}/Schema/${schema}/delete/:collection/:id', function(req, res){
 
     mongoose.model(req.params.collection).findById(req.params.id, function(err, doc){
          doc.remove();
@@ -93,7 +87,7 @@ module.exports = function(app, mongoose, models){
   /**
    *  Filtered index listing of collections
    */
-  app.get('/graph/${schema}', function(req, res){
+  app.get('/${version}/Schema/${schema}Main', function(req, res){
 
     //get all the examples
     var modelNames = mongoose.modelNames();
