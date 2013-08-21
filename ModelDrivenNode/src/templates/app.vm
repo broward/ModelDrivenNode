@@ -42,14 +42,17 @@ mongoose.connect('mongodb://localhost/${schema}');
 // Set up models
 var models = {};
 models = require('./${version}/models/models')(mongoose);
-require('./${version}/models/testdata1')(mongoose, models, moment);
-require('./${version}/models/testdata2')(mongoose, models, moment);
-require('./${version}/routes/routes')(app, mongoose, models);
+#foreach ($v in $versions)
+require('./${v}/models/testdata1')(mongoose, models, moment);
+require('./${v}/models/testdata2')(mongoose, models, moment);
+require('./${v}/routes/routes')(app, mongoose, models);
+#end
 
 
 // Set up sockets
-require('./${version}/sockets/socketserver')(io, server, models)
-
+#foreach ($v in $versions)
+require('./${v}/sockets/socketserver')(io, server, models)
+#end
 
 // Entry page
 app.get('/', function(req, res){
@@ -58,12 +61,14 @@ app.get('/', function(req, res){
   });
 });
 
+#foreach ($v in $versions)
 // Schema Entry page
-app.get('/${version}', function(req, res){
+app.get('/${v}', function(req, res){
   res.render('index', {
     title: 'Model-Driven Node: Reference Implementation'
   });
 });
+#end
 
 // API page
 app.get('/${version}/Api/Current', function(req, res){
@@ -78,7 +83,8 @@ app.get('/${version}/Api/Current', function(req, res){
 console.log("port=" + port);
 
 // socket client
-app.get('/${version}/Socket', function(req, res) {
+#foreach ($v in $versions)
+app.get('/${v}/Socket', function(req, res) {
   res.writeHead(200, {'Content-Type': 'text/html'});
   res.write('<html><body>');
   res.write('<script src="http://localhost:');
@@ -97,5 +103,6 @@ app.get('/${version}/Socket', function(req, res) {
   res.write('</body></html>');
   res.end();
 });
+#end
 
 app.listen(process.env.PORT || 3000);

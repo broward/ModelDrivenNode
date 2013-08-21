@@ -3,10 +3,13 @@ extends layout
 block content
   h1= title
     img(class="artifact-img", src="/img/ReferenceImplementation.png")
-  p
-    h2  My target reference model for the Model-Driven Node.  This diagram represents what a real enterprise-level organization could look like with componentized node.js applications organized into an holistic system. This example has 2000 auto-generated models, collections, test data and API derived from open source xsd schemas created by the <a href="http://www.opentravel.org">Open Travel Alliance</a> and the <a href="http://www.starstandard.org">Star Standard for Automobile Retail.</a>
-  p
-    h2  Essentially, I've created a fair bit of the infrastructure of a significant enterprise application in about 120 hours of work, but I wrote a generation tool, not the foundation code, so I can duplicate it for other schemas in a few minutes now.
+  h1
+    p    
+        a(href="http://nodemy.jit.su/category/node.js") Design Docs
+  h2
+    p  This is my target reference model for the Model-Driven Node concept.  It shows what a real enterprise-level organization could look like with componentized node.js applications in an holistic system. This example has 2000 auto-generated models (tables), collections, test data and API derived from open source xsd schemas created by the <a href="http://www.opentravel.org">Open Travel Alliance</a> and the <a href="http://www.starstandard.org">Star Standard for Automobile Retail.</a>
+  h2
+    p  Essentially, I've created a fair bit of the infrastructure of a significant enterprise application in about 120 hours of work, but I wrote a generation tool, not the foundation code, so I can duplicate it for other schemas in a few minutes now.
     h1
          "${schema}" Reference
     ol
@@ -18,13 +21,12 @@ block content
     ol
          h2
             a(href="/${version}/Api/Current") Dynamic REST API  
-
-  p 
+ 
     h1
-         "Remote" Reference
+         "App B" Reference
     ol
          h2
-            a(href="http://modeldrivennode.jit.su") ModelDrivenNode
+            a(href="http://modeldrivennodeb.jit.su") ModelDrivenNode
 
 
 

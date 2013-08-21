@@ -19,7 +19,7 @@ public class ModelDrivenNode {
 	public static String APPLICATION = "ModelDrivenNode";
 	public static String SCHEMA = "AppA";
 	public static String[] VERSIONS = {"v1", "v2"};
-	public static String VERSION = "v1";
+	public static String VERSION = "v2";
 	public static String ROOT = "/Dev/nodejs/mdn/";
 	public static String VERSION_PATH = ROOT + VERSION + "/";
 ;
@@ -114,10 +114,10 @@ public class ModelDrivenNode {
 		nb.clean();
 		ModelDrivenNode.APPLICATION = "ModelDrivenNode";
 		ModelDrivenNode.SCHEMA = "AppA";
-		nb.buildServer("schema/OTA/OTA_HotelEvent.xsd");
+		nb.buildServer("schema/OTA/OTA_HotelEvent.xsd"); 
 
 		// Build second schema
-		/*ModelDrivenNode.APPLICATION = "ModelDrivenNodeB";
+		/* ModelDrivenNode.APPLICATION = "ModelDrivenNodeB";
 		ModelDrivenNode.SCHEMA = "AppB";
 		nb.buildServer("schema/OTA/OTA_profile.xsd"); */
 	}
