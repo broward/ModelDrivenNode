@@ -16,8 +16,7 @@ import org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader;
  * 
  */
 public class ModelDrivenNode {
-	public static String resourceDir = "/Dev/GitHub/ModelDrivenNode/ModelDrivenNode/src";
-	public static String SCHEMA = "A";
+	public static String SCHEMA = "AppA";
 	public static String VERSION = "v1";
 	public static String VERSION_PATH = "-" + VERSION + "/";
 	public static String ROOT = "/Dev/nodejs/mdn/";

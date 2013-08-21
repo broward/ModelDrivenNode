@@ -21,6 +21,7 @@ public class Resource {
 		this.name = name;
 
 		// extract out attributes we need
+		// Resolve xsd exception cases here for now
 		Iterator<String> i = map.keySet().iterator();
 		while (i.hasNext()) {
 			String key = (String) i.next();

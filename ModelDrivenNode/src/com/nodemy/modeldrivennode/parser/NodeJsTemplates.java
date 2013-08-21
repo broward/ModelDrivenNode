@@ -7,7 +7,8 @@ import java.io.Writer;
 import org.apache.velocity.Template;
 
 /**
- * Build app.js, main application module, from template merge.
+ * Build main node.js application - app.js, config.js and package.json.
+ * They only need knowledge of schemas and versions.
  * 
  * @author broward
  * 
@@ -18,14 +19,11 @@ public class NodeJsTemplates extends ModelDrivenNode {
 		run("app.vm", "app.js", ROOT);
 		run("config.vm", "config.js", ROOT);
 		run("package.vm", "package.json", ROOT);
-		run("models.vm", SCHEMA + "models.js", MODEL_OUTPUT);
 	}
-	
+
 	private void run(String templateFile, String nodeFile, String path) {
-		context.put("list", ResourceList.INSTANCE.getResources());
 		context.put("schema", SCHEMA);
 		context.put("version", VERSION);
-		context.put("randomId", (int) (Math.random() * 100)); 
 
 		Template t = ve.getTemplate(TEMPLATES + templateFile);
 		Writer writer;

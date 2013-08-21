@@ -29,19 +29,12 @@ public enum ResourceList {
 	 */
 	public void add(Resource resource) {
 
-		// do nothing with nulls or ObjectFactory
-		if (resource == null) {
-			return;
-		}
-		if (resource.getName().contains("ObjectFactory")) {
-			return;
-		}
 		// don't allow reserved words
 		if (Utils.isReservedWord(resource.getName())) {
 			return;
+		} else {
+			resources.add(resource);
 		}
-
-		resources.add(resource);
 	}
 
 	/**

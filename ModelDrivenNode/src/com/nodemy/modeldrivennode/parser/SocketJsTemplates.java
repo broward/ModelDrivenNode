@@ -7,7 +7,7 @@ import java.io.Writer;
 import org.apache.velocity.Template;
 
 /**
- * Build routes.js, our REST API, from template merge.
+ * Build sockets.js.
  * 
  * @author broward
  * 

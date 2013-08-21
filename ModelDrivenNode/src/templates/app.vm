@@ -1,22 +1,25 @@
+// Do my imports
 var express = require('express');  
-var io = require('socket.io');  
-var app = express()
-  , httpserver = require('http').createServer(app)
-  , io = io.listen(httpserver);
+var app = require('express')()
+  , server = require('http').createServer(app)
+  , io = require('socket.io').listen(server);
 
 var config = require('./config.js')(app, express);
 var moment = require('moment');
 
+
+// Set up database connections
 var mongooseAppA = require('mongoose');
 var mongooseAppB = new mongooseAppA.Mongoose();
 
-mongooseAppA.connect('mongodb://nodejitsu:be4d8fdcd8f572b2cbea53acc213eae1@paulo.mongohq.com:10030/nodejitsudb430192188');
-mongooseAppB.connect('mongodb://nodejitsu:e24c1205f87356c25a2869715153e7bb@paulo.mongohq.com:10029/nodejitsudb96122706');
+//mongooseAppA.connect('mongodb://nodejitsu:be4d8fdcd8f572b2cbea53acc213eae1@paulo.mongohq.com:10030/nodejitsudb430192188');
+//mongooseAppB.connect('mongodb://nodejitsu:e24c1205f87356c25a2869715153e7bb@paulo.mongohq.com:10029/nodejitsudb96122706');
 
-//mongooseAppA.connect('mongodb://localhost/AppA');
-//mongooseAppB.connect('mongodb://localhost/AppB');
-console.log('connected to nodejitsu');
+mongooseAppA.connect('mongodb://localhost/AppA');
+mongooseAppB.connect('mongodb://localhost/AppB');
 
+
+// Set up models
 var modelsAppB = {};
 var modelsAppB = {};
 modelsAppA = require('./models-${version}/AppAmodels')(mongooseAppA);
@@ -28,35 +31,33 @@ require('./models-${version}/AppBtestdata1')(mongooseAppB, modelsAppB, moment);
 require('./routes-${version}/AppAroutes')(app, mongooseAppA, modelsAppA);
 require('./routes-${version}/AppBroutes')(app, mongooseAppB, modelsAppB);
 
-require('./sockets-${version}/AppAsockets')(io, app, modelsAppA)
+
+// Set up sockets
+require('./sockets-${version}/AppAsockets')(io, server, modelsAppA)
+
 
 // Entry page
-  app.get('/', function(req, res){
-      
-    res.render('index', {
-      title: 'Model-Driven Node: Reference Implementation'
-    });
+app.get('/', function(req, res){
+  res.render('index', {
+    title: 'Model-Driven Node: Reference Implementation'
   });
+});
 
-// Entry page
-  app.get('/${version}', function(req, res){
-      
-    res.render('index', {
-      title: 'Model-Driven Node: Reference Implementation'
-    });
+// Schema Entry page
+app.get('/${version}', function(req, res){
+  res.render('index', {
+    title: 'Model-Driven Node: Reference Implementation'
   });
+});
 
-// Entry page
-  app.get('/${version}/Api/Current', function(req, res){
-  
-    console.log(app.routes.get);
-      
-    res.render('api.jade', {
-      titleGet: 'REST GET API',
-      titlePost: 'REST POST API',
-      apisget: app.routes.get,
-      apispost: app.routes.post
-    });
+// API page
+app.get('/${version}/Api/Current', function(req, res){
+  res.render('api.jade', {
+    titleGet: 'REST GET API',
+    titlePost: 'REST POST API',
+    apisget: app.routes.get,
+    apispost: app.routes.post
   });
+});
 
 app.listen(process.env.PORT || 3000);

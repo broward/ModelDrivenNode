@@ -7,7 +7,7 @@ import java.io.Writer;
 import org.apache.velocity.Template;
 
 /**
- * Build app.js, main application module, from template merge.
+ * Build mongoose models and related test data.
  * 
  * @author broward
  * 
@@ -15,7 +15,9 @@ import org.apache.velocity.Template;
 public class TestDataTemplates extends ModelDrivenNode {
 
 	public TestDataTemplates() {
+		run("models.vm", SCHEMA + "models.js", MODEL_OUTPUT);
 		run("testdata.vm", SCHEMA + "testdata1.js", MODEL_OUTPUT);
+		run("testdata.vm", SCHEMA + "testdata2.js", MODEL_OUTPUT);
 	}
 	
 	private void run(String templateFile, String nodeFile, String path) {

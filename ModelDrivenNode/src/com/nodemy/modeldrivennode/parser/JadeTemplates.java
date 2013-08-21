@@ -7,7 +7,7 @@ import java.io.Writer;
 import org.apache.velocity.Template;
 
 /**
- * Build app.js, main application module, from template merge.
+ * Build jade views wth appropriate schema/versioning info
  * 
  * @author broward
  * 

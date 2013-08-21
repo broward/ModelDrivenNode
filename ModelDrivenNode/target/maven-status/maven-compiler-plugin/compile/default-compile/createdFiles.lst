@@ -1,4 +1,3 @@
-com\nodemy\modeldrivennode\parser\XsdLoader.class
 com\nodemy\modeldrivennode\parser\MongoTypeConverter.class
 com\nodemy\modeldrivennode\TestDataGenerator.class
 com\nodemy\modeldrivennode\parser\Resource.class
@@ -8,8 +7,8 @@ com\nodemy\modeldrivennode\parser\ResourceBuilder.class
 com\nodemy\modeldrivennode\parser\SocketJsTemplates.class
 com\nodemy\modeldrivennode\parser\JadeTemplates.class
 com\nodemy\modeldrivennode\parser\ModelDrivenNode.class
-com\nodemy\modeldrivennode\parser\ObjectGrapher.class
 com\nodemy\modeldrivennode\parser\Mdn.class
+com\nodemy\modeldrivennode\parser\ObjectGrapher.class
 com\nodemy\modeldrivennode\parser\NodeJsTemplates.class
 com\nodemy\modeldrivennode\parser\RoutesJsTemplates.class
 com\nodemy\modeldrivennode\parser\TestDataTemplates.class

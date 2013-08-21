@@ -93,10 +93,11 @@ public enum ResourceBuilder {
 				}
 			}
 			// write java classes out for now for debugging
-			File file = new File("/temp");
-			jcm.build(new FileCodeWriter(file));
+			//File file = new File("/temp");
+			//jcm.build(new FileCodeWriter(file));
 
-			// resort list by dependency order
+			// re-sort list by dependency order,
+			// children come before parents
 			ResourceList.INSTANCE.sortByDependency();
 		} catch (Exception e) {
 			e.printStackTrace();
