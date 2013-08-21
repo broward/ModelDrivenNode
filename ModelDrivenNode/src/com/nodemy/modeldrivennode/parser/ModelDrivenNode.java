@@ -18,9 +18,11 @@ import org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader;
 public class ModelDrivenNode {
 	public static String APPLICATION = "ModelDrivenNode";
 	public static String SCHEMA = "AppA";
+	public static String[] VERSIONS = {"v1", "v2"};
 	public static String VERSION = "v1";
-	public static String VERSION_PATH = "-" + VERSION + "/";
 	public static String ROOT = "/Dev/nodejs/mdn/";
+	public static String VERSION_PATH = ROOT + VERSION + "/";
+;
 	
 	// template input paths
 	public static String TEMPLATES = "templates/";
@@ -28,10 +30,10 @@ public class ModelDrivenNode {
 	public static String SOCKETS = "sockets/";
 
 	// template output paths
-	public static String MODEL_OUTPUT = ROOT + "models" + VERSION_PATH;
-	public static String ROUTE_OUTPUT = ROOT + "routes" + VERSION_PATH;
-	public static String JADE_OUTPUT = ROOT + "views" + VERSION_PATH;
-	public static String SOCKET_OUTPUT = ROOT + "sockets" + VERSION_PATH;
+	public static String MODEL_OUTPUT = VERSION_PATH + "models/";
+	public static String ROUTE_OUTPUT = VERSION_PATH + "routes/";
+	public static String JADE_OUTPUT = VERSION_PATH + "views/";
+	public static String SOCKET_OUTPUT = VERSION_PATH + "sockets/";
 
 	public static VelocityEngine ve = new VelocityEngine();
 	public static VelocityContext context = new VelocityContext();
@@ -74,10 +76,7 @@ public class ModelDrivenNode {
 	public void clean() {
 		// Remove pre-existing deployment
 		try {
-			FileUtils.deleteDirectory(new File(MODEL_OUTPUT));
-			FileUtils.deleteDirectory(new File(ROUTE_OUTPUT));
-			FileUtils.deleteDirectory(new File(JADE_OUTPUT));
-			FileUtils.deleteDirectory(new File(SOCKET_OUTPUT));
+			FileUtils.deleteDirectory(new File(VERSION_PATH));
 
 			// Recreate directories
 			FileUtils.forceMkdir(new File(MODEL_OUTPUT));
@@ -113,13 +112,13 @@ public class ModelDrivenNode {
 		// Build first schema
 		ModelDrivenNode nb = new ModelDrivenNode();
 		nb.clean();
-		/*ModelDrivenNode.APPLICATION = "ModelDrivenNode";
+		ModelDrivenNode.APPLICATION = "ModelDrivenNode";
 		ModelDrivenNode.SCHEMA = "AppA";
-		nb.buildServer("schema/OTA/OTA_HotelEvent.xsd");*/
+		nb.buildServer("schema/OTA/OTA_HotelEvent.xsd");
 
 		// Build second schema
-		ModelDrivenNode.APPLICATION = "ModelDrivenNodeA";
+		/*ModelDrivenNode.APPLICATION = "ModelDrivenNodeB";
 		ModelDrivenNode.SCHEMA = "AppB";
-		nb.buildServer("schema/OTA/OTA_profile.xsd");
+		nb.buildServer("schema/OTA/OTA_profile.xsd"); */
 	}
 }

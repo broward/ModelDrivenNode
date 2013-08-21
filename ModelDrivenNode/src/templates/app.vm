@@ -1,11 +1,33 @@
 // Do my imports
 var express = require('express');  
-var app = require('express')()
-  , server = require('http').createServer(app)
+var app = express();
+
+var server = require('http').createServer(app)
   , io = require('socket.io').listen(server);
 
 var config = require('./config.js')(app, express);
 var moment = require('moment');
+
+
+// Set up socket.io client
+var hostname = require('os').hostname();
+var portfinder = require('portfinder');
+var port;
+
+portfinder.getPort(function (err, tport) {
+	server.listen(tport);
+     port = tport;
+});
+  
+
+
+io.sockets.on('connection', function (socket) {
+  socket.emit('news', { hello: 'world' });
+  console.log('sent hello world');
+  socket.on('my other event', function (data) {
+    console.log(data);
+  });
+});
 
 
 // Set up database connections
@@ -19,19 +41,19 @@ mongoose.connect('mongodb://localhost/${schema}');
 
 // Set up models
 var models = {};
-models = require('./models-${version}/models')(mongoose);
-require('./models-${version}/testdata1')(mongoose, models, moment);
-require('./models-${version}/testdata2')(mongoose, models, moment);
-require('./routes-${version}/routes')(app, mongoose, models);
+models = require('./${version}/models/models')(mongoose);
+require('./${version}/models/testdata1')(mongoose, models, moment);
+require('./${version}/models/testdata2')(mongoose, models, moment);
+require('./${version}/routes/routes')(app, mongoose, models);
 
 
 // Set up sockets
-require('./sockets-${version}/socketserver')(io, server, models)
+require('./${version}/sockets/socketserver')(io, server, models)
 
 
 // Entry page
 app.get('/', function(req, res){
-  res.render('index', {
+  res.render('index.jade', {
     title: 'Model-Driven Node: Reference Implementation'
   });
 });
@@ -51,6 +73,29 @@ app.get('/${version}/Api/Current', function(req, res){
     apisget: app.routes.get,
     apispost: app.routes.post
   });
+});
+
+console.log("port=" + port);
+
+// socket client
+app.get('/${version}/Socket', function(req, res) {
+  res.writeHead(200, {'Content-Type': 'text/html'});
+  res.write('<html><body>');
+  res.write('<script src="http://localhost:');
+  res.write(port);
+  res.write('/socket.io/socket.io.js"></script>');
+  res.write('<script>');
+  res.write('var socket = io.connect("http://localhost:');
+  console.log('lport=' + port);
+  res.write(port);
+  res.write('");');
+  //res.write('socket.on("news", function (data) {');
+  //res.write('console.log(data);');
+  //res.write('socket.emit("my other event", { my: "data" });');
+  //res.write('});');
+  res.write('</script>');  
+  res.write('</body></html>');
+  res.end();
 });
 
 app.listen(process.env.PORT || 3000);

@@ -17,14 +17,15 @@ public class NodeJsTemplates extends ModelDrivenNode {
 
 	public NodeJsTemplates() {
 		run("app.vm", "app.js", ROOT);
-		run("config.vm", "config.js", ROOT);
 		run("package.vm", "package.json", ROOT);
+		run("config.vm", "config.js", ROOT);
 	}
 
 	private void run(String templateFile, String nodeFile, String path) {
 		context.put("application", APPLICATION);
 		context.put("schema", SCHEMA);
 		context.put("version", VERSION);
+		context.put("versions", VERSIONS);
 
 		Template t = ve.getTemplate(TEMPLATES + templateFile);
 		Writer writer;
