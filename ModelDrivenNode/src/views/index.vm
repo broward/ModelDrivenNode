@@ -7,29 +7,24 @@ block content
     h2  My target reference model for the Model-Driven Node.  This diagram represents what a real enterprise-level organization could look like with componentized node.js applications organized into an holistic system. This current example has generated models, collections, test data and API for 2000 collections derived from two open source xsd schemas, the <a href="http://www.opentravel.org">Open Travel Alliance</a> and the <a href="http://www.starstandard.org">Star Standard for Automobile Retail.</a>
 
     h1
-         "App A" Reference
+         "${schema}" Reference
     ol
          h2
-            a(href="/${version}/Schema/AppAMain") Main Schema Models (most lookup tables filtered)
+            a(href="/${version}/Schema/${schema}Main") Main Schema Models (most lookup tables filtered)
     ol   
          h2
-            a(href="/${version}/Schema/AppA") All Schema Models
+            a(href="/${version}/Schema/${schema}") All Schema Models
     ol
          h2
             a(href="/${version}/Api/Current") Dynamic REST API  
 
   p 
     h1
-         "App B" Reference
+         "Remote" Reference
     ol
          h2
-            a(href="/${version}/Schema/AppBMain") Main Schema Models (most lookup tables filtered)
-    ol   
-         h2
-            a(href="/${version}/Schema/AppB") All Schema Models
-    ol
-         h2
-            a(href="/${version}/Api/Current") Dynamic REST API  
+            a(href="http://modeldrivennode.jit.su") ModelDrivenNode
+
 
 
 

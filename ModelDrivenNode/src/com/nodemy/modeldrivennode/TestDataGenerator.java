@@ -4,7 +4,11 @@ import java.util.Date;
 
 import com.nodemy.modeldrivennode.parser.MongoTypeConverter;
 
-
+/**
+ * Generate test date for our schemas.
+ * @author broward
+ *
+ */
 public enum TestDataGenerator {
 	INSTANCE;
 	
@@ -31,7 +35,12 @@ public enum TestDataGenerator {
 		data.append("quinta decima. Eodem modo typi, qui nunc nobis videntur parum clari, ");
 		data.append("fiant sollemnes in futurum.");
 	}
-		
+	
+	/**
+	 * What is our data type?
+	 * @param attributeType
+	 * @return
+	 */
 	public String generate(String attributeType) {
 		if (attributeType == null) {
 			return null;
@@ -51,17 +60,29 @@ public enum TestDataGenerator {
 		}
 	}
 
+	/** 
+	 * Generate data for a String.
+	 * @return
+	 */
 	private String generateStringData() {
 		int start = (int) (Math.random() * 1000);
 		int stop = (int) (Math.random() * 50) + start + 1;
 		return "'" + data.toString().substring(start, stop) + "'";
 	}
 	
+	/**
+	 * Generate data for a Number!
+	 * @return
+	 */
 	private String generateNumberData() {
 		int temp = (int) (Math.random() * 1000000);
 		return temp + "";
 	}
 	
+	/**
+	 * Generate data for a boolean.
+	 * @return
+	 */
 	private String generateBooleanData() {
 		boolean value = Math.random() < 0.5;
 		if (value) {
@@ -71,7 +92,10 @@ public enum TestDataGenerator {
 		}
 	}
 	
-	@SuppressWarnings("deprecation")
+	/**
+	 * Generate data for a Date!
+	 * @return
+	 */
 	private String generateDateData() {
 		double random = (int) (Math.random() * 100000000);
 		Date now = new Date();

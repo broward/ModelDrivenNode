@@ -9,31 +9,24 @@ var moment = require('moment');
 
 
 // Set up database connections
-var mongooseAppA = require('mongoose');
-var mongooseAppB = new mongooseAppA.Mongoose();
+var mongoose = require('mongoose');
 
-//mongooseAppA.connect('mongodb://nodejitsu:be4d8fdcd8f572b2cbea53acc213eae1@paulo.mongohq.com:10030/nodejitsudb430192188');
-//mongooseAppB.connect('mongodb://nodejitsu:e24c1205f87356c25a2869715153e7bb@paulo.mongohq.com:10029/nodejitsudb96122706');
+//mongoose.connect('mongodb://nodejitsu:be4d8fdcd8f572b2cbea53acc213eae1@paulo.mongohq.com:10030/nodejitsudb430192188');
+//mongoose.connect('mongodb://nodejitsu:e24c1205f87356c25a2869715153e7bb@paulo.mongohq.com:10029/nodejitsudb96122706');
 
-mongooseAppA.connect('mongodb://localhost/AppA');
-mongooseAppB.connect('mongodb://localhost/AppB');
+mongoose.connect('mongodb://localhost/${schema}');
 
 
 // Set up models
-var modelsAppB = {};
-var modelsAppB = {};
-modelsAppA = require('./models-${version}/AppAmodels')(mongooseAppA);
-modelsAppB = require('./models-${version}/AppBmodels')(mongooseAppB);
-
-require('./models-${version}/AppAtestdata1')(mongooseAppA, modelsAppA, moment);
-require('./models-${version}/AppBtestdata1')(mongooseAppB, modelsAppB, moment);
-
-require('./routes-${version}/AppAroutes')(app, mongooseAppA, modelsAppA);
-require('./routes-${version}/AppBroutes')(app, mongooseAppB, modelsAppB);
+var models = {};
+models = require('./models-${version}/models')(mongoose);
+require('./models-${version}/testdata1')(mongoose, models, moment);
+require('./models-${version}/testdata2')(mongoose, models, moment);
+require('./routes-${version}/routes')(app, mongoose, models);
 
 
 // Set up sockets
-require('./sockets-${version}/AppAsockets')(io, server, modelsAppA)
+require('./sockets-${version}/socketserver')(io, server, models)
 
 
 // Entry page

@@ -16,6 +16,7 @@ import org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader;
  * 
  */
 public class ModelDrivenNode {
+	public static String APPLICATION = "ModelDrivenNode";
 	public static String SCHEMA = "AppA";
 	public static String VERSION = "v1";
 	public static String VERSION_PATH = "-" + VERSION + "/";
@@ -63,7 +64,7 @@ public class ModelDrivenNode {
 			new JadeTemplates();
 			new RoutesJsTemplates();
 			new SocketJsTemplates();
-			new TestDataTemplates();
+			new ModelsJsTemplates();
 			System.out.println("NodeServer for " + SCHEMA + " built!");
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -112,11 +113,13 @@ public class ModelDrivenNode {
 		// Build first schema
 		ModelDrivenNode nb = new ModelDrivenNode();
 		nb.clean();
+		/*ModelDrivenNode.APPLICATION = "ModelDrivenNode";
 		ModelDrivenNode.SCHEMA = "AppA";
-		nb.buildServer("schema/OTA/OTA_profile.xsd");
+		nb.buildServer("schema/OTA/OTA_HotelEvent.xsd");*/
 
 		// Build second schema
+		ModelDrivenNode.APPLICATION = "ModelDrivenNodeA";
 		ModelDrivenNode.SCHEMA = "AppB";
-		nb.buildServer("schema/OTA/OTA_HotelEvent.xsd");
+		nb.buildServer("schema/OTA/OTA_profile.xsd");
 	}
 }

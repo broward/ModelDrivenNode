@@ -1,5 +1,5 @@
 {
-  "name": "ModelDrivenNode",
+  "name": "${application}",
   "version": "0.0.1-36",
   "private": true,
   "scripts": {
@@ -18,5 +18,5 @@
     "node": "0.8.x",
     "npm": "1.0.x"
   },
-  "subdomain": "ModelDrivenNode"
+  "subdomain": "${application}"
 }

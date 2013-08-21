@@ -1,6 +1,5 @@
 package com.nodemy.modeldrivennode.parser;
 
-import java.io.File;
 import java.util.Iterator;
 
 import org.xml.sax.InputSource;
@@ -10,7 +9,6 @@ import com.sun.codemodel.JClass;
 import com.sun.codemodel.JCodeModel;
 import com.sun.codemodel.JDefinedClass;
 import com.sun.codemodel.JPackage;
-import com.sun.codemodel.writer.FileCodeWriter;
 import com.sun.tools.xjc.Plugin;
 import com.sun.tools.xjc.api.ErrorListener;
 import com.sun.tools.xjc.api.S2JJAXBModel;
