@@ -1,6 +1,6 @@
-module.exports = function(io, server, models) {
+module.exports = function(app, io, server, models, port) {
 
-  server.listen(1111);
+  server.listen(port);
 
   io.sockets.on('connection', function (socket) {
     socket.emit('news', { hello: 'world' });
@@ -8,4 +8,28 @@ module.exports = function(io, server, models) {
       console.log(data);
     });
   });
+
+console.log("socket assigned port = " + port);
+
+app.get('/v2/Socket', function(req, res) {
+  res.writeHead(200, {'Content-Type': 'text/html'});
+  res.write('<html><body>');
+  res.write('<script src="http://localhost:');
+  res.write(port);
+  res.write('/socket.io/socket.io.js"></script>');
+  res.write('<script>');
+  res.write('var socket = io.connect("http://localhost:');
+  console.log('lport=' + port);
+  res.write(port);
+  res.write('");');
+  //res.write('socket.on("news", function (data) {');
+  //res.write('console.log(data);');
+  //res.write('socket.emit("my other event", { my: "data" });');
+  //res.write('});');
+  res.write('</script>');  
+  res.write('</body></html>');
+  res.end();
+});
+
 }
+

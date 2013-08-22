@@ -12,21 +12,12 @@ var moment = require('moment');
 // Set up socket.io client
 var hostname = require('os').hostname();
 var portfinder = require('portfinder');
-var port;
-
-portfinder.getPort(function (err, tport) {
-	server.listen(tport);
-     port = tport;
-});
+portfinder.getPort(function (err, port) {
   
-
-
-io.sockets.on('connection', function (socket) {
-  socket.emit('news', { hello: 'world' });
-  console.log('sent hello world');
-  socket.on('my other event', function (data) {
-    console.log(data);
-  });
+// Set up sockets
+#foreach ($v in $versions)
+  require('./${v}/sockets/socketserver')(app, io, server, models, port.toString());
+#end
 });
 
 
@@ -48,11 +39,6 @@ require('./${v}/models/testdata2')(mongoose, models, moment);
 require('./${v}/routes/routes')(app, mongoose, models);
 #end
 
-
-// Set up sockets
-#foreach ($v in $versions)
-require('./${v}/sockets/socketserver')(io, server, models)
-#end
 
 // Entry page
 app.get('/', function(req, res){
@@ -79,30 +65,5 @@ app.get('/${version}/Api/Current', function(req, res){
     apispost: app.routes.post
   });
 });
-
-console.log("port=" + port);
-
-// socket client
-#foreach ($v in $versions)
-app.get('/${v}/Socket', function(req, res) {
-  res.writeHead(200, {'Content-Type': 'text/html'});
-  res.write('<html><body>');
-  res.write('<script src="http://localhost:');
-  res.write(port);
-  res.write('/socket.io/socket.io.js"></script>');
-  res.write('<script>');
-  res.write('var socket = io.connect("http://localhost:');
-  console.log('lport=' + port);
-  res.write(port);
-  res.write('");');
-  //res.write('socket.on("news", function (data) {');
-  //res.write('console.log(data);');
-  //res.write('socket.emit("my other event", { my: "data" });');
-  //res.write('});');
-  res.write('</script>');  
-  res.write('</body></html>');
-  res.end();
-});
-#end
 
 app.listen(process.env.PORT || 3000);

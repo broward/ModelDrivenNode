@@ -19,7 +19,7 @@ public class ModelDrivenNode {
 	public static String APPLICATION = "ModelDrivenNode";
 	public static String SCHEMA = "AppA";
 	public static String[] VERSIONS = {"v1", "v2"};
-	public static String VERSION = "v2";
+	public static String VERSION = "v1";
 	public static String ROOT = "/Dev/nodejs/mdn/";
 	public static String VERSION_PATH = ROOT + VERSION + "/";
 ;
