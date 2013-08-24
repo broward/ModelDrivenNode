@@ -27,6 +27,12 @@ block content
     ol
          h2
             a(href="http://modeldrivennodeb.jit.su") ModelDrivenNode
+            
+    h1
+         Other Reference
+    ol
+         h2
+            a(href="http://localhost:3001") Kue Manager
 
 
 

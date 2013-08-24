@@ -25,7 +25,7 @@ public class ModelsJsTemplates extends ModelDrivenNode {
 		context.put("schema", SCHEMA);
 		context.put("randomId", (int) (Math.random() * 100)); 
 
-		Template t = ve.getTemplate(TEMPLATES + templateFile);
+		Template t = ve.getTemplate(NODEJS + templateFile);
 		Writer writer;
 		try {
 			writer = new FileWriter(path + nodeFile);

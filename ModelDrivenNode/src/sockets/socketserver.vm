@@ -1,7 +1,5 @@
 module.exports = function(app, io, server, models, port) {
 
-  server.listen(port);
-
   io.sockets.on('connection', function (socket) {
     socket.emit('news', { hello: 'world' });
     socket.on('my other event', function (data) {
@@ -11,6 +9,7 @@ module.exports = function(app, io, server, models, port) {
 
 console.log("socket assigned port = " + port);
 
+// Build our socket client
 app.get('/v2/Socket', function(req, res) {
   res.writeHead(200, {'Content-Type': 'text/html'});
   res.write('<html><body>');
@@ -23,7 +22,7 @@ app.get('/v2/Socket', function(req, res) {
   res.write(port);
   res.write('");');
   //res.write('socket.on("news", function (data) {');
-  //res.write('console.log(data);');
+  //res.write('console.log("hello baby " + data);');
   //res.write('socket.emit("my other event", { my: "data" });');
   //res.write('});');
   res.write('</script>');  

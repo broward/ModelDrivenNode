@@ -19,21 +19,23 @@ public class ModelDrivenNode {
 	public static String APPLICATION = "ModelDrivenNode";
 	public static String SCHEMA = "AppA";
 	public static String[] VERSIONS = {"v1", "v2"};
-	public static String VERSION = "v1";
+	public static String VERSION = "v2";
 	public static String ROOT = "/Dev/nodejs/mdn/";
 	public static String VERSION_PATH = ROOT + VERSION + "/";
 ;
 	
 	// template input paths
-	public static String TEMPLATES = "templates/";
+	public static String NODEJS = "nodejs/";
 	public static String VIEWS = "views/";
 	public static String SOCKETS = "sockets/";
+	public static String QUEUES = "queues/";
 
 	// template output paths
 	public static String MODEL_OUTPUT = VERSION_PATH + "models/";
 	public static String ROUTE_OUTPUT = VERSION_PATH + "routes/";
 	public static String JADE_OUTPUT = VERSION_PATH + "views/";
 	public static String SOCKET_OUTPUT = VERSION_PATH + "sockets/";
+	public static String QUEUE_OUTPUT = VERSION_PATH + "queues/";
 
 	public static VelocityEngine ve = new VelocityEngine();
 	public static VelocityContext context = new VelocityContext();
@@ -67,6 +69,7 @@ public class ModelDrivenNode {
 			new RoutesJsTemplates();
 			new SocketJsTemplates();
 			new ModelsJsTemplates();
+			new QueuesJsTemplates();
 			System.out.println("NodeServer for " + SCHEMA + " built!");
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -83,6 +86,7 @@ public class ModelDrivenNode {
 			FileUtils.forceMkdir(new File(ROUTE_OUTPUT));
 			FileUtils.forceMkdir(new File(JADE_OUTPUT));
 			FileUtils.forceMkdir(new File(SOCKET_OUTPUT));
+			FileUtils.forceMkdir(new File(QUEUE_OUTPUT));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

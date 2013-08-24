@@ -7,24 +7,25 @@ import java.io.Writer;
 import org.apache.velocity.Template;
 
 /**
- * Build routes.js, our REST API, from template merge.
+ * Build jade views wth appropriate schema/versioning info
  * 
  * @author broward
  * 
  */
-public class RoutesJsTemplates extends ModelDrivenNode {
+public class QueuesJsTemplates extends ModelDrivenNode {
 
-	public RoutesJsTemplates() {
-		context.put("list", ResourceList.INSTANCE.getResources());
+	public QueuesJsTemplates() {
+		run("kue.vm", "kue.js", QUEUE_OUTPUT);
+	}
+
+	private void run(String templateFile, String nodeFile, String path) {
 		context.put("schema", SCHEMA);
 		context.put("version", VERSION);
-		context.put("entryPoints", ObjectGrapher.INSTANCE.getEntrypoints());
 
-		String fileName = ROUTE_OUTPUT + "routes.js";
-		Template t = ve.getTemplate(NODEJS + "routes.vm");
+		Template t = ve.getTemplate(QUEUES + templateFile);
 		Writer writer;
 		try {
-			writer = new FileWriter(fileName);
+			writer = new FileWriter(path + nodeFile);
 			t.merge(context, writer);
 			writer.close();
 		} catch (IOException e) {

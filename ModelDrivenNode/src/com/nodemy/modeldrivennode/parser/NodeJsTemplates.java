@@ -27,7 +27,7 @@ public class NodeJsTemplates extends ModelDrivenNode {
 		context.put("version", VERSION);
 		context.put("versions", VERSIONS);
 
-		Template t = ve.getTemplate(TEMPLATES + templateFile);
+		Template t = ve.getTemplate(NODEJS + templateFile);
 		Writer writer;
 		try {
 			writer = new FileWriter(path + nodeFile);

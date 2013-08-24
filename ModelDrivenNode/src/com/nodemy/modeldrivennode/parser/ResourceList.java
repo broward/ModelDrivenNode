@@ -24,8 +24,7 @@ public enum ResourceList {
 	}
 
 	/**
-	 * Add a new resource. Look for my child dependencies and move them earlier
-	 * in the list.
+	 * Add a new resource. 
 	 */
 	public void add(Resource resource) {
 
@@ -69,6 +68,7 @@ public enum ResourceList {
 	public void sortByDependency() {
 		sortList = new LinkedList<Resource>();
 
+		// Sort through all resources
 		for (Resource resource : resources) {
 			// remove myself from other list if it exists
 			Resource temp = null;
@@ -80,14 +80,14 @@ public enum ResourceList {
 			sortList.remove(temp);
 			sortList.addFirst(resource);
 
-			// reset graph depth count before recursing.
+			// recurse through our children
 			recursiveSort(resource, resource.getName());
 		}
 
-		// write out object graph stats
+		// finished sorting, now write out object graph stats
 		ObjectGrapher.INSTANCE.writeObjectGraph();
 
-		// make the sort list our master copy.
+		// make the sorted list our master copy.
 		resources = sortList;
 		
 		// write our mdninfo here for now
@@ -121,9 +121,10 @@ public enum ResourceList {
 				// re-add it to first position
 				sortList.addFirst(target);
 				
-				// write graph stats for current resource.
+				// write object graph for current resource.
 				ObjectGrapher.INSTANCE.addGraph(graph + " | " + target.getName());
 				
+				// recurse through our children and add to object graph
 				recursiveSort(target, graph + " | " + target.getName());
 			}
 		}

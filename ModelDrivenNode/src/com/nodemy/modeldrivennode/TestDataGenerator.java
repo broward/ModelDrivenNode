@@ -5,7 +5,7 @@ import java.util.Date;
 import com.nodemy.modeldrivennode.parser.MongoTypeConverter;
 
 /**
- * Generate test date for our schemas.
+ * Generate test data for our schemas.
  * @author broward
  *
  */

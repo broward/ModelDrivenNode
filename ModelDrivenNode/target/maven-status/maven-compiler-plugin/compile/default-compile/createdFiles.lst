@@ -7,6 +7,7 @@ com\nodemy\modeldrivennode\parser\ResourceBuilder.class
 com\nodemy\modeldrivennode\parser\SocketJsTemplates.class
 com\nodemy\modeldrivennode\parser\JadeTemplates.class
 com\nodemy\modeldrivennode\parser\ModelsJsTemplates.class
+com\nodemy\modeldrivennode\parser\QueuesJsTemplates.class
 com\nodemy\modeldrivennode\parser\ModelDrivenNode.class
 com\nodemy\modeldrivennode\parser\ObjectGrapher.class
 com\nodemy\modeldrivennode\parser\Mdn.class

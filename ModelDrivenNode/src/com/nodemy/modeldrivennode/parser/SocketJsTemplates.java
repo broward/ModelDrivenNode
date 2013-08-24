@@ -16,7 +16,6 @@ public class SocketJsTemplates extends ModelDrivenNode {
 
 	public SocketJsTemplates() {
 		run("socketserver.vm", "socketserver.js", SOCKET_OUTPUT);
-		run("socketclient.vm", "socketclient.js", SOCKET_OUTPUT);
 	}
 	
 	private void run(String templateFile, String nodeFile, String path) {

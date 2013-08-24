@@ -10,13 +10,14 @@ var moment = require('moment');
 
 
 // Set up socket.io client
-var hostname = require('os').hostname();
 var portfinder = require('portfinder');
 portfinder.getPort(function (err, port) {
   
-// Set up sockets
+  server.listen(port);
+
+// Set up socketio
 #foreach ($v in $versions)
-  require('./${v}/sockets/socketserver')(app, io, server, models, port.toString());
+  require('./${v}/sockets/socketserver')(app, io, models, port.toString());
 #end
 });
 
@@ -26,6 +27,7 @@ var mongoose = require('mongoose');
 
 //mongoose.connect('mongodb://nodejitsu:be4d8fdcd8f572b2cbea53acc213eae1@paulo.mongohq.com:10030/nodejitsudb430192188');
 //mongoose.connect('mongodb://nodejitsu:e24c1205f87356c25a2869715153e7bb@paulo.mongohq.com:10029/nodejitsudb96122706');
+//redis://nodejitsu:nodejitsudb5397498914.redis.irstack.com:f327cfe980c971946e80b8e975fbebb4@nodejitsudb5397498914.redis.irstack.com:6379
 
 mongoose.connect('mongodb://localhost/${schema}');
 
@@ -40,7 +42,11 @@ require('./${v}/routes/routes')(app, mongoose, models);
 #end
 
 
-// Entry page
+// Set up queues
+var kue = require('./${version}/queues/kue')(models);
+
+
+// Entry pages
 app.get('/', function(req, res){
   res.render('index.jade', {
     title: 'Model-Driven Node: Reference Implementation'
@@ -56,7 +62,7 @@ app.get('/${v}', function(req, res){
 });
 #end
 
-// API page
+// API demo page
 app.get('/${version}/Api/Current', function(req, res){
   res.render('api.jade', {
     titleGet: 'REST GET API',
