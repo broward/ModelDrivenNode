@@ -32,7 +32,7 @@ block content
          Other Reference
     ol
          h2
-            a(href="http://localhost:3001") Kue Manager
+            a(href='http://' + process.env.SUBDOMAIN + ':3001') Kue Manager
 
 
 
