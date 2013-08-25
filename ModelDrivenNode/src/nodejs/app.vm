@@ -25,7 +25,7 @@ portfinder.getPort(function (err, port) {
 // Set up database connections
 var mongoose = require('mongoose');
 
-mongoose.createConnection('mongodb://nodejitsu:be4d8fdcd8f572b2cbea53acc213eae1@paulo.mongohq.com:10030/nodejitsudb430192188');
+mongoose.createConnection('mongodb://nodejitsu:0fa8197aea33df66c434b4c1548e9f51@paulo.mongohq.com:10027/nodejitsudb7303927305');
 mongoose.createConnection('mongodb://nodejitsu:e24c1205f87356c25a2869715153e7bb@paulo.mongohq.com:10029/nodejitsudb96122706');
 
 //mongoose.connect('mongodb://localhost/${schema}');
