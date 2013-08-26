@@ -6,4 +6,4 @@ block content
       ol
          h2
            #doc
-              <pre><code>#{JSON.stringify(doc.toJSON(), null, 2)}</code></pre>
+              <pre><code>#{JSON.stringify(doc, null, 2)}</code></pre>

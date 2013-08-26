@@ -16,7 +16,8 @@
     "socket.io": ">= 0.9.0",
     "portfinder": ">= 0.2.1",
     "redis": "latest",
-    "kue": "latest"
+    "kue": "latest",
+    "http-proxy": "latest"
   },
   "engines": {
     "node": "0.8.x",

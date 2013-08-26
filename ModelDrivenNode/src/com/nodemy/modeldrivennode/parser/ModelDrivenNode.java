@@ -16,10 +16,10 @@ import org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader;
  * 
  */
 public class ModelDrivenNode {
-	public static String APPLICATION = "ModelDrivenNode";
+	public static String APPLICATION = "ModelDrivenNodeA";
 	public static String SCHEMA = "AppA";
-	public static String[] VERSIONS = {"v1", "v2"};
-	public static String VERSION = "v2";
+	public static String[] VERSIONS = {"v1"};
+	public static String VERSION = "v1";
 	public static String ROOT = "/Dev/nodejs/mdn/";
 	public static String VERSION_PATH = ROOT + VERSION + "/";
 ;
@@ -108,21 +108,21 @@ public class ModelDrivenNode {
 		// // works
 		// nb.buildServer("schema/axis/PNRViewRS.xsd"); // works
 		// nb.buildServer("schema/axis/PNRChangeRQ.xsd"); // works
-		// nb.buildServer("schema/Star/BODs/Developer/ShowRepairOrder.xsd"); //
-		// almost works 990!
+		// nb.buildServer("schema/Star/BODs/Developer/ShowPartsInventory.xsd"); //
+		// works! 995!
 		// nb.buildServer("schema/Star/BODs/StandAlone/GetVehicleOrder.xsd");
 		// nb.buildServer("schema/OpenHR/BODs/RespondTimeCard.xsd");
 
 		// Build first schema
 		ModelDrivenNode nb = new ModelDrivenNode();
 		nb.clean();
-		ModelDrivenNode.APPLICATION = "ModelDrivenNode";
+		/*ModelDrivenNode.APPLICATION = "ModelDrivenNode";
 		ModelDrivenNode.SCHEMA = "AppA";
-		nb.buildServer("schema/OTA/OTA_HotelEvent.xsd"); 
+		nb.buildServer("schema/OTA/OTA_HotelEvent.xsd"); */
 
 		// Build second schema
-		/* ModelDrivenNode.APPLICATION = "ModelDrivenNodeB";
+		ModelDrivenNode.APPLICATION = "ModelDrivenNodeB";
 		ModelDrivenNode.SCHEMA = "AppB";
-		nb.buildServer("schema/OTA/OTA_profile.xsd"); */
+		nb.buildServer("schema/Star/BODs/Developer/ShowPartsInventory.xsd"); 
 	}
 }

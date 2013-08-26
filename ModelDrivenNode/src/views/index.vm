@@ -2,7 +2,7 @@ extends layout
 
 block content
   h1= title
-    img(class="artifact-img", src="/img/ReferenceImplementation.png")
+    img(class="artifact-img", src="http://nodemy.jit.su/img/mdn/ReferenceImplementation.png")
   h1
     p    
         a(href="http://nodemy.jit.su/category/node.js") Design Docs
@@ -28,12 +28,6 @@ block content
          h2
             a(href="http://modeldrivennodeb.jit.su") ModelDrivenNode
             
-    h1
-         Other Reference
-    ol
-         h2
-            a(href='http://' + process.env.SUBDOMAIN + 'jit.su:3001') Kue Manager
-
 
 
 
