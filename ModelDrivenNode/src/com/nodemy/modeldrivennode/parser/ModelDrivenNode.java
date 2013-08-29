@@ -123,6 +123,7 @@ public class ModelDrivenNode {
 		// Build second schema
 		ModelDrivenNode.APPLICATION = "ModelDrivenNodeB";
 		ModelDrivenNode.SCHEMA = "AppB";
-		nb.buildServer("schema/Star/BODs/Developer/ShowPartsInventory.xsd"); 
+		//nb.buildServer("schema/OTA/OTA_HotelEvent.xsd");
+		nb.buildServer("schema/Star/BODs/Developer/ShowPartsInventory.xsd");
 	}
 }

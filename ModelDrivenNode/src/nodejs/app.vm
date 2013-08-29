@@ -2,47 +2,27 @@
 var express = require('express');  
 var app = express();
 
-var server = require('http').createServer(app)
-  , io = require('socket.io').listen(server);
-
+var server = require('http').createServer(app);
 var config = require('./config.js')(app, express);
 var moment = require('moment');
-var httpProxy = require('http-proxy');
-
-
-// Set up socket.io client
-var portfinder = require('portfinder');
-portfinder.getPort(function (err, port) {
-  
-  //server.listen(port);
-
-// Set up socketio
-  //require('./${version}/sockets/socketserver')(app, io, models, port.toString());
-
-});
 
 
 // Set up database connections
 var mongoose = require('mongoose');
 
 mongoose.connect('mongodb://nodejitsu:605daa1951a29d5eac3c9f48eed44cc1@paulo.mongohq.com:10042/nodejitsudb6660047036');
-//mongoose.connect('mongodb://nodejitsu_broward:r4bg2pu3odahpesl5ho5o02mck@ds027718.mongolab.com:27718/nodejitsu_broward_nodejitsudb1379759691');
+//mongoose.connect('mongodb://nodejitsu_broward:jtsh6nbljs17ol4u6feaqggv1m@ds039267.mongolab.com:39267/nodejitsu_broward_nodejitsudb11381402');
 //mongoose.connect('mongodb://localhost/${schema}');
-
+console.log('db connected');
 
 // Set up models
 var models = {};
 models = require('./${version}/models/models')(mongoose);
 require('./${version}/models/testdata1')(mongoose, models, moment);
-require('./${version}/models/testdata2')(mongoose, models, moment);
 
 #foreach ($v in $versions)
 require('./${v}/routes/routes')(app, mongoose, models);
 #end
-
-
-// Set up queues
-// var kue = require('./${version}/queues/kue')(models);
 
 
 // Entry pages
@@ -71,4 +51,5 @@ app.get('/${version}/Api/Current', function(req, res){
   });
 });
 
+console.log('app loaded!');
 app.listen(process.env.PORT || 3000);
