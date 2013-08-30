@@ -14,13 +14,13 @@ block content
          "${schema}" Reference
     ol
          h2
-            a(href="/${version}/Schema/${schema}Main") Main Schema Models (most lookup tables filtered)
+            a(href="/${urlRoot}/TopSchemas") Main Schema Models (most lookup tables filtered)
     ol   
          h2
-            a(href="/${version}/Schema/${schema}") All Schema Models
+            a(href="/${urlRoot}/Schemas") All Schema Models
     ol
          h2
-            a(href="/${version}/Api/Current") Dynamic REST API  
+            a(href="/${urlRoot}/Api") Dynamic REST API  
  
     h1
          "App B" Reference

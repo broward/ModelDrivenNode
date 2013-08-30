@@ -1,9 +1,9 @@
 module.exports = function(app, mongoose, models){
 
   /**
-   *  Index listing of collections
+   *  Index listing of collections.
    */
-  app.get('/${version}/Schema/${schema}', function(req, res){
+  app.get('/${urlRoot}/Schemas', function(req, res){
 
     var modelNames = mongoose.modelNames();
       
@@ -16,9 +16,9 @@ module.exports = function(app, mongoose, models){
   
   
   /**
-   *  Listing
+   *  List records of a collection.
    */
-  app.get('/${version}/Schema/${schema}/:collection', function(req, res){
+  app.get('/${urlRoot}/Schemas/:collection', function(req, res){
     
     mongoose.model(req.params.collection).find({}, function(err, docs){
       
@@ -37,7 +37,7 @@ module.exports = function(app, mongoose, models){
   /**
    *  View
    */
-  app.get('/${version}/Schema/${schema}/:collection/:id', function(req, res){
+  app.get('/${urlRoot}/Schemas/:collection/:id', function(req, res){
     
     mongoose.model(req.params.collection).findById(req.params.id, function(err, doc){
       
@@ -53,7 +53,7 @@ module.exports = function(app, mongoose, models){
    /**
    *  delete a doc.  yes I know the verb thing.
    */ 
-  app.get('/${version}/Schema/${schema}/delete/:collection/:id', function(req, res){
+  app.get('/${urlRoot}/Schemas/delete/:collection/:id', function(req, res){
 
     mongoose.model(req.params.collection).findById(req.params.id, function(err, doc){
          doc.remove();
@@ -87,7 +87,7 @@ module.exports = function(app, mongoose, models){
   /**
    *  Filtered index listing of collections
    */
-  app.get('/${version}/Schema/${schema}Main', function(req, res){
+  app.get('/${urlRoot}/TopSchemas', function(req, res){
 
     //get all the examples
     var modelNames = mongoose.modelNames();

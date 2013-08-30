@@ -10,4 +10,4 @@ block content
              - count++
              ol
                   h4 #{count}
-                     <a href="/${version}/Schema/#{schema}/#{collectionName}/#{collection._id}">#{collection._id}</a> <a href="/${version}/Schema/#{schema}/delete/#{collectionName}/#{collection._id}">delete</a>
+                     <a href="/${urlRoot}/Schemas/#{collectionName}/#{collection._id}">#{collection._id}</a> <a href="/${urlRoot}/Schemas/delete/#{collectionName}/#{collection._id}">delete</a>

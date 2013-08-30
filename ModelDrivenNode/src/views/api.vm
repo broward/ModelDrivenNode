@@ -7,5 +7,5 @@ block content
            - var x = apisget[i].path;                
                 ol
                    h4     
-                     a(href="/${version}/Api/Current") #{x}
+                     a(href="/${urlRoot}/Api") #{x}
         - }

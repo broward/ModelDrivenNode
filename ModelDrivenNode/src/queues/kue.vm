@@ -17,7 +17,7 @@ jobs.create('email', {
   , template: 'welcome-email'
 }).save();
 
-kue.app.listen(3001);
+kue.app.listen(8080);
 kue.app.set('title', 'Kue Queues');
 
 return kue;

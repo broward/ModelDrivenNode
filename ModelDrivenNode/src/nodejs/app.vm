@@ -10,19 +10,25 @@ var moment = require('moment');
 // Set up database connections
 var mongoose = require('mongoose');
 
-mongoose.connect('mongodb://nodejitsu:605daa1951a29d5eac3c9f48eed44cc1@paulo.mongohq.com:10042/nodejitsudb6660047036');
+if (process.env.SUBDOMAIN){
+  mongoose.connect('mongodb://nodejitsu:605daa1951a29d5eac3c9f48eed44cc1@paulo.mongohq.com:10042/nodejitsudb6660047036');
+} else {
+  mongoose.connect('mongodb://localhost/${schema}');
+}
+
 //mongoose.connect('mongodb://nodejitsu_broward:jtsh6nbljs17ol4u6feaqggv1m@ds039267.mongolab.com:39267/nodejitsu_broward_nodejitsudb11381402');
-//mongoose.connect('mongodb://localhost/${schema}');
+
 console.log('db connected');
 
 // Set up models
 var models = {};
 models = require('./${version}/models/models')(mongoose);
 require('./${version}/models/testdata1')(mongoose, models, moment);
+require('./${version}/routes/routes')(app, mongoose, models);
 
-#foreach ($v in $versions)
-require('./${v}/routes/routes')(app, mongoose, models);
-#end
+
+// Set up queues
+var kue = require('./${version}/queues/kue')(models);
 
 
 // Entry pages
@@ -32,17 +38,15 @@ app.get('/', function(req, res){
   });
 });
 
-#foreach ($v in $versions)
 // Schema Entry page
-app.get('/${v}', function(req, res){
+app.get('/${version}', function(req, res){
   res.render('index', {
     title: 'Model-Driven Node: Reference Implementation'
   });
 });
-#end
 
 // API demo page
-app.get('/${version}/Api/Current', function(req, res){
+app.get('/${urlRoot}/Api', function(req, res){
   res.render('api.jade', {
     titleGet: 'REST GET API',
     titlePost: 'REST POST API',

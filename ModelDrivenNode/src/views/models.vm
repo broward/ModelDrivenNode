@@ -8,4 +8,4 @@ block content
              - count++
              ol
                   h4 #{count}<sp><sp><sp><sp>     
-                     a(href="/${version}/Schema/#{schema}/#{model}") #{model} 
+                     a(href="/${urlRoot}/Schemas/#{model}") #{model} 

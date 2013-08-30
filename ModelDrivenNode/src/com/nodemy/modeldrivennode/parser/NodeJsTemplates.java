@@ -23,9 +23,9 @@ public class NodeJsTemplates extends ModelDrivenNode {
 
 	private void run(String templateFile, String nodeFile, String path) {
 		context.put("application", APPLICATION);
-		context.put("schema", SCHEMA);
 		context.put("version", VERSION);
-		context.put("versions", VERSIONS);
+		context.put("urlRoot", URL_ROOT);
+		context.put("schema", SCHEMA);
 
 		Template t = ve.getTemplate(NODEJS + templateFile);
 		Writer writer;
