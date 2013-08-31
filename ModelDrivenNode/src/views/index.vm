@@ -20,15 +20,27 @@ block content
             a(href="/${urlRoot}/Schemas") All Schema Models
     ol
          h2
-            a(href="/${urlRoot}/Api") REST API via introspection
- 
+            a(href="/${urlRoot}/Api") REST API via introspection          
 #if( $schema == 'AppA' )
+    ol
+         h2
+            a(href="http://modeldrivennode.jit.su/active") Kue Manager
+    ol
+         h2
+            a(href="http://modeldrivennode.jit.su/stats") Kue Manager Stats
+              
     h1
          "App B" Reference
     ol
          h2
             a(href="http://modeldrivennodeb.jit.su") App B
 #else
+    ol
+         h2
+            a(href="http://modeldrivennodeb.jit.su/active") Kue Manager
+    ol
+         h2
+            a(href="http://modeldrivennodeb.jit.su/stats") Kue Manager Stats
     h1
          "App A" Reference
     ol
