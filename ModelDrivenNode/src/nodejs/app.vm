@@ -3,22 +3,10 @@ var express = require('express');
 var app = express();
 
 var server = require('http').createServer(app);
-var config = require('./config.js')(app, express);
+var mongoose = require('mongoose');
+var config = require('./config.js')(app, express, mongoose);
 var moment = require('moment');
 
-
-// Set up database connections
-var mongoose = require('mongoose');
-
-if (process.env.SUBDOMAIN){
-  mongoose.connect('mongodb://nodejitsu:605daa1951a29d5eac3c9f48eed44cc1@paulo.mongohq.com:10042/nodejitsudb6660047036');
-} else {
-  mongoose.connect('mongodb://localhost/${schema}');
-}
-
-//mongoose.connect('mongodb://nodejitsu_broward:jtsh6nbljs17ol4u6feaqggv1m@ds039267.mongolab.com:39267/nodejitsu_broward_nodejitsudb11381402');
-
-console.log('db connected');
 
 // Set up models
 var models = {};
@@ -39,7 +27,7 @@ app.get('/', function(req, res){
 });
 
 // Schema Entry page
-app.get('/${version}', function(req, res){
+app.get('/${urlRoot}', function(req, res){
   res.render('index', {
     title: 'Model-Driven Node: Reference Implementation'
   });

@@ -20,14 +20,21 @@ block content
             a(href="/${urlRoot}/Schemas") All Schema Models
     ol
          h2
-            a(href="/${urlRoot}/Api") Dynamic REST API  
+            a(href="/${urlRoot}/Api") REST API via introspection
  
+#if( $schema == 'AppA' )
     h1
          "App B" Reference
     ol
          h2
-            a(href="http://modeldrivennodeb.jit.su") ModelDrivenNode
-            
+            a(href="http://modeldrivennodeb.jit.su") App B
+#else
+    h1
+         "App A" Reference
+    ol
+         h2
+            a(href="http://modeldrivennode.jit.su") App A
+#end
 
 
 

@@ -115,14 +115,15 @@ public class ModelDrivenNode {
 		// Build first schema
 		ModelDrivenNode nb = new ModelDrivenNode();
 		nb.clean();
-		ModelDrivenNode.APPLICATION = "ModelDrivenNode";
+		/*ModelDrivenNode.APPLICATION = "ModelDrivenNode";
 		ModelDrivenNode.SCHEMA = "AppA";
-		nb.buildServer("schema/OTA/OTA_HotelEvent.xsd"); 
+		nb.buildServer("schema/OTA/OTA_HotelEvent.xsd"); */
 
 		// Build second schema
-		/*ModelDrivenNode.APPLICATION = "ModelDrivenNodeB";
+		ModelDrivenNode.APPLICATION = "ModelDrivenNodeB";
 		ModelDrivenNode.SCHEMA = "AppB";
+		ModelDrivenNode.URL_ROOT = "Mdn/" + SCHEMA + "/" + VERSION;
 		//nb.buildServer("schema/OTA/OTA_HotelEvent.xsd");
-		nb.buildServer("schema/Star/BODs/Developer/ShowPartsInventory.xsd");*/
+		nb.buildServer("schema/Star/BODs/Developer/ShowPartsInventory.xsd");
 	}
 }
