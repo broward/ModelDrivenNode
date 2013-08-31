@@ -1,4 +1,4 @@
-module.exports = function(models) {
+module.exports = function(app, express, models) {
 
 var kue = require('kue'),
   redis = require('redis');
@@ -17,8 +17,16 @@ jobs.create('email', {
   , template: 'welcome-email'
 }).save();
 
-kue.app.listen(3001);
+
 kue.app.set('title', 'Kue Queues');
+
+// hook kue manager into our base app
+var hostname = 'localhost';
+if (process.env.SUBDOMAIN){
+  hostname = process.env.SUBDOMAIN + '.jit.su';
+}
+app.use(express.vhost(hostname, kue.app))
+console.log('kue loaded on ' + hostname);
 
 return kue;
 };

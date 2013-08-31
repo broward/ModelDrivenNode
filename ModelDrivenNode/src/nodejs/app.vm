@@ -16,7 +16,7 @@ require('./${version}/routes/routes')(app, mongoose, models);
 
 
 // Set up queues
-var kue = require('./${version}/queues/kue')(models);
+var kue = require('./${version}/queues/kue')(app, express, models);
 
 
 // Entry pages
@@ -33,12 +33,16 @@ app.get('/${urlRoot}', function(req, res){
   });
 });
 
+// Aggregate my API
+var getAPI = app.routes.get;
+getAPI = getAPI.concat(kue.app.routes.get);
+
 // API demo page
 app.get('/${urlRoot}/Api', function(req, res){
   res.render('api.jade', {
     titleGet: 'REST GET API',
     titlePost: 'REST POST API',
-    apisget: app.routes.get,
+    apisget: getAPI,
     apispost: app.routes.post
   });
 });
