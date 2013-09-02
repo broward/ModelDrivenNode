@@ -17,11 +17,11 @@ import org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader;
  */
 public class ModelDrivenNode {
 	public static String APPLICATION = "ModelDrivenNodeA";
-	public static String SCHEMA = "AppA";
+	public static String APPINSTANCE = "AppA";
 	public static String VERSION = "v1";
 	public static String ROOT = "/Dev/nodejs/mdn/";
 	public static String VERSION_PATH = ROOT + VERSION + "/";
-	public static String URL_ROOT = "Mdn/" + SCHEMA + "/" + VERSION;
+	public static String URL_ROOT = "Mdn/" + APPINSTANCE + "/" + VERSION;
 	
 	// template input paths
 	public static String NODEJS = "nodejs/";
@@ -69,7 +69,7 @@ public class ModelDrivenNode {
 			new SocketJsTemplates();
 			new ModelsJsTemplates();
 			new QueuesJsTemplates();
-			System.out.println("NodeServer for " + SCHEMA + " built!");
+			System.out.println("NodeServer for " + APPINSTANCE + " built!");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -115,15 +115,16 @@ public class ModelDrivenNode {
 		// Build first schema
 		ModelDrivenNode nb = new ModelDrivenNode();
 		nb.clean();
-		/*ModelDrivenNode.APPLICATION = "ModelDrivenNode";
-		ModelDrivenNode.SCHEMA = "AppA";
-		nb.buildServer("schema/OTA/OTA_HotelEvent.xsd"); */
+		ModelDrivenNode.APPLICATION = "ModelDrivenNode";
+		ModelDrivenNode.APPINSTANCE = "AppA";
+		ModelDrivenNode.URL_ROOT = "Mdn/" + APPINSTANCE + "/" + VERSION;
+		nb.buildServer("schema/OTA/OTA_HotelEvent.xsd"); 
 
 		// Build second schema
-		ModelDrivenNode.APPLICATION = "ModelDrivenNodeB";
+		/* ModelDrivenNode.APPLICATION = "ModelDrivenNodeB";
 		ModelDrivenNode.SCHEMA = "AppB";
 		ModelDrivenNode.URL_ROOT = "Mdn/" + SCHEMA + "/" + VERSION;
 		//nb.buildServer("schema/OTA/OTA_HotelEvent.xsd");
-		nb.buildServer("schema/Star/BODs/Developer/ShowPartsInventory.xsd");
+		nb.buildServer("schema/Star/BODs/Developer/ShowPartsInventory.xsd"); */
 	}
 }

@@ -43,7 +43,7 @@ public enum ObjectGrapher {
 	public void writeObjectGraph() {
 		FileWriter outFile;
 		try {
-			outFile = new FileWriter("/Temp/Graph" + ModelDrivenNode.SCHEMA
+			outFile = new FileWriter("/Temp/Graph" + ModelDrivenNode.APPINSTANCE
 					+ ".txt");
 			PrintWriter out = new PrintWriter(outFile);
 
@@ -78,7 +78,7 @@ public enum ObjectGrapher {
 	public void writeEntryPoints() {
 		FileWriter outFile;
 		try {
-			outFile = new FileWriter("/Temp/EntryPoints" + ModelDrivenNode.SCHEMA
+			outFile = new FileWriter("/Temp/EntryPoints" + ModelDrivenNode.APPINSTANCE
 					+ ".txt");
 			PrintWriter out = new PrintWriter(outFile);
 

@@ -22,7 +22,7 @@ public class ModelsJsTemplates extends ModelDrivenNode {
 	
 	private void run(String templateFile, String nodeFile, String path) {
 		context.put("list", ResourceList.INSTANCE.getResources());
-		context.put("schema", SCHEMA);
+		context.put("schema", APPINSTANCE);
 		context.put("randomId", (int) (Math.random() * 100)); 
 
 		Template t = ve.getTemplate(NODEJS + templateFile);

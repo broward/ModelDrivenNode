@@ -16,7 +16,7 @@ public class RoutesJsTemplates extends ModelDrivenNode {
 
 	public RoutesJsTemplates() {
 		context.put("list", ResourceList.INSTANCE.getResources());
-		context.put("schema", SCHEMA);
+		context.put("schema", APPINSTANCE);
 		context.put("version", VERSION);
 		context.put("entryPoints", ObjectGrapher.INSTANCE.getEntrypoints());
 

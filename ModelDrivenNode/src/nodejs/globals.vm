@@ -1,0 +1,6 @@
+// global variables, mostly for filling in REST API
+// I'm sure there's a better node.js way to do this but it works for now
+globalAppType = 'Mdn';
+globalAppInstance = '${schema}';
+globalAppVersion = '${version}';
+globalAppRootUrl = '/' + globalAppType + '/' + globalAppInstance + '/' + globalAppVersion;

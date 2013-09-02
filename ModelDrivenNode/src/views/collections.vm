@@ -3,11 +3,11 @@ extends layout
 block content
     h1= title
      - var count = 0
-     #schema
      #collectionName
      #collections
         - each collection in collections
              - count++
              ol
                   h4 #{count}
-                     <a href="/${urlRoot}/Schemas/#{collectionName}/#{collection._id}">#{collection._id}</a> <a href="/${urlRoot}/Schemas/delete/#{collectionName}/#{collection._id}">delete</a>
+                     a(href=globalAppRootUrl + '/Schemas/#{collectionName}/#{collection._id}') #{collection._id}&nbsp;|&nbsp;&nbsp; 
+                     a(href=globalAppRootUrl + '/Schemas/delete/#{collectionName}/#{collection._id}') delete

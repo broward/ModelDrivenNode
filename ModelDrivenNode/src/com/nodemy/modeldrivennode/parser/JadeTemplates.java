@@ -24,7 +24,7 @@ public class JadeTemplates extends ModelDrivenNode {
 	}
 
 	private void run(String templateFile, String nodeFile, String path) {
-		context.put("schema", SCHEMA);
+		context.put("schema", APPINSTANCE);
 		context.put("version", VERSION);
 
 		Template t = ve.getTemplate(VIEWS + templateFile);

@@ -14,13 +14,13 @@ block content
          "${schema}" Reference
     ol
          h2
-            a(href="/${urlRoot}/TopSchemas") Main Schema Models (most lookup tables filtered)
+            a(href=globalAppRootUrl + '/TopSchemas') Main Schema Models (most lookup tables filtered)
     ol   
          h2
-            a(href="/${urlRoot}/Schemas") All Schema Models
+            a(href=globalAppRootUrl + '/Schemas') All Schema Models
     ol
          h2
-            a(href="/${urlRoot}/Api") REST API via introspection          
+            a(href=globalAppRootUrl + '/Api') REST API via introspection          
 #if( $schema == 'AppA' )
     ol
          h2
