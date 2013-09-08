@@ -22,7 +22,7 @@ public class ResourceProperty {
 	public ResourceProperty(String name, String type, Object value) {
 		this.name = name;
 		this.type = type;
-		this.mongoType = MongoTypeConverter.convertXsdToMongo(type);
+		this.mongoType = MongooseTypeConverter.convertXsdToMongo(type);
 		this.value = TestDataGenerator.INSTANCE.generate(mongoType);
 	}
 	

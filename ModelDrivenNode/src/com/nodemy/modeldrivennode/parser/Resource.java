@@ -38,7 +38,7 @@ public class Resource {
 
 				// this is a reference to resource
 				// make sure we create a phantom resource for it
-					if (!MongoTypeConverter.isPrimitive(type)) {
+					if (!MongooseTypeConverter.isPrimitive(type)) {
 						Resource resource = new Resource(type);
 						ResourceList.INSTANCE.add(resource);
 					}
@@ -50,7 +50,7 @@ public class Resource {
 
 				// this is a reference to resource
 				// make sure we create a phantom resource for it
-					if (!MongoTypeConverter.isPrimitive(type)) {
+					if (!MongooseTypeConverter.isPrimitive(type)) {
 						Resource resource = new Resource(type);
 						ResourceList.INSTANCE.add(resource);
 					}
@@ -67,7 +67,7 @@ public class Resource {
 
 				// this is a reference to resource
 				// make sure we create a phantom resource for it
-					if (!MongoTypeConverter.isPrimitive(type)) {
+					if (!MongooseTypeConverter.isPrimitive(type)) {
 						Resource resource = new Resource(type);
 						ResourceList.INSTANCE.add(resource);
 					}
@@ -79,7 +79,7 @@ public class Resource {
 
 				// this is a reference to resource
 				// make sure we create a phantom resource for it
-					if (!MongoTypeConverter.isPrimitive(type)) {
+					if (!MongooseTypeConverter.isPrimitive(type)) {
 						Resource resource = new Resource(type);
 						ResourceList.INSTANCE.add(resource);
 					}
@@ -91,7 +91,7 @@ public class Resource {
 
 				// this is a reference to resource
 				// make sure we create a phantom resource for it
-				if (!MongoTypeConverter.isPrimitive(type)) {
+				if (!MongooseTypeConverter.isPrimitive(type)) {
 					Resource resource = new Resource(type);
 					ResourceList.INSTANCE.add(resource);
 				}

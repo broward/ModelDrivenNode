@@ -35,7 +35,7 @@ app.get(globalAppRootUrl, function(req, res){
   });
 });
 
-// Aggregate my API
+// Merge kue API into our own.
 var getAPI = app.routes.get;
 getAPI = getAPI.concat(kue.app.routes.get);
 

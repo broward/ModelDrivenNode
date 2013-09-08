@@ -2,7 +2,7 @@ package com.nodemy.modeldrivennode;
 
 import java.util.Date;
 
-import com.nodemy.modeldrivennode.parser.MongoTypeConverter;
+import com.nodemy.modeldrivennode.parser.MongooseTypeConverter;
 
 /**
  * Generate test data for our schemas.
@@ -44,13 +44,13 @@ public enum TestDataGenerator {
 	public String generate(String attributeType) {
 		if (attributeType == null) {
 			return null;
-		} else if (attributeType.equals(MongoTypeConverter.STRING)) {
+		} else if (attributeType.equals(MongooseTypeConverter.STRING)) {
 			return generateStringData();
-		} else if (attributeType.equals(MongoTypeConverter.NUMBER)) {
+		} else if (attributeType.equals(MongooseTypeConverter.NUMBER)) {
 			return generateNumberData();
-		} else if (attributeType.equals(MongoTypeConverter.BOOLEAN)) {
+		} else if (attributeType.equals(MongooseTypeConverter.BOOLEAN)) {
 			return generateBooleanData();
-		} else if (attributeType.equals(MongoTypeConverter.DATE)) {
+		} else if (attributeType.equals(MongooseTypeConverter.DATE)) {
 			return generateDateData();
 		} else {
 			// Build mongo-specific syntax to reference a complextype

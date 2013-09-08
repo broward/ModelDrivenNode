@@ -9,16 +9,15 @@ import javax.xml.datatype.Duration;
 import javax.xml.datatype.XMLGregorianCalendar;
 
 /**
- * Convert xsd primitive data types to mongodb data types.
+ * Convert xsd primitive data types to mongoose data types.
  * 
  * @author broward
  * 
  */
-public class MongoTypeConverter {
+public class MongooseTypeConverter {
 	public static Map<String, String> types = new HashMap<String, String>();
 
-	// mongo data types
-	public static String DOUBLE = "Double";
+	// mongoose data types
 	public static String STRING = "String";
 	public static String OBJECT = "Object";
 	public static String ARRAY = "Array";

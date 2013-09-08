@@ -9,5 +9,8 @@ block content
              - count++
              ol
                   h4 #{count}
-                     a(href=globalAppRootUrl + '/Schemas/#{collectionName}/#{collection._id}') #{collection._id}&nbsp;|&nbsp;&nbsp; 
-                     a(href=globalAppRootUrl + '/Schemas/delete/#{collectionName}/#{collection._id}') delete
+                     a(href=globalAppRootUrl + '/Schemas/#{collectionName}/#{collection._id}') #{collection._id}</u>
+                     &nbsp;&nbsp; 
+                     a(href=globalAppRootUrl + '/Schemas/delete/#{collectionName}/#{collection._id}') delete</u>
+                       &nbsp;&nbsp; 
+                     a(href=globalAppRootUrl + '/Schemas/#{collectionName}?query="mdnId:2"') #{collection._id}
