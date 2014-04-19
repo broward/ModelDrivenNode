@@ -3,15 +3,27 @@ extends layout
 block content
   h1= title
     img(class="artifact-img", src="http://nodemy.jit.su/img/mdn/ReferenceImplementation.png")
-  h1
-    p    
-        a(href="http://nodemy.jit.su/category/node.js") Design Docs
+  
   h2
-    p  This is my target reference model for the Model-Driven Node concept.  It shows what a real enterprise-level organization could look like with componentized node.js applications in an holistic system. This example has 2000 auto-generated models (tables), collections, test data and API derived from open source xsd schemas created by the <a href="http://www.opentravel.org">Open Travel Alliance</a> and the <a href="http://www.starstandard.org">Star Standard for Automobile Retail.</a>
+    p This page is part of the preceding diagram.  You're running the reference implementation right now.  This site was generated with 15 java classes, 15 velocity templates, 2 xsd schemas to demonstrate what an enterprise-level suite might look like with componentized node.js applications. 
+
   h2
-    p  Essentially, I've created a fair bit of the infrastructure of a significant enterprise application in about 120 hours of work, but I wrote a generation tool, not the foundation code, so I can duplicate it for other schemas in a few minutes now.
+    p App A has 1152 auto-generated models (tables), collections, test data and API derived from an open source xsd schema created by the <a href="http://www.opentravel.org">Open Travel Alliance</a>.   App B has 995 models generated from <a href="http://www.starstandard.org">Star Standard for Automobile Retail</a> and there's approximately 2 million test records at the moment.
+
+  h2
+    p I created this enterprise application in 120 hours but with a generation tool instead of by writing basic code, so now I can create a new application in a few minutes.  A real e-commerce site would probably need less than 100 java classes, less than 100 velocity templates and 1 xsd schema.
+  h2
+    p The real value of the model-driven node is dynamic regeneration of all associated parts as the xsd schema evolves; the parts hold together more consistently and require less testing.  In fact, in previous projects, we also generated many of our unit and integration tests using velocity templates.
+
     h1
-         "${schema}" Reference
+         "App A" Reference
+    ol  
+         h2
+            a(href="http://nodemy.jit.su/category/node.js") Design Docs
+    ol  
+         h2
+            a(href="https://github.com/broward/ModelDrivenNode") Source Code
+
     ol
          h2
             a(href=globalAppRootUrl + '/TopSchemas') Main Schema Models (most lookup tables filtered)
@@ -21,7 +33,6 @@ block content
     ol
          h2
             a(href=globalAppRootUrl + '/Api') REST API via introspection          
-#if( $schema == 'AppA' )
     ol
          h2
             a(href="http://modeldrivennode.jit.su/active") Kue Manager
@@ -34,19 +45,6 @@ block content
     ol
          h2
             a(href="http://modeldrivennodeb.jit.su") App B
-#else
-    ol
-         h2
-            a(href="http://modeldrivennodeb.jit.su/active") Kue Manager
-    ol
-         h2
-            a(href="http://modeldrivennodeb.jit.su/stats") Kue Manager Stats
-    h1
-         "App A" Reference
-    ol
-         h2
-            a(href="http://modeldrivennode.jit.su") App A
-#end
 
 
 
