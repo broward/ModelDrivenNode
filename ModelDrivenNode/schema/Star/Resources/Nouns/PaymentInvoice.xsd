@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xsd:schema xmlns="http://www.starstandard.org/STAR/5" xmlns:ccts="urn:un:unece:uncefact:documentation:1.1" xmlns:oacl="http://www.openapplications.org/oagis/9/codelists" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1" xmlns:scl="http://www.starstandard.org/STAR/5/codelists" xmlns:sqdt="http://www.starstandard.org/STAR/5/qualifieddatatypes/1.0" xmlns:star="http://www.starstandard.org/STAR/5" xmlns:sudt="http://www.starstandard.org/STAR/5/unqualifieddatatypes/1.0" xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:xsd="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" blockDefault="#all" elementFormDefault="qualified" targetNamespace="http://www.starstandard.org/STAR/5">
+   <xsd:annotation>
+      <xsd:documentation source="http://www.starstandard.org/STAR/5"> This schema is made available under an Eclipse Public Licenses 1.0.
+         This license may be found in the STAR/License directory as well as the STAR BOD Guidelines.</xsd:documentation>
+   </xsd:annotation>
+    <xsd:include schemaLocation="../Components/Common/Meta.xsd"/>
+   <xsd:import namespace="http://www.starstandard.org/STAR/5/qualifieddatatypes/1.0" schemaLocation="../Components/Common/QualifiedDataTypes.xsd"/>
+   <xsd:import namespace="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" schemaLocation="../Components/OAGIS/CoreComponents/UnqualifiedDataTypes.xsd"/>
+   <xsd:import namespace="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1" schemaLocation="../Components/OAGIS/CoreComponents/QualifiedDataTypes.xsd"/>
+   <xsd:import namespace="http://www.starstandard.org/STAR/5/codelists" schemaLocation="../Components/Common/CodeLists.xsd"/>
+   <xsd:import namespace="http://www.openapplications.org/oagis/9" schemaLocation="../Components/OAGIS/Common/Components.xsd"/>
+   <xsd:element name="PaymentInvoice" type="PaymentInvoiceType">
+      <xsd:annotation>
+         <xsd:documentation source="http://www.starstandard.org/STAR/5"> </xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element name="PaymentInvoiceHeader" type="PaymentInvoiceHeaderType">
+      <xsd:annotation>
+         <xsd:documentation source="http://www.starstandard.org/STAR/5"> Invoice Header</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element name="PaymentInvoiceLineItem" type="PaymentInvoiceLineItemType">
+      <xsd:annotation>
+         <xsd:documentation source="http://www.starstandard.org/STAR/5"> Invoice Line Items</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:complexType name="PaymentInvoiceType">
+      <xsd:annotation xmlns="http://www.starstandards.org/STAR">
+         <xsd:documentation source="http://www.starstandard.org/STAR/5"> This Noun was added to the repository starting with STAR 5.3.3.
+         </xsd:documentation>
+      </xsd:annotation>
+      <xsd:sequence>
+         <xsd:element maxOccurs="1" minOccurs="1" ref="PaymentInvoiceHeader"/>
+         <xsd:element maxOccurs="unbounded" minOccurs="0" ref="PaymentInvoiceLineItem"/>
+      </xsd:sequence>
+   </xsd:complexType>
+   <xsd:complexType name="PaymentInvoiceHeaderType">
+      <xsd:annotation xmlns="http://www.starstandards.org/STAR">
+         <xsd:documentation source="http://www.starstandard.org/STAR/5">Invoice header information.</xsd:documentation>
+      </xsd:annotation>
+      <xsd:complexContent>
+         <xsd:extension base="HeaderBaseType">
+            <xsd:sequence>
+            	<xsd:element maxOccurs="1" minOccurs="0" name="InvoiceTotalAmount" type="udt:AmountType">
+            		<xsd:annotation>
+            			<xsd:documentation source="http://www.starstandard.org/STAR/5">Invoice total.</xsd:documentation>
+            		</xsd:annotation>
+            	</xsd:element>
+            	<xsd:element maxOccurs="unbounded" minOccurs="0" ref="Tax"/>
+            	<xsd:element maxOccurs="unbounded" minOccurs="0" ref="Pricing"/>
+            	<xsd:element maxOccurs="unbounded" minOccurs="0" ref="CodesAndComments"/>
+            	<xsd:element maxOccurs="1" minOccurs="0" ref="RelatedItem"/>
+            	<xsd:element maxOccurs="1" minOccurs="0" ref="CreditCard"/>
+            	<xsd:element maxOccurs="1" minOccurs="0" ref="MasterCustomerParty"/>            	
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:complexType name="PaymentInvoiceLineItemType">
+      <xsd:annotation xmlns="http://www.starstandards.org/STAR">
+         <xsd:documentation source="http://www.starstandard.org/STAR/5">Invoice line item information</xsd:documentation>
+      </xsd:annotation>
+      <xsd:sequence>
+       <xsd:element maxOccurs="1" minOccurs="0" name="PaymentLineTypeCode" type="scl:PaymentLineTypeEnumeratedType">
+         		<xsd:annotation>
+         			<xsd:documentation source="http://www.starstandard.org/STAR/5">Identifies the type of charge associted with this line item. The types are parts, labor, lubrication, core amount, freight, sublet and miscellaneous.</xsd:documentation>
+         		</xsd:annotation>
+        </xsd:element>
+      	<xsd:element maxOccurs="1" minOccurs="0" ref="ItemIdentificationGroup"/>
+      	<xsd:element maxOccurs="unbounded" minOccurs="0" ref="Pricing"/>
+      	<xsd:element maxOccurs="1" minOccurs="0" name="ItemQuantity" type="udt:QuantityType">
+         		<xsd:annotation>
+         			<xsd:documentation source="http://www.starstandard.org/STAR/5">Quantity of this line items used.</xsd:documentation>
+         		</xsd:annotation>
+          </xsd:element>
+      	<xsd:element maxOccurs="unbounded" minOccurs="0" ref="DocumentReference"/>
+      	<xsd:element maxOccurs="unbounded" minOccurs="0" ref="FreeFormTextGroup"/>
+      	<xsd:element maxOccurs="1" minOccurs="0" name="ExtendedAmount" type="udt:AmountType">
+         		<xsd:annotation>
+         			<xsd:documentation source="http://www.starstandard.org/STAR/5">Value times quantity</xsd:documentation>
+         		</xsd:annotation>
+          </xsd:element>
+          <xsd:element maxOccurs="1" minOccurs="0" name="CoreIndicator" type="udt:IndicatorType">
+         		<xsd:annotation>
+         			<xsd:documentation source="http://www.starstandard.org/STAR/5">Indicates that there is an core amount associated with the part.</xsd:documentation>
+         		</xsd:annotation>
+          </xsd:element>
+          <xsd:element maxOccurs="1" minOccurs="0" name="PaymentLineDescription" type="udt:TextType">
+         		<xsd:annotation>
+         			<xsd:documentation source="http://www.starstandard.org/STAR/5">A free from text field describing this line item.</xsd:documentation>
+         		</xsd:annotation>
+          </xsd:element>
+      </xsd:sequence>
+   </xsd:complexType>
+</xsd:schema>

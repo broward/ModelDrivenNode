@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:star="http://www.starstandard.org/STAR/5"
+   xmlns:oacl="http://www.openapplications.org/oagis/9/codelists" xmlns:sqdt="http://www.starstandard.org/STAR/5/qualifieddatatypes/1.0"
+   xmlns="http://www.starstandard.org/STAR/5" xmlns:ccts="urn:un:unece:uncefact:documentation:1.1" xmlns:sudt="http://www.starstandard.org/STAR/5/unqualifieddatatypes/1.0"
+   xmlns:scl="http://www.starstandard.org/STAR/5/codelists" targetNamespace="http://www.starstandard.org/STAR/5"
+   elementFormDefault="qualified" attributeFormDefault="unqualified" blockDefault="#all"
+   xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1"
+   xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"   
+>
+   <xsd:annotation>
+      <xsd:documentation source="http://www.starstandard.org/STAR/5"> This schema is made available under an Eclipse Public Licenses 1.0.
+         This license may be found in the STAR/License directory as well as the STAR BOD Guidelines.</xsd:documentation>
+   </xsd:annotation>
+    <xsd:include schemaLocation="../Components/Common/Meta.xsd" />
+   <xsd:import namespace="http://www.starstandard.org/STAR/5/qualifieddatatypes/1.0" schemaLocation="../Components/Common/QualifiedDataTypes.xsd"/>
+   <xsd:import namespace="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" schemaLocation="../Components/OAGIS/CoreComponents/UnqualifiedDataTypes.xsd"/>
+   <xsd:import namespace="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1" schemaLocation="../Components/OAGIS/CoreComponents/QualifiedDataTypes.xsd"/>
+   <xsd:import namespace="http://www.starstandard.org/STAR/5/codelists" schemaLocation="../Components/Common/CodeLists.xsd"/>
+   <xsd:import namespace="http://www.openapplications.org/oagis/9" schemaLocation="../Components/OAGIS/Common/Components.xsd" />
+   <xsd:element name="DealerLocator" type="DealerLocatorType">
+      <xsd:annotation>
+         <xsd:documentation source="http://www.starstandard.org/STAR/5"> DealerLocator</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element name="DealerLocatorHeader" type="DealerLocatorHeaderType">
+      <xsd:annotation>
+         <xsd:documentation source="http://www.starstandard.org/STAR/5"> DealerLocator</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element name="DealerLocatorDetail" type="DealerLocatorDetailType">
+      <xsd:annotation>
+         <xsd:documentation source="http://www.starstandard.org/STAR/5"> DealerLocator</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:complexType name="DealerLocatorType">
+      <xsd:annotation xmlns="http://www.starstandards.org/STAR">
+         <xsd:documentation source="http://www.starstandard.org/STAR/5">STAR Version 1.0 - Draft</xsd:documentation>
+      </xsd:annotation>
+      <xsd:sequence>
+         <xsd:element ref="DealerLocatorHeader" />
+         <xsd:element ref="DealerLocatorDetail" minOccurs="0" maxOccurs="unbounded" />
+      </xsd:sequence>
+   </xsd:complexType>
+   <xsd:complexType name="DealerLocatorHeaderType">
+      <xsd:annotation xmlns="http://www.starstandards.org/STAR">
+         <xsd:documentation source="http://www.starstandard.org/STAR/5">DealerLocator Header information</xsd:documentation>
+      </xsd:annotation>
+      <xsd:complexContent>
+         <xsd:extension base="HeaderBaseType">
+            <xsd:sequence>
+               <xsd:element name="NumberOfDealersToBeReturnedNumeric" type="udt:NumericType" minOccurs="0"
+                  maxOccurs="1"
+               >
+                  <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+                     xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1"
+                  >
+                     <xsd:documentation>Number of dealers to be returned with query.</xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element ref="GenericSearchCriteria" minOccurs="0" maxOccurs="unbounded" />
+               <xsd:element ref="LocationSearchCriteria" minOccurs="0" maxOccurs="1" />
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:complexType name="DealerLocatorDetailType">
+      <xsd:annotation xmlns="http://www.starstandards.org/STAR">
+         <xsd:documentation source="http://www.starstandard.org/STAR/5">DealerLocator Detail information</xsd:documentation>
+      </xsd:annotation>
+      <xsd:sequence>
+         <xsd:element name="LineID" type="udt:IdentifierType" minOccurs="0" maxOccurs="1">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+               xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1"
+            >
+               <xsd:documentation source="http://www.starstandard.org/STAR/5">A unique identifer for a line. i.e A line number.
+               </xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element ref="DealerParty" minOccurs="0" maxOccurs="1" />
+         <xsd:element ref="ProximityMeasureGroup" minOccurs="0" maxOccurs="1" />
+         <xsd:element name="DealerServiceTypeCode" type="sqdt:DealerServiceTypeCodeType" minOccurs="0"
+            maxOccurs="unbounded"
+         >
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+               xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1"
+            >
+               <xsd:documentation>Indicates the type of services performed by the Dealer.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element ref="DealerCertificationGroup" minOccurs="0" maxOccurs="unbounded" />
+         <xsd:element name="ProductsCarried" type="udt:TextType" minOccurs="0" maxOccurs="unbounded">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+               xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1"
+            >
+               <xsd:documentation>Identifies the type of products that the dealer carriers.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="DealerLogoURI" type="qdt:URIType" minOccurs="0" maxOccurs="1">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+               xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1"
+            >
+               <xsd:documentation>URI to dealer logo image.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="DealerLocationImageURI" type="qdt:URIType" minOccurs="0" maxOccurs="1">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+               xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1"
+            >
+               <xsd:documentation>A generic image to represent the dealership- for example a picture of the building or
+                  sales team</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element ref="HoursOfOperation" minOccurs="0" maxOccurs="1" />
+         <xsd:element name="DealerNote" type="udt:TextType" minOccurs="0" maxOccurs="unbounded">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+               xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1"
+            >
+               <xsd:documentation source="http://www.starstandard.org/STAR/5">Free-form text field for the dealer to provide descriptive
+                  information.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element ref="MakesCarried" minOccurs="0" maxOccurs="unbounded" />
+      </xsd:sequence>
+   </xsd:complexType>
+</xsd:schema>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:include schemaLocation="CommonTicketingTypes.xsd"/>
+	<xsd:element name="TicketVoidRS">
+		<xsd:annotation>
+			<xsd:documentation>Comment describing your root element</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="InfoGroup" minOccurs="0"/>
+				<xsd:element name="Ticket">
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="ESAC" type="xsd:string" minOccurs="0">
+								<xsd:annotation>
+									<xsd:documentation>Electronic Setlemend Authorization Code from the Airline authorizing the void.</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+							<xsd:element name="VoidSuccessful">
+								<xsd:annotation>
+									<xsd:documentation>Allowed values: Y or N</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+						</xsd:sequence>
+						<xsd:attribute ref="DocType"/>
+						<xsd:attribute name="Number" type="xsd:string" use="required">
+							<xsd:annotation>
+								<xsd:documentation>The ticket number of the voided ticket. 
+If the ticket, whose number was specified in the requests was part of a conjuctive ticket, only the number specified in the request will be returned, although all tickets of the conjuctive set will have been voided.
+
+Example:  0017366845341</xsd:documentation>
+							</xsd:annotation>
+						</xsd:attribute>
+					</xsd:complexType>
+				</xsd:element>
+				<xsd:element name="OriginalTicket" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>In case of a ticket exchange transaction void this is the reference data to the original ticket for which the status needs to be reversed in any reference elements (TicketInfo) of the PNR database</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="Ticket">
+								<xsd:complexType>
+									<xsd:sequence>
+										<xsd:element name="ResetStatus" type="xsd:string">
+											<xsd:annotation>
+												<xsd:documentation>The status to which the original ticket must be reset to.
+
+Example: TKTT</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+									</xsd:sequence>
+									<xsd:attribute name="Number" type="xsd:string" use="required">
+										<xsd:annotation>
+											<xsd:documentation>The primary ticket number of the original ticket. 
+
+Example:  0017366845341</xsd:documentation>
+										</xsd:annotation>
+									</xsd:attribute>
+								</xsd:complexType>
+							</xsd:element>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>

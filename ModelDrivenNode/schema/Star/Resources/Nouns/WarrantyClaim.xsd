@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:star="http://www.starstandard.org/STAR/5"
+   xmlns:oacl="http://www.openapplications.org/oagis/9/codelists" xmlns:sqdt="http://www.starstandard.org/STAR/5/qualifieddatatypes/1.0"
+   xmlns="http://www.starstandard.org/STAR/5" xmlns:ccts="urn:un:unece:uncefact:documentation:1.1" xmlns:sudt="http://www.starstandard.org/STAR/5/unqualifieddatatypes/1.0"
+   xmlns:scl="http://www.starstandard.org/STAR/5/codelists" targetNamespace="http://www.starstandard.org/STAR/5"
+   elementFormDefault="qualified" attributeFormDefault="unqualified" blockDefault="#all"
+   xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1"
+   xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"   
+>
+    <xsd:annotation>
+        <xsd:documentation source="http://www.starstandard.org/STAR/5">
+            This schema is made available under an Eclipse Public Licenses 1.0.  This
+            license may be found in the STAR/License directory as well as the STAR BOD
+            Guidelines.
+        </xsd:documentation>
+    </xsd:annotation>
+    <xsd:include schemaLocation="../Components/Common/Meta.xsd" />
+   <xsd:import namespace="http://www.starstandard.org/STAR/5/qualifieddatatypes/1.0" schemaLocation="../Components/Common/QualifiedDataTypes.xsd"/>
+   <xsd:import namespace="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" schemaLocation="../Components/OAGIS/CoreComponents/UnqualifiedDataTypes.xsd"/>
+   <xsd:import namespace="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1" schemaLocation="../Components/OAGIS/CoreComponents/QualifiedDataTypes.xsd"/>
+   <xsd:import namespace="http://www.starstandard.org/STAR/5/codelists" schemaLocation="../Components/Common/CodeLists.xsd"/>
+   <xsd:import namespace="http://www.openapplications.org/oagis/9" schemaLocation="../Components/OAGIS/Common/Components.xsd" />
+    <xsd:element name="WarrantyClaimNoun" type="WarrantyClaimNounType">
+        <xsd:annotation>
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">
+                Repair Order
+            </xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    <xsd:element name="WarrantyClaimHeader" type="WarrantyClaimHeaderType">
+        <xsd:annotation>
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">
+                Repair Order Header
+            </xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    <xsd:complexType name="WarrantyClaimNounType">
+        <xsd:annotation xmlns="http://www.starstandards.org/STAR">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">STAR Version 1.0, STAR approved 8/6/2002; OAGI approved 8/16/2002; effective date 1/01/2003</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element ref="WarrantyClaimHeader"/>
+            <xsd:element ref="WarrantyClaim" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="WarrantyClaimHeaderType">
+        <xsd:annotation xmlns="http://www.starstandards.org/STAR">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="HeaderBaseType">
+                <xsd:sequence>
+<!--                    <xsd:element ref="DocumentID" /> -->
+                    <xsd:element name="SecondaryReferenceNumberString" type="qdt:StringType" minOccurs="0">
+                  <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Secondary Repair Order
+                reference number</xsd:documentation>
+        </xsd:annotation>
+               </xsd:element>
+                    <xsd:element ref="DealerParty" minOccurs="0"/>
+                    <xsd:element ref="OwnerParty" minOccurs="0"/>
+                    <xsd:element ref="Co-OwnerParty" minOccurs="0"/>
+                    <xsd:element ref="PrimaryDriver" minOccurs="0"/>
+                    <xsd:element ref="SecondaryPrimaryDriver" minOccurs="0" maxOccurs="unbounded"/>
+                    <xsd:element ref="RepairOrderVehicleLineItem" minOccurs="0"/>
+                    <xsd:element ref="Warranty" minOccurs="0" maxOccurs="unbounded"/>
+                    <xsd:element ref="ServiceContract" minOccurs="0" maxOccurs="unbounded"/>
+                    <xsd:element ref="CASE" minOccurs="0" maxOccurs="unbounded"/>
+                    <xsd:element name="RepairOrderOpenedDate" type="udt:DateType" minOccurs="0">
+                  <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">System date when Repair
+                Order was opened</xsd:documentation>
+        </xsd:annotation>
+               </xsd:element>
+                    <xsd:element name="RepairOrderCompletedDate" type="udt:DateType" minOccurs="0">
+                  <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">The date the last line
+                was closed on the repair order</xsd:documentation>
+        </xsd:annotation>
+               </xsd:element>
+                    <xsd:element name="RepairOrderInvoiceDate" type="udt:DateType" minOccurs="0">
+                  <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">The date the repair order
+                transaction moves to accounting</xsd:documentation>
+        </xsd:annotation>
+               </xsd:element>
+                    <xsd:element ref="ServiceAdvisorParty" minOccurs="0"/>
+                    <xsd:element name="InDistanceMeasure" type="sqdt:LengthMeasureType" minOccurs="0">
+                  <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Odometer reading of
+                vehicle when repair order was opened</xsd:documentation>
+        </xsd:annotation>
+               </xsd:element>
+                    <xsd:element name="OutDistanceMeasure" type="sqdt:LengthMeasureType" minOccurs="0">
+                  <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Odometer reading of
+                vehicle when repair order was closed</xsd:documentation>
+        </xsd:annotation>
+               </xsd:element>
+                    <xsd:element name="OrderNotes" type="udt:TextType" minOccurs="0">
+                  <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Free form text for
+                general repair order comment which will be printed on the
+            invoice</xsd:documentation>
+        </xsd:annotation>
+               </xsd:element>
+                    <xsd:element name="OrderInternalNotes" type="udt:TextType" minOccurs="0">
+                  <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Free form text for
+                internal repair order remarks that will NOT be printed on the
+            invoice</xsd:documentation>
+        </xsd:annotation>
+               </xsd:element>
+                    <xsd:element name="DepartmentType" type="udt:TextType" minOccurs="0">
+                  <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Identifies the type of
+                department</xsd:documentation>
+        </xsd:annotation>
+               </xsd:element>
+                    <xsd:element ref="RentLoaner" minOccurs="0" maxOccurs="unbounded"/>
+                    <xsd:element ref="ServiceComponents" minOccurs="0" maxOccurs="unbounded"/>
+                    <xsd:element ref="Sublet" minOccurs="0" maxOccurs="unbounded"/>
+                    <xsd:element name="LaborRateAmount" type="udt:AmountType" minOccurs="0">
+                  <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5"/>
+        </xsd:annotation>
+               </xsd:element>
+                    <xsd:element ref="Price" minOccurs="0" maxOccurs="3"/>
+                    <xsd:element ref="Tax" minOccurs="0" maxOccurs="unbounded"/>
+                    <xsd:element name="DataCollectionStatus" type="udt:IndicatorType" minOccurs="0">
+                  <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Indicates status of data
+                for the record it appears on</xsd:documentation>
+        </xsd:annotation>
+               </xsd:element>
+                    <xsd:element name="ESCFranchiseIndicator" type="udt:IndicatorType" minOccurs="0">
+                  <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Extended Service
+                Competitive (ESC) flag indicates if dealer has franchise for Extended Service
+                Program (ESP) repair for competitive make</xsd:documentation>
+        </xsd:annotation>
+               </xsd:element>
+                    <xsd:element ref="Splits" minOccurs="0"/>
+                    <xsd:element name="TreadActIndicator" type="udt:IndicatorType" minOccurs="0">
+                  <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Transportation Recall
+                Enhancement, Accountability, and Documentation (TREAD) Act (i.e., - Indicates if
+                there has been fire damage)</xsd:documentation>
+        </xsd:annotation>
+               </xsd:element>
+                    <xsd:element name="LocationID" type="udt:IdentifierType" minOccurs="0">
+                  <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Code identifying a
+                physical location</xsd:documentation>
+        </xsd:annotation>
+               </xsd:element>
+                    <xsd:element ref="RepairOrderStatus" minOccurs="0" maxOccurs="unbounded"/>
+                    <xsd:element name="ReturnDisallowedPartsIndicator" type="udt:IndicatorType" minOccurs="0" maxOccurs="1">
+                  <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Overrides the default
+                action for how the OEM handles parts when investigating a waranty
+            claim.</xsd:documentation>
+        </xsd:annotation>
+               </xsd:element>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:element name="RepairOrderVehicleLineItem" type="RepairOrderVehicleLineItemType">
+        <xsd:annotation>
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">
+                Detail information regarding a vehicle for a particular repair order.
+            </xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    <xsd:complexType name="RepairOrderVehicleLineItemType">
+        <xsd:annotation>
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element ref="Vehicle" minOccurs="0" maxOccurs="1"/>
+            <xsd:element ref="BrandedInfo" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="OriginalSoldDate" type="udt:DateType" minOccurs="0" maxOccurs="1">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">The date the item, e.g.,
+                a vehicle, engine, boat, part, etc. was sold.</xsd:documentation>
+        </xsd:annotation>
+         </xsd:element>
+            <xsd:element name="DeliveryDistanceMeasure" type="sqdt:LengthMeasureType" minOccurs="0" maxOccurs="1">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Odometer reading of
+                vehicle at time of delivery</xsd:documentation>
+        </xsd:annotation>
+         </xsd:element>
+            <xsd:element name="IgnitionKeyNumberString" type="qdt:StringType" minOccurs="0" maxOccurs="1">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Vehicle Ignition Key
+                Number</xsd:documentation>
+        </xsd:annotation>
+         </xsd:element>
+            <xsd:element name="NonUSVehicleIndicator" type="udt:IndicatorType" minOccurs="0" maxOccurs="1">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Indicates whether the
+                vehicle was produced for the United States or not</xsd:documentation>
+        </xsd:annotation>
+         </xsd:element>
+            <xsd:element name="OdometerStatus" type="udt:TextType" minOccurs="0" maxOccurs="1">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Status of odometer at
+                trade-in. Example:: Replaced, Tampered, Miles&gt; 90,000,
+            etc.</xsd:documentation>
+        </xsd:annotation>
+         </xsd:element>
+            <xsd:element name="RestrictionIndicator" type="udt:IndicatorType" minOccurs="0" maxOccurs="1">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Indication that vehicle
+                has restrictions on its use</xsd:documentation>
+        </xsd:annotation>
+         </xsd:element>
+            <xsd:element name="RestrictionDescription" type="udt:TextType" minOccurs="0" maxOccurs="1">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Description of vehicle
+                use restrictions</xsd:documentation>
+        </xsd:annotation>
+         </xsd:element>
+            <xsd:element name="TelematicsServiceIndicator" type="udt:IndicatorType" minOccurs="0" maxOccurs="1">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Indication whether
+                Telematics Service Subscription is turned on</xsd:documentation>
+        </xsd:annotation>
+         </xsd:element>
+            <xsd:element name="VehicleDemoIndicator" type="udt:IndicatorType" minOccurs="0" maxOccurs="1">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Indicates whether vehicle
+                was ever a demo</xsd:documentation>
+        </xsd:annotation>
+         </xsd:element>
+            <xsd:element name="VehicleStockString" type="qdt:StringType" minOccurs="0" maxOccurs="1">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Dealer assigned vehicle
+                stock number</xsd:documentation>
+        </xsd:annotation>
+         </xsd:element>
+            <xsd:element ref="FleetAccount" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="LicenseNumberString" type="qdt:StringType" minOccurs="0" maxOccurs="1">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">State License plate
+                number of vehicle</xsd:documentation>
+        </xsd:annotation>
+         </xsd:element>
+            <xsd:element name="VehicleStatusCode" type="udt:CodeType" minOccurs="0" maxOccurs="1">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Vehicle status code -
+                Example status could be Built, Scheduled, Shipped, In-Transit, Sold,
+            etc.</xsd:documentation>
+        </xsd:annotation>
+         </xsd:element>
+            <xsd:element name="AlternateOEMVehicleIndicator" type="udt:IndicatorType" minOccurs="0" maxOccurs="1">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation>Vehicle is manufactured by another OEM.</xsd:documentation>
+        </xsd:annotation>
+         </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+</xsd:schema>

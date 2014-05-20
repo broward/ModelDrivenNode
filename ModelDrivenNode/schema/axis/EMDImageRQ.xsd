@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:element name="EMDImageRQ">
+		<xsd:annotation>
+			<xsd:documentation>Root element to retrieve an EMD (Electronic Miscellaneous Document).
+
+Note: If the requested document number is part of a conjunctive set (e.g. EMD-A may have up to 4 documents allowed), then all images are said conjunctive set will be retrieved.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="Agency">
+					<xsd:annotation>
+						<xsd:documentation>Agency the document belongs to.  
+</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:simpleContent>
+							<xsd:extension base="xsd:string"/>
+						</xsd:simpleContent>
+					</xsd:complexType>
+				</xsd:element>
+				<xsd:element name="CurrentPseudoCityCode" type="xsd:string">
+					<xsd:annotation>
+						<xsd:documentation>Current pseudo city code.  Example: AAL0</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:choice>
+					<xsd:annotation>
+						<xsd:documentation>Document image retrieval can be done by 
+(a) document number(s) 
+(b) by associated e-ticket number (all EMD-A type documents issued and associated to specified ticket number will be returned)</xsd:documentation>
+					</xsd:annotation>
+					<xsd:element name="DocumentNumber" maxOccurs="unbounded">
+						<xsd:annotation>
+							<xsd:documentation>The 13-digit document number, including the three digit airline code.
+
+NOTE: In case of a conjunctive document, all documents belonging to this set will be returned. Hence, it is not necessary to specify all document numbers of the documents forming part of a conjunctive set.</xsd:documentation>
+						</xsd:annotation>
+						<xsd:complexType>
+							<xsd:simpleContent>
+								<xsd:extension base="xsd:string"/>
+							</xsd:simpleContent>
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="TicketNumber">
+						<xsd:annotation>
+							<xsd:documentation>The 13-digit TICKET number, including the three digit airline code.
+
+NOTE: This is the ticket number for which all associated documents are requested to be retrieved.
+In case of a conjunctive ticket set this must be the PRIMARY (first) number of the ticket set.</xsd:documentation>
+						</xsd:annotation>
+						<xsd:complexType>
+							<xsd:simpleContent>
+								<xsd:extension base="xsd:string"/>
+							</xsd:simpleContent>
+						</xsd:complexType>
+					</xsd:element>
+				</xsd:choice>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>

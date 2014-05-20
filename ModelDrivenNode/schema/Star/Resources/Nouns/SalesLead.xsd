@@ -1,0 +1,501 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:star="http://www.starstandard.org/STAR/5"
+   xmlns:oacl="http://www.openapplications.org/oagis/9/codelists" xmlns:sqdt="http://www.starstandard.org/STAR/5/qualifieddatatypes/1.0"
+   xmlns="http://www.starstandard.org/STAR/5" xmlns:ccts="urn:un:unece:uncefact:documentation:1.1" xmlns:sudt="http://www.starstandard.org/STAR/5/unqualifieddatatypes/1.0"
+   xmlns:scl="http://www.starstandard.org/STAR/5/codelists" targetNamespace="http://www.starstandard.org/STAR/5"
+   elementFormDefault="qualified" attributeFormDefault="unqualified" blockDefault="#all"
+   xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1"
+   xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"   
+>
+    <xsd:annotation>
+        <xsd:documentation source="http://www.starstandard.org/STAR/5">
+            This schema is made available under an Eclipse Public Licenses 1.0.  This
+            license may be found in the STAR/License directory as well as the STAR BOD
+            Guidelines.
+        </xsd:documentation>
+    </xsd:annotation>
+    <xsd:include schemaLocation="../Components/Common/Meta.xsd" />
+   <xsd:import namespace="http://www.starstandard.org/STAR/5/qualifieddatatypes/1.0" schemaLocation="../Components/Common/QualifiedDataTypes.xsd"/>
+   <xsd:import namespace="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" schemaLocation="../Components/OAGIS/CoreComponents/UnqualifiedDataTypes.xsd"/>
+   <xsd:import namespace="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1" schemaLocation="../Components/OAGIS/CoreComponents/QualifiedDataTypes.xsd"/>
+   <xsd:import namespace="http://www.starstandard.org/STAR/5/codelists" schemaLocation="../Components/Common/CodeLists.xsd"/>
+   <xsd:import namespace="http://www.openapplications.org/oagis/9" schemaLocation="../Components/OAGIS/Common/Components.xsd" />
+    <xsd:element name="SalesLead" type="SalesLeadType">
+        <xsd:annotation>
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">
+                SalesLead defines the Sales Lead for individual consumers 
+                who purchase/lease automobiles through dealers for vehicle products only. 
+            </xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    <xsd:element name="SalesLeadHeader" type="SalesLeadHeaderType">
+        <xsd:annotation>
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">
+                Sales Lead Header
+            </xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    <xsd:element name="SalesLeadDetail" type="SalesLeadDetailType">
+        <xsd:annotation>
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">
+                Sales Lead Detail
+            </xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    <xsd:complexType name="SalesLeadType">
+        <xsd:annotation xmlns="http://www.starstandards.org/STAR">
+            <xsd:documentation>
+                Sales Lead
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element ref="SalesLeadHeader"/>
+            <xsd:element ref="SalesLeadDetail" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="SalesLeadHeaderType">
+        <xsd:complexContent>
+            <xsd:extension base="HeaderBaseType">
+                <xsd:sequence>
+                    <xsd:element name="ExpirationDate" type="udt:DateType" minOccurs="0">
+                  <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Expiration
+            Date</xsd:documentation>
+        </xsd:annotation>
+               </xsd:element>
+                    <xsd:element name="PurchaseEarliestDate" type="udt:DateType" minOccurs="0">
+                  <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Earliest date that
+                pospect would consider purchase</xsd:documentation>
+        </xsd:annotation>
+               </xsd:element>
+                    <xsd:element name="PurchaseLatestDate" type="udt:DateType" minOccurs="0">
+                  <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Latest date that prospect
+                would consider purchase</xsd:documentation>
+        </xsd:annotation>
+               </xsd:element>
+                    <xsd:element name="LeadInterestCode" type="scl:LeadInterestEnumeratedType" minOccurs="0">
+                  <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Type of transaction lead
+                is interested in - B = Buy, L = Lease, S = Sell, T = Trade</xsd:documentation>
+        </xsd:annotation>
+               </xsd:element>
+                    <xsd:element name="SaleClassCode" type="scl:SaleClassEnumeratedType" minOccurs="0">
+                  <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Class of
+            sale.</xsd:documentation>
+        </xsd:annotation>
+               </xsd:element>
+                    <xsd:element name="LeadTypeCode" type="scl:LeadTypeEnumeratedType" minOccurs="0">
+                  <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Type of Lead - I =
+                Individual, B = business</xsd:documentation>
+        </xsd:annotation>
+               </xsd:element>
+                    <xsd:element name="LeadReceiptCode" type="udt:CodeType" minOccurs="0">
+                  <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Method in which the lead
+                was received.</xsd:documentation>
+        </xsd:annotation>
+               </xsd:element>
+                    <xsd:element name="LeadSourceCode" type="udt:CodeType" minOccurs="0">
+                  <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Source that brought the
+                lead to the dealership</xsd:documentation>
+        </xsd:annotation>
+               </xsd:element>
+                    <xsd:element name="DiscountEligibility" type="udt:TextType" minOccurs="0">
+                  <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">The category of Discount
+                available to the customer Examples could be "A Plan" ; "Z Plan" , "Option
+            One</xsd:documentation>
+        </xsd:annotation>
+               </xsd:element>
+                    <xsd:element name="CustomerComments" type="udt:TextType" minOccurs="0">
+                  <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Free form text to record
+                customer comments</xsd:documentation>
+        </xsd:annotation>
+               </xsd:element>
+                    <xsd:element name="LeadComments" type="udt:TextType" minOccurs="0">
+                  <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Lead contact notes. May
+                be non-comment information about the contacts</xsd:documentation>
+        </xsd:annotation>
+               </xsd:element>
+                    <xsd:element ref="CustomerProspect" minOccurs="0"/>
+                    <xsd:element ref="ReceivingDealerParty" minOccurs="0"/>
+                    <xsd:element ref="ProviderParty" minOccurs="0"/>
+                    <xsd:element ref="Marketing" minOccurs="0" maxOccurs="unbounded"/>
+                    <xsd:element name="LeadCreationDateTime" type="udt:DateTimeType" minOccurs="0" maxOccurs="1">
+                  <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">The date and time that
+                the lead was generated. This is not necessaily the date and time that the document
+                was created.</xsd:documentation>
+        </xsd:annotation>
+               </xsd:element>
+                    <xsd:element name="PreferredManufacturerCode" type="udt:CodeType" minOccurs="0" maxOccurs="1">
+                  <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">The preferred
+                manufacturer of the customer.</xsd:documentation>
+        </xsd:annotation>
+               </xsd:element>
+                    <xsd:element ref="LeadPreference" minOccurs="0" maxOccurs="1"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:complexType name="SalesLeadDetailType">
+        <xsd:sequence>
+            <xsd:element name="LeadStatus" type="udt:TextType" minOccurs="0">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Status of Sales Lead. Ex:
+                Appointment made, Just looking, etc..</xsd:documentation>
+        </xsd:annotation>
+         </xsd:element>
+            <xsd:element name="Preference" type="udt:TextType" minOccurs="0" maxOccurs="unbounded">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Identifies what qualities
+                are important to the contact.</xsd:documentation>
+        </xsd:annotation>
+         </xsd:element>
+            <xsd:element ref="Financing" minOccurs="0"/>
+            <xsd:element ref="Appointment" minOccurs="0" maxOccurs="unbounded"/>
+            <xsd:element ref="SalesActivity" minOccurs="0" maxOccurs="unbounded"/>
+            <xsd:element name="LeadRequestTypeString" type="qdt:StringType" minOccurs="0">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Identifies the type of
+                lead request. EX: Brochure Request, Test Drive Request, Quote Request,
+            etc.</xsd:documentation>
+        </xsd:annotation>
+         </xsd:element>
+            <xsd:element name="LeadIndustryTypeCode" type="scl:LeadIndustryTypeEnumeratedType" minOccurs="0">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Industry type identifies
+                the type of industry to which the lead applies, i.e., automotive, marine, truck,
+                powersport, etc.</xsd:documentation>
+        </xsd:annotation>
+         </xsd:element>
+            <xsd:element ref="SalesLeadLineItem" minOccurs="0"/>
+            <xsd:element ref="CompetingSalesLeadLineItem" minOccurs="0"/>
+            <xsd:element name="LeadDepartment" type="udt:TextType" minOccurs="0" maxOccurs="1">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">The department in the
+                dealership that the lead applies to.</xsd:documentation>
+        </xsd:annotation>
+         </xsd:element>
+            <xsd:element name="ExpirationDate" type="udt:DateType" minOccurs="0" maxOccurs="1">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Expiration
+            Date</xsd:documentation>
+        </xsd:annotation>
+         </xsd:element>
+            <xsd:element name="ID" type="udt:IdentifierType" minOccurs="0" maxOccurs="1">
+                <xsd:annotation>
+                    <xsd:documentation source="http://www.starstandard.org/STAR/5">
+                        A unique identifer for the sales lead detail information.
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element ref="ServiceContract" minOccurs="0" maxOccurs="unbounded"/>
+            <xsd:element name="ETADate" type="udt:DateType" minOccurs="0" maxOccurs="1">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Estimated time of
+            arrival</xsd:documentation>
+        </xsd:annotation>
+         </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:element name="SalesLeadMarineLineItem" type="SalesLeadMarineLineItemType">
+        <xsd:annotation>
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">
+                A grouping of Marine Line Items
+            </xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    <xsd:complexType name="SalesLeadMarineLineItemType">
+        <xsd:annotation>
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">The detail information regarding marine industry related components.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element ref="SalesLeadBoatLineItem" minOccurs="0"/>
+            <xsd:element ref="SalesLeadEngineLineItem" minOccurs="0" maxOccurs="unbounded"/>
+            <xsd:element ref="SalesLeadTrailerLineItem" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    
+    <xsd:element name="SalesLeadVehicleLineItem" type="SalesLeadVehicleLineItemType">
+        <xsd:annotation>
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">
+                Detail information regarding a vehicle for a particular sales lead.
+            </xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    <xsd:complexType name="SalesLeadVehicleLineItemType">
+        <xsd:annotation>
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">
+                Detail information regarding a vehicle for a particular sales lead.
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element ref="PricingABIE" minOccurs="0"/>
+            <xsd:element ref="Tax" minOccurs="0" maxOccurs="unbounded"/>
+            <xsd:element ref="LeadDealerParty" minOccurs="0"/>
+            <xsd:element ref="ImageAttachmentExtended" minOccurs="0" maxOccurs="unbounded"/>
+            <xsd:element ref="AdditionalMedia" minOccurs="0" maxOccurs="unbounded"/>
+            <xsd:element ref="Inspection" minOccurs="0" maxOccurs="unbounded"/>
+            <xsd:element name="LastModificationDate" type="udt:DateType" minOccurs="0">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Last date modification
+                was made</xsd:documentation>
+        </xsd:annotation>
+         </xsd:element>
+            <xsd:element name="FinancingAvailableIndicator" type="udt:IndicatorType" minOccurs="0">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Indicates is someone is
+                offering financing</xsd:documentation>
+        </xsd:annotation>
+         </xsd:element>
+            <xsd:element ref="CertificationGroup" minOccurs="0" maxOccurs="unbounded"/>
+            <xsd:element name="ItemReceivedDate" type="udt:DateType" minOccurs="0">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Date item will be or was
+                received into inventory.</xsd:documentation>
+        </xsd:annotation>
+         </xsd:element>
+            <xsd:element ref="Location" minOccurs="0"/>
+            <xsd:element ref="SalesLeadVehicle" minOccurs="0"/> 
+            <xsd:element ref="PreferenceDetail" minOccurs="0"/>
+            <xsd:element ref="AdditionalDetailDescription" minOccurs="0" maxOccurs="unbounded"/>
+            <xsd:element name="CurrentDistanceMeasure" type="sqdt:LengthMeasureType" minOccurs="0" maxOccurs="1">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Odometer reading of
+                vehicle at the current time</xsd:documentation>
+        </xsd:annotation>
+         </xsd:element>
+            <xsd:element name="SalesStockNumberString" type="qdt:StringType" minOccurs="0" maxOccurs="1">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Dealer assigned vehicle
+                stock number of the sale.</xsd:documentation>
+        </xsd:annotation>
+         </xsd:element>
+            <xsd:element name="VehicleSegmentCode" type="udt:CodeType" minOccurs="0" maxOccurs="1">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">The industry
+                clasification of the vehicle such as Small, Luxury, Midsize Vehicle, etc. This is a
+                level of detail above Vehicle Class which would further differentiate types of Small
+                Vehicles, Luxury Vehicles, etc.</xsd:documentation>
+        </xsd:annotation>
+         </xsd:element>
+            <xsd:element name="OriginalInServiceDate" type="udt:DateType" minOccurs="0" maxOccurs="1">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">The date a used vehicle
+                went in service, i.e. when the vehicle goes on the road.</xsd:documentation>
+        </xsd:annotation>
+         </xsd:element>
+            <xsd:element name="OriginalInServiceDistanceMeasure" type="sqdt:LengthMeasureType" minOccurs="0" maxOccurs="1">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Indicates the odometer
+                reading at the time when the used vehicle went into service i.e., when the vehicle
+                went on the road.</xsd:documentation>
+        </xsd:annotation>
+         </xsd:element>
+            <xsd:element name="DesiredDistanceMeasure" type="sqdt:LengthMeasureType" minOccurs="0" maxOccurs="1">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">
+                The desired number of kilometers, miles, or other distance that a vehicle has.  It could be the number of
+                miles or kilometers on the odometer.
+            </xsd:documentation>
+        </xsd:annotation>
+         </xsd:element>
+            <xsd:element ref="AlternateVehicleIdentificationGroup" minOccurs="0" maxOccurs="1"/>
+            <xsd:element ref="Option" minOccurs="0" maxOccurs="unbounded"/>
+            <xsd:element name="EstimatedAnnualDistanceMeasure" minOccurs="0" maxOccurs="1" 
+            	type="sqdt:LengthMeasureType">
+            	<xsd:annotation>
+            		<xsd:documentation source="http://www.starstandard.org/STAR/5">
+            			Estimated annual distance driven.
+            		</xsd:documentation>
+            	</xsd:annotation>
+            </xsd:element>
+            <xsd:element name="CompanyCarIndicator" type="udt:IndicatorType" minOccurs="0" maxOccurs="1">
+            	<xsd:annotation>
+            		<xsd:documentation source="http://www.starstandard.org/STAR/5">
+            			Indicates whether vehicle will be used as a company car.
+            		</xsd:documentation>
+            	</xsd:annotation>
+            </xsd:element>
+        </xsd:sequence>        
+    </xsd:complexType>
+    
+    <xsd:element name="SalesLeadLineItem" type="SalesLeadLineItemType">
+        <xsd:annotation>
+            <xsd:documentation source="http://www.starstandard.org">
+                The detail information for a Sales Lead Line Item
+            </xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    <xsd:element name="CompetingSalesLeadLineItem" type="SalesLeadLineItemType">
+        <xsd:annotation>
+            <xsd:documentation source="http://www.starstandard.org">
+                The detail information for a Competing Sales Lead Line Item
+            </xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    
+    <xsd:complexType name="SalesLeadLineItemType">
+        <xsd:annotation>
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">
+                The detail information for a Sales Lead Line Item
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element ref="SalesLeadVehicleLineItem" minOccurs="0" maxOccurs="unbounded"/>
+            <xsd:element ref="SalesLeadMarineLineItem" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:element name="SalesLeadBoatLineItem" type="SalesLeadBoatLineItemType">
+        <xsd:annotation>
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">
+                Detail information regarding a boat for a particular sales lead.
+            </xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    <xsd:complexType name="SalesLeadBoatLineItemType">
+        <xsd:annotation>
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">
+                Detail information regarding a boat for a particular sales lead.
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element ref="PricingABIE" minOccurs="0"/>
+            <xsd:element ref="Tax" minOccurs="0"/>
+            <xsd:element ref="LeadDealerParty" minOccurs="0"/>
+            <xsd:element ref="ImageAttachmentExtended" minOccurs="0" maxOccurs="unbounded"/>
+            <xsd:element ref="AdditionalMedia" minOccurs="0" maxOccurs="unbounded"/>
+            <xsd:element ref="Inspection" minOccurs="0" maxOccurs="unbounded"/>
+            <xsd:element name="LastModificationDate" type="udt:DateType" minOccurs="0">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Last date modification
+                was made</xsd:documentation>
+        </xsd:annotation>
+         </xsd:element>
+            <xsd:element name="FinancingAvailableIndicator" type="udt:IndicatorType" minOccurs="0">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Indicates is someone is
+                offering financing</xsd:documentation>
+        </xsd:annotation>
+         </xsd:element>
+            <xsd:element ref="CertificationGroup" minOccurs="0" maxOccurs="unbounded"/>
+            <xsd:element name="ItemReceivedDate" type="udt:DateType" minOccurs="0">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Date item will be or was
+                received into inventory.</xsd:documentation>
+        </xsd:annotation>
+         </xsd:element>
+            <xsd:element ref="Location" minOccurs="0"/>
+            <xsd:element ref="SalesLeadBoat" minOccurs="0"/>
+            <xsd:element ref="SalesLeadEngineLineItem" minOccurs="0" maxOccurs="unbounded"/>
+            <xsd:element ref="SalesLeadTrailerLineItem" minOccurs="0" maxOccurs="unbounded"/>
+            <xsd:element ref="PreferenceDetail" minOccurs="0"/>
+            <xsd:element ref="AdditionalDetailDescription" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>        
+    </xsd:complexType>
+
+    <xsd:element name="SalesLeadEngineLineItem" type="SalesLeadEngineLineItemType">
+        <xsd:annotation>
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">
+                Detail information regarding an engine for a particular sales lead.
+            </xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+
+    <xsd:complexType name="SalesLeadEngineLineItemType">
+        <xsd:annotation>
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">
+                Detail information regarding an engine for a particular sales lead.
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element ref="PricingABIE" minOccurs="0"/>
+            <xsd:element ref="Tax" minOccurs="0"/>
+            <xsd:element ref="LeadDealerParty" minOccurs="0"/>
+            <xsd:element ref="ImageAttachmentExtended" minOccurs="0" maxOccurs="unbounded"/>
+            <xsd:element ref="AdditionalMedia" minOccurs="0" maxOccurs="unbounded"/>
+            <xsd:element ref="Inspection" minOccurs="0" maxOccurs="unbounded"/>
+            <xsd:element name="LastModificationDate" type="udt:DateType" minOccurs="0">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Last date modification
+                was made</xsd:documentation>
+        </xsd:annotation>
+         </xsd:element>
+            <xsd:element name="FinancingAvailableIndicator" type="udt:IndicatorType" minOccurs="0">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Indicates is someone is
+                offering financing</xsd:documentation>
+        </xsd:annotation>
+         </xsd:element>
+            <xsd:element ref="CertificationGroup" minOccurs="0" maxOccurs="unbounded"/>
+            <xsd:element name="ItemReceivedDate" type="udt:DateType" minOccurs="0">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Date item will be or was
+                received into inventory.</xsd:documentation>
+        </xsd:annotation>
+         </xsd:element>
+            <xsd:element ref="Location" minOccurs="0"/>
+            <xsd:element ref="SalesLeadEngine" minOccurs="0"/>  
+            <xsd:element ref="PreferenceDetail" minOccurs="0"/>
+            <xsd:element ref="AdditionalDetailDescription" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>        
+    </xsd:complexType>
+    
+    <xsd:element name="SalesLeadTrailerLineItem" type="SalesLeadTrailerLineItemType">
+        <xsd:annotation>
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">
+                Detail information regarding a trailer for a particular sales lead.
+            </xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    <xsd:complexType name="SalesLeadTrailerLineItemType">
+        <xsd:annotation>
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">
+                Detail information regarding a trailer for a particular sales lead.
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element ref="PricingABIE" minOccurs="0"/>
+            <xsd:element ref="Tax" minOccurs="0"/>
+            <xsd:element ref="LeadDealerParty" minOccurs="0"/>
+            <xsd:element ref="ImageAttachmentExtended" minOccurs="0" maxOccurs="unbounded"/>
+            <xsd:element ref="AdditionalMedia" minOccurs="0" maxOccurs="unbounded"/>
+            <xsd:element ref="Inspection" minOccurs="0" maxOccurs="unbounded"/>
+            <xsd:element name="LastModificationDate" type="udt:DateType" minOccurs="0">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Last date modification
+                was made</xsd:documentation>
+        </xsd:annotation>
+         </xsd:element>
+            <xsd:element name="FinancingAvailableIndicator" type="udt:IndicatorType" minOccurs="0">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Indicates is someone is
+                offering financing</xsd:documentation>
+        </xsd:annotation>
+         </xsd:element>
+            <xsd:element ref="CertificationGroup" minOccurs="0" maxOccurs="unbounded"/>
+            <xsd:element name="ItemReceivedDate" type="udt:DateType" minOccurs="0">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Date item will be or was
+                received into inventory.</xsd:documentation>
+        </xsd:annotation>
+         </xsd:element>
+            <xsd:element ref="Location" minOccurs="0"/>
+            <xsd:element ref="SalesLeadTrailer" minOccurs="0"/>  
+            <xsd:element ref="PreferenceDetail" minOccurs="0"/>
+            <xsd:element ref="AdditionalDetailDescription" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>        
+    </xsd:complexType>
+    
+</xsd:schema>

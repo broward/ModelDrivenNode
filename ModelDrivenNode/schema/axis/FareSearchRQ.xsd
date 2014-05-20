@@ -1,0 +1,1643 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<xsd:include schemaLocation="CommonTypes.xsd"/>
+	<xsd:element name="FareSearchRQ">
+		<xsd:annotation>
+			<xsd:documentation>Fare search request root element</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="SaleInfo" minOccurs="0"/>
+				<xsd:element ref="NbrOfAlternates" minOccurs="0"/>
+				<xsd:element ref="TicketingInfo" minOccurs="0"/>
+				<xsd:element ref="TravelerInfo" maxOccurs="unbounded"/>
+				<xsd:element name="TravelerIDs" maxOccurs="unbounded">
+					<xsd:annotation>
+						<xsd:documentation>If no PNR exists (shopping), this provides traveler types as well as FQTV information for each traveler.</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="FQTVInfo" minOccurs="0" maxOccurs="unbounded">
+								<xsd:complexType>
+									<xsd:sequence>
+										<xsd:element name="FFNumber" type="xsd:string">
+											<xsd:annotation>
+												<xsd:documentation>Frequent flyer number.  Example: 0956301007</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="FFCompanyCode" type="xsd:string">
+											<xsd:annotation>
+												<xsd:documentation>Frequent flyer company code.  Example: AF</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+									</xsd:sequence>
+								</xsd:complexType>
+							</xsd:element>
+							<xsd:element name="LoyaltyProgramRef" minOccurs="0" maxOccurs="unbounded">
+								<xsd:annotation>
+									<xsd:documentation>Loyalty Program data</xsd:documentation>
+								</xsd:annotation>
+								<xsd:complexType>
+									<xsd:sequence>
+										<xsd:element name="LoyaltyMemberID">
+											<xsd:annotation>
+												<xsd:documentation>Membership number </xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="Name">
+											<xsd:annotation>
+												<xsd:documentation>Individual Program name</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element ref="AirlineCode">
+											<xsd:annotation>
+												<xsd:documentation>Airline code of the airline offering this Loyaty Program</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="ProgramStatus" minOccurs="0">
+											<xsd:annotation>
+												<xsd:documentation>Traveler Status related to Program
+Example: VP, DIR</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+									</xsd:sequence>
+									<xsd:attribute name="ProgramGroup">
+										<xsd:annotation>
+											<xsd:documentation>Group association within program</xsd:documentation>
+										</xsd:annotation>
+									</xsd:attribute>
+								</xsd:complexType>
+							</xsd:element>
+							<xsd:element name="FreqGuestNumber" minOccurs="0" maxOccurs="unbounded">
+								<xsd:annotation>
+									<xsd:documentation>Frequent Guest Card and Status information</xsd:documentation>
+								</xsd:annotation>
+								<xsd:complexType>
+									<xsd:sequence>
+										<xsd:element ref="CompanyCode"/>
+										<xsd:element ref="IDNumber">
+											<xsd:annotation>
+												<xsd:documentation>Frequent Renter or Guest ID number.  Example: 0956301007</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element ref="ProgramName" minOccurs="0">
+											<xsd:annotation>
+												<xsd:documentation>Program name.  
+
+Example: 
+Miles and More (air)
+Hilton HHonors (hotel)
+Emerald Club (car)</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="Association" minOccurs="0">
+											<xsd:annotation>
+												<xsd:documentation>Associated airline frequent flyer program.  This is the frequent flyer program a traveler assigns in order to earn additional miles/points from hotel and/or car companies</xsd:documentation>
+											</xsd:annotation>
+											<xsd:complexType>
+												<xsd:sequence>
+													<xsd:element ref="AirlineCode">
+														<xsd:annotation>
+															<xsd:documentation>Issuing Airline Code.  Example: LH</xsd:documentation>
+														</xsd:annotation>
+													</xsd:element>
+													<xsd:element ref="IDNumber">
+														<xsd:annotation>
+															<xsd:documentation>Frequent flyer ID number.  Example: 0956301007</xsd:documentation>
+														</xsd:annotation>
+													</xsd:element>
+												</xsd:sequence>
+											</xsd:complexType>
+										</xsd:element>
+									</xsd:sequence>
+									<xsd:attribute name="Type">
+										<xsd:annotation>
+											<xsd:documentation>Identified association to one of the following groups:
+
+C = CAR
+H = HOTEL </xsd:documentation>
+										</xsd:annotation>
+									</xsd:attribute>
+								</xsd:complexType>
+							</xsd:element>
+							<xsd:element name="OtherMemberships" minOccurs="0" maxOccurs="unbounded">
+								<xsd:annotation>
+									<xsd:documentation>Discount Cards such as AAA, AARP, etc.</xsd:documentation>
+								</xsd:annotation>
+								<xsd:complexType>
+									<xsd:sequence>
+										<xsd:element ref="AssociationCode" minOccurs="0"/>
+										<xsd:element ref="IDNumber">
+											<xsd:annotation>
+												<xsd:documentation>Membership ID number.  Example: 0956301007</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element ref="ProgramName" minOccurs="0">
+											<xsd:annotation>
+												<xsd:documentation>Program name.  
+
+Example: 
+AARP Membership
+AAA Membership</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+									</xsd:sequence>
+								</xsd:complexType>
+							</xsd:element>
+							<xsd:element ref="ProfileIndex" minOccurs="0"/>
+							<xsd:choice minOccurs="0">
+								<xsd:element ref="CreditCard" maxOccurs="unbounded"/>
+								<xsd:element name="CCIssuer" maxOccurs="unbounded">
+									<xsd:complexType>
+										<xsd:sequence>
+											<xsd:element name="CCIINNumber" type="xsd:integer" minOccurs="0">
+												<xsd:annotation>
+													<xsd:documentation>Credit card IIN/BIN number.
+A six-digit Issuer Identification Number (IIN),  Also Knows as BIN "Bank Identification Number". 
+Example: 401123</xsd:documentation>
+												</xsd:annotation>
+											</xsd:element>
+											<xsd:element ref="CCCode"/>
+										</xsd:sequence>
+									</xsd:complexType>
+								</xsd:element>
+							</xsd:choice>
+						</xsd:sequence>
+						<xsd:attribute name="AssociationID">
+							<xsd:annotation>
+								<xsd:documentation>A unique traveler reference if an association to individual travelers is needed, such as for optional services.
+
+Example: T1</xsd:documentation>
+							</xsd:annotation>
+						</xsd:attribute>
+						<xsd:attribute name="PaxType" type="xsd:string" use="required">
+							<xsd:annotation>
+								<xsd:documentation>Passenger type requested for pricing. 
+
+Some IATA values are :
+ADT= Adult
+CHD = Child
+INF = Infant
+GOV = Government
+MIL = Military
+SRC = Senior citizen
+STD = Student
+YTH = Youth
+Example: CHD</xsd:documentation>
+							</xsd:annotation>
+						</xsd:attribute>
+					</xsd:complexType>
+				</xsd:element>
+				<xsd:element ref="OriginDestination" maxOccurs="unbounded"/>
+				<xsd:element ref="JourneyControlData" minOccurs="0"/>
+				<xsd:element ref="PricingInfo" minOccurs="0"/>
+				<xsd:element ref="InExchangeForTicket" minOccurs="0"/>
+			</xsd:sequence>
+			<xsd:attribute name="version" type="xsd:string" use="optional">
+				<xsd:annotation>
+					<xsd:documentation>Version number.  Example: 1.0
+required for MasterPricer: MP2.0 (previous version MP0.9)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:attribute>
+			<xsd:attribute name="DetailedFareType" type="xsd:string" use="optional" default="N">
+				<xsd:annotation>
+					<xsd:documentation>Controls display of more detailed fare type info (only Amadeus for now, information is not returned by all GDS):
+in case this attribute is set to 'Y' more detailed fare types will be displayed in the response; default value is 'N' which results in fare types PUBL, PRIV or NEGO;
+(possible values are Y, N)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:attribute>
+			<xsd:attribute name="QueryID" type="xsd:string">
+				<xsd:annotation>
+					<xsd:documentation>Optional, alphanumeric. Used only for internal tracking purposes.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:attribute>
+			<xsd:attribute name="BrandedFareSupport">
+				<xsd:annotation>
+					<xsd:documentation>This value must be set to "Y" if client application supports "Branded Fare" displays</xsd:documentation>
+				</xsd:annotation>
+			</xsd:attribute>
+			<xsd:attribute name="NumberOfAlternates" type="xsd:positiveInteger" use="optional">
+				<xsd:annotation>
+					<xsd:documentation>[Keeping attribute for backward compatibility] Reccommended is the use of the new optional element "NbrOfAlternates" instead.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:attribute>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="SaleInfo">
+		<xsd:annotation>
+			<xsd:documentation>Sale information group</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:all>
+				<xsd:element ref="CityCode" minOccurs="0"/>
+				<xsd:element ref="CountryCode" minOccurs="0"/>
+				<xsd:element name="CurrencyCode" minOccurs="0">
+					<xsd:complexType>
+						<xsd:simpleContent>
+							<xsd:restriction base="CurrencyCodeType">
+								<xsd:pattern value="[A-Z0-9]{3}"/>
+								<xsd:attribute name="NumberOfDecimals" type="xsd:integer" use="prohibited">
+									<xsd:annotation>
+										<xsd:documentation>Decimal position in fare amount.  Example: 2</xsd:documentation>
+									</xsd:annotation>
+								</xsd:attribute>
+							</xsd:restriction>
+						</xsd:simpleContent>
+					</xsd:complexType>
+				</xsd:element>
+			</xsd:all>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="CityCode">
+		<xsd:annotation>
+			<xsd:documentation>Origin or destination city code.  City where sale takes place or city where ticket will be issued.  Example: PAR</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleType>
+			<xsd:restriction base="xsd:string">
+				<xsd:minLength value="3"/>
+				<xsd:maxLength value="3"/>
+			</xsd:restriction>
+		</xsd:simpleType>
+	</xsd:element>
+	<xsd:element name="CountryCode">
+		<xsd:annotation>
+			<xsd:documentation>Country where sale takes place or ticket issuing country.  Example: US</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleType>
+			<xsd:restriction base="xsd:string">
+				<xsd:minLength value="2"/>
+				<xsd:maxLength value="2"/>
+			</xsd:restriction>
+		</xsd:simpleType>
+	</xsd:element>
+	<xsd:element name="TicketingInfo">
+		<xsd:annotation>
+			<xsd:documentation>Ticketing information group</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:all>
+				<xsd:annotation>
+					<xsd:documentation>Date element identifies future ticketing date.</xsd:documentation>
+				</xsd:annotation>
+				<xsd:element ref="CityCode" minOccurs="0"/>
+				<xsd:element ref="CountryCode" minOccurs="0"/>
+				<xsd:element ref="Date" minOccurs="0"/>
+			</xsd:all>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="PricingInfo">
+		<xsd:annotation>
+			<xsd:documentation>Fare qualifier group</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="Restrictions" minOccurs="0"/>
+				<xsd:element name="PricingCurrency" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Desired currency override for pricing only (not ticketing)
+Example: EUR</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element ref="PrivateFares" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Negotiated or promotional fares (Private fares) group
+
+Contract IDs or Promo Codes are typically used</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="FareSelection" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Fare selection qualifiers</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="TicketDesignator" minOccurs="0">
+								<xsd:annotation>
+									<xsd:documentation>Ticket designator provided here is used for fare selection.</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+				<xsd:element name="ServicesFilter" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Used to request a filtered list of offered services.  The filter codes used are defined by ATPCO (S5 record attributes)
+
+Note: can ONLY be used when attribute "RequestOption" value="Y".</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="Attributes" minOccurs="0" maxOccurs="unbounded">
+								<xsd:complexType>
+									<xsd:sequence>
+										<xsd:element name="Group">
+											<xsd:annotation>
+												<xsd:documentation>Samples:
+BG = Baggage
+FF = Frequent Flyer
+GT = Ground Transportation
+         and Non Air Services
+IE = In-flight entertainment
+LG = Lounge
+MD = Medical
+ML = Meal/Beverage
+PT = Pets
+RO = Rule Override
+SA = Prereserved Seat
+         Assignment
+SB = Standby
+ST = Store
+TS = Travel Services
+UN = Unaccompanied
+         Travel (Escort)
+UP = Upgrades</xsd:documentation>
+											</xsd:annotation>
+											<xsd:complexType>
+												<xsd:sequence>
+													<xsd:element name="Code">
+														<xsd:annotation>
+															<xsd:documentation>Example: BG</xsd:documentation>
+														</xsd:annotation>
+													</xsd:element>
+												</xsd:sequence>
+											</xsd:complexType>
+										</xsd:element>
+										<xsd:element name="SubGroup" minOccurs="0" maxOccurs="unbounded">
+											<xsd:annotation>
+												<xsd:documentation>Samples for group "BG"
+CT = Container
+PP = Pre-paid excess
+         baggage
+
+Samples group "GT"
+BU = Bus
+LI = Limo, etc
+
+Samples group "IE"
+IT = Internet access
+TV = Television, etc</xsd:documentation>
+											</xsd:annotation>
+											<xsd:complexType>
+												<xsd:sequence>
+													<xsd:element name="Code">
+														<xsd:annotation>
+															<xsd:documentation>Example: PP</xsd:documentation>
+														</xsd:annotation>
+													</xsd:element>
+												</xsd:sequence>
+											</xsd:complexType>
+										</xsd:element>
+									</xsd:sequence>
+								</xsd:complexType>
+							</xsd:element>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+				<xsd:element name="TaxExemption" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Allows to exempt tax(es) by different criteria</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element ref="SegmentIDRef" minOccurs="0" maxOccurs="unbounded">
+								<xsd:annotation>
+									<xsd:documentation>Allows to price (optional) services.
+
+Use the attribute AssociationID of the flight element within this message, e.g. "F1"</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+							<xsd:element name="TaxCode" minOccurs="0" maxOccurs="unbounded">
+								<xsd:annotation>
+									<xsd:documentation>Exemption is based on identified tax codes plus (optional) tax types within a tax code</xsd:documentation>
+								</xsd:annotation>
+								<xsd:complexType>
+									<xsd:sequence>
+										<xsd:element name="Designator">
+											<xsd:annotation>
+												<xsd:documentation>Identifies the Tax Code to be exempt, e.g. AY</xsd:documentation>
+											</xsd:annotation>
+											<xsd:complexType>
+												<xsd:simpleContent>
+													<xsd:extension base="xsd:string">
+														<xsd:attribute name="CollectionPoint">
+															<xsd:annotation>
+																<xsd:documentation>3-letter airport code to identify the exemption of a  ZP or XF tax for this location</xsd:documentation>
+															</xsd:annotation>
+														</xsd:attribute>
+													</xsd:extension>
+												</xsd:simpleContent>
+											</xsd:complexType>
+										</xsd:element>
+										<xsd:element name="TaxType" minOccurs="0" maxOccurs="unbounded">
+											<xsd:annotation>
+												<xsd:documentation>Identifies the tax type(s) within the tax code
+
+Example: SE, TR</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+									</xsd:sequence>
+								</xsd:complexType>
+							</xsd:element>
+							<xsd:element ref="CountryCode" minOccurs="0" maxOccurs="unbounded">
+								<xsd:annotation>
+									<xsd:documentation>Exemption based on country code(s).</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+							<xsd:element name="ProvinceCode" minOccurs="0">
+								<xsd:annotation>
+									<xsd:documentation>Used in Canadian market.  Exemption is based on provinces</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+							<xsd:element name="GovernmentBody" minOccurs="0">
+								<xsd:annotation>
+									<xsd:documentation>Used in Canadian market.  Freeflow entity name must be provided for ceratin exemptions</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+						</xsd:sequence>
+						<xsd:attribute name="ExemptALL">
+							<xsd:annotation>
+								<xsd:documentation>Exempt from all taxes
+
+Values allowed:
+N = (default)
+Y = exempt of all taxes</xsd:documentation>
+							</xsd:annotation>
+						</xsd:attribute>
+					</xsd:complexType>
+				</xsd:element>
+			</xsd:sequence>
+			<xsd:attribute name="FareType" use="required">
+				<xsd:annotation>
+					<xsd:documentation>Specifies the type of fare.  Values are: PUBL = Published fares only
+NEGO = Private (negotiated) fares only
+PRIV = Private unified fares (Amadeus only)
+BOTH = Published and private Fares
+ATPC = ATPCO private fares 
+APUB = ATPCO and Published
+ANEG = ATPCO and Negotiated.  Example: PUBL</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="4"/>
+						<xsd:maxLength value="4"/>
+						<xsd:enumeration value="PUBL"/>
+						<xsd:enumeration value="NEGO"/>
+						<xsd:enumeration value="PRIV"/>
+						<xsd:enumeration value="BOTH"/>
+						<xsd:enumeration value="ATPC"/>
+						<xsd:enumeration value="APUB"/>
+						<xsd:enumeration value="ANEG"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:attribute>
+			<xsd:attribute name="NoBreak" use="optional">
+				<xsd:annotation>
+					<xsd:documentation>Specifies simple or creative pricing.  If NoBreak = 'Y', simple pricing will be used for the flights returned.  If NoBreak = 'N', creative pricing will be used for all flights returned.  Values are: Y = Yes, N = No.  Example: Y</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1"/>
+						<xsd:maxLength value="1"/>
+						<xsd:enumeration value="Y"/>
+						<xsd:enumeration value="N"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:attribute>
+			<xsd:attribute name="Priority">
+				<xsd:annotation>
+					<xsd:documentation>Experimental. Sabe ONLY.
+Will be ignored on other GDS.
+
+Numeric. 4 digits. Order identifies priority. 
+1- Price
+2- NonStop/Direct Flights
+3- Travel time
+4 - Carrier
+
+Example: 1234 or 4123</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:length value="4"/>
+						<xsd:pattern value="[1-4]{4}"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:attribute>
+			<xsd:attribute name="AutoExchange">
+				<xsd:annotation>
+					<xsd:documentation>Allowed value = "Y"
+
+Identifies this request as a request to be handled by an auto-exchange process (e.g. ReShop by ITA).
+
+If set to "Y" a TicketImage must be populated as well</xsd:documentation>
+				</xsd:annotation>
+			</xsd:attribute>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="PrivateFares">
+		<xsd:annotation>
+			<xsd:documentation>Negotiated fares (Private fares) group</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="Office" maxOccurs="unbounded"/>
+				<xsd:element ref="Corporate" minOccurs="0" maxOccurs="unbounded"/>
+				<xsd:element ref="PromoCodes" minOccurs="0" maxOccurs="unbounded">
+					<xsd:annotation>
+						<xsd:documentation>Promo Codes</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="LoyaltyPrograms" minOccurs="0" maxOccurs="unbounded">
+					<xsd:annotation>
+						<xsd:documentation>Loyalty Program data</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="LoyaltyMemberID">
+								<xsd:annotation>
+									<xsd:documentation>Membership number </xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+							<xsd:element name="Name">
+								<xsd:annotation>
+									<xsd:documentation>Individual Program name</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+							<xsd:element ref="AirlineCode">
+								<xsd:annotation>
+									<xsd:documentation>Airline code of the airline offering this Loyaty Program</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="Office">
+		<xsd:annotation>
+			<xsd:documentation>Pseudo city under which private fares are stored.  Example: 18C6</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:simpleContent>
+				<xsd:extension base="xsd:string">
+					<xsd:attribute name="Provider" use="required">
+						<xsd:annotation>
+							<xsd:documentation>Code of the provider system that holds the private fares.  Values are:
+1A = Amadeus
+1B = Abacus
+1V = Apollo
+1G = Galileo
+1S = Sabre (also 1W)
+1P = Worldspan
+F1 = Farelogix
+1U = ITA
+XS = SITA
+Example: 1V</xsd:documentation>
+						</xsd:annotation>
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:length value="2"/>
+								<xsd:enumeration value="1A"/>
+								<xsd:enumeration value="1B"/>
+								<xsd:enumeration value="1V"/>
+								<xsd:enumeration value="1G"/>
+								<xsd:enumeration value="1S"/>
+								<xsd:enumeration value="1P"/>
+								<xsd:enumeration value="1W"/>
+								<xsd:enumeration value="F1"/>
+								<xsd:enumeration value="1U"/>
+								<xsd:enumeration value="XS"/>
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:attribute>
+					<xsd:attribute name="Type">
+						<xsd:annotation>
+							<xsd:documentation>Future use.
+Identifies if Office value is a PCC or IATA agency code/ID. Default is PCC.
+Example: PCC</xsd:documentation>
+						</xsd:annotation>
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:enumeration value="PCC"/>
+								<xsd:enumeration value="IATA"/>
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:simpleContent>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="Corporate">
+		<xsd:annotation>
+			<xsd:documentation>Corporate info group</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="AirlineCode" minOccurs="0"/>
+				<xsd:element ref="Account" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Specifies the corporate account number to use to price private fares.  Example: IBM or 675124</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element ref="Contract" minOccurs="0"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="PromoCodes">
+		<xsd:annotation>
+			<xsd:documentation>Corporate info group</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="AirlineCode" minOccurs="0"/>
+				<xsd:element name="PromoCode">
+					<xsd:annotation>
+						<xsd:documentation>Code ID / Number</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="Account">
+		<xsd:annotation>
+			<xsd:documentation>Specifies the corporate account number to use to price private fares.  Example: 12345</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:simpleContent>
+				<xsd:extension base="xsd:string"/>
+			</xsd:simpleContent>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="Contract" type="xsd:string">
+		<xsd:annotation>
+			<xsd:documentation>Specifies the contract code, to use to price private fares.  Example: 00001</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="TravelerInfo">
+		<xsd:annotation>
+			<xsd:documentation>Number of passengers of the specified type.  Example: 2</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:simpleContent>
+				<xsd:extension base="xsd:positiveInteger">
+					<xsd:attribute name="Type" type="xsd:string" use="required">
+						<xsd:annotation>
+							<xsd:documentation>Passenger type requested for pricing.  If the passenger type sent to the GDS is not in the below predefined list, then it is passed as is to the GDS.
+ Predefined values are :
+ADT= Adult
+CHD = Child
+INF = Infant
+GOV = Government
+MIL = Military
+SRC = Senior citizen
+STD = Student
+YTH = Youth
+ Example: CHD</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:simpleContent>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="OriginDestination">
+		<xsd:annotation>
+			<xsd:documentation>Origin and destination group</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="Departure"/>
+				<xsd:element ref="Arrival"/>
+				<xsd:element ref="Date"/>
+				<xsd:element ref="Preferences" minOccurs="0"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="Departure">
+		<xsd:annotation>
+			<xsd:documentation>Origin group</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="CityCode" maxOccurs="9"/>
+			</xsd:sequence>
+			<xsd:attribute name="Area" type="xsd:integer" use="optional">
+				<xsd:annotation>
+					<xsd:documentation>Supported only in Amadeus MasterPricer: 
+The user has the ability to extend the low fare search up to 300 kilometers surrounding the departure airport or city specified. If a departure Area is specified, the low fare search process may consider any city whose flying distance to the specified City or Airport is lower than the specified radius in the query.
+Example: 100</xsd:documentation>
+				</xsd:annotation>
+			</xsd:attribute>
+			<xsd:attribute ref="DistanceUnit"/>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="Date">
+		<xsd:annotation>
+			<xsd:documentation>Specifies departure date in ISO 8601 format (yyyy-mm-dd).  Example: 2001-12-25</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:simpleContent>
+				<xsd:extension base="xsd:date">
+					<xsd:attribute name="Qualifier" use="optional" default="DEPARTURE">
+						<xsd:annotation>
+							<xsd:documentation>attribute indicates qualifier of time (for date, time and timewindow). 
+Specifies whether the given date is supposed to be ARRIVAL or DEPARTURE (default) date.
+Example: ARRIVAL</xsd:documentation>
+						</xsd:annotation>
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:enumeration value="DEPARTURE"/>
+								<xsd:enumeration value="ARRIVAL"/>
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:simpleContent>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="Time">
+		<xsd:annotation>
+			<xsd:documentation>Time in ISO 8601 twenty-four hour clock format (hh:mm).  Example: 14:25</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleType>
+			<xsd:restriction base="xsd:string">
+				<xsd:pattern value="([0-1][0-9]|2[0-4]):[0-5][0-9]">
+					<xsd:annotation>
+						<xsd:documentation>
+</xsd:documentation>
+					</xsd:annotation>
+				</xsd:pattern>
+			</xsd:restriction>
+		</xsd:simpleType>
+	</xsd:element>
+	<xsd:element name="Arrival">
+		<xsd:annotation>
+			<xsd:documentation>Destination group</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="CityCode" maxOccurs="9"/>
+			</xsd:sequence>
+			<xsd:attribute name="Area" type="xsd:integer" use="optional">
+				<xsd:annotation>
+					<xsd:documentation>Supported only in Amadeus MasterPricer: 
+The user has the ability to extend the low fare search up to 300 kilometers surrounding the arrival airport or city specified. If an arrival Area is specified, the low fare search process may consider any city whose flying distance to the specified City or Airport is lower than the specified radius in the query.
+Example: 100</xsd:documentation>
+				</xsd:annotation>
+			</xsd:attribute>
+			<xsd:attribute ref="DistanceUnit"/>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="Preferences">
+		<xsd:annotation>
+			<xsd:documentation>Preferences group</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:choice minOccurs="0">
+					<xsd:element name="ClassOfService">
+						<xsd:annotation>
+							<xsd:documentation>Not supported by Amadeus GDS.
+Example: B</xsd:documentation>
+						</xsd:annotation>
+						<xsd:complexType>
+							<xsd:simpleContent>
+								<xsd:extension base="xsd:string">
+									<xsd:attribute name="Inherited" use="optional">
+										<xsd:annotation>
+											<xsd:documentation>Allowed values: Y or N(default)
+
+This is set to "Y" when the request is the inherited value passed from a preceding FareQuoteRS transaction.</xsd:documentation>
+										</xsd:annotation>
+									</xsd:attribute>
+								</xsd:extension>
+							</xsd:simpleContent>
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element ref="Cabin">
+						<xsd:annotation>
+							<xsd:documentation>Specifies cabin preference.  Valid values are:
+F = First class
+C = Business class
+Y = Coach class.
+W = Premium Economy  
+Example: Y</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:choice>
+				<xsd:sequence minOccurs="0">
+					<xsd:element ref="Time"/>
+					<xsd:element ref="TimeWindow" minOccurs="0"/>
+				</xsd:sequence>
+				<xsd:element ref="DayWindow" minOccurs="0"/>
+				<xsd:element ref="Airline" minOccurs="0"/>
+				<xsd:element ref="Connection" minOccurs="0"/>
+				<xsd:element ref="AllianceCode" minOccurs="0"/>
+				<xsd:element ref="FlightType" minOccurs="0"/>
+			</xsd:sequence>
+			<xsd:attribute name="Sort" use="optional" default="NEUTRAL">
+				<xsd:annotation>
+					<xsd:documentation>Indicates how the response should be sorted.  Values are: 
+DEPARTURE = by departure time
+ARRIVAL = by arrival time
+ELAPSED = by elapsed time
+NEUTRAL = as defined by the provider.  Example: DEPARTURE</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:enumeration value="DEPARTURE"/>
+						<xsd:enumeration value="ARRIVAL"/>
+						<xsd:enumeration value="ELAPSED"/>
+						<xsd:enumeration value="NEUTRAL"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:attribute>
+			<xsd:attribute name="MultiAirport" use="optional">
+				<xsd:annotation>
+					<xsd:documentation>Allows user to search by multi airport.  Values are: Y = Yes, N = No.  Example: Y</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1"/>
+						<xsd:maxLength value="1"/>
+						<xsd:enumeration value="Y"/>
+						<xsd:enumeration value="N"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:attribute>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="TimeWindow">
+		<xsd:annotation>
+			<xsd:documentation>Time window group</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="HoursBefore" minOccurs="0"/>
+				<xsd:element ref="HoursAfter" minOccurs="0"/>
+				<xsd:element ref="HoursTotal" minOccurs="0"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="HoursBefore">
+		<xsd:annotation>
+			<xsd:documentation>Number of hours before departure, or arrival, depending on value of Sort attribute.  Value from 1 to 12.  Example: 6</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleType>
+			<xsd:restriction base="xsd:integer">
+				<xsd:minInclusive value="1"/>
+				<xsd:maxInclusive value="12"/>
+			</xsd:restriction>
+		</xsd:simpleType>
+	</xsd:element>
+	<xsd:element name="HoursAfter">
+		<xsd:annotation>
+			<xsd:documentation>Number of hours after departure, or arrival, depending on value of Sort attribute.  Value from 1 to 12.  Example: 12</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleType>
+			<xsd:restriction base="xsd:integer">
+				<xsd:minInclusive value="1"/>
+				<xsd:maxInclusive value="12"/>
+			</xsd:restriction>
+		</xsd:simpleType>
+	</xsd:element>
+	<xsd:element name="HoursTotal">
+		<xsd:annotation>
+			<xsd:documentation>Specifies the total number of hours the journey is not to exceed.  Value from 1 to 99.  Example: 26</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleType>
+			<xsd:restriction base="xsd:integer">
+				<xsd:minInclusive value="1"/>
+				<xsd:maxInclusive value="99"/>
+			</xsd:restriction>
+		</xsd:simpleType>
+	</xsd:element>
+	<xsd:element name="DayWindow">
+		<xsd:annotation>
+			<xsd:documentation>Day window group (for future use)</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="DaysBefore">
+					<xsd:annotation>
+						<xsd:documentation>Number of days before departure.  Value from 01-03.  Example: 03</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element ref="DaysAfter">
+					<xsd:annotation>
+						<xsd:documentation>Number of days after departure.  Value from 01-03.  Example: 02</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="DaysBefore">
+		<xsd:annotation>
+			<xsd:documentation>Number of days before departure.  Value from 01-10.  Example: 03</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleType>
+			<xsd:restriction base="xsd:integer">
+				<xsd:minInclusive value="1"/>
+				<xsd:maxInclusive value="3"/>
+			</xsd:restriction>
+		</xsd:simpleType>
+	</xsd:element>
+	<xsd:element name="DaysAfter">
+		<xsd:annotation>
+			<xsd:documentation>Number of days after departure.  Value from 01-10.  Example: 02</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleType>
+			<xsd:restriction base="xsd:integer">
+				<xsd:minInclusive value="1"/>
+				<xsd:maxInclusive value="3"/>
+			</xsd:restriction>
+		</xsd:simpleType>
+	</xsd:element>
+	<xsd:element name="Connection">
+		<xsd:annotation>
+			<xsd:documentation>Connection preference group</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:choice>
+				<xsd:element ref="Include" maxOccurs="2"/>
+				<xsd:element ref="Exclude" maxOccurs="2"/>
+			</xsd:choice>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="FlightType">
+		<xsd:annotation>
+			<xsd:documentation>Specifies the flight type preferences.  If absent, get all flights.  Maxi value in attributes means all below level are taken into account.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:attribute name="NoStopDirect" use="optional" default="M">
+				<xsd:annotation>
+					<xsd:documentation>Non-stop direct flights.  Values are: 
+Y = Yes
+M = Maximum.  Example: Y</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:enumeration value="Y"/>
+						<xsd:enumeration value="M"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:attribute>
+			<xsd:attribute name="StopDirect" use="optional" default="M">
+				<xsd:annotation>
+					<xsd:documentation>Stop direct flights.  Values are: Y = Yes
+M = Maximum.  Example: Y</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:enumeration value="Y"/>
+						<xsd:enumeration value="M"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:attribute>
+			<xsd:attribute name="OneConnectSingleAirline" use="optional" default="M">
+				<xsd:annotation>
+					<xsd:documentation>Single online connection flights.  Values are: Y = Yes
+M = Maximum.  Example: Y</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:enumeration value="Y"/>
+						<xsd:enumeration value="M"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:attribute>
+			<xsd:attribute name="TwoConnectSingleAirline" use="optional" default="M">
+				<xsd:annotation>
+					<xsd:documentation>Double online connection flights.  Values are: Y = Yes
+M = Maximum.  Example: Y</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:enumeration value="Y"/>
+						<xsd:enumeration value="M"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:attribute>
+			<xsd:attribute name="ThreeConnectSingleAirline" use="optional" default="M">
+				<xsd:annotation>
+					<xsd:documentation>Triple online connection flights.  Values are: Y = Yes
+M = Maximum.  Example: Y</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:enumeration value="Y"/>
+						<xsd:enumeration value="M"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:attribute>
+			<xsd:attribute name="OneConnectMultipleAirline" use="optional" default="M">
+				<xsd:annotation>
+					<xsd:documentation>Single interline connection flights.  Values are: Y = Yes
+M = Maximum.  Example: Y</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:enumeration value="Y"/>
+						<xsd:enumeration value="M"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:attribute>
+			<xsd:attribute name="TwoConnectMultipleAirline" use="optional" default="M">
+				<xsd:annotation>
+					<xsd:documentation>Double interline connection flights.  Values are: Y = Yes
+M = Maximum.  Example: Y</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:enumeration value="Y"/>
+						<xsd:enumeration value="M"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:attribute>
+			<xsd:attribute name="ThreeConnectMultipleAirline" use="optional" default="M">
+				<xsd:annotation>
+					<xsd:documentation>Triple interline connection flights.  Values are: Y = Yes
+M = Maximum.  Example: Y</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:enumeration value="Y"/>
+						<xsd:enumeration value="M"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:attribute>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="Cabin">
+		<xsd:annotation>
+			<xsd:documentation>Specifies cabin preference.  Valid values are:
+F = First class
+C = Business class
+Y = Coach class.  Example: Y</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:simpleContent>
+				<xsd:extension base="xsd:string">
+					<xsd:attribute name="Specific" use="optional" default="N">
+						<xsd:annotation>
+							<xsd:documentation>Requests specific cabin.  Values are Y = Yes, N = No.  Example: N</xsd:documentation>
+						</xsd:annotation>
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:enumeration value="Y"/>
+								<xsd:enumeration value="N"/>
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:simpleContent>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="AllianceCode" type="xsd:string">
+		<xsd:annotation>
+			<xsd:documentation>Search by alliance code.  Values are: OW = One World
+*Q = Qualifier Group
+*A = Star Alliance
+*S = Sky Team.
+ Example: *S</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="Include">
+		<xsd:annotation>
+			<xsd:documentation>Airline code for carriers to be included in the search or city code of the airport to be included in the connection.  Example: AF or MIA</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleType>
+			<xsd:restriction base="xsd:string">
+				<xsd:minLength value="2"/>
+				<xsd:maxLength value="3"/>
+			</xsd:restriction>
+		</xsd:simpleType>
+	</xsd:element>
+	<xsd:element name="Exclude">
+		<xsd:annotation>
+			<xsd:documentation>Airline code for carriers to be excluded in the search,  or city code of the airport to be excluded in the connection.  Example: DL or LON</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleType>
+			<xsd:restriction base="xsd:string">
+				<xsd:minLength value="2"/>
+				<xsd:maxLength value="3"/>
+			</xsd:restriction>
+		</xsd:simpleType>
+	</xsd:element>
+	<xsd:element name="Airline">
+		<xsd:annotation>
+			<xsd:documentation>Airline preference group</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:choice>
+				<xsd:element ref="Include" maxOccurs="3"/>
+				<xsd:element ref="Exclude" maxOccurs="3"/>
+			</xsd:choice>
+			<xsd:attribute name="Specific" use="optional">
+				<xsd:annotation>
+					<xsd:documentation>Specific request for itineraries where every leg is on the specified carrier.  Example: Y</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1"/>
+						<xsd:maxLength value="1"/>
+						<xsd:enumeration value="Y"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:attribute>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="Restrictions">
+		<xsd:annotation>
+			<xsd:documentation>Pricing restrictions group</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:attribute name="MinimumStay" use="optional" default="Y">
+				<xsd:annotation>
+					<xsd:documentation>Y = Allow Minimum stay with fare 
+N = Don't Allow Minimum stay with fare 
+Default: Y</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:enumeration value="Y"/>
+						<xsd:enumeration value="N"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:attribute>
+			<xsd:attribute name="MaximumStay" use="optional" default="Y">
+				<xsd:annotation>
+					<xsd:documentation>Y = Allow Maximum stay with fare
+N = Don't Allow Maximum stay with fare
+Default: Y</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:enumeration value="Y"/>
+						<xsd:enumeration value="N"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:attribute>
+			<xsd:attribute name="Advance" use="optional" default="Y">
+				<xsd:annotation>
+					<xsd:documentation>Y = Allow Advance Purchase with fare
+N = Don't Allow advance Purchase with fare
+Default: Y</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:enumeration value="Y"/>
+						<xsd:enumeration value="N"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:attribute>
+			<xsd:attribute name="Penalty" use="optional" default="Y">
+				<xsd:annotation>
+					<xsd:documentation>Y = Allow Penalties with fare 
+N = Don't Allow penalties with fare
+Default: Y</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:enumeration value="Y"/>
+						<xsd:enumeration value="N"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:attribute>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="PriceToBeat">
+		<xsd:annotation>
+			<xsd:documentation>Price to beat group</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="Amount"/>
+				<xsd:element name="CurrencyCode">
+					<xsd:complexType>
+						<xsd:simpleContent>
+							<xsd:restriction base="CurrencyCodeType">
+								<xsd:pattern value="[A-Z0-9]{3}"/>
+								<xsd:attribute name="NumberOfDecimals" type="xsd:integer" use="prohibited">
+									<xsd:annotation>
+										<xsd:documentation>Decimal position in fare amount.  Example: 2</xsd:documentation>
+									</xsd:annotation>
+								</xsd:attribute>
+							</xsd:restriction>
+						</xsd:simpleContent>
+					</xsd:complexType>
+				</xsd:element>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="Amount" type="xsd:string">
+		<xsd:annotation>
+			<xsd:documentation>Amount price to beat.  Example: 30000</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="AirlineCode">
+		<xsd:annotation>
+			<xsd:documentation>Airline Code. Example: DL</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleType>
+			<xsd:restriction base="xsd:string">
+				<xsd:maxLength value="2"/>
+				<xsd:minLength value="2"/>
+			</xsd:restriction>
+		</xsd:simpleType>
+	</xsd:element>
+	<xsd:element name="ActionCode">
+		<xsd:annotation>
+			<xsd:documentation>Action code for the sell of a segment.  This a standard defined action code used by different airlines and reservation systems.  If omitted the default value is NN.  Example: GK</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleType>
+			<xsd:restriction base="xsd:string">
+				<xsd:minLength value="2"/>
+				<xsd:maxLength value="2"/>
+			</xsd:restriction>
+		</xsd:simpleType>
+	</xsd:element>
+	<xsd:element name="NumberOfStops">
+		<xsd:annotation>
+			<xsd:documentation>Number of stops.  Example: 0</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleType>
+			<xsd:restriction base="xsd:integer">
+				<xsd:maxInclusive value="9"/>
+				<xsd:minInclusive value="0"/>
+			</xsd:restriction>
+		</xsd:simpleType>
+	</xsd:element>
+	<xsd:element name="InExchangeForTicket">
+		<xsd:annotation>
+			<xsd:documentation>Mandatory for AutoExchange applications such as ReShop from ITA.  If used, then the attribute @Reshop in the PricingInfo node MUST also be set to "Y".</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="TicketNumber" maxOccurs="unbounded">
+					<xsd:annotation>
+						<xsd:documentation>The 13-digit TicketNumber to be used for Auto Exchange proccesses, such as ReShop from ITA.
+
+In case of a conjunctive set, this is the 1st number of the set.
+
+Example: 0110987654321</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:simpleContent>
+							<xsd:extension base="xsd:integer">
+								<xsd:attribute ref="Source" use="required"/>
+								<xsd:attribute name="TravelerID" use="required">
+									<xsd:annotation>
+										<xsd:documentation>The traveler element number associated to this ticket.
+
+Example: 1</xsd:documentation>
+									</xsd:annotation>
+								</xsd:attribute>
+								<xsd:attribute name="PaxType" type="xsd:string" use="required">
+									<xsd:annotation>
+										<xsd:documentation>Passenger type priced from original ticket image. 
+
+Some IATA values are :
+ADT= Adult
+CHD = Child
+INF = Infant
+GOV = Government
+MIL = Military
+SRC = Senior citizen
+STD = Student
+YTH = Youth
+Example: CHD</xsd:documentation>
+									</xsd:annotation>
+								</xsd:attribute>
+							</xsd:extension>
+						</xsd:simpleContent>
+					</xsd:complexType>
+				</xsd:element>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="NbrOfAlternates">
+		<xsd:annotation>
+			<xsd:documentation>Maximum number of Flight elements to be returned in the response for each OriginDestination (O/D).
+
+The service will collect flights for each O/D until this number is reached or the provider returns no more flights (whatever happens first). The resulting set of flights per O/D will be returned to the client.
+CAUTION: Depending on the value this can be a time consuming transaction!
+
+Values are:
+Either a positive integer value identifying the max. number of requested flights per O/D or  'ALL' to retrieve all of them.
+
+Example: 10</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:simpleContent>
+				<xsd:extension base="xsd:string">
+					<xsd:attribute ref="Source"/>
+				</xsd:extension>
+			</xsd:simpleContent>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="JourneyControlData">
+		<xsd:annotation>
+			<xsd:documentation>Flights from an existing itinerary (active PNR) to allow journey control</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="JCDFlight" maxOccurs="unbounded"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="JCDFlight">
+		<xsd:annotation>
+			<xsd:documentation>Flight group</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="JCDDeparture"/>
+				<xsd:element ref="JCDArrival"/>
+				<xsd:element ref="JCDDate"/>
+				<xsd:element ref="Carrier"/>
+				<xsd:element ref="ClassOfService"/>
+				<xsd:element ref="ActionCode" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>This a standard defined action code used by different airlines and reservation systems.   
+Example: HK</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element ref="NumberOfStops" minOccurs="0"/>
+				<xsd:element ref="ReservationsDateTime" minOccurs="0"/>
+			</xsd:sequence>
+			<xsd:attribute ref="Source"/>
+			<xsd:attribute name="Type" use="optional">
+				<xsd:annotation>
+					<xsd:documentation>Optional flight type.  This is used to specify passive or open segments.  Values are:
+P = Passive
+O = Open
+S = Service (passive info segment, supported on Worldspan as TVL and Amadeus as service segment).
+
+If tyoe is set to O(Open segment) then departure date/time, arrival date/time and flight number don't have to be set.
+
+Example: P</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:enumeration value="P"/>
+						<xsd:enumeration value="O"/>
+						<xsd:enumeration value="S"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:attribute>
+			<xsd:attribute name="CnxxIndicator" use="optional">
+				<xsd:annotation>
+					<xsd:documentation>Connection indicator.  Example: Y = Yes, N = No</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:enumeration value="Y"/>
+						<xsd:enumeration value="N"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:attribute>
+			<xsd:attribute name="MarriedSegment" use="optional">
+				<xsd:annotation>
+					<xsd:documentation>Married connection indicator.  Values:
+B = Start of a group of married segments
+E = End of a group of married segments</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:enumeration value="B"/>
+						<xsd:enumeration value="E"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:attribute>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="JCDDeparture">
+		<xsd:annotation>
+			<xsd:documentation>Origin departure group</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="CityCode"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="JCDArrival">
+		<xsd:annotation>
+			<xsd:documentation>Destination group</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="CityCode"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="JCDDate">
+		<xsd:annotation>
+			<xsd:documentation>Specifies departure date in ISO 8601 format (yyyy-mm-dd).  Example: 2001-12-25</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:simpleContent>
+				<xsd:extension base="xsd:date">
+					<xsd:attribute name="Qualifier" use="optional" default="DEPARTURE">
+						<xsd:annotation>
+							<xsd:documentation>Specifies whether the entered date represents a departure or arrival date.
+
+Values:
+"ARRIVAL" "DEPARTURE"</xsd:documentation>
+						</xsd:annotation>
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:enumeration value="DEPARTURE"/>
+								<xsd:enumeration value="ARRIVAL"/>
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:simpleContent>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="Carrier">
+		<xsd:annotation>
+			<xsd:documentation>Flight carrier group</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="AirlineCode"/>
+				<xsd:element ref="FlightNumber"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="ProfileIndex">
+		<xsd:annotation>
+			<xsd:documentation>Associated profile index for this traveler.
+
+Example: 6457</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:simpleContent>
+				<xsd:extension base="xsd:string">
+					<xsd:attribute ref="Source">
+						<xsd:annotation>
+							<xsd:documentation>Identifies the profile source.
+
+In other words where is the profile database hosted, e.g. CustomDB, etc.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+					<xsd:attribute name="CorporateIndex">
+						<xsd:annotation>
+							<xsd:documentation>This is the ProfileIndex assign to the associated Corporate Profile of this traveler.
+
+Example: 117</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+					<xsd:attribute name="CorporateName">
+						<xsd:annotation>
+							<xsd:documentation>This is the Profile Name given to this corporation.
+
+Example: IBM CORP</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:simpleContent>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="CreditCard">
+		<xsd:annotation>
+			<xsd:documentation>Credit card group</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="CCCode"/>
+				<xsd:element ref="CCNumber">
+					<xsd:annotation>
+						<xsd:documentation>Credit card number.  Example: 4011236654652341
+
+Can be returned encrypted.
+Example: XXXXXXXXXXXX2341</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element ref="CCExpiration"/>
+				<xsd:sequence minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Credit card holder's name</xsd:documentation>
+					</xsd:annotation>
+					<xsd:element ref="CardholderFirstName" minOccurs="0"/>
+					<xsd:element ref="CardholderLastName"/>
+				</xsd:sequence>
+				<xsd:element name="CCAddressGroup" minOccurs="0">
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="Address" type="xsd:string" maxOccurs="2">
+								<xsd:annotation>
+									<xsd:documentation>Street or PO Box address.  Example: 1234 Main Street</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+							<xsd:element name="City" type="xsd:string">
+								<xsd:annotation>
+									<xsd:documentation>City name.  Example: NY</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+							<xsd:element name="PostalCode" type="xsd:string">
+								<xsd:annotation>
+									<xsd:documentation>Postal code or zip code.  Example: 12345</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+							<xsd:element name="StateCode" type="xsd:string" minOccurs="0">
+								<xsd:annotation>
+									<xsd:documentation>State code.  Example: NY</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+							<xsd:element name="CountryCode" type="xsd:string">
+								<xsd:annotation>
+									<xsd:documentation>Country code.  Example: US</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="CCCode">
+		<xsd:annotation>
+			<xsd:documentation>Credit card code.  Example: VI</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleType>
+			<xsd:restriction base="xsd:string"/>
+		</xsd:simpleType>
+	</xsd:element>
+	<xsd:element name="CCNumber" type="xsd:string">
+		<xsd:annotation>
+			<xsd:documentation>Credit card number.  Example: 4011236654652341</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="CCExpiration">
+		<xsd:annotation>
+			<xsd:documentation>Credit card expiration group</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="Month">
+					<xsd:annotation>
+						<xsd:documentation>Credit card expiration month. Example: 02
+Can be returned encrypted.
+Example: XX</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element ref="Year">
+					<xsd:annotation>
+						<xsd:documentation>Last two digits of the credit card expiration year.  Example: 06
+Can be returned encrypted.
+Example: XX</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="CardholderFirstName">
+		<xsd:annotation>
+			<xsd:documentation>Credit card holder's first name.  Example: JOHN</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleType>
+			<xsd:restriction base="xsd:string">
+				<xsd:minLength value="1"/>
+			</xsd:restriction>
+		</xsd:simpleType>
+	</xsd:element>
+	<xsd:element name="CardholderLastName" type="xsd:string">
+		<xsd:annotation>
+			<xsd:documentation>Credit card holder's last name.  This is only required for Sabre.  Example: SMITH</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="Month" type="xsd:string">
+		<xsd:annotation>
+			<xsd:documentation>Credit card expiration month.  Example: 02</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="Year" type="xsd:string">
+		<xsd:annotation>
+			<xsd:documentation>Last two digits of the credit card expiration year.  Example: 06</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="IDNumber" type="xsd:string">
+		<xsd:annotation>
+			<xsd:documentation>Frequent flyer or guest ID number.  Example: 0956301007</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="ProgramName" type="xsd:string">
+		<xsd:annotation>
+			<xsd:documentation>Frequent flyer program name.  Example: Frequence Plus</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="CompanyCode" type="xsd:string">
+		<xsd:annotation>
+			<xsd:documentation>Car Company or Hotel Chain 2-letter code.  Example: ZE</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="AssociationCode" type="xsd:string">
+		<xsd:annotation>
+			<xsd:documentation>Code for organization or association.  Example: AARP, AAA</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+</xsd:schema>

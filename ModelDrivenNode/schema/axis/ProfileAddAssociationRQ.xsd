@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<xsd:element name="ProfileAddAssociationRQ">
+		<xsd:annotation>
+			<xsd:documentation>Profile association request root element
+
+Allows to associate a profile to another company or traveler profile</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:choice>
+					<xsd:element ref="ProfileIndex">
+						<xsd:annotation>
+							<xsd:documentation>Identifies the (target)profile with which an association is established.  This can be a company profile or another traveler profile</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:sequence>
+						<xsd:element name="ProfileVendor"/>
+						<xsd:element name="SourceProfileIndex"/>
+					</xsd:sequence>
+				</xsd:choice>
+				<xsd:element name="AssociationData">
+					<xsd:annotation>
+						<xsd:documentation>Identifies the profile to associate with</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:choice>
+								<xsd:element ref="ProfileIndex">
+									<xsd:annotation>
+										<xsd:documentation>Identifies the (target)profile with which an association is established.  This can be a company profile or another traveler profile</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+								<xsd:sequence>
+									<xsd:element name="ProfileVendor"/>
+									<xsd:element name="SourceProfileIndex"/>
+								</xsd:sequence>
+							</xsd:choice>
+							<xsd:element name="Relationship" minOccurs="0">
+								<xsd:annotation>
+									<xsd:documentation>Identifies the relationship type (free flow text), 
+e.g. Employee, Consultant, Spouse, Child</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+							<xsd:element name="CostCenter" minOccurs="0">
+								<xsd:annotation>
+									<xsd:documentation>CostCenter for this Traveler in this association.
+Example: 4520</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+							<xsd:element name="Department" minOccurs="0">
+								<xsd:annotation>
+									<xsd:documentation>Department description  for this Traveler in this association.
+Example: Marketing</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+							<xsd:element name="EmployeeID" minOccurs="0">
+								<xsd:annotation>
+									<xsd:documentation>EmployeeID of traveler for this association.
+Example 476254</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+							<xsd:element name="Position" minOccurs="0">
+								<xsd:annotation>
+									<xsd:documentation>Position within the organization.
+
+Examples:
+Director of ...
+CEO
+Product Manager</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+			</xsd:sequence>
+			<xsd:attribute ref="Source">
+				<xsd:annotation>
+					<xsd:documentation>Identifies the source of the profile database.  Not limited to GDS, applicable to other DBs as well
+Example: 1G</xsd:documentation>
+				</xsd:annotation>
+			</xsd:attribute>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="ProfileIndex">
+		<xsd:annotation>
+			<xsd:documentation>Identifies the profile to be associated</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:attribute name="Type">
+				<xsd:annotation>
+					<xsd:documentation>Identifies the profile type, e.g. 
+T = TravelerProfile, 
+C = Company Profile, </xsd:documentation>
+				</xsd:annotation>
+			</xsd:attribute>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:attribute name="Source">
+		<xsd:annotation>
+			<xsd:documentation>Identifies the source of this  element. In other words where the content originates from. Not limited to GDS, applicable to direct connect as well. Example: 1A, 1V, or other. </xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleType>
+			<xsd:restriction base="xsd:string">
+				<xsd:minLength value="1"/>
+			</xsd:restriction>
+		</xsd:simpleType>
+	</xsd:attribute>
+</xsd:schema>

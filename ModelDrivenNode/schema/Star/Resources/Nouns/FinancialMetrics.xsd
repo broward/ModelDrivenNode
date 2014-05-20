@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+   xmlns:star="http://www.starstandard.org/STAR/5"
+   xmlns:oacl="http://www.openapplications.org/oagis/9/codelists"
+   xmlns:sqdt="http://www.starstandard.org/STAR/5/qualifieddatatypes/1.0"
+   xmlns="http://www.starstandard.org/STAR/5" xmlns:ccts="urn:un:unece:uncefact:documentation:1.1"
+   xmlns:sudt="http://www.starstandard.org/STAR/5/unqualifieddatatypes/1.0"
+   xmlns:scl="http://www.starstandard.org/STAR/5/codelists"
+   targetNamespace="http://www.starstandard.org/STAR/5" elementFormDefault="qualified"
+   attributeFormDefault="unqualified" blockDefault="#all"
+   xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1"
+   xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1">
+   <xsd:annotation>
+      <xsd:documentation source="http://www.starstandard.org/STAR/5"> This schema is made available under an Eclipse Public Licenses 1.0.
+         This license may be found in the STAR/License directory as well as the STAR BOD Guidelines.</xsd:documentation>
+   </xsd:annotation>
+   <xsd:include schemaLocation="../Components/Common/Meta.xsd"/>
+   <xsd:import namespace="http://www.starstandard.org/STAR/5/qualifieddatatypes/1.0"
+      schemaLocation="../Components/Common/QualifiedDataTypes.xsd"/>
+   <xsd:import namespace="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+      schemaLocation="../Components/OAGIS/CoreComponents/UnqualifiedDataTypes.xsd"/>
+   <xsd:import namespace="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1"
+      schemaLocation="../Components/OAGIS/CoreComponents/QualifiedDataTypes.xsd"/>
+   <xsd:import namespace="http://www.starstandard.org/STAR/5/codelists"
+      schemaLocation="../Components/Common/CodeLists.xsd"/>
+   <xsd:import namespace="http://www.openapplications.org/oagis/9"
+      schemaLocation="../Components/OAGIS/Common/Components.xsd"/>
+   <xsd:element name="FinancialMetrics" type="FinancialMetricsType">
+      <xsd:annotation>
+         <xsd:documentation source="http://www.starstandard.org/STAR/5">
+         	FinancialMetrics is used to transmit dealer Financial Metrics information. 
+         	
+		 </xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element name="FinancialMetricsHeader" type="FinancialMetricsHeaderType">
+      <xsd:annotation>
+         <xsd:documentation source="http://www.starstandard.org"> For each FinancialMetrics represented in the DataArea of the
+            Financial Metrics Business Object Document, there must be once occurrence of the Header Component.
+         </xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element name="FinancialMetricsDetail" type="FinancialMetricsDetailType">
+      <xsd:annotation>
+         <xsd:documentation source="http://www.starstandard.org"> Financial Metrics Detail
+         </xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element name="MonetaryAmount" type="MonetaryAmountType">
+      <xsd:annotation>
+         <xsd:documentation source="http://www.starstandard.org">This component is used to report monetary amounts.
+         </xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element name="NonMonetaryAmount" type="NonMonetaryAmountType">
+      <xsd:annotation>
+         <xsd:documentation source="http://www.starstandard.org">This component is used to report nonmonetary vaues.
+         </xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:complexType name="FinancialMetricsType">
+      <xsd:annotation xmlns="http://www.starstandards.org/STAR">
+         <xsd:documentation source="http://www.starstandard.org/STAR/5">STAR Version 3.0 - Draft</xsd:documentation>
+         <xsd:documentation source="http://www.starstandard.org/STAR/5">STAR Version 2.1, STAR approved 04/20/2005; effective date
+            07/04/2005</xsd:documentation>
+         <xsd:documentation source="http://www.starstandard.org/STAR/5">STAR Version 2.0, STAR approved 05/07/2004; effective date
+            07/04/2004</xsd:documentation>
+         <xsd:documentation source="http://www.starstandard.org/STAR/5">STAR Version 1.0, STAR approved 10/4/2002; OAGI approved
+            10/17/2002; effective date 1/01/2003</xsd:documentation>
+      </xsd:annotation>
+      <xsd:sequence>
+         <xsd:element ref="FinancialMetricsHeader"/>
+         <xsd:element ref="FinancialMetricsDetail" maxOccurs="unbounded"/>
+      </xsd:sequence>
+   </xsd:complexType>
+   <xsd:complexType name="FinancialMetricsHeaderType">
+      <xsd:annotation xmlns="http://www.starstandards.org/STAR">
+         <xsd:documentation source="http://www.starstandard.org/STAR/5">.</xsd:documentation>
+      </xsd:annotation>
+      <xsd:complexContent>
+         <xsd:extension base="HeaderBaseType">
+            <xsd:sequence>
+               <xsd:element name="AccountingDateYearMonthDate" type="qdt:YearMonthDateType">
+                  <xsd:annotation
+                     xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+                     xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5"/>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="AccountingTermCode" type="scl:AccountingTermEnumeratedType"
+                  minOccurs="0">
+                  <xsd:annotation
+                     xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+                     xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5">Term of Account Information</xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="CountNumeric" type="udt:NumericType" minOccurs="0">
+                  <xsd:annotation
+                     xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+                     xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5"/>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="FileVersionNumberString" type="qdt:StringType" minOccurs="0">
+                  <xsd:annotation
+                     xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+                     xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5">Indicates the version of validation performed on the
+                        data</xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="OrganizationID" type="udt:IdentifierType" minOccurs="0">
+                  <xsd:annotation
+                     xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+                     xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5">Member Identification number of affiliate organization
+                     </xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+
+   <xsd:complexType name="FinancialMetricsDetailType">
+      <xsd:annotation xmlns="http://www.starstandards.org/STAR">
+         <xsd:documentation source="http://www.starstandard.org/STAR/5">.</xsd:documentation>
+      </xsd:annotation>
+      <xsd:sequence>
+         <xsd:element name="SenderAccountID" type="udt:IdentifierType" minOccurs="0" maxOccurs="1">
+            <xsd:annotation
+               xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+               xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+               <xsd:documentation source="http://www.starstandard.org/STAR/5">Identifies the Sender's Account ID or Code.
+               </xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="SenderAccountDescription" type="udt:TextType" minOccurs="0"
+            maxOccurs="1">
+            <xsd:annotation
+               xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+               xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+               <xsd:documentation source="http://www.starstandard.org/STAR/5">The Sender's Account Description</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="ReceiverAccountTypeID" type="udt:TextType" minOccurs="0" maxOccurs="1">
+            <xsd:annotation
+               xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+               xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+               <xsd:documentation source="http://www.starstandard.org/STAR/5">The receiver's Account ID or Account Type Code</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="CategoryCode" type="udt:TextType" minOccurs="0" maxOccurs="1">
+            <xsd:annotation
+               xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+               xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+               <xsd:documentation source="http://www.starstandard.org/STAR/5">A term that refines the ReceiverAccountTypeID element</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="DetailSerialNumber" type="udt:NumericType" minOccurs="0" maxOccurs="1">
+            <xsd:annotation
+               xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+               xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+               <xsd:documentation source="http://www.starstandard.org/STAR/5">A serial number assigned to this instance of FinancialMetricsDetail</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="SenderOffsetAccountID" type="udt:TextType" minOccurs="0" maxOccurs="1">
+            <xsd:annotation
+               xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+               xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+               <xsd:documentation source="http://www.starstandard.org/STAR/5">The  Offset Account for the SenderAccountID as defined by the sender's chart of accounts.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="AmountCount" type="udt:NumericType" minOccurs="0" maxOccurs="1">
+            <xsd:annotation
+               xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+               xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+               <xsd:documentation source="http://www.starstandard.org/STAR/5">The number of child MonetaryAmount and NonMonetaryAmount components.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element ref="MonetaryAmount" minOccurs="0" maxOccurs="unbounded">
+            <xsd:annotation>
+               <xsd:documentation source="http://www.starstandard.org">This component is used to report monetary amounts.
+               </xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element ref="NonMonetaryAmount" minOccurs="0" maxOccurs="unbounded">
+            <xsd:annotation>
+               <xsd:documentation source="http://www.starstandard.org">This component is used to report non-monetary amounts.
+               </xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+      </xsd:sequence>
+   </xsd:complexType>
+   <xsd:complexType name="MonetaryAmountType">
+      <xsd:annotation xmlns="http://www.starstandards.org/STAR">
+         <xsd:documentation source="http://www.starstandard.org/STAR/5">.</xsd:documentation>
+      </xsd:annotation>
+      <xsd:sequence>
+         <xsd:element name="SecondaryAccountingTermCode"
+            type="scl:SecondaryAccountingTermEnumeratedType" minOccurs="0" maxOccurs="1">
+            <xsd:annotation
+               xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+               xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+               <xsd:documentation source="http://www.starstandard.org/STAR/5">A term that defines the time scope of the associated Monetary Value.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="MonetaryValue" type="udt:AmountType" minOccurs="1" maxOccurs="1">
+            <xsd:annotation
+               xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+               xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+               <xsd:documentation source="http://www.starstandard.org/STAR/5">The monetary Amount being reported</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+      </xsd:sequence>
+   </xsd:complexType>
+   <xsd:complexType name="NonMonetaryAmountType">
+      <xsd:annotation xmlns="http://www.starstandards.org/STAR">
+         <xsd:documentation source="http://www.starstandard.org/STAR/5">.</xsd:documentation>
+      </xsd:annotation>
+      <xsd:sequence>
+         <xsd:element name="SecondaryAccountingTermCode"
+            type="scl:SecondaryAccountingTermEnumeratedType" minOccurs="0" maxOccurs="1">
+            <xsd:annotation
+               xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+               xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+               <xsd:documentation source="http://www.starstandard.org/STAR/5">A term that defines the time scope of the associated Monetary Value.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="NonMonetaryValue" type="udt:QuantityType" minOccurs="1" maxOccurs="1">
+            <xsd:annotation
+               xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+               xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+               <xsd:documentation source="http://www.starstandard.org/STAR/5">The non-monetary Amount being reported</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+      </xsd:sequence>
+   </xsd:complexType>
+</xsd:schema>

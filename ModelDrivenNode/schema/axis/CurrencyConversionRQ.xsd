@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<xsd:include schemaLocation="CommonTypes.xsd"/>
+	<xsd:element name="CurrencyConversionRQ">
+		<xsd:annotation>
+			<xsd:documentation>Currency conversion request root element</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="CurrencyRequest" maxOccurs="unbounded"/>
+			</xsd:sequence>
+			<xsd:attribute name="version" type="xsd:string" use="optional">
+				<xsd:annotation>
+					<xsd:documentation>Version number.  Example: 1.0</xsd:documentation>
+				</xsd:annotation>
+			</xsd:attribute>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="Amount">
+		<xsd:annotation>
+			<xsd:documentation>Amount to convert.  Example: 25000</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:simpleContent>
+				<xsd:extension base="xsd:integer">
+					<xsd:attribute name="NumberOfDecimals" type="xsd:integer" use="required">
+						<xsd:annotation>
+							<xsd:documentation>Decimal position in fare amount.  Example: 2</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:simpleContent>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="Table">
+		<xsd:annotation>
+			<xsd:documentation>Rate Type.  Example: BSR - BankerSellingRate BBR - BankerBuyingRate ICH - IATA Clearing House.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:simpleContent>
+				<xsd:extension base="xsd:integer"/>
+			</xsd:simpleContent>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="FromCurrencyCode">
+		<xsd:annotation>
+			<xsd:documentation>Currency code to convert amount from.  Example: USD</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleType>
+			<xsd:restriction base="xsd:string">
+				<xsd:minLength value="3"/>
+				<xsd:maxLength value="3"/>
+			</xsd:restriction>
+		</xsd:simpleType>
+	</xsd:element>
+	<xsd:element name="ToCurrencyCode">
+		<xsd:annotation>
+			<xsd:documentation>Currency code to convert amount to.  Example: FRF</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleType>
+			<xsd:restriction base="xsd:string">
+				<xsd:minLength value="3"/>
+				<xsd:maxLength value="3"/>
+			</xsd:restriction>
+		</xsd:simpleType>
+	</xsd:element>
+	<xsd:element name="CurrencyRequest">
+		<xsd:annotation>
+			<xsd:documentation>Currency request group</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="Amount"/>
+				<xsd:element ref="FromCurrencyCode"/>
+				<xsd:element ref="ToCurrencyCode"/>
+				<xsd:element ref="Table" minOccurs="0"/>
+			</xsd:sequence>
+			<xsd:attribute ref="Source"/>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>

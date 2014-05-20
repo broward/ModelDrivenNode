@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+	<xsd:element name="MinimumConnectionTimeRQ">
+		<xsd:annotation>
+			<xsd:documentation>Minimum connection time request root element</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:choice>
+				<xsd:element ref="Connection"/>
+				<xsd:element ref="MoreInformation"/>
+				<xsd:element ref="MoreToken"/>
+			</xsd:choice>
+			<xsd:attribute name="version" type="xsd:string" use="optional">
+				<xsd:annotation>
+					<xsd:documentation>Version number.  Example: 1.0</xsd:documentation>
+				</xsd:annotation>
+			</xsd:attribute>
+			<xsd:attribute name="ConnectionType" use="optional">
+				<xsd:annotation>
+					<xsd:documentation>Type of minimum connection time.  Values are:
+DD = Domestic to Domestic
+DI = Domestic to International
+ID = International to Domestic
+II = International to International
+ALL = All for all types  Example: DD</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:enumeration value="DD"/>
+						<xsd:enumeration value="DI"/>
+						<xsd:enumeration value="II"/>
+						<xsd:enumeration value="ID"/>
+						<xsd:enumeration value="ALL"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:attribute>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="MoreInformation">
+		<xsd:annotation>
+			<xsd:documentation>Request the next screen of information from the GDS.  Example: Y or N</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleType>
+			<xsd:restriction base="xsd:string">
+				<xsd:maxLength value="1"/>
+				<xsd:minLength value="1"/>
+				<xsd:enumeration value="Y"/>
+				<xsd:enumeration value="N"/>
+			</xsd:restriction>
+		</xsd:simpleType>
+	</xsd:element>
+	<xsd:element name="Connection">
+		<xsd:annotation>
+			<xsd:documentation>Connection group</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="CityCode"/>
+				<xsd:element ref="InterCityAirportCode" minOccurs="0" maxOccurs="2"/>
+				<xsd:element ref="Inbound" minOccurs="0"/>
+				<xsd:element ref="Outbound" minOccurs="0"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="CityCode">
+		<xsd:annotation>
+			<xsd:documentation>Connection city code or airport code.  Galileo and Apollo only support airport codes in this element.  Example: NYC or JFK</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleType>
+			<xsd:restriction base="xsd:string">
+				<xsd:maxLength value="3"/>
+				<xsd:minLength value="3"/>
+			</xsd:restriction>
+		</xsd:simpleType>
+	</xsd:element>
+	<xsd:element name="InterCityAirportCode">
+		<xsd:annotation>
+			<xsd:documentation>Connection inter city airport code.  Example: LGA </xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleType>
+			<xsd:restriction base="xsd:string">
+				<xsd:maxLength value="3"/>
+				<xsd:minLength value="3"/>
+			</xsd:restriction>
+		</xsd:simpleType>
+	</xsd:element>
+	<xsd:element name="Inbound">
+		<xsd:annotation>
+			<xsd:documentation>Inbound group</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="AirlineCode" minOccurs="0"/>
+				<xsd:element ref="FlightNumber" minOccurs="0"/>
+				<xsd:element ref="Terminal" minOccurs="0"/>
+				<xsd:element ref="Equipment" minOccurs="0"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="AirlineCode">
+		<xsd:annotation>
+			<xsd:documentation>Airline code.  Example: AA</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleType>
+			<xsd:restriction base="xsd:string">
+				<xsd:maxLength value="2"/>
+				<xsd:minLength value="2"/>
+			</xsd:restriction>
+		</xsd:simpleType>
+	</xsd:element>
+	<xsd:element name="FlightNumber">
+		<xsd:annotation>
+			<xsd:documentation>Flight number.  Example: 0100</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:simpleContent>
+				<xsd:extension base="xsd:integer">
+					<xsd:attribute name="Suffix" type="xsd:string" use="optional">
+						<xsd:annotation>
+							<xsd:documentation>Flight number suffix.  Example: A</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:simpleContent>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="Terminal" type="xsd:string">
+		<xsd:annotation>
+			<xsd:documentation>Terminal.  Example: 1</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="Equipment">
+		<xsd:annotation>
+			<xsd:documentation>Equipment code.  Example: 747</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleType>
+			<xsd:restriction base="xsd:string">
+				<xsd:maxLength value="3"/>
+				<xsd:minLength value="3"/>
+			</xsd:restriction>
+		</xsd:simpleType>
+	</xsd:element>
+	<xsd:element name="Outbound">
+		<xsd:annotation>
+			<xsd:documentation>Outbound group</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="AirlineCode" minOccurs="0"/>
+				<xsd:element ref="FlightNumber" minOccurs="0"/>
+				<xsd:element ref="Terminal" minOccurs="0"/>
+				<xsd:element ref="Equipment" minOccurs="0"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="MoreToken" type="xsd:string">
+		<xsd:annotation>
+			<xsd:documentation>More token indicator.  Values are: Y = Yes, N = No
+Example: Y</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+</xsd:schema>

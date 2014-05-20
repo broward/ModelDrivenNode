@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:include schemaLocation="CommonTicketingTypes.xsd"/>
+	<xsd:element name="TicketRefundVoidRS">
+		<xsd:annotation>
+			<xsd:documentation>Comment describing your root element</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="InfoGroup" minOccurs="0"/>
+				<xsd:element name="TicketNumber">
+					<xsd:annotation>
+						<xsd:documentation>The ticket number of the refunded ticket. 
+If the ticket, whose number was specified in the request was part of a conjuctive ticket, only the primary ticket number will be returned, although all tickets of the conjuctive set will have been reversed (thus voiding the preceding refund).
+
+Example:  0017366845341</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:simpleContent>
+							<xsd:extension base="xsd:string">
+								<xsd:attribute ref="Source">
+									<xsd:annotation>
+										<xsd:documentation>Identifies the source of this  element. 
+
+Example: AA, LH, or a GDS. </xsd:documentation>
+									</xsd:annotation>
+								</xsd:attribute>
+							</xsd:extension>
+						</xsd:simpleContent>
+					</xsd:complexType>
+				</xsd:element>
+				<xsd:element name="SuccessIndicator">
+					<xsd:annotation>
+						<xsd:documentation>Element indicating success or failure. Possible values:
+Y, N</xsd:documentation>
+					</xsd:annotation>
+					<xsd:simpleType>
+						<xsd:restriction base="xsd:string">
+							<xsd:length value="1"/>
+							<xsd:enumeration value="Y"/>
+							<xsd:enumeration value="N"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+				<xsd:element name="RecordLocator" type="xsd:string" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>The record locator must be the record locator mapped from the TICKETIMAGE reinstated.</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>

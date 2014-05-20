@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:star="http://www.starstandard.org/STAR/5"
+   xmlns:oacl="http://www.openapplications.org/oagis/9/codelists" xmlns:sqdt="http://www.starstandard.org/STAR/5/qualifieddatatypes/1.0"
+   xmlns="http://www.starstandard.org/STAR/5" xmlns:ccts="urn:un:unece:uncefact:documentation:1.1" xmlns:sudt="http://www.starstandard.org/STAR/5/unqualifieddatatypes/1.0"
+   xmlns:scl="http://www.starstandard.org/STAR/5/codelists" targetNamespace="http://www.starstandard.org/STAR/5"
+   elementFormDefault="qualified" attributeFormDefault="unqualified" blockDefault="#all"
+   xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1"
+   xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"   
+>
+    <xsd:annotation>
+        <xsd:documentation source="http://www.starstandard.org/STAR/5">
+            This schema is made available under an Eclipse Public Licenses 1.0.  This
+            license may be found in the STAR/License directory as well as the STAR BOD
+            Guidelines.
+        </xsd:documentation>
+    </xsd:annotation>
+    <xsd:include schemaLocation="../Components/Common/Meta.xsd" />
+   <xsd:import namespace="http://www.starstandard.org/STAR/5/qualifieddatatypes/1.0" schemaLocation="../Components/Common/QualifiedDataTypes.xsd"/>
+   <xsd:import namespace="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" schemaLocation="../Components/OAGIS/CoreComponents/UnqualifiedDataTypes.xsd"/>
+   <xsd:import namespace="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1" schemaLocation="../Components/OAGIS/CoreComponents/QualifiedDataTypes.xsd"/>
+   <xsd:import namespace="http://www.starstandard.org/STAR/5/codelists" schemaLocation="../Components/Common/CodeLists.xsd"/>
+   <xsd:import namespace="http://www.openapplications.org/oagis/9" schemaLocation="../Components/OAGIS/Common/Components.xsd" />
+    <xsd:element name="PlanOptionServicePlanOption" type="ServicePlanOptionType">
+        <xsd:annotation>
+            <xsd:documentation>The PlanOption component represents the individual option(s) associated with each plan.</xsd:documentation>
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">This definition came from the ServicePlanDetail Component</xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    <xsd:element name="ServicePlan" type="ServicePlanType">
+        <xsd:annotation>
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">
+                ServicePlan defines the Service Plan process of communicating 
+                vehicle service plan and maintenance plan, pricing and availability information 
+                to the dealer. NOTE: Although this is the traditional use of ServicePlan, 
+                it could be used to send Service Plan information between any two business parties.
+            </xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    <xsd:element name="ServicePlanHeader" type="ServicePlanHeaderType">
+        <xsd:annotation>
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">
+                Service Plan Header
+            </xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    <xsd:element name="ServicePlanDetail" type="ServicePlanDetailType">
+        <xsd:annotation>
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">
+                Service Plan Detail
+            </xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    <xsd:complexType name="ServicePlanType">
+        <xsd:annotation xmlns="http://www.starstandards.org/STAR">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">STAR Version 2.0 - Draft</xsd:documentation>
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">STAR Version 1.0, STAR approved 04/20/2005; effective date 07/04/2005;</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element ref="ServicePlanHeader"/>
+            <xsd:element ref="ServicePlanDetail" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="ServicePlanHeaderType">
+        <xsd:annotation xmlns="http://www.starstandards.org/STAR">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">The information found in the Header component applies to the entire Service Plan transaction.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="HeaderBaseType">
+                <xsd:sequence>
+                    <xsd:element name="PlanCountNumeric" type="udt:NumericType" minOccurs="0">
+                  <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Number of plans included
+                in this message</xsd:documentation>
+        </xsd:annotation>
+               </xsd:element>
+                    <xsd:element name="Status" type="MinimumAcknowledgementStatusType" minOccurs="0" maxOccurs="unbounded">
+                        <xsd:annotation>
+                            <xsd:documentation source="http://www.starstandard.org/STAR/5">
+                                Deprecated: Use AcknowledgementStatus
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element ref="AcknowledgementStatus" minOccurs="0" maxOccurs="unbounded"/>
+                    
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:complexType name="ServicePlanDetailType">
+        <xsd:annotation xmlns="http://www.starstandards.org/STAR">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Detailed line information related to the Service Plan transaction.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element name="PlanCountryCode" type="scl:CountryEnumeratedType" minOccurs="0" maxOccurs="unbounded">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">ISO country code
+                indicating where the Plan is to be sold.</xsd:documentation>
+        </xsd:annotation>
+         </xsd:element>
+            <xsd:element name="PlanSupplierName" type="udt:NameType" minOccurs="0">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">The third party supplier
+                underwriting the Plan.</xsd:documentation>
+        </xsd:annotation>
+         </xsd:element>
+            <xsd:element name="AccessCode" type="udt:CodeType" minOccurs="0">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Describe which system or
+                user group the plan is available to, i.e. can be sold by a Dealer or sold by a
+                central administrative.</xsd:documentation>
+        </xsd:annotation>
+         </xsd:element>
+            <xsd:element name="PlanCode" type="udt:CodeType" minOccurs="0">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">A code uniquely
+                identifying the Plan.</xsd:documentation>
+        </xsd:annotation>
+         </xsd:element>
+            <xsd:element name="PlanType" type="udt:TextType" minOccurs="0">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">The name or type of the
+                Plan</xsd:documentation>
+        </xsd:annotation>
+         </xsd:element>
+            <xsd:element name="PlanDescription" type="udt:TextType" minOccurs="0" maxOccurs="unbounded">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Free form text
+                description of plan.</xsd:documentation>
+        </xsd:annotation>
+         </xsd:element>
+            <xsd:element name="PlanLanguageCode" type="sqdt:LanguageCodeType" minOccurs="0">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Language code returned
+                for a Plan</xsd:documentation>
+        </xsd:annotation>
+         </xsd:element>
+            <xsd:element name="PlanCategoryTypeString" type="qdt:StringType" minOccurs="0">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Indicates if the Plan is
+                for a new vehicle or a used vehicle.</xsd:documentation>
+        </xsd:annotation>
+         </xsd:element>
+            <xsd:element name="PlanYear" type="qdt:YearDateType" minOccurs="0">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Marketing Year designator
+                for Plan.</xsd:documentation>
+        </xsd:annotation>
+         </xsd:element>
+            <xsd:element name="PlanUseCode" type="udt:CodeType" minOccurs="0">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Indicates if the Plan is
+                for an OEM vehicle or competitive vehicle or all vehicles.</xsd:documentation>
+        </xsd:annotation>
+         </xsd:element>
+            <xsd:element name="PlanEffectiveDate" type="udt:DateType" minOccurs="0">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Date the plan is approved
+                to sell in the state/province. This is the date that the dealer can begin selling
+                the plan.</xsd:documentation>
+        </xsd:annotation>
+         </xsd:element>
+            <xsd:element name="PlanExpirationDate" type="udt:DateType" minOccurs="0">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Expiry date of plan. The
+                date the plan expires and can no longer be sold by the dealer.</xsd:documentation>
+        </xsd:annotation>
+         </xsd:element>
+            <xsd:element name="PlanStatusCode" type="udt:CodeType" minOccurs="0">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Code indicating the
+                status of the Plan (e.g. 1 - Active, 2 - Inactive, 3 -
+            Canceled.)</xsd:documentation>
+        </xsd:annotation>
+         </xsd:element>
+            <xsd:element ref="Vehicle" minOccurs="0" maxOccurs="unbounded">
+                <xsd:annotation>
+                    <xsd:documentation>Vehicle not covered by the Plan.</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element ref="Coverage" minOccurs="0" maxOccurs="unbounded"/>
+            <xsd:element name="PlanOptionCountNumeric" type="udt:NumericType" minOccurs="0">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">The number of options
+                available with the Plan.</xsd:documentation>
+        </xsd:annotation>
+         </xsd:element>
+            <xsd:element ref="PlanOption" minOccurs="0" maxOccurs="unbounded"/>
+            <xsd:element name="MiscellaneousNotes" type="udt:TextType" minOccurs="0">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Free form miscellaneous
+                comments</xsd:documentation>
+        </xsd:annotation>
+         </xsd:element>
+            <xsd:element name="Status" type="MinimumAcknowledgementStatusType" minOccurs="0" maxOccurs="unbounded">
+                <xsd:annotation>
+                    <xsd:documentation source="http://www.starstandard.org/STAR/5">
+                        Deprecated: Use AcknowledgementStatus
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element ref="AcknowledgementStatus" minOccurs="0" maxOccurs="unbounded"/>
+            
+        </xsd:sequence>
+    </xsd:complexType>
+</xsd:schema>

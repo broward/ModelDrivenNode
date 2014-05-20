@@ -1,0 +1,418 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:star="http://www.starstandard.org/STAR/5"
+   xmlns:oacl="http://www.openapplications.org/oagis/9/codelists" xmlns:sqdt="http://www.starstandard.org/STAR/5/qualifieddatatypes/1.0"
+   xmlns="http://www.starstandard.org/STAR/5" xmlns:ccts="urn:un:unece:uncefact:documentation:1.1" xmlns:sudt="http://www.starstandard.org/STAR/5/unqualifieddatatypes/1.0"
+   xmlns:scl="http://www.starstandard.org/STAR/5/codelists" targetNamespace="http://www.starstandard.org/STAR/5"
+   elementFormDefault="qualified" attributeFormDefault="unqualified" blockDefault="#all"
+   xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1" xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+>
+   <xsd:annotation>
+      <xsd:documentation source="http://www.starstandard.org/STAR/5"> This schema is made available under an Eclipse Public Licenses 1.0.
+         This license may be found in the STAR/License directory as well as the STAR BOD Guidelines.</xsd:documentation>
+   </xsd:annotation>
+   <xsd:include schemaLocation="../Components/Common/Meta.xsd" />
+   <xsd:import namespace="http://www.starstandard.org/STAR/5/qualifieddatatypes/1.0" schemaLocation="../Components/Common/QualifiedDataTypes.xsd" />
+   <xsd:import namespace="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" schemaLocation="../Components/OAGIS/CoreComponents/UnqualifiedDataTypes.xsd" />
+   <xsd:import namespace="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1" schemaLocation="../Components/OAGIS/CoreComponents/QualifiedDataTypes.xsd" />
+   <xsd:import namespace="http://www.starstandard.org/STAR/5/codelists" schemaLocation="../Components/Common/CodeLists.xsd" />
+   <xsd:import namespace="http://www.openapplications.org/oagis/9" schemaLocation="../Components/OAGIS/Common/Components.xsd" />
+   <xsd:element name="PartsReturn" type="PartsReturnType">
+      <xsd:annotation>
+         <xsd:documentation source="http://www.starstandard.org/STAR/5">
+         	PartsReturn defines the Parts Return process for individual dealers sending 
+         	Parts Returns to their OEM. Parts Return is the task of submitting part return information 
+         	electronically between Dealer and OEM systems.
+         </xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element name="PartsReturnHeader" type="PartsReturnHeaderType">
+      <xsd:annotation>
+         <xsd:documentation source="http://www.starstandard.org/STAR/5"> Parts Return Header</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element name="PartsReturnLine" type="PartsReturnLineType">
+      <xsd:annotation>
+         <xsd:documentation source="http://www.starstandard.org/STAR/5"> Parts Return Line</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:complexType name="PartsReturnType">
+      <xsd:sequence>
+         <xsd:element ref="PartsReturnHeader" />
+         <xsd:element ref="PartsReturnLine" maxOccurs="unbounded" />
+      </xsd:sequence>
+   </xsd:complexType>
+   <xsd:complexType name="PartsReturnHeaderType">
+      <xsd:annotation xmlns="http://www.starstandards.org/STAR">
+         <xsd:documentation source="http://www.starstandard.org/STAR/5">.</xsd:documentation>
+      </xsd:annotation>
+      <xsd:complexContent>
+         <xsd:extension base="HeaderBaseType">
+            <xsd:sequence>
+               <!--    <xsd:element ref="DocumentID" minOccurs="0" /> -->
+               <xsd:element name="ReturnAuthorizationNumberString" type="qdt:StringType" minOccurs="0">
+                  <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+                     xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1"
+                  >
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5">Number of return authorized by manufacturer.
+                     </xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="ReturnPartDealerComments" type="udt:TextType" minOccurs="0">
+                  <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+                     xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1"
+                  >
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5" />
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="ReturnTypeString" type="qdt:StringType" minOccurs="0">
+                  <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+                     xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1"
+                  >
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5">Designates the reason for the parts return.
+                     </xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="ReturnAuthorizationShipDate" type="udt:DateType" minOccurs="0">
+                  <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+                     xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1"
+                  >
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5">OEM assigned date that return needs to be shipped to
+                        PDC.</xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="DeclarationStatement" type="udt:TextType" minOccurs="0">
+                  <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+                     xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1"
+                  >
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5">Declaration statement made by manufacturer.
+                     </xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="DealerShipmentNumberString" type="qdt:StringType" minOccurs="0">
+                  <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+                     xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1"
+                  >
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5" />
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="ShippingPDC" type="udt:TextType" minOccurs="0">
+                  <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+                     xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1"
+                  >
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5">Parts Distribution Center (PDC) for shipment
+                     </xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="TotalHoldScrapValueAmount" type="udt:AmountType" minOccurs="0">
+                  <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+                     xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1"
+                  >
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5">The total Hold and Scrap parts being returned equals
+                        the Total Value</xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="TotalPartPiecesNumeric" type="udt:NumericType" minOccurs="0">
+                  <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+                     xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1"
+                  >
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5">The total number of part pieces to be contained in the
+                        transaction.</xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="TotalPartLinesNumeric" type="udt:NumericType" minOccurs="0">
+                  <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+                     xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1"
+                  >
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5">The total number of unique parts [part number]
+                        contained in the transaction.</xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="Status" type="AcknowledgementStatusType" minOccurs="0" maxOccurs="unbounded">
+                  <xsd:annotation>
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5"> Deprecated: Use AcknowledgementStatus
+                     </xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="NormalBuybackLimitAmount" type="udt:AmountType" minOccurs="0">
+                  <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+                     xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1"
+                  >
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5">Maximum normal re-purchase amount authorized by OEM for
+                        this order.</xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="SupplementalBuybackLimitAmount" type="udt:AmountType" minOccurs="0">
+                  <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+                     xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1"
+                  >
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5">Special re-purchase limit authorized by OEM for this
+                        order.</xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="ScrapAtDealershipIndicator" type="udt:IndicatorType" minOccurs="0">
+                  <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+                     xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1"
+                  >
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5">Indicates whether the part is scrapped at the
+                        dealership or returned to the depot.</xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="CoreReturnIndicator" type="udt:IndicatorType" minOccurs="0">
+                  <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+                     xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1"
+                  >
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5">Indicates whether the core part is scrapped at the
+                        dealership or returned to the depot.</xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="WillCallIndicator" type="udt:IndicatorType" minOccurs="0">
+                  <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+                     xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1"
+                  >
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5">Indicates whether the dealership delivers the part or
+                        if the part is shipped to the depot.</xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element ref="AcknowledgementStatus" minOccurs="0" maxOccurs="unbounded" />
+               <xsd:element name="ProgramCode" type="udt:CodeType" minOccurs="0" maxOccurs="1">
+                  <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+                     xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1"
+                  >
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5">Code issued by item manufacturer that indicates the
+                        rules and pricing used when selling direct to retailers instead of through OEMs.
+                     </xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="DatasourceURICode" type="udt:CodeType" minOccurs="0" maxOccurs="1">
+                  <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+                     xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1"
+                  >
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5">The a code that points to a datasource where the
+                        datasource value is stored.</xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="SequenceCode" type="udt:CodeType" minOccurs="0" maxOccurs="1">
+                  <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+                     xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1"
+                  >
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5">A pre-defined sort sequence for order consolidation,
+                        i.e., sort by part order.</xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element ref="FreeFormTextGroup" minOccurs="0" maxOccurs="1" />
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:complexType name="PartsReturnLineType">
+      <xsd:annotation xmlns="http://www.starstandards.org/STAR">
+         <xsd:documentation source="http://www.starstandard.org/STAR/5" />
+      </xsd:annotation>
+      <xsd:sequence>
+         <xsd:element ref="PartsProductItem" minOccurs="0" />
+         <xsd:element name="PartClassCode" type="udt:CodeType" minOccurs="0">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+               xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1"
+            >
+               <xsd:documentation source="http://www.starstandard.org/STAR/5">Gifts, literature, keys, regular parts Inventory Class code
+                  (if any) used in DMS system.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="PartManufacturer" type="udt:TextType" minOccurs="0">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+               xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1"
+            >
+               <xsd:documentation source="http://www.starstandard.org/STAR/5">Identifes the part manufacturer.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element ref="Pricing" minOccurs="0" maxOccurs="unbounded" />
+         <xsd:element name="ItemQuantity" type="sqdt:QuantityType" minOccurs="0">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+               xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1"
+            >
+               <xsd:documentation source="http://www.starstandard.org/STAR/5">Quantity of Part number.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="BinLocation" type="udt:TextType" minOccurs="0">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+               xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1"
+            >
+               <xsd:documentation source="http://www.starstandard.org/STAR/5">Dealer specific location of part.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="UnitPackQuantity" type="sqdt:QuantityType" minOccurs="0">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+               xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1"
+            >
+               <xsd:documentation source="http://www.starstandard.org/STAR/5">Quantity of items sold as one unit.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="OriginalManufacturerShipmentNumberString" type="qdt:StringType" minOccurs="0">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+               xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1"
+            >
+               <xsd:documentation source="http://www.starstandard.org/STAR/5" />
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="ReturnReasonCode" type="udt:TextType" minOccurs="0">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+               xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1"
+            >
+               <xsd:documentation source="http://www.starstandard.org/STAR/5">Designates the reason the line item part was returned (i.e.,
+                  shortage, error, quality problem, cores return, obsolete, etc.).</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="OriginalOrderNumberString" type="qdt:StringType" minOccurs="0">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+               xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1"
+            >
+               <xsd:documentation source="http://www.starstandard.org/STAR/5">Original Part Order Number that the part was contained in.
+               </xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="OriginalOrderLineItemNumberString" type="qdt:StringType" minOccurs="0">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+               xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1"
+            >
+               <xsd:documentation source="http://www.starstandard.org/STAR/5">Original Part Order Line Item Number of the part.
+               </xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="LineItemComments" type="udt:TextType" minOccurs="0">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+               xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1"
+            >
+               <xsd:documentation source="http://www.starstandard.org/STAR/5">Free form text for dealer per line component for comments or
+                  additional part information.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="ShipWarehouseNumeric" type="udt:NumericType" minOccurs="0">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+               xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1"
+            >
+               <xsd:documentation source="http://www.starstandard.org/STAR/5">Warehouse override code. Indicates which warehouse or
+                  distribution center to ship from.</xsd:documentation>
+               <xsd:documentation source="http://www.starstandard.org/STAR/5">Deprecated. Use: OriginatingWarehouse</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="OriginalShipDate" type="udt:DateType" minOccurs="0">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+               xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1"
+            >
+               <xsd:documentation source="http://www.starstandard.org/STAR/5">The date the original part order was shipped.
+               </xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="OriginalOrderType" type="sqdt:OrderTypeCodeType" minOccurs="0">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+               xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1"
+            >
+               <xsd:documentation source="http://www.starstandard.org/STAR/5" />
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="InventoryRemovalDate" type="udt:DateType" minOccurs="0">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+               xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1"
+            >
+               <xsd:documentation source="http://www.starstandard.org/STAR/5">Date the part was removed from dealer inventory.
+               </xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="EmpID" type="udt:IdentifierType" minOccurs="0">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+               xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1"
+            >
+               <xsd:documentation source="http://www.starstandard.org/STAR/5">Dealer's employee ID.</xsd:documentation>
+               <xsd:documentation>Depracated: Should use EmployeeID</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="PartToBeReturnedIndicator" type="udt:IndicatorType" minOccurs="0">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+               xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1"
+            >
+               <xsd:documentation source="http://www.starstandard.org/STAR/5">Indicates whether or not the part should be returned or
+                  retained.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="ScheduleID" type="udt:IdentifierType" minOccurs="0">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+               xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1"
+            >
+               <xsd:documentation source="http://www.starstandard.org/STAR/5">Type of order entered (e.g., Daily, Emergency, etc.).
+               </xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="CoreIdNumberString" type="qdt:StringType" minOccurs="0">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+               xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1"
+            >
+               <xsd:documentation source="http://www.starstandard.org/STAR/5">Identification number of core label used to return part.
+               </xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="CoreGroupString" type="qdt:StringType" minOccurs="0">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+               xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1"
+            >
+               <xsd:documentation source="http://www.starstandard.org/STAR/5">A specific number assigned to a group of parts numbers to
+                  identify the type of core return (e.g., starters, alternaters, heaters, etc.).</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="HoldValueAmount" type="udt:AmountType" minOccurs="0">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+               xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1"
+            >
+               <xsd:documentation source="http://www.starstandard.org/STAR/5">The total quantity of part numbers being returned to restock
+                  times their cost equals the Hold Value.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="ScrapValueAmount" type="udt:AmountType" minOccurs="0">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+               xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1"
+            >
+               <xsd:documentation source="http://www.starstandard.org/STAR/5">The quantity of part numbers being scrapped, plus the cost of
+                  parts equals the Scrap Value.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="Status" type="AcknowledgementStatusType" minOccurs="0" maxOccurs="unbounded">
+            <xsd:annotation>
+               <xsd:documentation source="http://www.starstandard.org/STAR/5"> Deprecated: Use AcknowledgementStatus</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="BoxTrackingNumberString" type="qdt:StringType" minOccurs="0">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+               xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1"
+            >
+               <xsd:documentation source="http://www.starstandard.org/STAR/5">The tracking number for the individual box as given by the
+                  ShipCarrier.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="LineNumberString" type="qdt:StringType" minOccurs="0" maxOccurs="1">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+               xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1"
+            >
+               <xsd:documentation source="http://www.starstandard.org/STAR/5">The number of the given Line Component within the document.
+                  LineNumbers are assigned by the sending system.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element ref="AcknowledgementStatus" minOccurs="0" maxOccurs="unbounded" />
+         <xsd:element name="VendorCode" type="udt:CodeType" minOccurs="0" maxOccurs="1">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+               xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1"
+            >
+               <xsd:documentation source="http://www.starstandard.org/STAR/5">Used by DMS providers for internal cross referencing between
+                  multiple vendor lines.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element ref="DealerParty" minOccurs="0" maxOccurs="1" />
+         <xsd:element name="PartSourceCode" type="udt:CodeType" minOccurs="0" maxOccurs="1">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+               xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1"
+            >
+               <xsd:documentation source="http://www.starstandard.org/STAR/5">Indicates the source of the part (e.g. M - Manufacturer)
+               </xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+      </xsd:sequence>
+   </xsd:complexType>
+</xsd:schema>

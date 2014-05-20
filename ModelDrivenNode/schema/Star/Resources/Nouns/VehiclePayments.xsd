@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:star="http://www.starstandard.org/STAR/5"
+   xmlns:oacl="http://www.openapplications.org/oagis/9/codelists" xmlns:sqdt="http://www.starstandard.org/STAR/5/qualifieddatatypes/1.0"
+   xmlns="http://www.starstandard.org/STAR/5" xmlns:ccts="urn:un:unece:uncefact:documentation:1.1" xmlns:sudt="http://www.starstandard.org/STAR/5/unqualifieddatatypes/1.0"
+   xmlns:scl="http://www.starstandard.org/STAR/5/codelists" targetNamespace="http://www.starstandard.org/STAR/5"
+   elementFormDefault="qualified" attributeFormDefault="unqualified" blockDefault="#all"
+   xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1"
+   xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"   
+>
+    <xsd:annotation>
+        <xsd:documentation source="http://www.starstandard.org/STAR/5">
+            This schema is made available under an Eclipse Public Licenses 1.0.  This
+            license may be found in the STAR/License directory as well as the STAR BOD
+            Guidelines.
+        </xsd:documentation>
+    </xsd:annotation>
+    <xsd:include schemaLocation="../Components/Common/Meta.xsd" />
+   <xsd:import namespace="http://www.starstandard.org/STAR/5/qualifieddatatypes/1.0" schemaLocation="../Components/Common/QualifiedDataTypes.xsd"/>
+   <xsd:import namespace="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" schemaLocation="../Components/OAGIS/CoreComponents/UnqualifiedDataTypes.xsd"/>
+   <xsd:import namespace="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1" schemaLocation="../Components/OAGIS/CoreComponents/QualifiedDataTypes.xsd"/>
+   <xsd:import namespace="http://www.starstandard.org/STAR/5/codelists" schemaLocation="../Components/Common/CodeLists.xsd"/>
+   <xsd:import namespace="http://www.openapplications.org/oagis/9" schemaLocation="../Components/OAGIS/Common/Components.xsd" />
+    <xsd:element name="VehiclePayments" type="VehiclePaymentsType">
+        <xsd:annotation>
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">
+                Vehicle Payments
+            </xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    <xsd:element name="VehiclePaymentsHeader" type="VehiclePaymentsHeaderType">
+        <xsd:annotation>
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">
+                Vehicle Payments Header
+            </xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    <xsd:element name="VehiclePaymentsDetail" type="VehiclePaymentsDetailType">
+        <xsd:annotation>
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Vehicle Payments Detail</xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    <xsd:complexType name="VehiclePaymentsType">
+        <xsd:annotation xmlns="http://www.starstandards.org/STAR">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Vehicle Payments</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element ref="VehiclePaymentsHeader">
+                <xsd:annotation>
+                    <xsd:documentation source="http://www.starstandard.org/STAR/5">Vehicle Payments Header</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element ref="VehiclePaymentsDetail" maxOccurs="unbounded">
+                <xsd:annotation>
+                    <xsd:documentation source="http://www.starstandard.org/STAR/5">Vehicle Payments Detail</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>            
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="VehiclePaymentsHeaderType">
+        <xsd:annotation xmlns="http://www.starstandards.org/STAR">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Header information related to Vehicle Payments</xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="HeaderBaseType">
+                <xsd:sequence>
+                    <xsd:element name="VehiclePaymentCycleStartDate" type="udt:DateType">
+                  <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Indicates the start date
+                of the vehicle payment cycle.</xsd:documentation>
+        </xsd:annotation>
+               </xsd:element>
+                    <xsd:element name="VehiclePaymentCycleEndDate" type="udt:DateType" minOccurs="0">
+                  <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Indicates the date of the
+                vehicle payment cycle ends.</xsd:documentation>
+        </xsd:annotation>
+               </xsd:element>
+                    <xsd:element name="VehiclePaymentDate" type="udt:DateType" minOccurs="0">
+                  <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Indicates the date on
+                which the payment was deposited to the dealer's bank account.</xsd:documentation>
+        </xsd:annotation>
+               </xsd:element>
+                    <xsd:element name="VehiclePaymentID" type="udt:IdentifierType" minOccurs="0">
+                  <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">a unique identifier used
+                by the dealer to track a vehicle payment.</xsd:documentation>
+        </xsd:annotation>
+               </xsd:element>
+                    <xsd:element name="TotalVehicleCalculationAmount" type="udt:AmountType" minOccurs="0">
+                  <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">The total of all Vehicle
+                Calculation Amounts, i.e., the amount that is used ot calculate the holdback
+            amount.</xsd:documentation>
+        </xsd:annotation>
+               </xsd:element>
+                    <xsd:element name="TotalHoldbackAmount" type="udt:AmountType" minOccurs="0">
+                  <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">The total of all Holdback
+                Amounts, i.e., the amount that is paid to the dealer on a vehicle basis refunding
+                the dealer for inflated vehicle invoice amounts.</xsd:documentation>
+        </xsd:annotation>
+               </xsd:element>
+                    <xsd:element name="TotalTransitAllowanceAmount" type="udt:AmountType" minOccurs="0">
+                  <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">The total of all Transit
+                Allowance Amounts, i.e. the amount allocated to cover the interest cost associated
+                with holding vehicles while in transit.</xsd:documentation>
+        </xsd:annotation>
+               </xsd:element>
+                    <xsd:element name="TotalHoldbackTransitAllowanceAmount" type="udt:AmountType" minOccurs="0">
+                  <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">The sum of the Total
+                Holdback Amount and the Total Transit Allowance Amount.</xsd:documentation>
+        </xsd:annotation>
+               </xsd:element>
+                    <xsd:element name="BroughtForwardAmount" type="udt:AmountType" minOccurs="0">
+                  <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Indicates the previous
+                month's Total Holdback Transit Allowance Amount which is a total of all amounts
+                allocated to cover the interest cost associated with holding vehicles while in
+                transit.</xsd:documentation>
+        </xsd:annotation>
+               </xsd:element>
+                    <xsd:element name="TotalIncludingBroughtForwardAmount" type="udt:AmountType" minOccurs="0">
+                  <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">The sum of the Brought
+                Forward Amount and the Total Holdback Transit Allowance Amount.</xsd:documentation>
+        </xsd:annotation>
+               </xsd:element>                    
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:complexType name="VehiclePaymentsDetailType">
+        <xsd:annotation xmlns="http://www.starstandards.org/STAR">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Detail information related to Vehicle Payments</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element name="VehicleOrderNumber" type="udt:TextType" minOccurs="0">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Vehicle Order Number
+                (VON)</xsd:documentation>
+        </xsd:annotation>
+         </xsd:element>
+            <xsd:element name="VehiclePaymentActionCode" type="udt:CodeType" minOccurs="0">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Indicates the type of
+                payment to be made based on vehicle status (e.g., wholesale, transit, received,
+                retail, etc.) and sale typce (e.g. ordered for a retail sale, ordered for a
+                government sale, etc.).</xsd:documentation>
+        </xsd:annotation>
+         </xsd:element>
+            <xsd:element name="VehicleInvoiceDate" type="udt:DateType" minOccurs="0">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">The date the vehicle
+                invoice was created.</xsd:documentation>
+        </xsd:annotation>
+         </xsd:element>
+            <xsd:element name="VehicleID" type="udt:IdentifierType" minOccurs="0">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">The vehicle
+                identification. This could be the VIN, HIN, or some unique identifier for a
+            vehicle.</xsd:documentation>
+        </xsd:annotation>
+         </xsd:element>
+            <xsd:element name="ModelCode" type="udt:CodeType" minOccurs="0">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Manufacturer-assigned
+                model code.</xsd:documentation>
+        </xsd:annotation>
+         </xsd:element>
+            <xsd:element name="VehicleCalculationAmount" type="udt:AmountType" minOccurs="0">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">The amount that is used
+                to calculate the holdback amount.</xsd:documentation>
+        </xsd:annotation>
+         </xsd:element>
+            <xsd:element name="HoldbackAmount" type="udt:AmountType" minOccurs="0">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">The amount that is paid
+                to the dealer on a vehicle basis refunding the dealer for inflated vehicle invoice
+                amounts.</xsd:documentation>
+        </xsd:annotation>
+         </xsd:element>
+            <xsd:element name="TransitAllowanceAmount" type="udt:AmountType" minOccurs="0">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">The amount allocated to
+                cover the interest cost associated with holding vehicles while in
+            transit.</xsd:documentation>
+        </xsd:annotation>
+         </xsd:element>
+            <xsd:element name="FloorPlanDaysNumeric" type="udt:NumericType" minOccurs="0">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">The number of days for
+                which the floor plan is paid.</xsd:documentation>
+        </xsd:annotation>
+         </xsd:element>
+            <xsd:element ref="PricingABIE" minOccurs="0"/>
+        </xsd:sequence>
+    </xsd:complexType>
+</xsd:schema>

@@ -1,0 +1,613 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:star="http://www.starstandard.org/STAR/5"
+   xmlns:oacl="http://www.openapplications.org/oagis/9/codelists" xmlns:sqdt="http://www.starstandard.org/STAR/5/qualifieddatatypes/1.0"
+   xmlns="http://www.starstandard.org/STAR/5" xmlns:ccts="urn:un:unece:uncefact:documentation:1.1" xmlns:sudt="http://www.starstandard.org/STAR/5/unqualifieddatatypes/1.0"
+   xmlns:scl="http://www.starstandard.org/STAR/5/codelists" targetNamespace="http://www.starstandard.org/STAR/5"
+   elementFormDefault="qualified" attributeFormDefault="unqualified" blockDefault="#all"
+   xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1" xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+   xmlns:oagis="http://www.openapplications.org/oagis/9"
+>
+   <xsd:annotation>
+      <xsd:documentation source="http://www.starstandard.org/STAR/5"> This schema is made available under an Eclipse Public Licenses 1.0.
+         This license may be found in the STAR/License directory as well as the STAR BOD Guidelines.</xsd:documentation>
+   </xsd:annotation>
+   <xsd:include schemaLocation="../Components/Common/Meta.xsd" />
+   <xsd:import namespace="http://www.starstandard.org/STAR/5/qualifieddatatypes/1.0" schemaLocation="../Components/Common/QualifiedDataTypes.xsd" />
+   <xsd:import namespace="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" schemaLocation="../Components/OAGIS/CoreComponents/UnqualifiedDataTypes.xsd" />
+   <xsd:import namespace="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1" schemaLocation="../Components/OAGIS/CoreComponents/QualifiedDataTypes.xsd" />
+   <xsd:import namespace="http://www.starstandard.org/STAR/5/codelists" schemaLocation="../Components/Common/CodeLists.xsd" />
+   <xsd:import namespace="http://www.openapplications.org/oagis/9" schemaLocation="../Components/OAGIS/Common/Components.xsd" />
+   <xsd:import namespace="http://www.openapplications.org/oagis/9" schemaLocation="../Components/OAGIS/Common/Meta.xsd" />
+   <xsd:element name="PartsShipment" type="PartsShipmentType">
+      <xsd:annotation>
+         <xsd:documentation source="http://www.starstandard.org/STAR/5">
+         	The purpose of PartsShipment is to support the transmission (in electronic form) of a 
+         	Parts Shipment from an OEM’s order management system to a Dealer's order management system. 
+         </xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element name="PartsShipmentHeader" type="PartsShipmentHeaderType">
+      <xsd:annotation>
+         <xsd:documentation source="http://www.starstandard.org/STAR/5">Parts Shipment Header</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element name="PartsShipmentLine" type="PartsShipmentLineType">
+      <xsd:annotation>
+         <xsd:documentation source="http://www.starstandard.org/STAR/5"> Parts Shipment Line</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:complexType name="PartsShipmentType">
+      <xsd:annotation xmlns="http://www.starstandards.org/STAR">
+         <xsd:documentation source="http://www.starstandard.org/STAR/5">STAR Version 3.0 - Draft</xsd:documentation>
+         <xsd:documentation source="http://www.starstandard.org/STAR/5">STAR Version 2.1, STAR approved 04/20/2005; effective date
+            07/04/2005</xsd:documentation>
+         <xsd:documentation source="http://www.starstandard.org/STAR/5">STAR Version 2.0, STAR approved 05/07/2004; effective date
+            07/04/2004</xsd:documentation>
+         <xsd:documentation source="http://www.starstandard.org/STAR/5">STAR Version 1.0 STAR approved 01/10/2003; OAGI approved 3/15/2003;
+            effective date 01/01/2003</xsd:documentation>
+      </xsd:annotation>
+      <xsd:sequence>
+         <xsd:element ref="PartsShipmentHeader" />
+         <xsd:element ref="PartsShipmentLine" minOccurs="0" maxOccurs="unbounded" />
+      </xsd:sequence>
+   </xsd:complexType>
+   <xsd:complexType name="PartsShipmentHeaderType">
+      <xsd:annotation xmlns="http://www.starstandards.org/STAR">
+         <xsd:documentation source="http://www.starstandard.org/STAR/5">.</xsd:documentation>
+      </xsd:annotation>
+      <xsd:complexContent>
+         <xsd:extension base="HeaderBaseType">
+            <xsd:sequence>
+               <!--                    <xsd:element ref="DocumentID" minOccurs="0" /> -->
+               <xsd:element name="TransactionTypeCode" type="scl:TransactionTypeEnumeratedType" minOccurs="0">
+                  <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+                     xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1"
+                  >
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5">Type of transaction</xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="ShipDate" type="udt:DateType" minOccurs="0">
+                  <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+                     xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1"
+                  >
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5">Indicates the date of shipment for an item.
+                     </xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="ReferenceNumberString" type="qdt:StringType" minOccurs="0">
+                  <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+                     xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1"
+                  >
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5" />
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="ShipmentCarrierCode" type="scl:ShipmentCarrierEnumeratedType" minOccurs="0">
+                  <xsd:annotation>
+                     <xsd:documentation source="http://www.starstandard.org">Deprecated. Use: ShipmentCarrierDetail
+                     </xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="PDC" type="udt:TextType" minOccurs="0">
+                  <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+                     xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1"
+                  >
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5">Parts distribution center.</xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="ShippingPDC" type="udt:TextType" minOccurs="0">
+                  <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+                     xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1"
+                  >
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5">Parts Distribution Center (PDC) for shipment
+                     </xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="TotalPartPiecesNumeric" type="udt:NumericType" minOccurs="0">
+                  <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+                     xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1"
+                  >
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5">The total number of part pieces to be contained in the
+                        transaction.</xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="ProcessDate" type="udt:DateType" minOccurs="0">
+                  <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+                     xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1"
+                  >
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5">Effective date of process</xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="AccessoriesDiscountAmount" type="udt:AmountType" minOccurs="0">
+                  <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+                     xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1"
+                  >
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5">Discount Amount for accessories only
+                     </xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="OtherDiscountAmount" type="udt:AmountType" minOccurs="0">
+                  <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+                     xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1"
+                  >
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5">Discount amount for miscellaneous only
+                     </xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="TotalDiscountAmount" type="udt:AmountType" minOccurs="0">
+                  <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+                     xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1"
+                  >
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5">Total discounts</xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element ref="Tax" minOccurs="0" maxOccurs="unbounded" />
+               <xsd:element name="TotalAmount" type="udt:AmountType" minOccurs="0">
+                  <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+                     xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1"
+                  >
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5">Total price (cost + markup)</xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="SalesPromotionCode" type="udt:CodeType" minOccurs="0">
+                  <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+                     xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1"
+                  >
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5">Sales promotion code</xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="ProcessCode" type="udt:CodeType" minOccurs="0">
+                  <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+                     xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1"
+                  >
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5">Code designating how the order was processed
+                     </xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="ManufacturerOrderNumberString" type="qdt:StringType" minOccurs="0">
+                  <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+                     xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1"
+                  >
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5">Manufacturer Order Number</xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="ETADateTime" type="udt:DateTimeType" minOccurs="0">
+                  <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+                     xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1"
+                  >
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5">Estimated time and time of arrival</xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="FOBTermsString" type="qdt:StringType" minOccurs="0">
+                  <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+                     xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1"
+                  >
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5">Transit Ownership terms</xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="FreightTermsString" type="qdt:StringType" minOccurs="0">
+                  <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+                     xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1"
+                  >
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5">Designates who pays freight - - Collect / Prepaid
+                     </xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element ref="ShippingPermit" minOccurs="0" />
+               <xsd:element ref="HTSSummary" minOccurs="0" maxOccurs="unbounded" />
+               <xsd:element ref="Boxing" minOccurs="0" />
+               <xsd:element name="PartsShipmentLineBoxingTypeCode" type="scl:PartsShipmentLineBoxingTypeEnumeratedType"
+                  minOccurs="0"
+               >
+                  <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+                     xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1"
+                  >
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5">Identifies how the BOD is intended to be interpreted by
+                        the receiver. Specifically, indicates whether boxing detail is present and, if so, whether each
+                        Line item in the shipment is within a specific box.</xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="ShipPriorityCode" type="scl:ShipPriorityEnumeratedType" minOccurs="0">
+                  <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+                     xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1"
+                  >
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5">Defines two concepts: The shipping methd (e.g. ground
+                        or air) and the ship duration (how fast the customer wants the order to be deelivered.
+                        ShipPriority applies to all warehouse items can be shipped from, unless the supplier accepts an
+                        AlternatShipPriority. If the supplier accepts AlternateShipPriority, then ShipPriority applies
+                        only to the facing warehouse for the dealer. A facing warehouse is the default, usually the most
+                        geographically close, warehouse for the dealer.</xsd:documentation>
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5">Deprecated. Use: ShipmentCarrierTransportMethodTypeCode
+                     </xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="TotalFreightChargeAmount" type="udt:AmountType" minOccurs="0" maxOccurs="1">
+                  <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+                     xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1"
+                  >
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5"> The total amount due for freight transportation.
+                     </xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="TotalHandlingAmount" type="udt:AmountType" minOccurs="0" maxOccurs="1">
+                  <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+                     xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1"
+                  >
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5"> The total amount charged for the preparation of a
+                        shipment.</xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element ref="ShipmentCarrierDetail" minOccurs="0" maxOccurs="unbounded" />
+               <xsd:element ref="oagis:Note" minOccurs="0" maxOccurs="unbounded">
+                  <xsd:annotation>
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5"> Free form notes that are entered by the dealer at the
+                        time of order entry. These notes are for informational purposes only, no system processing or
+                        business logic that would require extraction of data requirements is to appear in this field.
+                     </xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element ref="SoldToParty" minOccurs="0" maxOccurs="1"/>
+               <xsd:element name="OrderTypeCode" type="sqdt:OrderTypeCodeType" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                        <xsd:documentation>
+                            Specifies the order type for the entire shipment.  This may be overriden by the OrderTypeCode at the line level.
+                        </xsd:documentation>
+                    </xsd:annotation>
+               </xsd:element>
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:complexType name="PartsShipmentLineType">
+      <xsd:annotation xmlns="http://www.starstandards.org/STAR">
+         <xsd:documentation source="http://www.starstandard.org/STAR/5">.</xsd:documentation>
+      </xsd:annotation>
+      <xsd:sequence>
+         <xsd:element name="LineNumberString" type="qdt:StringType" minOccurs="0">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+               xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1"
+            >
+               <xsd:documentation source="http://www.starstandard.org/STAR/5">The number of the given Line Component within the document.
+                  LineNumbers are assigned by the sending system.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="ShipmentNumberString" type="qdt:StringType" minOccurs="0">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+               xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1"
+            >
+               <xsd:documentation source="http://www.starstandard.org/STAR/5">Number assigned to shipment.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element ref="PartsProductItem" minOccurs="0" />
+         <xsd:element name="OrderQuantity" type="sqdt:QuantityType" minOccurs="0">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+               xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1"
+            >
+               <xsd:documentation source="http://www.starstandard.org/STAR/5">Indicates the number of ordered items.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="BackOrderQuantity" type="sqdt:QuantityType" minOccurs="0">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+               xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1"
+            >
+               <xsd:documentation source="http://www.starstandard.org/STAR/5">Quantity of part on back order</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="QuantityShipped" type="sqdt:QuantityType" minOccurs="0">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+               xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1"
+            >
+               <xsd:documentation source="http://www.starstandard.org/STAR/5">The quantity shipped</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="UnitPackQuantity" type="sqdt:QuantityType" minOccurs="0">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+               xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1"
+            >
+               <xsd:documentation source="http://www.starstandard.org/STAR/5">Quantity of items sold as one unit.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="PartDimensions" type="udt:TextType" minOccurs="0">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+               xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1"
+            >
+               <xsd:documentation source="http://www.starstandard.org/STAR/5">Indicates the dimensions of a part, such as the length and
+                  width of a piece of cloth or leather.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="FormerPartNumberID" type="udt:IdentifierType" minOccurs="0">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+               xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1"
+            >
+               <xsd:documentation source="http://www.starstandard.org/STAR/5">Former part number of substitution or replacement
+               </xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="PartCountryCode" type="scl:CountryEnumeratedType" minOccurs="0">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+               xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1"
+            >
+               <xsd:documentation source="http://www.starstandard.org/STAR/5">Part Country</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element ref="Pricing" minOccurs="0" />
+         <xsd:element name="OrderReferenceNumberString" type="qdt:StringType" minOccurs="0">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+               xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1"
+            >
+               <xsd:documentation source="http://www.starstandard.org/STAR/5">Original order number for line item.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="DiscountCode" type="udt:CodeType" minOccurs="0">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+               xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1"
+            >
+               <xsd:documentation source="http://www.starstandard.org/STAR/5">Discount or Pricing Code.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="DiscountPercentage" type="udt:PercentType" minOccurs="0">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+               xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1"
+            >
+               <xsd:documentation source="http://www.starstandard.org/STAR/5">Percentage of discount.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="TaxIndicator" type="udt:IndicatorType" minOccurs="0">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+               xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1"
+            >
+               <xsd:documentation source="http://www.starstandard.org/STAR/5">Indicates whether or not tax applies</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element ref="Tax" minOccurs="0" maxOccurs="unbounded" />
+         <xsd:element name="ReturnReasonCode" type="udt:TextType" minOccurs="0">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+               xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1"
+            >
+               <xsd:documentation source="http://www.starstandard.org/STAR/5">Designates the reason the line item part was returned (i.e.,
+                  shortage, error, quality problem, cores return, obsolete, etc.).</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="RestockCode" type="udt:CodeType" minOccurs="0">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+               xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1"
+            >
+               <xsd:documentation source="http://www.starstandard.org/STAR/5">Code for restocking item (i.e., manufacturer product
+                  division).</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="ProcessDate" type="udt:DateType" minOccurs="0">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+               xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1"
+            >
+               <xsd:documentation source="http://www.starstandard.org/STAR/5">Effective date of process</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="SalesPromotionCode" type="udt:CodeType" minOccurs="0">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+               xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1"
+            >
+               <xsd:documentation source="http://www.starstandard.org/STAR/5">Sales promotion code</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="ProcessCode" type="udt:CodeType" minOccurs="0" maxOccurs="unbounded">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+               xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1"
+            >
+               <xsd:documentation source="http://www.starstandard.org/STAR/5">Code designating how the order was processed. For each part ordered the OEM may have 
+               multiple advice codes on why the part line order was not satisfied or appropriate back orders were not created. This helps the dealer take an 
+               informed decision of what to do on a new part order to receive the appropriate number of parts. These codes will also help the DMS 
+               reconcile against the part orders and show a more informative report to the dealer about the shipper.
+               </xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="InventoryMovementDemandCode" type="udt:CodeType" minOccurs="0">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+               xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1"
+            >
+               <xsd:documentation source="http://www.starstandard.org/STAR/5">Code designating the inventory rate at which item turns
+                  (e.g., A, B, C, etc.)</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="MiscellaneousNotes" type="udt:TextType" minOccurs="0">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+               xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1"
+            >
+               <xsd:documentation source="http://www.starstandard.org/STAR/5">Free form miscellaneous comments</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="ManufacturerOrderNumberString" type="qdt:StringType" minOccurs="0">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+               xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1"
+            >
+               <xsd:documentation source="http://www.starstandard.org/STAR/5">Manufacturer Order Number</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="HTSCode" type="udt:CodeType" minOccurs="0">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+               xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1"
+            >
+               <xsd:documentation source="http://www.starstandard.org/STAR/5">Harmonized tariff schedule code</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="TotalSubjectToDutyAmount" type="udt:AmountType" minOccurs="0">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+               xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1"
+            >
+               <xsd:documentation source="http://www.starstandard.org/STAR/5">Total Subject To Duty Amount</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="ExtendedCoreAmount" type="udt:AmountType" minOccurs="0">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+               xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1"
+            >
+               <xsd:documentation source="http://www.starstandard.org/STAR/5">Total core value</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="CoreUnitAmount" type="udt:AmountType" minOccurs="0">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+               xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1"
+            >
+               <xsd:documentation source="http://www.starstandard.org/STAR/5">Core value per unit.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="ETADate" type="udt:DateType" minOccurs="0">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+               xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1"
+            >
+               <xsd:documentation source="http://www.starstandard.org/STAR/5">Estimated time of arrival</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="ConveyanceNumberString" type="qdt:StringType" minOccurs="0">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+               xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1"
+            >
+               <xsd:documentation source="http://www.starstandard.org/STAR/5">Shipping container number</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="CaseMarks" type="udt:TextType" minOccurs="0">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+               xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1"
+            >
+               <xsd:documentation source="http://www.starstandard.org/STAR/5">Free form text for mandatory case identification.
+               </xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="CaseCartonNumberString" type="qdt:StringType" minOccurs="0">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+               xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1"
+            >
+               <xsd:documentation source="http://www.starstandard.org/STAR/5">Case number in shipment</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="RackContainerTypeString" type="qdt:StringType" minOccurs="0">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+               xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1"
+            >
+               <xsd:documentation source="http://www.starstandard.org/STAR/5">Type of rack or container used to hold parts, boxes, cases,
+                  etc</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="RackContainerQuantityNumeric" type="udt:NumericType" minOccurs="0">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+               xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1"
+            >
+               <xsd:documentation source="http://www.starstandard.org/STAR/5">Identifies the quantity count of racks or containers
+               </xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="RackContainerNumberString" type="qdt:StringType" minOccurs="0">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+               xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1"
+            >
+               <xsd:documentation source="http://www.starstandard.org/STAR/5">Number of rack or container</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="RackContainerDepositAmount" type="udt:AmountType" minOccurs="0">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+               xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1"
+            >
+               <xsd:documentation source="http://www.starstandard.org/STAR/5">Deposit amount for a Rack or Container</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="ETADateTime" type="udt:DateTimeType" minOccurs="0">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+               xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1"
+            >
+               <xsd:documentation source="http://www.starstandard.org/STAR/5">Estimated time and time of arrival</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="ShipPriorityCode" type="scl:ShipPriorityEnumeratedType" minOccurs="0">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+               xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1"
+            >
+               <xsd:documentation source="http://www.starstandard.org/STAR/5">Defines two concepts: The shipping methd (e.g. ground or air)
+                  and the ship duration (how fast the customer wants the order to be deelivered. ShipPriority applies to
+                  all warehouse items can be shipped from, unless the supplier accepts an AlternatShipPriority. If the
+                  supplier accepts AlternateShipPriority, then ShipPriority applies only to the facing warehouse for the
+                  dealer. A facing warehouse is the default, usually the most geographically close, warehouse for the
+                  dealer.</xsd:documentation>
+               <xsd:documentation source="http://www.starstandard.org/STAR/5">Deprecated. Use: ShipmentCarrierTransportMethodTypeCode
+               </xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="OrderLineNumberString" type="qdt:StringType" minOccurs="0">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+               xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1"
+            >
+               <xsd:documentation source="http://www.starstandard.org/STAR/5">The line number of the dealer's order identified by
+                  Line.OrderReferenceNumber for which Line.Item identifies the part as being shipped.
+               </xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="FreightChargeAmount" type="udt:AmountType" minOccurs="0" maxOccurs="1">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+               xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1"
+            >
+               <xsd:documentation source="http://www.starstandard.org/STAR/5"> The amount due for freight transportation.
+               </xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="HandlingAmount" type="udt:AmountType" minOccurs="0" maxOccurs="1">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+               xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1"
+            >
+               <xsd:documentation source="http://www.starstandard.org/STAR/5">The amount charged for the preparation of a shipment
+               </xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="OrderTypeCode" type="sqdt:OrderTypeCodeType" minOccurs="0" maxOccurs="1">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+               xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1"
+            >
+               <xsd:documentation source="http://www.starstandard.org/STAR/5">Part Order Type entered or selected at dealership. Stock-STK,
+                  Vehicle Off Road-VOR, Daily-DPO, Emergency-EMG, Supplemental-SUP, Promotional-PRO, Solicited-SOL,
+                  Vehicle Off Road Parts Inquiry-VPI, Weekly-WKL, Interim-INT, Export-EXP, Dropship Stock-DSS, Dropship
+                  Vehicle Off Road-DVR, Lock and Key-LAK, Will Call-WCL, Return Request w/ Reference-RRR, Return Request
+                  w/o Reference-RWR, Credit Request w/ Reference-CRR, Credit Request w/o Reference-CWR, Debit Request w/
+                  Reference-DRR, Debit Request w/o Reference-DWR, Rush-RUS, Urgent-URG, Other-OTH, N/A-N/A, Hold-HLD,
+                  Dating-DTG.</xsd:documentation>
+               <xsd:documentation source="http://www.starstandard.org/STAR/5/PartOrder">Part Order Type entered or selected at dealership.
+               </xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="DealerOrderNumberString" type="qdt:StringType" minOccurs="0" maxOccurs="1">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+               xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1"
+            >
+               <xsd:documentation source="http://www.starstandard.org/STAR/5">A Dealer assigned identifier for the order. i.e. The Part
+                  Order number.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element ref="OrderState" minOccurs="0" maxOccurs="unbounded" />
+         <xsd:element name="BinLocation" type="udt:TextType" minOccurs="0" maxOccurs="1">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+               xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1"
+            >
+               <xsd:documentation source="http://www.starstandard.org/STAR/5">Dealer specific location of part.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element ref="oagis:Note" minOccurs="0" maxOccurs="unbounded">
+            <xsd:annotation>
+               <xsd:documentation source="http://www.starstandard.org/STAR/5"> Free form notes that are entered by the dealer at the time
+                  of order entry. These notes are for informational purposes only, no system processing or business
+                  logic that would require extraction of data requirements is to appear in this field.
+               </xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="BillOfLadingID" type="udt:IdentifierType" minOccurs="0" maxOccurs="1">
+            <xsd:annotation>
+                <xsd:documentation source="http://www.starstandard.org/STAR/5">
+                    Document of all the shipping numbers for the day per customer 
+                </xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="ItemWeightMeasure" type="sqdt:WeightMeasureType" minOccurs="0" maxOccurs="1">
+            <xsd:annotation>
+                <xsd:documentation source="http://www.starstandard.org/STAR/5">
+                    The weight of an item.
+                </xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+      </xsd:sequence>
+   </xsd:complexType>
+</xsd:schema>
