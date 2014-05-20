@@ -13,8 +13,6 @@ Remaining tasks:
 
 1) Add projection REST API
 
-2) Add generated angular service layer
-
 6) Add post API
 
 7) Define an xml wrapper scheme to generate specific functionality
