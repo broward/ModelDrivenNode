@@ -15,11 +15,12 @@
     "moment": ">= 2.1.0",
     "socket.io": ">= 0.9.0",
     "portfinder": ">= 0.2.1",
-    "redis": "latest",
     "kue": "latest",
     "http-proxy": "latest",
     "jquery": "latest",
-    "angular": "latest"
+    "angular": "latest",
+    "ejs": "latest",
+    "grunt": "latest"
   },
   "engines": {
     "node": "0.8.x",

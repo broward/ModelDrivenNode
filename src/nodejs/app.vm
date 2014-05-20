@@ -16,37 +16,29 @@ models = require('./${version}/models/models')(mongoose);
 require('./${version}/models/testdata1')(mongoose, models, moment);
 require('./${version}/routes/routes')(app, mongoose, models);
 
-
-// Set up queues
-var kue = require('./${version}/queues/kue')(app, express, models);
-
-
 // Entry pages
 app.get('/', function(req, res){
-  res.render('index.jade', {
-    title: 'Model-Driven Node: Reference Implementation'
-  });
+  res.sendfile(__dirname + '/public/index.html');
 });
 
 // Schema Entry page
 app.get(globalAppRootUrl, function(req, res){
-  res.render('index', {
-    title: 'Model-Driven Node: Reference Implementation'
-  });
+  res.sendfile(__dirname + '/public/index.html');
 });
 
 // Merge kue API into our own.
 var getAPI = app.routes.get;
-getAPI = getAPI.concat(kue.app.routes.get);
 
 // API demo page
 app.get(globalAppRootUrl + '/Api', function(req, res){
-  res.render('api.jade', {
-    titleGet: 'REST GET API',
-    titlePost: 'REST POST API',
-    apisget: getAPI,
-    apispost: app.routes.post
-  });
+  res.header('Access-Control-Allow-Origin', '*');
+  var paths = [];
+  for (index = 0; index < app.routes.get.length; index++) {
+     var route = {};
+     route.URL = app.routes.get[index]['path'];
+     paths.push(route);
+  }
+  res.json(paths);
 });
 
 console.log('app loaded!');

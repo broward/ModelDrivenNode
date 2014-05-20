@@ -1,0 +1,61 @@
+.firstGridStyle {
+    border: 1px solid rgb(212,212,212);
+    width: 220px; 
+    height: 400px;
+    float: left;
+    margin-left: 20px;
+    margin-top: 20px;
+    margin-bottom: 40px;
+}
+
+.gridStyle {
+    border: 1px solid rgb(212,212,212);
+    width: 220px; 
+    height: 400px;
+    float: left;
+    margin-left: 10px;
+    margin-top: 20px;
+    margin-bottom: 40px;
+}
+
+.apiGridStyle {
+    border: 1px solid rgb(212,212,212);
+    width: 350px; 
+    height: 400px;
+    float: left;
+    margin-left: 20px;
+    margin-top: 20px;
+    margin-bottom: 40px;
+}
+
+.textarea {
+    border: 1px solid rgb(212,212,212);
+    width: 500px; 
+    height: 440px;
+    float: left;
+    margin: 10px;
+    margin-top: 20px;
+    overflow: scroll;
+    overflow-y: scroll;
+    overflow-x: scroll;
+    overflow:-moz-scrollbars-horizontal;
+}
+
+
+.tab { margin-left: 20px;
+       margin-right: 40px;
+}
+
+.button { 
+   float: left;
+   width: 280px;
+   margin-top: 10px;
+   margin-left: 20px;
+}
+
+.label {
+   float: left;
+   margin-left: 20px;
+   width: 700px;
+   margin-right: 20%;
+}

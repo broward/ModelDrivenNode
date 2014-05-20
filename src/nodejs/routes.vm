@@ -1,31 +1,35 @@
 module.exports = function(app, mongoose, models){
 
+    
   /**
    *   Get all collections.
    */
   app.get(globalAppRootUrl + '/Schemas', function(req, res){
-
+    res.header('Access-Control-Allow-Origin', '*');
+    var t = [];
     var modelNames = mongoose.modelNames();
-      
-    res.render('models.jade', {
-      title: modelNames.length + ' Generated Models for ${schema} Schema',
-      models:modelNames
-    });
+    for (var i = 0; i < modelNames.length; ++i) {
+      var rv = {};
+      rv.Collections = modelNames[i];
+      t.push(rv);
+    }
+    res.json(t);
   });
-  
-  
+
+
   /**
    *  Get all records in a collection.
    */
   app.get(globalAppRootUrl + '/Schemas/:collection', function(req, res){
-    
-    mongoose.model(req.params.collection).find({}, function(err, docs){
-      
-      res.render('collections.jade', {
-            title: docs.length + ' Test Records for ' + req.params.collection,
-            collectionName: req.params.collection,
-            collections: docs
-      });
+    res.header('Access-Control-Allow-Origin', '*');
+    mongoose.model(req.params.collection).find({}, '_id', function(err, docs){
+      var t = [];
+      for (var i = 0; i < docs.length; ++i) {
+        var rv = {};
+        rv.Records = docs[i]._id;
+        t.push(rv);
+      }
+    res.json(t);
 
     });
 
@@ -37,8 +41,6 @@ module.exports = function(app, mongoose, models){
    */
   app.get(globalAppRootUrl + '/Schemas/:collection?:query', function(req, res){
     
-    console.log('query=' + req.param('query'));
-    console.log('projection=' + req.params.projection);
       
     mongoose.model(req.params.collection).find(req.param('query'), {}, function(err, docs){
     
@@ -51,24 +53,19 @@ module.exports = function(app, mongoose, models){
     });
 
   });
+    
   
-
   /**
    *  View one document in a collection.
    */
   app.get(globalAppRootUrl + '/Schemas/:collection/:id', function(req, res){
-    
+    res.header('Access-Control-Allow-Origin', '*');
     mongoose.model(req.params.collection).findById(req.params.id, function(err, doc){
-      
-      res.render('doc.jade', {
-            title: 'Test Record for ' + req.params.collection,
-            doc: doc
-      });
-
+      res.json(doc);
     });
   });  
-  
-  
+
+
    /**
    *  delete a document.  yes I know the verb thing.
    */ 
@@ -103,6 +100,7 @@ module.exports = function(app, mongoose, models){
     return false;
   }
 
+
   /**
    *  Filtered index listing of collections
    */
@@ -111,11 +109,13 @@ module.exports = function(app, mongoose, models){
     //get all the examples
     var modelNames = mongoose.modelNames();
     modelNames = modelNames.filter(isObjectGraph);
-       
-    res.render('models.jade', {
-      title: modelNames.length + ' Top-Level Models for ${schema} Schema',
-      models: modelNames
-    });
+    var t = [];
+    for (var i = 0; i < modelNames.length; ++i) {
+      var rv = {};
+      rv.Collections = modelNames[i];
+      t.push(rv);
+    }
+    res.json(t);
   });
 
 };

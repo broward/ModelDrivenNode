@@ -1,0 +1,43 @@
+<html>  
+    <head lang="en">
+        <meta charset="utf-8">
+        <title>Model-Driven Node: Reference Implementation</title>  
+        <link rel="stylesheet" type="text/css" href="css/ng-grid.css" />
+        <link rel="stylesheet" type="text/css" href="css/style.css" />
+        <script type="text/javascript" src="jquery.min.js"></script>
+        <script type="text/javascript" src="angular.min.js"></script>
+        <script type="text/javascript" src="ng-grid-2.0.11.min.js"></script>
+        <script type="text/javascript" src="collections.js"></script> 
+
+    </head>
+    <body ng-app="myApp">          
+       <img src="ReferenceImplementationCombo.png"/>
+
+<p class='tab'>This page is part of the preceding diagram. You're running the reference implementation right now. This MEAN stack site was generated with 15 java classes, 10 velocity templates and 1 xsd schema to 
+demonstrate what an enterprise-level suite might look like with componentized node.js applications.</p>
+<p class= 'tab'>App A has 1152 models (over 90% are lookup tables), collections, test data and API derived from an open source xsd schema created by the 
+<a href="http://www.opentravel.org/">Open Travel Alliance.</a> I created this enterprise framework in 120 hours by creating a generation tool, not writing basic code, which can create a new framework in a few minutes now. 
+A real e-commerce site would probably need less than 100 java classes, less than 100 velocity templates and 1 xsd schema.</p>
+<p class='tab'>The real value of the model-driven node is dynamic regeneration of all associated parts as the xsd schema evolves; 
+the parts hold together more consistently and require less testing.</p>
+       
+            <p class='tab'><a ng-href="http://nodemy-ghost.herokuapp.com/model-driven-node-part-1/"/>Design Docs</a><br><br>
+        
+            <a ng-href="https://github.com/broward/ModelDrivenNode"/>Source Code</a></p><br>
+
+          <div ng-controller="RecordCtrl">   
+            <div class="nested" ng-controller="CollectionCtrl"> 
+              <button class="button" id="myButton" ng-click="showAllSchemas()">Show All Schemas (many lookup tables)</button>
+              <p class="label"><b>  Select a collection, then select a record from that collection:</b></p>
+              <div class="firstGridStyle" ng-grid="gridOptions"></div>      
+              <div class="gridStyle" ng-grid="recordOptions"></div>
+            </div>   
+          </div>       
+          <textarea id="myTextarea" class="textarea">Json Record from MongoDB</textarea>
+
+          <div ng-controller="ApiCtrl"> 
+            <div class="apiGridStyle" ng-grid="apiOptions"></div>
+          </div>
+
+    </body>
+</html>

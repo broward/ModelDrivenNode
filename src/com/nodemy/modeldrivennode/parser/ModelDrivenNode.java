@@ -32,7 +32,7 @@ public class ModelDrivenNode {
 	// template output paths
 	public static String MODEL_OUTPUT = VERSION_PATH + "models/";
 	public static String ROUTE_OUTPUT = VERSION_PATH + "routes/";
-	public static String JADE_OUTPUT = VERSION_PATH + "views/";
+	public static String PUBLIC_OUTPUT = ROOT + "public/";
 	public static String SOCKET_OUTPUT = VERSION_PATH + "sockets/";
 	public static String QUEUE_OUTPUT = VERSION_PATH + "queues/";
 
@@ -64,7 +64,6 @@ public class ModelDrivenNode {
 		try {
 			// Run the templates and build the node.js server
 			new NodeJsTemplates();
-			new JadeTemplates();
 			new RoutesJsTemplates();
 			new SocketJsTemplates();
 			new ModelsJsTemplates();
@@ -83,9 +82,14 @@ public class ModelDrivenNode {
 			// Recreate directories
 			FileUtils.forceMkdir(new File(MODEL_OUTPUT));
 			FileUtils.forceMkdir(new File(ROUTE_OUTPUT));
-			FileUtils.forceMkdir(new File(JADE_OUTPUT));
+			FileUtils.forceMkdir(new File(PUBLIC_OUTPUT));
 			FileUtils.forceMkdir(new File(SOCKET_OUTPUT));
 			FileUtils.forceMkdir(new File(QUEUE_OUTPUT));
+			
+			// Set up base files
+			File nodePublic = new File(PUBLIC_OUTPUT);
+			File javaPublic = new File("src/public");
+			FileUtils.copyDirectory(javaPublic, nodePublic);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
