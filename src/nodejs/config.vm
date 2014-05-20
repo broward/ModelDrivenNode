@@ -21,18 +21,18 @@ module.exports = function(app, express, mongoose){
 
   //env specific config
   var hostname = 'http://localhost';
+
   if (process.env.SUBDOMAIN){
     hostname = 'http://' + process.env.SUBDOMAIN + '.jit.su/';
-#if($schema == 'AppA')
-    mongoose.connect('mongodb://nodejitsu:605daa1951a29d5eac3c9f48eed44cc1@paulo.mongohq.com:10042/nodejitsudb6660047036');
-#else
-    mongoose.connect('mongodb://nodejitsu_broward:jtsh6nbljs17ol4u6feaqggv1m@ds039267.mongolab.com:39267/nodejitsu_broward_nodejitsudb11381402');
-#end
-  } else {
-    mongoose.connect('mongodb://localhost/${schema}');
   }
 
-console.log('db connected');
+  if (process.env.MONGOLAB_URI){    
+     mongoose.connect(process.env.MONGOLAB_URI);
+     console.log('MONGO DB  CONNECTED');
+  } else {
+     mongoose.connect('mongodb://localhost/AppA');
+     console.log('LOCAL DB  CONNECTED');
+  }
 
   return config;
 };
