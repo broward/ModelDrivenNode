@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Copyright (c) 2000-2010 RIXML.org-->
+<!--RIXML Specification Version 2.3.1
+
+Not for distribution unless authorized by RIXML.org
+
+RIXML.org Limited ("RIXML") is a UK incorporated company.  Site content is provided solely by RIXML and is not representative of the views of any one shareholder.  Unless otherwise stated RIXML is solely responsible for site content. Terms and conditions of use are published on the web site at www.rixml.org.  Copyright 2000-2010. All rights reserved.-->
+<xs:schema targetNamespace="http://www.rixml.org/2010/1/RIXML" xmlns:rixml="http://www.rixml.org/2010/1/RIXML" xmlns:rixmldt="http://www.rixml.org/2010/1/RIXML-datatypes" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.rixml.org/2010/1/RIXML" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="RIXML-Common-2_3_1.xsd">
+		<xs:annotation>
+			<xs:documentation source="This includes a new common schema that has moved the majority of the schema definitions into a new module that has no namespace.  This is to facilitate re-use of the schema."/>
+		</xs:annotation>
+	</xs:include>
+	<xs:import namespace="http://www.rixml.org/2010/1/RIXML-datatypes" schemaLocation="RIXML-datatypes-2_3_1.xsd"/>
+	<!--Element Definitions-->
+	<!--Elements for Package LogicalView-->
+	<xs:element name="Product" type="ProductType">
+		<xs:annotation>
+			<xs:documentation>Product refers to a unique "research idea", as opposed to an actual research publication. It is possible to publish multiple documents or other files (called "resources") with the same productID, provided they all refer to the same discrete research idea.  Examples of a product include a research note, research report, conference call webcast, and morning meeting compilation.  Examples of multiple resources published with the same productID are (1) a document published in English, with exact translations in German, French, and Japanese, (2) an audio file of a presentation and the transcript of the publication or (3) a single report that consists of a PDF and an Excel file.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="Research" type="ResearchType">
+		<xs:annotation>
+			<xs:documentation>Research is the root tag for bundling research products.</xs:documentation>
+		</xs:annotation>
+		<xs:key name="ResourceKeyID">
+			<xs:selector xpath="rixml:Product/rixml:Content/rixml:Resource"/>
+			<xs:field xpath="@resourceID"/>
+		</xs:key>
+		<xs:keyref name="ResourceKeyRef" refer="ResourceKeyID">
+			<xs:selector xpath="rixml:Product/rixml:Context/rixml:IssuerDetails/rixml:Issuer/rixml:ResourceLink"/>
+			<xs:field xpath="@idRef"/>
+		</xs:keyref>
+	</xs:element>
+	<!--Elements for Package 3-ContentPackage-->
+	<xs:element name="Content" type="ContentType">
+		<xs:annotation>
+			<xs:documentation>The top-level element of the Content section.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<!--Elements for Package 4-ContextPackage-->
+	<xs:element name="Context" type="ContextType">
+		<xs:annotation>
+			<xs:documentation>The top-level element of the Context section.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="ProductDetails" type="ProductDetailsType">
+		<xs:annotation>
+			<xs:documentation>This is the container class for all the tags available for use when describing any research product.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="ProductClassifications" type="ProductClassificationsType">
+		<xs:annotation>
+			<xs:documentation>This is the container class for all the tags available for use when classifying the research product.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="IssuerDetails" type="IssuerDetailsType">
+		<xs:annotation>
+			<xs:documentation>This is the container class for all the tags available for use when describing an Issuer.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="EventDetails" type="EventDetailsType">
+		<xs:annotation>
+			<xs:documentation>Provides the necessary information when the Product is actually about an event.  </xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:annotation>
+		<xs:documentation>ComplexTypes</xs:documentation>
+	</xs:annotation>
+	<xs:complexType name="ResearchType">
+		<xs:annotation>
+			<xs:documentation>ComplexType for Research</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element ref="Product" maxOccurs="unbounded"/>
+		</xs:sequence>
+		<xs:attribute name="researchID" type="xs:string" use="required">
+			<xs:annotation>
+				<xs:documentation>This is to facilitate the unique identification of a particular bundling of products.  This is added with some forward thought to hypothetical research distribution systems that may wish to label and refer to result sets.  
+
+To ensure uniqueness it is recommended that a Universal Unique IDentifier (UUID) be used as the productID. UUIDs can be generated on any computer, regardless of platform or operating system. A UUID is a 128-bit (16-byte) integer that is virtually guaranteed to be unique in the world across space and time. The Open Software Foundation (OSF) created UUIDs, as part of their Distributed Computing Environment (DCE).</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="createDateTime" type="xs:dateTime" use="required">
+			<xs:annotation>
+				<xs:documentation>This marks the date/time at which this research bundle was formed.  It is expressed using ISO 8601 as refined by the World Wide Web Consortium's note http://www.w3.org/TR/NOTE-datetime.  In addition, RIXML requires the use of Zulu time or Z-time (GMT +/- n hours:minute:seconds).  All times are absolute and easier to compute, rather than using a relative (i.e. 08:30 +5) time.  </xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="language" type="rixmldt:ISO639-2LanguageType" use="required">
+			<xs:annotation>
+				<xs:documentation>Indicates the language of the RIXML document -- i.e. the language of the publisher-supplied tag values contained in the RIXML-based XML file for this research item.  Described using the ISO 639-2/T Code. </xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="ContextType">
+		<xs:annotation>
+			<xs:documentation>ComplexType for Context</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element ref="EventDetails" minOccurs="0"/>
+			<xs:element ref="IssuerDetails" minOccurs="0"/>
+			<xs:element ref="ProductDetails" minOccurs="0"/>
+			<xs:element ref="ProductClassifications" minOccurs="0"/>
+		</xs:sequence>
+		<xs:attribute name="priority" type="rixmldt:PriorityEnum" use="optional">
+			<xs:annotation>
+				<xs:documentation>Allows the publisher to 'highlight' a specific product, i.e. identify a product as a high priority item.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="external" type="rixmldt:YesNoEnum" use="required">
+			<xs:annotation>
+				<xs:documentation>Indicates whether the content is for internal or external consumption.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="ProductType">
+		<xs:annotation>
+			<xs:documentation>ComplexType for Product</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element ref="StatusInfo" maxOccurs="unbounded"/>
+			<xs:element ref="RelatedProduct" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element ref="Source"/>
+			<xs:element ref="Content"/>
+			<xs:element ref="Context"/>
+			<xs:element ref="Legal" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+		<xs:attribute name="productID" type="xs:string" use="required">
+			<xs:annotation>
+				<xs:documentation>This is to facilitate the unique identification of a particular product.  To ensure uniqueness it is recommended that a Universal Unique IDentifier (UUID) be used as the productID. UUIDs can be generated on any computer, regardless of platform or operating system. A UUID is a 128-bit (16-byte) integer that is virtually guaranteed to be unique in the world across space and time. The Open Software Foundation (OSF) created UUIDs, as part of their Distributed Computing Environment (DCE).</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="eventIndicator" type="rixmldt:YesNoEnum" use="optional">
+			<xs:annotation>
+				<xs:documentation>A cue from the publisher that this product is really about an event, so that a hypothetical downstream parsing process might proceed more effectively and efficiently.  </xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="sequence" type="xs:integer" use="optional">
+			<xs:annotation>
+				<xs:documentation>Used to indicate any meaningful ordering of the Products contained in this Research item.  Particularly useful in publishing compendium products made up of multiple sub-products.  Ordering is ascending.  </xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+</xs:schema>

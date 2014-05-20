@@ -1,0 +1,801 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:star="http://www.starstandard.org/STAR/5"
+            xmlns:oacl="http://www.openapplications.org/oagis/9/codelists"
+            xmlns:sqdt="http://www.starstandard.org/STAR/5/qualifieddatatypes/1.0"
+            xmlns="http://www.starstandard.org/STAR/5"
+            xmlns:ccts="urn:un:unece:uncefact:documentation:1.1"
+            xmlns:sudt="http://www.starstandard.org/STAR/5/unqualifieddatatypes/1.0"
+            xmlns:scl="http://www.starstandard.org/STAR/5/codelists"
+            xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+            xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1"
+            targetNamespace="http://www.starstandard.org/STAR/5"
+   elementFormDefault="qualified" attributeFormDefault="unqualified" blockDefault="#all"
+>
+   <xsd:annotation>
+      <xsd:documentation source="http://www.starstandard.org/STAR/5"> This schema is made available under an Eclipse Public Licenses 1.0.
+         This license may be found in the STAR/License directory as well as the STAR BOD Guidelines.</xsd:documentation>
+   </xsd:annotation>
+   <xsd:include schemaLocation="../Components/Common/Meta.xsd" />
+   <xsd:import namespace="http://www.starstandard.org/STAR/5/qualifieddatatypes/1.0" schemaLocation="../Components/Common/QualifiedDataTypes.xsd"/>
+   <xsd:import namespace="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" schemaLocation="../Components/OAGIS/CoreComponents/UnqualifiedDataTypes.xsd"/>
+   <xsd:import namespace="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1" schemaLocation="../Components/OAGIS/CoreComponents/QualifiedDataTypes.xsd"/>
+   <xsd:import namespace="http://www.starstandard.org/STAR/5/codelists" schemaLocation="../Components/Common/CodeLists.xsd"/>
+   
+   <xsd:element name="PartsOrder" type="PartsOrderType">
+      <xsd:annotation>
+         <xsd:documentation source="http://www.starstandard.org/STAR/5">
+         	PartsOrder supports transmission of a parts order to a supplier’s order management application. 
+         	The Parts Order is the task of sending the electronic form of a parts order document to a 
+         	supplier. 
+         </xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element name="PartsOrderHeaderBase" type="PartsOrderHeaderBaseType">
+      <xsd:annotation>
+         <xsd:documentation source="http://www.starstandard.org/STAR/5"> Parts Order Header Base</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element name="PartsOrderHeader" type="PartsOrderHeaderType">
+      <xsd:annotation>
+         <xsd:documentation source="http://www.starstandard.org/STAR/5">Parts Order Header</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element name="PartsOrderLineBase" type="PartsOrderLineBaseType">
+      <xsd:annotation>
+         <xsd:documentation source="http://www.starstandard.org/STAR/5">Parts Order Line Base</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element name="PartsOrderLine" type="PartsOrderLineType">
+      <xsd:annotation>
+         <xsd:documentation source="http://www.starstandard.org/STAR/5"> Parts Order Line</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element name="LineSplitPartsOrderLine" type="SplitPartsOrderLineType">
+      <xsd:annotation>
+         <xsd:documentation source="http://www.starstandard.org/STAR/5"> Split Parts Order Line</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:complexType name="PartsOrderType">
+      <xsd:annotation xmlns="http://www.starstandards.org/STAR">
+         <xsd:documentation source="http://www.starstandard.org/STAR/5">STAR Version 4.0 - Draft</xsd:documentation>
+         <xsd:documentation source="http://www.starstandard.org/STAR/5">STAR Version 3.0, STAR approved 04/20/2005; effective date
+            07/04/2005</xsd:documentation>
+         <xsd:documentation source="http://www.starstandard.org/STAR/5">STAR Version 2.0, STAR approved 05/07/2004; effective date
+            07/04/2004</xsd:documentation>
+         <xsd:documentation source="http://www.starstandard.org/STAR/5">STAR Version 1.1 STAR approved 04/09/2003; OAGI approved 8/16/2002;
+            effective date 07/04/2003</xsd:documentation>
+         <xsd:documentation source="http://www.starstandard.org/STAR/5">STAR Version 1.0, STAR approved 8/6/2002; OAGI approved 8/16/2002;
+            effective date 1/01/2003</xsd:documentation>
+      </xsd:annotation>
+      <xsd:sequence>
+         <xsd:element ref="PartsOrderHeader" />
+         <xsd:element ref="PartsOrderLine" minOccurs="0" maxOccurs="unbounded" />
+      </xsd:sequence>
+   </xsd:complexType>
+   <xsd:complexType name="PartsOrderHeaderBaseType">
+      <xsd:annotation xmlns="http://www.starstandards.org/STAR">
+         <xsd:appinfo>Is derived from oa:PurchaseOrderHeader affectively by restriction.</xsd:appinfo>
+      </xsd:annotation>
+      <xsd:complexContent>
+         <xsd:extension base="HeaderBaseType">
+            <xsd:sequence>
+               <!--<xsd:element ref="DocumentID" /> -->
+               <xsd:element name="TaxabilityIndicator" type="udt:IndicatorType" minOccurs="0">
+                  <xsd:annotation>
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5">Determines whether an item or amount is taxable.
+                     </xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="PromisedDeliveryDate" type="udt:DateType" minOccurs="0">
+                  <xsd:annotation>
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5">Indicates the date in which the order was promised to
+                        be delivered to the dealer. This is the default unless specified otherwise at the lineitem
+                        level.</xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="PromisedShipDate" type="udt:DateType" minOccurs="0">
+                  <xsd:annotation>
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5">Indicates the date in which the order was promised to
+                        be shipped from the supplier to the dealer. This is the default unless specified otherwise at
+                        the lineitem. level.</xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:complexType name="PartsOrderHeaderType">
+      <xsd:complexContent>
+         <xsd:extension base="PartsOrderHeaderBaseType">
+            <xsd:sequence>
+               <xsd:element ref="AcknowledgmentDetail" minOccurs="0">
+                  <xsd:annotation>
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5">Deprecated. Use: AcknowledgmentStatus
+                     </xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element ref="PaymentTerms" minOccurs="0" />
+               <xsd:element name="OrderTypeCode" type="sqdt:OrderTypeCodeType" minOccurs="0">
+                  <xsd:annotation>
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5">Part Order Type entered or selected at dealership.
+                        Stock-STK, Vehicle Off Road-VOR, Daily-DPO, Emergency-EMG, Supplemental-SUP, Promotional-PRO,
+                        Solicited-SOL, Vehicle Off Road Parts Inquiry-VPI, Weekly-WKL, Interim-INT, Export-EXP, Dropship
+                        Stock-DSS, Dropship Vehicle Off Road-DVR, Lock and Key-LAK, Will Call-WCL, Return Request w/
+                        Reference-RRR, Return Request w/o Reference-RWR, Credit Request w/ Reference-CRR, Credit Request
+                        w/o Reference-CWR, Debit Request w/ Reference-DRR, Debit Request w/o Reference-DWR, Rush-RUS,
+                        Urgent-URG, Other-OTH, N/A-N/A, Hold-HLD, Dating-DTG.</xsd:documentation>
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5/PartOrder">Part Order Type entered or selected at dealership.
+                     </xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="SpecialInstructions" type="udt:TextType" minOccurs="0">
+                  <xsd:annotation>
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5">Free form text identifying unique handling of order.
+                     </xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="OrderComments" type="udt:TextType" minOccurs="0">
+                  <xsd:annotation>
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5">Free form text of remarks regarding the order.
+                     </xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="PromotionCode" type="udt:CodeType" minOccurs="0">
+                  <xsd:annotation>
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5">Code specifying a parts promotion.</xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="PriorityString" type="qdt:StringType" minOccurs="0">
+                  <xsd:annotation>
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5" />
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="ShipPriorityCode" type="scl:ShipPriorityEnumeratedType" minOccurs="0">
+                  <xsd:annotation>
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5">Deprecated. Use: ShipmentCarrierTransportMethodTypeCode
+                     </xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="AlternateShipPriorityCode" type="scl:ShipPriorityEnumeratedType"
+                  minOccurs="0"
+               >
+                  <xsd:annotation>
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5">Deprecated. Use: ShipmentCarrierTransportMethodTypeCode
+                     </xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="AllowBackOrderIndicator" type="udt:IndicatorType" minOccurs="0">
+                  <xsd:annotation>
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5">Indicates that partial shipments are permitted. This is
+                        the default unless specified otherwise at the lineitem level. Navistar Use Case: True - This
+                        line may be backordered False - The line is cancelled if entire quantity cannot be shipped. This
+                        indicator applies only to this line. When the value is False, the line is cancelled unless it
+                        can be completely filled. When the value is True, the quantity specified is shipped in its
+                        entirety or the entire quantity is back-ordered unless Partial Shipping is Allowed. Default
+                        value - value from header</xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="AllowCrossShipmentIndicator" type="udt:IndicatorType" minOccurs="0">
+                  <xsd:annotation>
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5">Permission indicator for multiple shipment sources.
+                        Navistar Use Case: False - No sourcing True - Allow sourcing Default value - Use value from
+                        header</xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="ShipWarehouseNumeric" type="udt:NumericType" minOccurs="0">
+                  <xsd:annotation>
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5">Deprecated. Use: OriginatingWarehouse
+                     </xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="PrintIndicator" type="udt:IndicatorType" minOccurs="0">
+                  <xsd:annotation>
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5">Deprecated</xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="FeedbackIndicator" type="udt:IndicatorType" minOccurs="0">
+                  <xsd:annotation>
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5">Deprecated. Use:ShipTo</xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="RepairOrderNumberString" type="qdt:StringType" minOccurs="0">
+                  <xsd:annotation>
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5">Deprecated. Use:DocumentReferenceIdentificationGroup
+                     </xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="OrderReferenceNumberString" type="qdt:StringType" minOccurs="0">
+                  <xsd:annotation>
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5">Deprecated. Use:DocumentReferenceIdentificationGroup
+                     </xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="ConsolidateIndicator" type="udt:IndicatorType" minOccurs="0">
+                  <xsd:annotation>
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5">Indicates like order types should be consolidated to
+                        one invoice/shipment.</xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="SequenceCode" type="udt:CodeType" minOccurs="0">
+                  <xsd:annotation>
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5">A pre-defined sort sequence for order consolidation,
+                        i.e., sort by part order.</xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="ShipmentCarrierCode" type="scl:ShipmentCarrierEnumeratedType" minOccurs="0">
+                  <xsd:annotation>
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5">Deprecated. Use: ShipmentCarrierCompanyCode
+                     </xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="AlternateShipmentCarrierCode" type="scl:ShipmentCarrierEnumeratedType"
+                  minOccurs="0"
+               >
+                  <xsd:annotation>
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5">Deprecated. Use: ShipmentCarrierCompanyCode
+                     </xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="TariffCodeIndicator" type="udt:IndicatorType" minOccurs="0">
+                  <xsd:annotation>
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5">Indicator of tariff.</xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="TariffCode" type="udt:CodeType" minOccurs="0">
+                  <xsd:annotation>
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5">Code identifying the tariff associated with the
+                        order/shipment.</xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element ref="BillToParty" minOccurs="0" />
+               <xsd:element ref="ShipToParty" minOccurs="0" />
+               <xsd:element ref="SupplierParty" minOccurs="0" />
+               <xsd:element ref="AlternateShipToParty" minOccurs="0">
+                  <xsd:annotation>
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5">Deprecated. Use:ShipTo</xsd:documentation>
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5">2008 PO Profile Group found that there was no use case
+                        for an AlternateShipTo</xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="OrderActionCode" type="udt:CodeType" minOccurs="0">
+                  <xsd:annotation>
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5">Identifies the action to be applied to the entire order
+                        (e.g., Ship, Cancel, Upgrade, etc.)</xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="Status" type="AcknowledgementStatusType" minOccurs="0" maxOccurs="unbounded">
+                  <xsd:annotation>
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5"> Deprecated: Use AcknowledgmentStatus. Renamed field to
+                        handle correct NDR rules. This is left in for compatibility reasons. It will be removed in the
+                        next major version of STAR.</xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="SubtotalAmount" type="udt:AmountType" minOccurs="0">
+                  <xsd:annotation>
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5">Total amount of line items extended. This is the
+                        economic value of the lineitem.</xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="EstimatedFreightCostAmount" type="udt:AmountType" minOccurs="0">
+                  <xsd:annotation>
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5">Is used to the describe the estimated cost of
+                        transporting the items or products being sold, produced or purchased. This amount is usually
+                        determined at the time the sales order is created and is quoted to the customer, before the
+                        actual shipping method, weight or number of units is known. This is also customarily known as a
+                        general Shipping and Handling charge.</xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="HandlingAmount" type="udt:AmountType" minOccurs="0">
+                  <xsd:annotation>
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5">The amount charged for the preparation of a shipment
+                     </xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="TotalAmountLessTax" type="udt:AmountType" minOccurs="0">
+                  <xsd:annotation>
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5">Total dollar amount of the order including freight and
+                        handling charge, but excluding taxes.</xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="AlternateShipToIndicator" type="udt:IndicatorType" minOccurs="0">
+                  <xsd:annotation>
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5">Indicates if the order can be shipped to the alternate
+                        address.</xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element ref="OrderState" minOccurs="0" maxOccurs="unbounded" />
+               <xsd:element name="AllowBackOrderPartialShipCode" type="scl:AllowBackOrderPartialShipEnumeratedType"
+                  minOccurs="0"
+               >
+                  <xsd:annotation>
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5">Identifies if the dealer is willing to accept
+                        backorders and partial shipments on the order.</xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="RequestedShipDate" type="udt:DateType" minOccurs="0">
+                  <xsd:annotation>
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5">The date the dealer is requesting the supplier to ship
+                        the order. This could be sooner or later that the typical stock order shipping date. However, it
+                        is expected this field is intended to delay the shipment from the typical stock order processing
+                        to some later preferred date.</xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="ManufacturerOrderNumberString" type="qdt:StringType" minOccurs="0">
+                  <xsd:annotation>
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5"> Deprecated: Use DocumentIdentificationGroup.
+                     </xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="DealerOrderNumberString" type="qdt:StringType" minOccurs="0">
+                  <xsd:annotation>
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5"> Deprecated: Use DocumentIdentificationGroup.
+                     </xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="ChangeIndicator" type="udt:IndicatorType" minOccurs="0">
+                  <xsd:annotation>
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5">Indicates whether a field or sub-component has changed.
+                        This may be used on a Change BOD to indicate that a change has been made on a previously
+                        submitted document. Used at the Header level, this would indicate a change specifically to the
+                        Header.</xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="CrossShipmentRestrictionCode" type="sqdt:CrossShipmentRestrictionCodeType"
+                  minOccurs="0" maxOccurs="unbounded"
+               >
+                  <xsd:annotation>
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5">Used to restrict the shipping options on the OEM to the
+                        Dealer when Cross Shipment is allowed.</xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="PartsOrderReceivedDateTime" type="udt:DateTimeType" minOccurs="0"
+                  maxOccurs="1"
+               >
+                  <xsd:annotation>
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5">The date and time a parts order was received.
+                     </xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="FOBTermsString" type="qdt:StringType" minOccurs="0" maxOccurs="1">
+                  <xsd:annotation>
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5">Transit Ownership terms</xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element ref="ShipmentCarrierDetail" minOccurs="0" maxOccurs="unbounded" />
+               <xsd:element ref="OrderDatePeriod" minOccurs="0" maxOccurs="1" />
+               <xsd:element name="OrderedByName" type="udt:NameType" minOccurs="0" maxOccurs="1">
+                  <xsd:annotation>
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5">The name of the individual who created the order.
+                     </xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="AllowSubstitutionIndicator" type="udt:IndicatorType" minOccurs="0"
+                  maxOccurs="1"
+               >
+                  <xsd:annotation>
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5">Indicates if the dealer allows substituted part.
+                        Navistar: Use the header resident version of this field to set a default for the entire order.
+                        The line resident field has three states False, True, and omitted. If omitted, the default value
+                        from the header is used. If the header field is omitted, the value is True for ALLOWED. False -
+                        Not allowed True - Allowed</xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="AllowSupersessionIndicator" type="udt:IndicatorType" minOccurs="0"
+                  maxOccurs="1"
+               >
+                  <xsd:annotation>
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5">Indicates if the dealer allows a superseded part.
+                        Navistar Use Case: Use the header resident version of this field to set a default for the entire
+                        order. The line resident field has three states False, True, and omitted. If omitted, the
+                        default value from the header is used. If the header field is omitted, the value is True for
+                        ALLOWED. False - Not allowed True - Allowed</xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element ref="AcknowledgementStatus" minOccurs="0" maxOccurs="unbounded" />
+               <xsd:element ref="DocumentReferenceIdentificationGroup" minOccurs="0" maxOccurs="1" />
+               <xsd:element name="ProgramCode" type="udt:CodeType" minOccurs="0" maxOccurs="1">
+                  <xsd:annotation>
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5">Code issued by item manufacturer that indicates the
+                        rules and pricing used when selling direct to retailers instead of through OEMs.
+                     </xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="DatasourceURICode" type="udt:CodeType" minOccurs="0" maxOccurs="1">
+                  <xsd:annotation>
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5">The a code that points to a datasource where the
+                        datasource value is stored.</xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element ref="FreeFormTextGroup" minOccurs="0" maxOccurs="1"/>
+               <xsd:element name="BackOrderTypeCode" type="udt:CodeType" minOccurs="0" maxOccurs="1">
+                  <xsd:annotation>
+                  	<xsd:documentation source="http://www.starstandard.org/STAR/5">
+                  		Indicates the type of back order.  Should only be set if back orders are allowed.
+                  	</xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:complexType name="PartsOrderLineBaseType">
+      <xsd:annotation xmlns="http://www.starstandards.org/STAR">
+         <xsd:appinfo>Is derived from oa:PurchaseOrderLine affectively by restriction.</xsd:appinfo>
+      </xsd:annotation>
+      <xsd:sequence>
+         <xsd:element name="LineNumberString" type="qdt:StringType" minOccurs="0">
+            <xsd:annotation>
+               <xsd:documentation source="http://www.starstandard.org/STAR/5">The number of the given Line Component within the document.
+                  LineNumbers are assigned by the sending system.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="OrderQuantity" type="sqdt:QuantityType" minOccurs="0">
+            <xsd:annotation>
+               <xsd:documentation source="http://www.starstandard.org/STAR/5">Indicates the number of ordered items.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="PromisedDeliveryDate" type="udt:DateType" minOccurs="0">
+            <xsd:annotation>
+               <xsd:documentation source="http://www.starstandard.org/STAR/5">Indicates the date in which the order was promised to be
+                  delivered to the dealer. This is the default unless specified otherwise at the lineitem level.
+               </xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="PromisedShipDate" type="udt:DateType" minOccurs="0">
+            <xsd:annotation>
+               <xsd:documentation source="http://www.starstandard.org/STAR/5">Indicates the date in which the order was promised to be
+                  shipped from the supplier to the dealer. This is the default unless specified otherwise at the
+                  lineitem. level.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+      </xsd:sequence>
+   </xsd:complexType>
+   <xsd:complexType name="PartsOrderLineType">
+      <xsd:complexContent>
+         <xsd:extension base="PartsOrderLineBaseType">
+            <xsd:sequence>
+               <xsd:element ref="AcknowledgmentDetail" minOccurs="0">
+                  <xsd:annotation>
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5">Deprecated. Use: AcknowledgmentStatus
+                     </xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="PartDimensions" type="udt:TextType" minOccurs="0">
+                  <xsd:annotation>
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5">Indicates the dimensions of a part, such as the length
+                        and width of a piece of cloth or leather.</xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="InDistanceMeasure" type="sqdt:LengthMeasureType" minOccurs="0">
+                  <xsd:annotation>
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5">Odometer reading of vehicle when repair order was
+                        opened</xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="CustomerName" type="udt:NameType" minOccurs="0">
+                  <xsd:annotation>
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5">Free form text associated with order. May be name of
+                        customer associated with the line component or special order information.</xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="LineItemComments" type="udt:TextType" minOccurs="0">
+                  <xsd:annotation>
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5">Free form text for dealer per line component for
+                        comments or additional part information.</xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="PartLineInternalReferenceString" type="qdt:StringType" minOccurs="0">
+                  <xsd:annotation>
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5">Internal DMS tracking information. Used to indicate
+                        relationships between internal DMS data and the part line information being sent to
+                        manufacturer.</xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="ItemID" type="udt:IdentifierType" minOccurs="0">
+                  <xsd:annotation>
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5">Deprecated. Use: ItemIdentificationGroup
+                     </xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="SupplierItemID" type="udt:IdentifierType" minOccurs="0">
+                  <xsd:annotation>
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5">Deprecated. Use: ItemIdentificationGroup
+                     </xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="BinLocation" type="udt:TextType" minOccurs="0">
+                  <xsd:annotation>
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5">Dealer specific location of part.</xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="PartClassCode" type="udt:CodeType" minOccurs="0">
+                  <xsd:annotation>
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5">Gifts, literature, keys, regular parts Inventory Class
+                        code (if any) used in DMS system.</xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="PartTypeCode" type="scl:PartTypeEnumeratedType" minOccurs="0">
+                  <xsd:annotation>
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5">Specifies whether the parts are indicated by
+                        manufacturer part code or Part Number - H = Manufacturer Part Code, P = Part Number
+                     </xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="ShipWarehouseNumeric" type="udt:NumericType" minOccurs="0">
+                  <xsd:annotation>
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5">Deprecated. Use: OriginatingWarehouse
+                     </xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="OptionCode" type="udt:CodeType" minOccurs="0">
+                  <xsd:annotation>
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5">Dealer processing preference to designate priority
+                        override by line item.</xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="PartVerification" type="udt:TextType" minOccurs="0">
+                  <xsd:annotation>
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5">Indicates that the dealer is assuring the manufacturer
+                        that the line entry is correct (e.g., for unusually large quantity).</xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="VehicleID" type="udt:IdentifierType" minOccurs="0">
+                  <xsd:annotation>
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5">The vehicle identification. This could be the VIN, HIN,
+                        or some unique identifier for a vehicle.</xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="IgnitionKeyNumberString" type="qdt:StringType" minOccurs="0">
+                  <xsd:annotation>
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5">Vehicle Ignition Key Number</xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="ClaimTypeString" type="qdt:StringType" minOccurs="0">
+                  <xsd:annotation>
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5">Identifier of the type of claim</xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="DiagnosticCodes" type="udt:CodeType" minOccurs="0">
+                  <xsd:annotation>
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5">One or more Manufacturer Diagnostics Codes taken during
+                        the Repair Process for this job</xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="RepairOrderNumberString" type="qdt:StringType" minOccurs="0">
+                  <xsd:annotation>
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5">Deprecated. Use:DocumentReferenceIdentificationGroup
+                     </xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="OrderReferenceNumberString" type="qdt:StringType" minOccurs="0">
+                  <xsd:annotation>
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5">Deprecated. Use:DocumentReferenceIdentificationGroup
+                     </xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="HazmatShippingChargeIndicator" type="udt:IndicatorType" minOccurs="0">
+                  <xsd:annotation>
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5">Indicates whether this Hazardous Material part will
+                        incur an additional shipping charge.&gt;</xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="TariffCodeIndicator" type="udt:IndicatorType" minOccurs="0">
+                  <xsd:annotation>
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5">Indicator of tariff.</xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="TariffCode" type="udt:CodeType" minOccurs="0">
+                  <xsd:annotation>
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5">Code identifying the tariff associated with the
+                        order/shipment.</xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="ShipmentCarrierCode" type="scl:ShipmentCarrierEnumeratedType" minOccurs="0">
+                  <xsd:annotation>
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5">Deprecated. Use: ShipmentCarrierCompanyCode
+                     </xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="HazmatIndicator" type="udt:IndicatorType" minOccurs="0">
+                  <xsd:annotation>
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5">Indicates that governmental regulations consider this
+                        part as hazardous material.</xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="SupplierLineID" type="udt:IdentifierType" minOccurs="0">
+                  <xsd:annotation>
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5">Supplier-assigned line code for an established
+                        manufacturer to uniquely identify a part within a supplier's warehouse system.
+                     </xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="Status" type="AcknowledgementStatusType" minOccurs="0" maxOccurs="unbounded">
+                  <xsd:annotation>
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5"> Deprecated: Use AcknowledgementStatus.
+                     </xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="DealerNetPriceAmount" type="udt:AmountType" minOccurs="0">
+                  <xsd:annotation>
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5">Dealer net price of the individual part for the
+                        quantity indicated. This is the dealer net price to the dealer.</xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="SuggestedRetailPriceAmount" type="udt:AmountType" minOccurs="0">
+                  <xsd:annotation>
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5">Suggested retail price of the individual part for the
+                        quantity indicated. This is the price that the manufacturer suggests the dealer sells the part
+                        for.</xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="ItemIdDescription" type="udt:TextType" minOccurs="0" maxOccurs="unbounded">
+                  <xsd:annotation>
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5">Item part number detail description</xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="AllowBackOrderIndicator" type="udt:IndicatorType" minOccurs="0">
+                  <xsd:annotation>
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5">Indicates that partial shipments are permitted. This is
+                        the default unless specified otherwise at the lineitem level. Navistar Use Case: True - This
+                        line may be backordered False - The line is cancelled if entire quantity cannot be shipped. This
+                        indicator applies only to this line. When the value is False, the line is cancelled unless it
+                        can be completely filled. When the value is True, the quantity specified is shipped in its
+                        entirety or the entire quantity is back-ordered unless Partial Shipping is Allowed. Default
+                        value - value from header</xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element ref="LineState" minOccurs="0" maxOccurs="unbounded" />
+               <xsd:element name="ManufacturerName" type="udt:NameType" minOccurs="0">
+                  <xsd:annotation>
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5"> Deprecated: ItemIdentificationGroup.
+                     </xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="AllowBackOrderPartialShipCode" type="scl:AllowBackOrderPartialShipEnumeratedType"
+                  minOccurs="0"
+               >
+                  <xsd:annotation>
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5">Identifies if the dealer is willing to accept
+                        backorders and partial shipments on the order.</xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="AllowCrossShipmentIndicator" type="udt:IndicatorType" minOccurs="0">
+                  <xsd:annotation>
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5">Permission indicator for multiple shipment sources.
+                        Navistar Use Case: False - No sourcing True - Allow sourcing Default value - Use value from
+                        header</xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="AllowSubstitutionIndicator" type="udt:IndicatorType" minOccurs="0">
+                  <xsd:annotation>
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5">Indicates if the dealer allows substituted part.
+                        Navistar: Use the header resident version of this field to set a default for the entire order.
+                        The line resident field has three states False, True, and omitted. If omitted, the default value
+                        from the header is used. If the header field is omitted, the value is True for ALLOWED. False -
+                        Not allowed True - Allowed</xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="AllowSupersessionIndicator" type="udt:IndicatorType" minOccurs="0">
+                  <xsd:annotation>
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5">Indicates if the dealer allows a superseded part.
+                        Navistar Use Case: Use the header resident version of this field to set a default for the entire
+                        order. The line resident field has three states False, True, and omitted. If omitted, the
+                        default value from the header is used. If the header field is omitted, the value is True for
+                        ALLOWED. False - Not allowed True - Allowed</xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="ShipPriorityCode" type="scl:ShipPriorityEnumeratedType" minOccurs="0">
+                  <xsd:annotation>
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5">Defines two concepts: The shipping methd (e.g. ground
+                        or air) and the ship duration (how fast the customer wants the order to be deelivered.
+                        ShipPriority applies to all warehouse items can be shipped from, unless the supplier accepts an
+                        AlternatShipPriority. If the supplier accepts AlternateShipPriority, then ShipPriority applies
+                        only to the facing warehouse for the dealer. A facing warehouse is the default, usually the most
+                        geographically close, warehouse for the dealer.</xsd:documentation>
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5">Deprecated. Use: ShipmentCarrierTransportMethodTypeCode
+                     </xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="SupplierToDealerComments" type="udt:TextType" minOccurs="0">
+                  <xsd:annotation>
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5">Enables a Supplier to send comments to the dealer
+                        without disturbing dealer lin comments. Otherwise, the supplier will have to either overwrite or
+                        append Supplier related comments to Dealer comments.</xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element ref="LineSplitPartsOrderLine" minOccurs="0" maxOccurs="unbounded" />
+               <xsd:element name="ChangeIndicator" type="udt:IndicatorType" minOccurs="0">
+                  <xsd:annotation>
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5">Indicates whether a field or sub-component has changed.
+                        This may be used on a Change BOD to indicate that a change has been made on a previously
+                        submitted document. Used at the Header level, this would indicate a change specifically to the
+                        Header.</xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="CrossShipmentRestrictionCode" type="sqdt:CrossShipmentRestrictionCodeType"
+                  minOccurs="0" maxOccurs="unbounded"
+               >
+                  <xsd:annotation>
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5">Used to restrict the shipping options on the OEM to the
+                        Dealer when Cross Shipment is allowed.</xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element ref="ShipmentCarrierDetail" minOccurs="0" maxOccurs="unbounded" />
+               <xsd:element name="OrderDate" type="udt:DateType" minOccurs="0" maxOccurs="1">
+                  <xsd:annotation>
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5">Date order originally placed</xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="ShipDate" type="udt:DateType" minOccurs="0" maxOccurs="1">
+                  <xsd:annotation>
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5">Indicates the date of shipment for an item.
+                     </xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="SerialNumberIDRequiredIndicator" type="udt:IndicatorType" minOccurs="0"
+                  maxOccurs="1"
+               >
+                  <xsd:annotation>
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5">Indicates whether or not a serial number is required
+                        for a particular item.</xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="SerialNumberID" type="udt:IdentifierType" minOccurs="0" maxOccurs="1">
+                  <xsd:annotation>
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5">A number, usually one of a series, assigned for
+                        identification This is not the Item ID.</xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element ref="AcknowledgementStatus" minOccurs="0" maxOccurs="unbounded" />
+               <xsd:element ref="DocumentReferenceIdentificationGroup" minOccurs="0" maxOccurs="1" />
+               <xsd:element ref="ItemIdentificationGroup" minOccurs="0" maxOccurs="1" />
+               <xsd:element name="VendorCode" type="udt:CodeType" minOccurs="0" maxOccurs="1">
+                  <xsd:annotation>
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5">Used by DMS providers for internal cross referencing
+                        between multiple vendor lines.</xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element ref="DealerParty" minOccurs="0" maxOccurs="1" />
+               <xsd:element name="PartSourceCode" type="udt:CodeType" minOccurs="0" maxOccurs="1">
+                  <xsd:annotation>
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5">Indicates the source of the part (e.g. M -
+                        Manufacturer)</xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element ref="FreeFormTextGroup" minOccurs="0" maxOccurs="1"/>
+               <xsd:element name="BackOrderTypeCode" type="udt:CodeType" minOccurs="0" maxOccurs="1">
+                  <xsd:annotation>
+                  	<xsd:documentation source="http://www.starstandard.org/STAR/5">
+                  		Indicates the type of back order.  Should only be set if back orders are allowed.  This overrides what is at the
+                  		header level.
+                  	</xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:complexType name="SplitPartsOrderLineType">
+      <xsd:complexContent>
+         <xsd:extension base="PartsOrderLineType">
+            <xsd:sequence>
+               <xsd:element name="ChildLineReasonCode" type="scl:ChildLineReasonCodeEnumeratedType"
+                  minOccurs="0"
+               >
+                  <xsd:annotation>
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5">The reason this line has child lines.
+                     </xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="ChildLinePricingAppliesIndicator" type="udt:IndicatorType" minOccurs="0">
+                  <xsd:annotation>
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5">Identifies if the pricing of the child line(s) applies.
+                     </xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+</xsd:schema>

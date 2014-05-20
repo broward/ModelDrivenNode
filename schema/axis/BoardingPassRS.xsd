@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:element name="BoardingPassRS">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="RecordLocator">
+					<xsd:annotation>
+						<xsd:documentation>The record locator of the PNR for which the ticket(s) are to be issued.
+Example: XQ23AX</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:simpleContent>
+							<xsd:extension base="xsd:string"/>
+						</xsd:simpleContent>
+					</xsd:complexType>
+				</xsd:element>
+				<xsd:element name="BoardingPass" maxOccurs="unbounded">
+					<xsd:annotation>
+						<xsd:documentation>Boarding pass images in sequential order sorted by traveler, within traveler in chronological flight order</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element ref="TravelerElementNumber"/>
+							<xsd:element ref="SegmentElementNumber"/>
+							<xsd:element name="Image">
+								<xsd:annotation>
+									<xsd:documentation>The record locator of the PNR for which the ticket(s) are to be issued.
+Example: XQ23AX</xsd:documentation>
+								</xsd:annotation>
+								<xsd:complexType>
+									<xsd:simpleContent>
+										<xsd:extension base="xsd:string">
+											<xsd:attribute name="Symbology">
+												<xsd:annotation>
+													<xsd:documentation>Symbology applied
+
+Example: PDF417</xsd:documentation>
+												</xsd:annotation>
+											</xsd:attribute>
+											<xsd:attribute name="Encoding">
+												<xsd:annotation>
+													<xsd:documentation>Encoding method used
+
+Example: base64</xsd:documentation>
+												</xsd:annotation>
+											</xsd:attribute>
+											<xsd:attribute name="Format">
+												<xsd:annotation>
+													<xsd:documentation>Image format used
+
+Example: jpeg</xsd:documentation>
+												</xsd:annotation>
+											</xsd:attribute>
+										</xsd:extension>
+									</xsd:simpleContent>
+								</xsd:complexType>
+							</xsd:element>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+			</xsd:sequence>
+			<xsd:attribute name="Version" type="xsd:string">
+				<xsd:annotation>
+					<xsd:documentation>Version number.
+Example: 2.0</xsd:documentation>
+				</xsd:annotation>
+			</xsd:attribute>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:attribute name="Source">
+		<xsd:annotation>
+			<xsd:documentation>This is the source of the Ticket issuing/validating carrier
+
+Example: AA</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleType>
+			<xsd:restriction base="xsd:string">
+				<xsd:minLength value="1"/>
+			</xsd:restriction>
+		</xsd:simpleType>
+	</xsd:attribute>
+	<xsd:element name="TravelerElementNumber">
+		<xsd:annotation>
+			<xsd:documentation>Element number of traveler associated to this item.  Example: 1</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:simpleContent>
+				<xsd:extension base="xsd:string"/>
+			</xsd:simpleContent>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="SegmentElementNumber">
+		<xsd:annotation>
+			<xsd:documentation>Segment element number associated to this item.  Example: 1</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:simpleContent>
+				<xsd:extension base="xsd:integer"/>
+			</xsd:simpleContent>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:attribute name="SourceRef">
+		<xsd:annotation>
+			<xsd:documentation>PNR Record Locator associated to Source attribute.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleType>
+			<xsd:restriction base="xsd:string">
+				<xsd:minLength value="1"/>
+			</xsd:restriction>
+		</xsd:simpleType>
+	</xsd:attribute>
+</xsd:schema>

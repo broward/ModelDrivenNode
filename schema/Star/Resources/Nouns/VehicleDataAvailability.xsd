@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:star="http://www.starstandard.org/STAR/5"
+    xmlns:oacl="http://www.openapplications.org/oagis/9/codelists"
+    xmlns:sqdt="http://www.starstandard.org/STAR/5/qualifieddatatypes/1.0"
+    xmlns="http://www.starstandard.org/STAR/5" xmlns:ccts="urn:un:unece:uncefact:documentation:1.1"
+    xmlns:sudt="http://www.starstandard.org/STAR/5/unqualifieddatatypes/1.0"
+    xmlns:scl="http://www.starstandard.org/STAR/5/codelists"
+    targetNamespace="http://www.starstandard.org/STAR/5" elementFormDefault="qualified"
+    attributeFormDefault="unqualified" blockDefault="#all"
+    xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1"
+    xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1">
+    <xsd:annotation>
+        <xsd:documentation source="http://www.starstandard.org/STAR/5">
+            This schema is made available under an Eclipse Public Licenses 1.0.  This
+            license may be found in the STAR/License directory as well as the STAR BOD
+            Guidelines.
+        </xsd:documentation>
+    </xsd:annotation>
+    <xsd:include schemaLocation="../Components/Common/Meta.xsd"/>
+    <xsd:import namespace="http://www.starstandard.org/STAR/5/qualifieddatatypes/1.0"
+        schemaLocation="../Components/Common/QualifiedDataTypes.xsd"/>
+    <xsd:import namespace="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+        schemaLocation="../Components/OAGIS/CoreComponents/UnqualifiedDataTypes.xsd"/>
+    <xsd:import namespace="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1"
+        schemaLocation="../Components/OAGIS/CoreComponents/QualifiedDataTypes.xsd"/>
+    <xsd:import namespace="http://www.starstandard.org/STAR/5/codelists"
+        schemaLocation="../Components/Common/CodeLists.xsd"/>
+    <xsd:import namespace="http://www.openapplications.org/oagis/9"
+        schemaLocation="../Components/OAGIS/Common/Components.xsd"/>
+    <xsd:element name="VehicleDataAvailability" type="VehicleDataAvailabilityType">
+        <xsd:annotation>
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">
+                The Vehicle Data Availability BOD allows the DMS to submit a single inquiry to determine what information is available for retrieval.  
+                The DMS could then submit individual BOD request only for the data that is available.  This will conserve bandwidth and system resources.               
+            </xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    <xsd:element name="VehicleDataAvailabilityHeader" type="VehicleDataAvailabilityHeaderType">
+        <xsd:annotation>
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">
+                Vehicle Data Availability Header
+            </xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    <xsd:complexType name="VehicleDataAvailabilityType">
+        <xsd:annotation xmlns="http://www.starstandards.org/STAR">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">STAR Version 3.0 - Draft</xsd:documentation>
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">STAR Version 2.1, STAR approved 04/20/2005; effective date 07/04/2005</xsd:documentation>
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">STAR Version 2.0, STAR approved 05/07/2004; effective date 07/04/2004</xsd:documentation>
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">STAR Version 1.0 STAR approved 11/22/2002; OAGI approved 3/15/2003; effective date 01/01/2003</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element ref="VehicleDataAvailabilityHeader"/>
+            <xsd:element ref="VehicleDataAvailabilityLineItem" minOccurs="1" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="VehicleDataAvailabilityHeaderType">
+        <xsd:annotation xmlns="http://www.starstandards.org/STAR">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="HeaderBaseType">
+                <xsd:sequence>
+                    <xsd:element maxOccurs="1" minOccurs="1" name="VIN" type="sqdt:VINType">
+                        <xsd:annotation>
+                            <xsd:documentation source="http://www.starstandard.org/STAR/5">
+                                Vehicle Identification Number                               
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:element name="VehicleDataAvailabilityLineItem" type="VehicleDataAvailabilityLineItemType">
+        <xsd:annotation>
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">
+                Detail information regarding a vehicle for a particular invoice.
+            </xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    <xsd:complexType name="VehicleDataAvailabilityLineItemType">
+        <xsd:annotation xmlns="http://www.starstandards.org/STAR">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element ref="VehicleDataAvailabilityStatus" maxOccurs="1" minOccurs="0"/>
+            <xsd:element ref="VehicleDataAvailabilityDetail" maxOccurs="unbounded" minOccurs="0"/>
+            <xsd:element ref="VehicleDataAvailabilityNotes" maxOccurs="1" minOccurs="0"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="VehicleDataAvailabilityStatusType">
+        <xsd:annotation>
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">
+                The VehicleDataAvailabilityStatus contains that values to state the result of vehicle data request                               
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element name="VehicleDataRequestDescription" type="udt:TextType" minOccurs="1"
+                maxOccurs="1">
+                <xsd:annotation>
+                    <xsd:documentation source="http://www.starstandard.org/STAR/5">
+                        Description of the type of vehicle data being requested. Example: Warranty, Vehicle Specifications, Repair History...                              
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="VehicleRequestedDataStatus" type="udt:TextType" minOccurs="1"
+                maxOccurs="1">
+                <xsd:annotation>
+                    <xsd:documentation source="http://www.starstandard.org/STAR/5">
+                        Indicates the status of the data being requested. Example: Data Availble, Data Unavailable, Server not Available, Unknown...                                
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="VehicleDataAvailabilityStatus" type="VehicleDataAvailabilityStatusType">
+        <xsd:annotation>
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">
+                The VehicleDataAvailabilityStatus contains that values to state the result of vehicle data request                                               
+            </xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    <xsd:complexType name="VehicleDataAvailabilityDetailType">
+        <xsd:annotation>
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">
+                Component to list the different areas of the requested data. Example: If Warranty data was requested, the retuned data could have Open
+                Recalls, Closed Recalls, etc. This data is defined in this component.
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element name="VehicleDataAvailabilityDetailDescription" type="udt:TextType"
+                minOccurs="1" maxOccurs="1">
+                <xsd:annotation>
+                    <xsd:documentation source="http://www.starstandard.org/STAR/5">
+                         Descripton of the type of data subsets being returend. For example: Open Recalls, Close Redalls, in the event that Warranty data
+                         is being returned.
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="VehicleDataAvailabilityDetailIndicator" type="udt:IndicatorType"
+                minOccurs="1" maxOccurs="1">
+                <xsd:annotation>
+                    <xsd:documentation source="http://www.starstandard.org/STAR/5">
+                        Indicates the status of the data being requested. Example: Data Availble, Data Unavailable, Server not Available, Unknown...                                
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="VehicleDataAvailabilityDetail" type="VehicleDataAvailabilityDetailType">
+        <xsd:annotation>
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">
+                Component to list the different areas of the requested data. Example: If Warranty data was requested, the retuned data could have Open
+                Recalls, Closed Recalls, etc. This data is defined in this component.
+            </xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    <xsd:complexType name="VehicleDataAvailabilityNotesType">
+        <xsd:annotation>
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">
+                This component is used to describe notes or comments from the manufacturer
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element name="VehicleDataAvailabilityNotesText" type="udt:TextType" minOccurs="0"
+                maxOccurs="1">
+                <xsd:annotation>
+                    <xsd:documentation source="http://www.starstandard.org/STAR/5">
+                        This elemens contains the free form text with notes and comments available from the manufacturer
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="VehicleDataAvailabilityNotes" type="VehicleDataAvailabilityNotesType">
+        <xsd:annotation>
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">
+                Component to list the different areas of the requested data. Example: If Warranty data was requested, the retuned data could have Open
+                Recalls, Closed Recalls, etc. This data is defined in this component.
+            </xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+</xsd:schema>

@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:star="http://www.starstandard.org/STAR/5"
+   xmlns:oacl="http://www.openapplications.org/oagis/9/codelists" xmlns:sqdt="http://www.starstandard.org/STAR/5/qualifieddatatypes/1.0"
+   xmlns="http://www.starstandard.org/STAR/5" xmlns:ccts="urn:un:unece:uncefact:documentation:1.1" xmlns:sudt="http://www.starstandard.org/STAR/5/unqualifieddatatypes/1.0"
+   xmlns:scl="http://www.starstandard.org/STAR/5/codelists" targetNamespace="http://www.starstandard.org/STAR/5"
+   elementFormDefault="qualified" attributeFormDefault="unqualified" blockDefault="#all"
+   xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1"
+   xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"   
+>
+    <xsd:annotation>
+        <xsd:documentation source="http://www.starstandard.org/STAR/5">
+            This schema is made available under an Eclipse Public Licenses 1.0.  This
+            license may be found in the STAR/License directory as well as the STAR BOD
+            Guidelines.
+        </xsd:documentation>
+    </xsd:annotation>
+    
+    <xsd:include schemaLocation="../Components/Common/Meta.xsd" />
+   <xsd:import namespace="http://www.starstandard.org/STAR/5/qualifieddatatypes/1.0" schemaLocation="../Components/Common/QualifiedDataTypes.xsd"/>
+   <xsd:import namespace="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" schemaLocation="../Components/OAGIS/CoreComponents/UnqualifiedDataTypes.xsd"/>
+   <xsd:import namespace="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1" schemaLocation="../Components/OAGIS/CoreComponents/QualifiedDataTypes.xsd"/>
+   <xsd:import namespace="http://www.starstandard.org/STAR/5/codelists" schemaLocation="../Components/Common/CodeLists.xsd"/>
+   <xsd:import namespace="http://www.openapplications.org/oagis/9" schemaLocation="../Components/OAGIS/Common/Components.xsd" />
+    <xsd:element name="VehicleSpecifications" type="VehicleSpecificationsType">
+        <xsd:annotation>
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">
+                VehicleSpecifications provides specifications of what options, colors are available for 
+                a given model and what options are required. Additionally, option dependencies, 
+                conflicts and inclusives could be provided. 
+                NOTE: Although this is the traditional use of VehicleSpecifications, it could be used to 
+                send Vehicle Specifications information between any two business parties. 
+            </xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    <xsd:element name="VehicleSpecificationsHeader" type="VehicleSpecificationsHeaderType">
+        <xsd:annotation>
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">
+                Vehicle Specifications Header
+            </xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    <xsd:complexType name="VehicleSpecificationsType">
+        <xsd:annotation xmlns="http://www.starstandards.org/STAR">
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element ref="VehicleSpecificationsHeader"/>
+            <xsd:element ref="VehicleSpecificationsLine" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="VehicleSpecificationsHeaderType">
+        <xsd:annotation xmlns="http://www.starstandards.org/STAR">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Header information related to Vehicle Specifications</xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="HeaderBaseType">
+                <xsd:sequence>
+                    <xsd:element ref="ManufacturerParty" minOccurs="0" maxOccurs="1"/>
+                    <xsd:element name="IncrementalIndicator" type="udt:IndicatorType" minOccurs="0">
+                  <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Specifies whether to send
+                full specifications or incremental changes</xsd:documentation>
+        </xsd:annotation>
+               </xsd:element>
+                    <xsd:element name="IncrementalDateTime" type="udt:DateTimeType" minOccurs="0">
+                  <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Send all changes that
+                have occurred since this date</xsd:documentation>
+        </xsd:annotation>
+               </xsd:element>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:element name="VehicleSpecificationsLine" type="VehicleSpecificationsLineType">
+        <xsd:annotation>
+            <xsd:documentation source="http://www.starstandard.org/STAR/5"/>
+        </xsd:annotation>
+    </xsd:element>
+    <xsd:complexType name="VehicleSpecificationsLineType">
+        <xsd:annotation>
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Line detail information regarding a particular specification.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element name="LineNumberString" type="qdt:StringType" minOccurs="0" maxOccurs="1">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">The number of the given
+                Line Component within the document. LineNumbers are assigned by the sending
+            system.</xsd:documentation>
+        </xsd:annotation>
+         </xsd:element>
+            <xsd:element name="IncrementalIndicator" type="udt:IndicatorType" minOccurs="0" maxOccurs="1">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Specifies whether to send
+                full specifications or incremental changes</xsd:documentation>
+        </xsd:annotation>
+         </xsd:element>
+            <xsd:element name="IncrementalDateTime" type="udt:DateTimeType" minOccurs="0" maxOccurs="1">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Send all changes that
+                have occurred since this date</xsd:documentation>
+        </xsd:annotation>
+         </xsd:element>
+            <xsd:element ref="ManufacturerParty" minOccurs="0" maxOccurs="1"/>
+            <xsd:element ref="DistributorParty" minOccurs="0" maxOccurs="1"/>
+            <xsd:element ref="Vehicle" minOccurs="0" maxOccurs="1"/>
+            <xsd:element ref="Option" minOccurs="0" maxOccurs="unbounded"/>
+            <xsd:element ref="VehicleMajorPartsProductItem" minOccurs="0" maxOccurs="unbounded"/>  
+            <xsd:element ref="AcknowledgementStatus" maxOccurs="unbounded" minOccurs="0"/>
+            <xsd:element name="WarrantyStartDate" minOccurs="0" maxOccurs="1" type="udt:DateType">
+            	 <xsd:annotation 
+            	 	xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" 
+            	 	xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            		<xsd:documentation source="http://www.starstandard.org/STAR/5">
+            			In service date or warranty start date of vehicle.
+            		</xsd:documentation>
+        		</xsd:annotation>
+            </xsd:element>
+            <xsd:element name="VehicleSaleDate" minOccurs="0" maxOccurs="1" type="udt:DateType">
+            	 <xsd:annotation 
+            	 	xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" 
+            	 	xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            		<xsd:documentation source="http://www.starstandard.org/STAR/5">
+            			Date on which vehicle was sold.
+            		</xsd:documentation>
+        		</xsd:annotation>
+            </xsd:element>
+            <xsd:element name="VehicleHistoryDate" minOccurs="0" maxOccurs="unbounded" 
+            	type="udt:DateType">
+            	 <xsd:annotation 
+            	 	xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" 
+            	 	xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            		<xsd:documentation source="http://www.starstandard.org/STAR/5">
+            			General vehicle history event date.
+            		</xsd:documentation>
+        		</xsd:annotation>
+            </xsd:element>
+            <xsd:element ref="AdditionalDetailDescription" minOccurs="0" maxOccurs="unbounded"/>           
+        </xsd:sequence>
+    </xsd:complexType>
+    
+</xsd:schema>

@@ -1,0 +1,430 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<xsd:element name="NameListRQ">
+		<xsd:annotation>
+			<xsd:documentation>Name list request root element</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:choice>
+					<xsd:element name="EmailAddress">
+						<xsd:annotation>
+							<xsd:documentation>Allows retrieval by traveler's email address</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:sequence>
+						<xsd:annotation>
+							<xsd:documentation>Allows retrieval by Traveler Firstname/Lastname</xsd:documentation>
+						</xsd:annotation>
+						<xsd:element ref="Surname">
+							<xsd:annotation>
+								<xsd:documentation>Traveler Last Name.  Example: SMITH</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element ref="GivenName" minOccurs="0"/>
+					</xsd:sequence>
+					<xsd:element ref="FrequentTravelerGroup"/>
+					<xsd:element name="GroupName">
+						<xsd:annotation>
+							<xsd:documentation>Example: CASTLE TOUR
+
+not combinable with other search parameter exception: Source, OfficeCode, CRS)</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:choice>
+				<xsd:element ref="AirlineCode" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Airline code.  
+MANDATORY if searching for a flight (.../FlightData/FlightNumber)
+
+Example: AA</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="FlightData" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Searchable Flight Data </xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="Departure">
+								<xsd:complexType>
+									<xsd:sequence>
+										<xsd:element ref="AirportCode"/>
+									</xsd:sequence>
+								</xsd:complexType>
+							</xsd:element>
+							<xsd:element name="Arrival" minOccurs="0">
+								<xsd:complexType>
+									<xsd:sequence>
+										<xsd:element ref="AirportCode"/>
+									</xsd:sequence>
+								</xsd:complexType>
+							</xsd:element>
+							<xsd:element ref="FlightNumber"/>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+				<xsd:element name="OriginDestination" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Search by origin and/or destination - identified either by 2-letter country codes or 3-letter airport/city code</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="Origin">
+								<xsd:annotation>
+									<xsd:documentation>Either the 2 letter country code or the 3-letter city/airport code</xsd:documentation>
+								</xsd:annotation>
+								<xsd:complexType>
+									<xsd:attribute name="Type">
+										<xsd:annotation>
+											<xsd:documentation>Allowed values:
+
+C = Country
+A = Airport/City</xsd:documentation>
+										</xsd:annotation>
+									</xsd:attribute>
+								</xsd:complexType>
+							</xsd:element>
+							<xsd:element name="Destination">
+								<xsd:annotation>
+									<xsd:documentation>Either the 2 letter country code or the 3-letter city/airport code</xsd:documentation>
+								</xsd:annotation>
+								<xsd:complexType>
+									<xsd:attribute name="Type">
+										<xsd:annotation>
+											<xsd:documentation>Allowed values:
+
+C = Country
+A = Airport/City</xsd:documentation>
+										</xsd:annotation>
+									</xsd:attribute>
+								</xsd:complexType>
+							</xsd:element>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+				<xsd:choice>
+					<xsd:annotation>
+						<xsd:documentation>Search parameters for actual travel dates</xsd:documentation>
+					</xsd:annotation>
+					<xsd:element ref="Date" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>(Deprecated) This node is kept for BACKWARDS compatibility.
+
+A date entered here is the equivalent to "TravelDates/StartDate" and no value in "TravelDates/EndDate" - effectively searching for a specific date ONLY
+
+If entered in connection with "Flight Data" this is the mandatory DEPARTURE date</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="TravelDates" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Establishes the start and end date of the query as it relates to the Travel Dates 
+as found in the applicable PNRS
+
+Dates to be entered in ISO 8601 format (yyyy-mm-dd). Example: 2009-12-25</xsd:documentation>
+						</xsd:annotation>
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="StartDate" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>the starting date (ISO format yyyy-mm-dd) of travel. Only PNRs where the departure date of any flight/segment is EQUAL or HIGHER (after) to the date provided here are included in the result set.
+
+If entered in connection with "Flight Data" this is the mandatory DEPARTURE date</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+								<xsd:element name="EndDate" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>the last day of travel (ISO format yyyy-mm-dd). Only PNRs where the departure date of any flight/segment is EQUAL or LOWER (prior) to the date provided here are included in the result set.</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+				</xsd:choice>
+				<xsd:element name="TicketData" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Search parameters for ticket issuance dates as found in: PNRViewRS/PNRIdentification/TicketInfo/TicketNumer/@Date"</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:annotation>
+								<xsd:documentation>Dates to be entered in ISO 8601 format (yyyy-mm-dd). Example: 2010-12-25</xsd:documentation>
+							</xsd:annotation>
+							<xsd:element name="StartDate" minOccurs="0">
+								<xsd:annotation>
+									<xsd:documentation>the earliest date of issuance. Only tickets issued on a date equal or higher (after) than this date will be included.</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+							<xsd:element name="EndDate" minOccurs="0">
+								<xsd:annotation>
+									<xsd:documentation>the last date of issuance. Only tickets issued on a date equal or less (prior) than this date will be included.</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+							<xsd:element name="TicketNumber" minOccurs="0">
+								<xsd:annotation>
+									<xsd:documentation>13-digit ticket number
+
+This searches the PNR database by ticket number as stored in PNRViewRS/PNRIdentification/TicketInfo/TicketNumer</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+						</xsd:sequence>
+						<xsd:attribute name="Status">
+							<xsd:annotation>
+								<xsd:documentation>Allowed values:
+
+"TICKETED"
+"REFUNDED"
+"VOIDED"
+"EXCHANGED" 
+"ALL" (default)</xsd:documentation>
+							</xsd:annotation>
+						</xsd:attribute>
+					</xsd:complexType>
+				</xsd:element>
+				<xsd:element name="PNRCreationData" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Search parameters for PNR  creation parameters as found in: "PNRViewRS/PNRIdentification"</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:sequence minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>Dates to be entered in ISO 8601 format (yyyy-mm-dd). Example: 2010-12-25</xsd:documentation>
+							</xsd:annotation>
+							<xsd:element name="StartDate" minOccurs="0">
+								<xsd:annotation>
+									<xsd:documentation>the earliest date of PNR creation. Only PNRs created on a date equal or higher (after) than this date will be included.</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+							<xsd:element name="EndDate" minOccurs="0">
+								<xsd:annotation>
+									<xsd:documentation>the last date of PNR creation. Only PNRs created on a date equal or lower (prior) than this date will be included.</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+							<xsd:element ref="CreationAgent" minOccurs="0"/>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+				<xsd:element ref="CRS" minOccurs="0"/>
+				<xsd:element ref="OfficeCode" minOccurs="0" maxOccurs="unbounded">
+					<xsd:annotation>
+						<xsd:documentation>PCC codes for all offices included in this search request.  Each PCC listed here must have security clearance granted by the requesting PCC in order to be included</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element ref="IATA" minOccurs="0" maxOccurs="unbounded"/>
+				<xsd:element name="Source" type="xsd:string" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Identifies the source of this  element. In other words where the content oroginates. Not limited to GDS, applicable to direct conect as well. Example: 1A, 1V, or other. </xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+			</xsd:sequence>
+			<xsd:attribute name="version" type="xsd:string" use="optional">
+				<xsd:annotation>
+					<xsd:documentation>Version number.  Example: 1.0</xsd:documentation>
+				</xsd:annotation>
+			</xsd:attribute>
+			<xsd:attribute name="Begin" type="xsd:positiveInteger">
+				<xsd:annotation>
+					<xsd:documentation>Specifies the position of the first PNR in the item list returned, for which a complete PNRViewRS should be automatically returned as part of the NameListRS.
+
+NOTE: This attribute has to occur in conjunction with the End attribute below.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:attribute>
+			<xsd:attribute name="End" type="xsd:positiveInteger">
+				<xsd:annotation>
+					<xsd:documentation>Specifies the position of the last PNR in the item list returned, for which a complete PNRViewRS should be automatically returned as part of the NameListRS.
+
+NOTE: This attribute has to occur in conjunction with the Begin attribute above.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:attribute>
+			<xsd:attribute name="ActiveOnly" default="Y">
+				<xsd:annotation>
+					<xsd:documentation>Specifies whether only active PNRs should be displayed (default value is 'Y' - active PNRs only). </xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:enumeration value="Y"/>
+						<xsd:enumeration value="N"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:attribute>
+			<xsd:attribute name="AdvancedSearch">
+				<xsd:annotation>
+					<xsd:documentation>Identifies this request to be an Advanced PNR Search request.
+
+Allowed values: 
+Y/N (default)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:attribute>
+			<xsd:attribute name="MaxCount">
+				<xsd:annotation>
+					<xsd:documentation>Value provided sets the maximum item count to be returned
+
+Example: 2000</xsd:documentation>
+				</xsd:annotation>
+			</xsd:attribute>
+			<xsd:attribute name="ExtendSearch">
+				<xsd:annotation>
+					<xsd:documentation>apply search to all offices 'PCC' associated to the requesting PCC.
+
+Allowed values: 
+Y/N (default)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:attribute>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="Surname" type="xsd:string">
+		<xsd:annotation>
+			<xsd:documentation>Traveler family (last) name.  Example: SMITH</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="GivenName" type="xsd:string">
+		<xsd:annotation>
+			<xsd:documentation>Traveler given (first) name.  Example: JANE</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="Date">
+		<xsd:annotation>
+			<xsd:documentation>The travel date.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="Day" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>The day of travel in format DD</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element ref="Month">
+					<xsd:annotation>
+						<xsd:documentation>The Month of travel in format MM</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element ref="Year">
+					<xsd:annotation>
+						<xsd:documentation>The year of travel in format YYYY</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="Day">
+		<xsd:simpleType>
+			<xsd:restriction base="xsd:string">
+				<xsd:length value="2"/>
+			</xsd:restriction>
+		</xsd:simpleType>
+	</xsd:element>
+	<xsd:element name="Month">
+		<xsd:simpleType>
+			<xsd:restriction base="xsd:string">
+				<xsd:length value="2"/>
+			</xsd:restriction>
+		</xsd:simpleType>
+	</xsd:element>
+	<xsd:element name="Year">
+		<xsd:simpleType>
+			<xsd:restriction base="xsd:string">
+				<xsd:length value="4"/>
+			</xsd:restriction>
+		</xsd:simpleType>
+	</xsd:element>
+	<xsd:element name="CRS">
+		<xsd:complexType>
+			<xsd:simpleContent>
+				<xsd:extension base="xsd:string">
+					<xsd:attribute ref="Source">
+						<xsd:annotation>
+							<xsd:documentation>Identifies the source of the database to be queried. Example: MI, 1A, AC, or other. </xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:simpleContent>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:attribute name="Source">
+		<xsd:annotation>
+			<xsd:documentation>Identifies the source of this  element. In other words where the content originates from. Not limited to GDS, applicable to direct connect as well. Example: 1A, 1V, or other. </xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleType>
+			<xsd:restriction base="xsd:string">
+				<xsd:minLength value="1"/>
+			</xsd:restriction>
+		</xsd:simpleType>
+	</xsd:attribute>
+	<xsd:element name="OfficeCode" type="xsd:string">
+		<xsd:annotation>
+			<xsd:documentation>PseudoCityCode (PCC).  Example: AAL0</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="FlightNumber">
+		<xsd:annotation>
+			<xsd:documentation>Flight number.  Example: 1881</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:attribute name="Suffix" use="optional">
+				<xsd:annotation>
+					<xsd:documentation>Flight number alpha qualifier.  Values are: 
+A
+B
+C
+D
+Example: A</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:enumeration value="A"/>
+						<xsd:enumeration value="B"/>
+						<xsd:enumeration value="C"/>
+						<xsd:enumeration value="D"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:attribute>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="AirlineCode">
+		<xsd:annotation>
+			<xsd:documentation>Airline code.  Example: AA</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleType>
+			<xsd:restriction base="xsd:string"/>
+		</xsd:simpleType>
+	</xsd:element>
+	<xsd:element name="AirportCode">
+		<xsd:annotation>
+			<xsd:documentation>Airport code.  Example: MIA</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleType>
+			<xsd:restriction base="xsd:string"/>
+		</xsd:simpleType>
+	</xsd:element>
+	<xsd:element name="FFCompanyCode" type="xsd:string">
+		<xsd:annotation>
+			<xsd:documentation>Frequent flyer company code.  Example: AF</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="FFNumber" type="xsd:string">
+		<xsd:annotation>
+			<xsd:documentation>Frequent flyer number.  Example: 0956301007</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="FrequentTravelerGroup">
+		<xsd:annotation>
+			<xsd:documentation>Allows retrieval by Frequent Traveler Number</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="FFCompanyCode"/>
+				<xsd:element ref="FFNumber"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="IATA" type="xsd:string">
+		<xsd:annotation>
+			<xsd:documentation>Agent iata number.  Example: 123456</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="CreationAgent" type="xsd:string">
+		<xsd:annotation>
+			<xsd:documentation>Agent ID.  Example: RI17</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+</xsd:schema>

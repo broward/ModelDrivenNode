@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<xsd:element name="ProfileListRQ">
+		<xsd:annotation>
+			<xsd:documentation>Profile retrieve request root element
+
+This structure allows for the following retrieval options:
+
+(1) Retrieve a Traveler Profile only
+
+(2) Retrieve a Company Profile only
+
+(3) Retrieve both and returns a merged ProfileViewRS
+
+(4) Retrieve a Traveler Profile and merge it with a 'Guest' Company Profile. This option allows e.g. Jim of ABC Corp to travel with Ed from XYZ Corp and both using XYZ Corp profile preferences/data
+
+(5) Request a name list of all travelers associated to a company profile
+
+(6) Request a name list of traveler profiles assigned to a specific travel arranger - either complete list or for specified account(s) 
+
+**** to be discussed ****
+(4) Retrieve Traveler without identifying the associated company but retrieve the company based on the association stroed in traveler profile.
+
+</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="OwnerPcc" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Pseudo city code.  This PCC has ownership of the profile.
+Example: LNJ2</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element ref="ProfileName" minOccurs="0" maxOccurs="unbounded">
+					<xsd:annotation>
+						<xsd:documentation>The profile name(s) of desired traveler and/or company profile.
+
+Example:
+Public/Joe
+
+Note: To request a list of ALL profiles associated to a company profile create a ProfileName node with @Type="C" and a value of an asteriks (*).</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="CustomerRefNumber" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>If provided serves as a filter in the query request</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="AccountNumber" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>If provided serves as a filter in the query request</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="TravelArrangerID" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>If an ID is provided here only profiles containing this travel arranger ID will be returned.
+
+If company profiles are given in "ProfileName" element(s) then only travelers belonging to those accounts and assigned to the arranger's ID will be returned.
+
+If request is to return ALL traveler profiles across all accounts, then the value in "ProfileName" needs to be an asteriks (*)
+
+Using this ID as a filter supports 
+
+(a) a profile list of ALL their assigned travelers
+
+(b) a profile list of travelers assigned to this arranger ID but only for selected accounts - as listed in the 'ProfileName' node(s) </xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="CompanyName" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>If provided serves as a filter in the query request</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+			</xsd:sequence>
+			<xsd:attribute name="ActiveOnly">
+				<xsd:annotation>
+					<xsd:documentation>Allowed Values:
+
+Y/N  (Y = default)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:attribute>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:attribute name="PIN"/>
+	<xsd:element name="ProfileName">
+		<xsd:annotation>
+			<xsd:documentation>The profile name(s) of desired traveler and/or company profile.
+
+Example:
+Public/Joe</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:simpleContent>
+				<xsd:extension base="xsd:string">
+					<xsd:attribute ref="PIN">
+						<xsd:annotation>
+							<xsd:documentation>Security ID to access requested profile. Mostly used on agency portals.
+
+Example: 1234</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+					<xsd:attribute name="Type" type="xsd:string">
+						<xsd:annotation>
+							<xsd:documentation>Type of profile to retrieve.  Values are: 
+
+C = Company profile 
+T = Traveler Profile
+
+If attribute TravelArrangerID in ProfileListRQ is used, then the type can only be "C" (company/account) </xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:simpleContent>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>

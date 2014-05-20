@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<xsd:element name="ProfileDeleteRQ">
+		<xsd:annotation>
+			<xsd:documentation>Root level of profile delete requesr</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="ProfileIndex"/>
+				<xsd:element ref="ReceivedFrom" minOccurs="0"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="ReceivedFrom" type="xsd:string">
+		<xsd:annotation>
+			<xsd:documentation>Free text referencing requestor.  Example: web.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="ProfileIndex">
+		<xsd:annotation>
+			<xsd:documentation>Identifies the profile to be associated</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+</xsd:schema>

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+   <!--
+      User Mod Date Description =========================================================================== MV CR349
+      20070306 Changed: Financing to reference "FinancingABIE" instead of "ApplicationFinancing" MV CR356 20070309
+      Changed: "ApplicationFinance" to a ref, "Decision" to a ref
+   -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:star="http://www.starstandard.org/STAR/5"
+   xmlns:oacl="http://www.openapplications.org/oagis/9/codelists" xmlns:sqdt="http://www.starstandard.org/STAR/5/qualifieddatatypes/1.0"
+   xmlns="http://www.starstandard.org/STAR/5" xmlns:ccts="urn:un:unece:uncefact:documentation:1.1" xmlns:sudt="http://www.starstandard.org/STAR/5/unqualifieddatatypes/1.0"
+   xmlns:scl="http://www.starstandard.org/STAR/5/codelists" targetNamespace="http://www.starstandard.org/STAR/5"
+   elementFormDefault="qualified" attributeFormDefault="unqualified" blockDefault="#all"
+   xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1"
+   xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"   
+>
+   <xsd:annotation>
+      <xsd:documentation source="http://www.starstandard.org/STAR/5"> This schema is made available under an Eclipse Public Licenses 1.0.
+         This license may be found in the STAR/License directory as well as the STAR BOD Guidelines.</xsd:documentation>
+   </xsd:annotation>
+    <xsd:include schemaLocation="../Components/Common/Meta.xsd" />
+   <xsd:import namespace="http://www.starstandard.org/STAR/5/qualifieddatatypes/1.0" schemaLocation="../Components/Common/QualifiedDataTypes.xsd"/>
+   <xsd:import namespace="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" schemaLocation="../Components/OAGIS/CoreComponents/UnqualifiedDataTypes.xsd"/>
+   <xsd:import namespace="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1" schemaLocation="../Components/OAGIS/CoreComponents/QualifiedDataTypes.xsd"/>
+   <xsd:import namespace="http://www.starstandard.org/STAR/5/codelists" schemaLocation="../Components/Common/CodeLists.xsd"/>
+   <xsd:import namespace="http://www.openapplications.org/oagis/9" schemaLocation="../Components/OAGIS/Common/Components.xsd" />
+   <xsd:element name="FinancingApplicationFinancing" type="ApplicationFinancingType">
+      <xsd:annotation>
+         <xsd:documentation xmlns="http://www.starstandards.org/STAR" source="http://www.starstandard.org/STAR/5">represents information on
+            the financing for the vehicle the applicant is interested in.</xsd:documentation>
+         <xsd:documentation source="http://www.starstandard.org/STAR/5">This definition came from the CreditDecisionDetail Component
+         </xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element name="CreditDecision" type="CreditDecisionType">
+      <xsd:annotation>
+         <xsd:documentation source="http://www.starstandard.org/STAR/5">
+	        CreditDecision defines the Credit Decision process for Lenders to 
+	        provide decision information to Dealers for individual consumers applying for vehicle financing. 
+         	For each Credit Decision represented in the DataArea of the CreditDecision BOD, 
+         	there must be one occurrence of the CreditDecision component.
+         </xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element name="CreditDecisionHeader" type="CreditDecisionHeaderType">
+      <xsd:annotation>
+         <xsd:documentation source="http://www.starstandard.org/STAR/5"> For each CreditDecision represented in the DataArea of the Credit
+            Decision BOD, there must be one occurrence of the Header Component.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element name="CreditDecisionDetail" type="CreditDecisionDetailType">
+      <xsd:annotation>
+         <xsd:documentation source="http://www.starstandard.org/STAR/5"> The Detail component represents the detail information of the
+            Credit Decision. One Detail is required for each Header.</xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:complexType name="CreditDecisionType">
+      <xsd:annotation xmlns="http://www.starstandards.org/STAR">
+         <xsd:documentation source="http://www.starstandard.org/STAR/5">STAR Version 5.0 - Draft</xsd:documentation>
+         <xsd:documentation source="http://www.starstandard.org/STAR/5">STAR Version 4.0, STAR approved 04/20/2005; effective date
+            07/04/2005</xsd:documentation>
+         <xsd:documentation source="http://www.starstandard.org/STAR/5">STAR Version 3.0, STAR approved 05/07/2004; effective date
+            07/04/2004</xsd:documentation>
+         <xsd:documentation source="http://www.starstandard.org/STAR/5">STAR Version 2.0 STAR approved 04/09/2003; OAGI approved 3/15/2003;
+            effective date 07/04/2003</xsd:documentation>
+         <xsd:documentation source="http://www.starstandard.org/STAR/5">STAR Version 1.0 STAR approved 01/10/2003; OAGI reviewed
+            11/08/2002; effective date 01/01/2003</xsd:documentation>
+      </xsd:annotation>
+      <xsd:sequence>
+         <xsd:element ref="CreditDecisionHeader" />
+         <xsd:element ref="CreditDecisionDetail" />
+      </xsd:sequence>
+   </xsd:complexType>
+   <xsd:complexType name="CreditDecisionHeaderType">
+      <xsd:annotation xmlns="http://www.starstandards.org/STAR">
+         <xsd:documentation source="http://www.starstandard.org/STAR/5">.</xsd:documentation>
+      </xsd:annotation>
+      <xsd:complexContent>
+         <xsd:extension base="CreditHeaderBaseType">
+            <xsd:sequence>
+               <xsd:element name="ApplicationNumberString" type="qdt:StringType" minOccurs="0" maxOccurs="unbounded">
+                  <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+                     xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1"
+                  >
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5">Manufacturer assigned appilcation number.
+                     </xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="ApplicationSourceCode" type="udt:CodeType" minOccurs="0">
+                  <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"
+                     xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1"
+                  >
+                     <xsd:documentation source="http://www.starstandard.org/STAR/5">Code indicating the source of the application (Branch,
+                        Dealer, etc.)</xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element ref="Privacy" minOccurs="0" maxOccurs="unbounded" />
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+   <xsd:complexType name="CreditDecisionDetailType">
+      <xsd:annotation xmlns="http://www.starstandards.org/STAR">
+         <xsd:documentation source="http://www.starstandard.org/STAR/5">Detail for the credit decision.</xsd:documentation>
+      </xsd:annotation>
+      <xsd:complexContent>
+         <xsd:extension base="CreditDetailBaseType">
+            <xsd:sequence>
+               <xsd:element ref="ApplicationFinance" minOccurs="0" />
+               <xsd:element ref="Decision" />
+            </xsd:sequence>
+         </xsd:extension>
+      </xsd:complexContent>
+   </xsd:complexType>
+</xsd:schema>

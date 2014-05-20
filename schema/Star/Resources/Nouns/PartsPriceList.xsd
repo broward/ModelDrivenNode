@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:star="http://www.starstandard.org/STAR/5"
+   xmlns:oacl="http://www.openapplications.org/oagis/9/codelists" xmlns:sqdt="http://www.starstandard.org/STAR/5/qualifieddatatypes/1.0"
+   xmlns="http://www.starstandard.org/STAR/5" xmlns:ccts="urn:un:unece:uncefact:documentation:1.1" xmlns:sudt="http://www.starstandard.org/STAR/5/unqualifieddatatypes/1.0"
+   xmlns:scl="http://www.starstandard.org/STAR/5/codelists" targetNamespace="http://www.starstandard.org/STAR/5"
+   elementFormDefault="qualified" attributeFormDefault="unqualified" blockDefault="#all"
+   xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1"
+   xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"   
+>
+    <xsd:annotation>
+        <xsd:documentation source="http://www.starstandard.org/STAR/5">
+            This schema is made available under an Eclipse Public Licenses 1.0.  This
+            license may be found in the STAR/License directory as well as the STAR BOD
+            Guidelines.
+        </xsd:documentation>
+    </xsd:annotation>
+    
+    <xsd:include schemaLocation="../Components/Common/Meta.xsd" />
+   <xsd:import namespace="http://www.starstandard.org/STAR/5/qualifieddatatypes/1.0" schemaLocation="../Components/Common/QualifiedDataTypes.xsd"/>
+   <xsd:import namespace="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" schemaLocation="../Components/OAGIS/CoreComponents/UnqualifiedDataTypes.xsd"/>
+   <xsd:import namespace="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1" schemaLocation="../Components/OAGIS/CoreComponents/QualifiedDataTypes.xsd"/>
+   <xsd:import namespace="http://www.starstandard.org/STAR/5/codelists" schemaLocation="../Components/Common/CodeLists.xsd"/>
+   <xsd:import namespace="http://www.openapplications.org/oagis/9" schemaLocation="../Components/OAGIS/Common/Components.xsd" />
+   <xsd:import namespace="http://www.openapplications.org/oagis/9/codelists" schemaLocation="../Components/OAGIS/Common/CodeLists.xsd"/>
+    <xsd:element name="PartsPriceList" type="PartsPriceListType">
+        <xsd:annotation>
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">
+                Parts Price List. Based on OAGIS 9.1 Price List BOD.
+            </xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    <xsd:element name="PartsPriceListHeader" type="PartsPriceListHeaderType">
+        <xsd:annotation>
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">
+                Parts Price List Header
+            </xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    <xsd:element name="PartsPriceListLine" type="PartsPriceListLineType">
+        <xsd:annotation>
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">
+                Parts Price List Line
+            </xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    <xsd:complexType name="PartsPriceListType">
+        <xsd:annotation xmlns="http://www.starstandards.org/STAR">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">
+                The Parts Price List is used to describe price catalgoue information in regards to the parts for a vehicle.
+                This information can be sent in either realtime or batch modes.  It allows the Dealer to obtain the latest
+                pricing information for their system without having to wait for a new paper catalogue to arrive.
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element ref="PartsPriceListHeader" minOccurs="1" maxOccurs="1"/>
+            <xsd:element ref="PartsPriceListLine" minOccurs="1" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="PartsPriceListHeaderType">
+        <xsd:annotation xmlns="http://www.starstandards.org/STAR">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">
+                
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="HeaderBaseType">
+                <xsd:sequence>
+                    <xsd:element name="DefaultCurrencyCode" type="oacl:CurrencyCodeContentType" minOccurs="1" maxOccurs="1">
+                  <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Currency used for
+                transactions</xsd:documentation>
+        </xsd:annotation>
+               </xsd:element>
+                    <xsd:element ref="EffectivePeriod" minOccurs="0" maxOccurs="1"/>
+                    <xsd:element ref="PublisherParty" minOccurs="0" maxOccurs="1"/>
+                    <xsd:element ref="CustomerParty" minOccurs="0" maxOccurs="unbounded"/>
+                    <xsd:element ref="PriceBreak" minOccurs="0" maxOccurs="1"/>
+                    <xsd:element ref="PriceListQualifier" minOccurs="0" maxOccurs="1"/>
+                    <xsd:element ref="SalesProgram" minOccurs="0" maxOccurs="unbounded"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:complexType name="PartsPriceListLineType">
+        <xsd:annotation xmlns="http://www.starstandards.org/STAR">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">
+                Parts Price List Line information.  This may occur 1 to many times.
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element name="LineID" type="udt:IdentifierType" minOccurs="0" maxOccurs="1">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">A unique identifer for a
+                line. i.e A line number.</xsd:documentation>
+        </xsd:annotation>
+         </xsd:element>
+            <xsd:element name="Description" type="udt:TextType" minOccurs="0" maxOccurs="unbounded">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5"/>
+        </xsd:annotation>
+         </xsd:element>
+            <xsd:element ref="Attachment" minOccurs="0" maxOccurs="unbounded"/>
+            <xsd:element ref="PartsProductItem" minOccurs="1" maxOccurs="1"/>
+            <xsd:element ref="PartCoreDetail" minOccurs="0" maxOccurs="unbounded"/>
+            <xsd:element name="PackageQuantity" type="sqdt:QuantityType" minOccurs="0" maxOccurs="1">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Allows the retailer to
+                know the quantity contained in the package.</xsd:documentation>
+        </xsd:annotation>
+         </xsd:element>
+            <xsd:element ref="Dimension" minOccurs="0" maxOccurs="unbounded"/>
+            <xsd:element name="ItemWeightMeasure" type="sqdt:WeightMeasureType" minOccurs="0" maxOccurs="unbounded">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">The weight of an item or
+                part.</xsd:documentation>
+        </xsd:annotation>
+         </xsd:element>
+            <xsd:element name="ClassificationTypeCode" type="udt:CodeType" minOccurs="0" maxOccurs="unbounded">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5"> A classification used
+                for an item. </xsd:documentation>
+        </xsd:annotation>
+         </xsd:element>
+            <xsd:element ref="SupersedingPartGroup" minOccurs="0" maxOccurs="unbounded"/>
+            <xsd:element ref="Price" minOccurs="0" maxOccurs="unbounded"/>
+            <xsd:element ref="PriceBreak" minOccurs="0" maxOccurs="unbounded"/>
+            <xsd:element ref="ChangedPrice" minOccurs="0" maxOccurs="unbounded"/>
+            <xsd:element name="NetDailyPriceAmount" type="udt:AmountType" minOccurs="0" maxOccurs="1">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5"> The net daily price for
+                an item. </xsd:documentation>
+        </xsd:annotation>
+         </xsd:element>
+            <xsd:element name="ProgramID" type="udt:IdentifierType" minOccurs="0" maxOccurs="unbounded">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Program Id Eg.
+            Marketing</xsd:documentation>
+        </xsd:annotation>
+         </xsd:element>
+            <xsd:element name="FleetPriceCappedIndicator" type="udt:IndicatorType" minOccurs="0" maxOccurs="1">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Indicator to control special competitive pricing for fleets.  True is capped.</xsd:documentation>
+        </xsd:annotation>
+         </xsd:element>
+            <xsd:element name="SelectFleetIndicator" type="udt:IndicatorType" minOccurs="0" maxOccurs="1">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">
+                Indicate pricing restriction for Select Fleet customers. True means they can't be changed higher than National Fleet.  False indicates Select Fleet customers will be charged a price no higher than the less competitive Major Fleet price.            
+            </xsd:documentation>
+        </xsd:annotation>
+         </xsd:element>
+            <xsd:element name="MinimumPriceBreakQuantity" type="sqdt:QuantityType" minOccurs="0" maxOccurs="1">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">
+                Contains number of units which must be purchased to achieve this level of pricing.  Unit is determined by enumeration used for PriceBreak (Quantity, Amount, etc.)            
+            </xsd:documentation>
+        </xsd:annotation>
+         </xsd:element>
+            <xsd:element ref="NonDefaultCurrencyPriceGroup" minOccurs="0" maxOccurs="1"/>
+            <xsd:element ref="Tax" minOccurs="0" maxOccurs="unbounded"/>
+            <xsd:element name="DistributionMethodCode" type="sqdt:DistributionMethodCodeType" minOccurs="0" maxOccurs="unbounded">
+            <xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">
+              Indicates how an item may be sent to a buyer.
+            </xsd:documentation>
+        </xsd:annotation>
+         </xsd:element> 
+        </xsd:sequence>
+    </xsd:complexType>
+</xsd:schema>

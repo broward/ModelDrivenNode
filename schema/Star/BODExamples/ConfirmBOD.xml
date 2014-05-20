@@ -1,0 +1,536 @@
+<ns:ConfirmBOD releaseID="string" versionID="string" systemEnvironmentCode="Production" languageCode="en-US" xmlns:ns="http://www.starstandard.org/STAR/5" xmlns:ns1="http://www.openapplications.org/oagis/9">
+  <ns:ApplicationArea>
+    <ns:Sender>
+      <!--Optional:-->
+      <ns:LogicalID schemeID="string" schemeName="string" schemeAgencyID="string" schemeAgencyName="string" schemeVersionID="string" schemeDataURI="http://www.company.org/cum/sonoras" schemeURI="http://www.any.org/ventos/verrantque">string</ns:LogicalID>
+      <!--Optional:-->
+      <ns:ComponentID schemeID="string" schemeName="string" schemeAgencyID="string" schemeAgencyName="string" schemeVersionID="string" schemeDataURI="http://www.sample.org/turbine/circum" schemeURI="http://www.test.com/fremunt/foedere">string</ns:ComponentID>
+      <!--Optional:-->
+      <ns:TaskID schemeID="string" schemeName="string" schemeAgencyID="string" schemeAgencyName="string" schemeVersionID="string" schemeDataURI="http://www.corp.gov/sceptra/et" schemeURI="http://www.my.edu/flammato/speluncis">string</ns:TaskID>
+      <!--Optional:-->
+      <ns:ReferenceID schemeID="string" schemeName="string" schemeAgencyID="string" schemeAgencyName="string" schemeVersionID="string" schemeDataURI="http://www.company.edu/nubibus/flammas" schemeURI="http://www.test.edu/rapidum/ac">string</ns:ReferenceID>
+      <!--Optional:-->
+      <ns:ConfirmationCode>0</ns:ConfirmationCode>
+      <!--Optional:-->
+      <ns:AuthorizationID schemeID="string" schemeName="string" schemeAgencyID="string" schemeAgencyName="string" schemeVersionID="string" schemeDataURI="http://www.sample.com/aris/coniunx" schemeURI="http://www.any.com/claustra/circum">string</ns:AuthorizationID>
+      <ns:CreatorNameCode languageID="string">string</ns:CreatorNameCode>
+      <ns:SenderNameCode listID="string" listAgencyID="string" listAgencyName="string" listName="string" listVersionID="string" name="string" languageID="string" listURI="http://www.any.com/quisquam/et" listSchemeURI="http://www.sample.gov/ac/sed">string</ns:SenderNameCode>
+      <!--Optional:-->
+      <ns:URI>http://www.test.org/pectore/austris</ns:URI>
+      <!--Optional:-->
+      <ns:DealerNumberID schemeID="string" schemeName="string" schemeAgencyID="string" schemeAgencyName="string" schemeVersionID="string" schemeDataURI="http://www.your.gov/certo/dare" schemeURI="http://www.any.com/volutans/dedit">string</ns:DealerNumberID>
+      <!--Optional:-->
+      <ns:StoreNumber languageID="string">string</ns:StoreNumber>
+      <!--Optional:-->
+      <ns:AreaNumber languageID="string">string</ns:AreaNumber>
+      <!--Optional:-->
+      <ns:DealerCountryCode>MT</ns:DealerCountryCode>
+      <!--Optional:-->
+      <ns:LanguageCode>ts-ZA</ns:LanguageCode>
+      <!--Optional:-->
+      <ns:DeliverPendingMailIndicator>true</ns:DeliverPendingMailIndicator>
+      <!--Optional:-->
+      <ns:Password languageID="string">string</ns:Password>
+      <!--Optional:-->
+      <ns:SystemVersion>string</ns:SystemVersion>
+      <!--Optional:-->
+      <ns:PartyID schemeID="string" schemeName="string" schemeAgencyID="string" schemeAgencyName="string" schemeVersionID="string" schemeDataURI="http://www.any.com/annos/infixit" schemeURI="http://www.corp.org/regina/montis">string</ns:PartyID>
+      <!--Optional:-->
+      <ns:LocationID schemeID="string" schemeName="string" schemeAgencyID="string" schemeAgencyName="string" schemeVersionID="string" schemeDataURI="http://www.sample.com/insuper/mollitque" schemeURI="http://www.sample.com/in/soror">string</ns:LocationID>
+      <!--Optional:-->
+      <ns:ServiceID schemeID="string" schemeName="string" schemeAgencyID="string" schemeAgencyName="string" schemeVersionID="string" schemeDataURI="http://www.my.edu/coniunx/adorat" schemeURI="http://www.any.com/frenat/aris">string</ns:ServiceID>
+      <!--Optional:-->
+      <ns:NounCountNumeric>1000.00</ns:NounCountNumeric>
+    </ns:Sender>
+    <ns:CreationDateTime>2017-08-25T23:13:30</ns:CreationDateTime>
+    <!--Optional:-->
+    <ns1:Signature qualifyingAgencyId="string">
+      <!--You may enter ANY elements at this point-->
+      <AnyElement/>
+    </ns1:Signature>
+    <!--Optional:-->
+    <ns:BODID schemeID="string" schemeName="string" schemeAgencyID="string" schemeAgencyName="string" schemeVersionID="string" schemeDataURI="http://www.any.org/insuper/molemque" schemeURI="http://www.company.org/nimborum/circum">string</ns:BODID>
+    <ns:Destination>
+      <!--Optional:-->
+      <ns:DestinationNameCode listID="string" listAgencyID="string" listAgencyName="string" listName="string" listVersionID="string" name="string" languageID="string" listURI="http://www.your.org/flammato/aris" listSchemeURI="http://www.company.org/tenens/incedo">string</ns:DestinationNameCode>
+      <!--Optional:-->
+      <ns:DestinationURI>http://www.test.org/iras/acuto</ns:DestinationURI>
+      <!--Optional:-->
+      <ns:DestinationSoftwareCode languageID="string">string</ns:DestinationSoftwareCode>
+      <!--Optional:-->
+      <ns:DestinationSoftware languageID="string">string</ns:DestinationSoftware>
+      <!--Optional:-->
+      <ns:DealerNumberID schemeID="string" schemeName="string" schemeAgencyID="string" schemeAgencyName="string" schemeVersionID="string" schemeDataURI="http://www.any.edu/austris/dedit" schemeURI="http://www.my.com/atris/imposuit">string</ns:DealerNumberID>
+      <!--Optional:-->
+      <ns:StoreNumber languageID="string">string</ns:StoreNumber>
+      <!--Optional:-->
+      <ns:AreaNumber languageID="string">string</ns:AreaNumber>
+      <!--Optional:-->
+      <ns:DealerTargetCountry>YE</ns:DealerTargetCountry>
+      <!--Optional:-->
+      <ns:PartyReceiverID schemeID="string" schemeName="string" schemeAgencyID="string" schemeAgencyName="string" schemeVersionID="string" schemeDataURI="http://www.test.com/iras/sonoras" schemeURI="http://www.test.com/metuens/montis">string</ns:PartyReceiverID>
+      <!--Optional:-->
+      <ns:LocationReceiverID schemeID="string" schemeName="string" schemeAgencyID="string" schemeAgencyName="string" schemeVersionID="string" schemeDataURI="http://www.your.com/tempestatesque/e" schemeURI="http://www.your.org/vasto/murmure">string</ns:LocationReceiverID>
+      <!--Optional:-->
+      <ns:ServiceMessageID schemeID="string" schemeName="string" schemeAgencyID="string" schemeAgencyName="string" schemeVersionID="string" schemeDataURI="http://www.sample.com/rapidum/rapidi" schemeURI="http://www.your.org/auras/sciret">string</ns:ServiceMessageID>
+    </ns:Destination>
+  </ns:ApplicationArea>
+  <ns:ConfirmBODDataArea>
+    <ns:Confirm>
+      <!--Optional:-->
+      <ns:OriginalApplicationArea>
+        <ns:Sender>
+          <!--Optional:-->
+          <ns:LogicalID schemeID="string" schemeName="string" schemeAgencyID="string" schemeAgencyName="string" schemeVersionID="string" schemeDataURI="http://www.company.org/aequora/ipsa" schemeURI="http://www.your.edu/incedo/imperio">string</ns:LogicalID>
+          <!--Optional:-->
+          <ns:ComponentID schemeID="string" schemeName="string" schemeAgencyID="string" schemeAgencyName="string" schemeVersionID="string" schemeDataURI="http://www.company.gov/ego/ni" schemeURI="http://www.your.edu/ego/corde">string</ns:ComponentID>
+          <!--Optional:-->
+          <ns:TaskID schemeID="string" schemeName="string" schemeAgencyID="string" schemeAgencyName="string" schemeVersionID="string" schemeDataURI="http://www.my.com/molemque/temperat" schemeURI="http://www.corp.gov/nimborum/gero">string</ns:TaskID>
+          <!--Optional:-->
+          <ns:ReferenceID schemeID="string" schemeName="string" schemeAgencyID="string" schemeAgencyName="string" schemeVersionID="string" schemeDataURI="http://www.any.org/aeoliam/premere" schemeURI="http://www.company.com/et/nubibus">string</ns:ReferenceID>
+          <!--Optional:-->
+          <ns:ConfirmationCode>Never</ns:ConfirmationCode>
+          <!--Optional:-->
+          <ns:AuthorizationID schemeID="string" schemeName="string" schemeAgencyID="string" schemeAgencyName="string" schemeVersionID="string" schemeDataURI="http://www.any.org/rates/maria" schemeURI="http://www.sample.org/ipsa/numen">string</ns:AuthorizationID>
+          <ns:CreatorNameCode languageID="string">string</ns:CreatorNameCode>
+          <ns:SenderNameCode listID="string" listAgencyID="string" listAgencyName="string" listName="string" listVersionID="string" name="string" languageID="string" listURI="http://www.your.org/maria/et" listSchemeURI="http://www.test.edu/sciret/ego">string</ns:SenderNameCode>
+          <!--Optional:-->
+          <ns:URI>http://www.sample.org/montis/omnipotens</ns:URI>
+          <!--Optional:-->
+          <ns:DealerNumberID schemeID="string" schemeName="string" schemeAgencyID="string" schemeAgencyName="string" schemeVersionID="string" schemeDataURI="http://www.test.org/premit/talia" schemeURI="http://www.sample.gov/vasto/et">string</ns:DealerNumberID>
+          <!--Optional:-->
+          <ns:StoreNumber languageID="string">string</ns:StoreNumber>
+          <!--Optional:-->
+          <ns:AreaNumber languageID="string">string</ns:AreaNumber>
+          <!--Optional:-->
+          <ns:DealerCountryCode>NF</ns:DealerCountryCode>
+          <!--Optional:-->
+          <ns:LanguageCode>gl-ES</ns:LanguageCode>
+          <!--Optional:-->
+          <ns:DeliverPendingMailIndicator>false</ns:DeliverPendingMailIndicator>
+          <!--Optional:-->
+          <ns:Password languageID="string">string</ns:Password>
+          <!--Optional:-->
+          <ns:SystemVersion>string</ns:SystemVersion>
+          <!--Optional:-->
+          <ns:PartyID schemeID="string" schemeName="string" schemeAgencyID="string" schemeAgencyName="string" schemeVersionID="string" schemeDataURI="http://www.your.gov/dea/luctantis" schemeURI="http://www.my.com/tempestatesque/ac">string</ns:PartyID>
+          <!--Optional:-->
+          <ns:LocationID schemeID="string" schemeName="string" schemeAgencyID="string" schemeAgencyName="string" schemeVersionID="string" schemeDataURI="http://www.test.com/e/ignem" schemeURI="http://www.my.com/vinclis/murmure">string</ns:LocationID>
+          <!--Optional:-->
+          <ns:ServiceID schemeID="string" schemeName="string" schemeAgencyID="string" schemeAgencyName="string" schemeVersionID="string" schemeDataURI="http://www.corp.com/sonoras/rapidi" schemeURI="http://www.sample.com/imperio/premere">string</ns:ServiceID>
+          <!--Optional:-->
+          <ns:NounCountNumeric>1000.00</ns:NounCountNumeric>
+        </ns:Sender>
+        <ns:CreationDateTime>2019-05-21T05:35:46</ns:CreationDateTime>
+        <!--Optional:-->
+        <ns1:Signature qualifyingAgencyId="string">
+          <!--You may enter ANY elements at this point-->
+          <AnyElement/>
+        </ns1:Signature>
+        <!--Optional:-->
+        <ns:BODID schemeID="string" schemeName="string" schemeAgencyID="string" schemeAgencyName="string" schemeVersionID="string" schemeDataURI="http://www.corp.gov/rates/arce" schemeURI="http://www.company.org/indignantes/ventis">string</ns:BODID>
+        <ns:Destination>
+          <!--Optional:-->
+          <ns:DestinationNameCode listID="string" listAgencyID="string" listAgencyName="string" listName="string" listVersionID="string" name="string" languageID="string" listURI="http://www.company.edu/rapidum/secum" listSchemeURI="http://www.company.com/iovisque/magno">string</ns:DestinationNameCode>
+          <!--Optional:-->
+          <ns:DestinationURI>http://www.my.edu/hic/et</ns:DestinationURI>
+          <!--Optional:-->
+          <ns:DestinationSoftwareCode languageID="string">string</ns:DestinationSoftwareCode>
+          <!--Optional:-->
+          <ns:DestinationSoftware languageID="string">string</ns:DestinationSoftware>
+          <!--Optional:-->
+          <ns:DealerNumberID schemeID="string" schemeName="string" schemeAgencyID="string" schemeAgencyName="string" schemeVersionID="string" schemeDataURI="http://www.company.com/altos/rex" schemeURI="http://www.your.com/premit/certo">string</ns:DealerNumberID>
+          <!--Optional:-->
+          <ns:StoreNumber languageID="string">string</ns:StoreNumber>
+          <!--Optional:-->
+          <ns:AreaNumber languageID="string">string</ns:AreaNumber>
+          <!--Optional:-->
+          <ns:DealerTargetCountry>PN</ns:DealerTargetCountry>
+          <!--Optional:-->
+          <ns:PartyReceiverID schemeID="string" schemeName="string" schemeAgencyID="string" schemeAgencyName="string" schemeVersionID="string" schemeDataURI="http://www.company.org/terras/nubibus" schemeURI="http://www.any.com/sonoras/annos">string</ns:PartyReceiverID>
+          <!--Optional:-->
+          <ns:LocationReceiverID schemeID="string" schemeName="string" schemeAgencyID="string" schemeAgencyName="string" schemeVersionID="string" schemeDataURI="http://www.any.com/gente/iovisque" schemeURI="http://www.test.com/quisquam/montis">string</ns:LocationReceiverID>
+          <!--Optional:-->
+          <ns:ServiceMessageID schemeID="string" schemeName="string" schemeAgencyID="string" schemeAgencyName="string" schemeVersionID="string" schemeDataURI="http://www.my.edu/adorat/bella" schemeURI="http://www.my.com/animos/iovis">string</ns:ServiceMessageID>
+        </ns:Destination>
+      </ns:OriginalApplicationArea>
+      <!--Zero or more repetitions:-->
+      <ns1:ResponseCriteria>
+        <!--Optional:-->
+        <ns1:ResponseExpression actionCode="Accepted" expressionLanguage="token">token</ns1:ResponseExpression>
+        <!--Optional:-->
+        <ns1:ChangeStatus>
+          <!--Optional:-->
+          <ns1:Code listID="string" listAgencyID="string" listAgencyName="string" listName="string" listVersionID="string" name="string" languageID="string" listURI="http://www.sample.org/dea/transfixo" listSchemeURI="http://www.my.org/imposuit/una">string</ns1:Code>
+          <!--Optional:-->
+          <ns1:Description languageID="string" type="string">string</ns1:Description>
+          <!--Optional:-->
+          <ns1:EffectiveDateTime>2015-05-26T18:40:10</ns1:EffectiveDateTime>
+          <!--Optional:-->
+          <ns1:ReasonCode listID="string" listAgencyID="string" listAgencyName="string" listName="string" listVersionID="string" name="string" languageID="string" listURI="http://www.sample.com/ac/caelumque" listSchemeURI="http://www.my.org/sceptra/volutans">string</ns1:ReasonCode>
+          <!--Zero or more repetitions:-->
+          <ns1:Reason languageID="string">string</ns1:Reason>
+          <!--Zero or more repetitions:-->
+          <ns1:StateChange>
+            <!--Optional:-->
+            <ns1:FromStateCode listID="string" listAgencyID="string" listAgencyName="string" listName="string" listVersionID="string" name="string" languageID="string" listURI="http://www.sample.com/aut/et" listSchemeURI="http://www.corp.com/iras/arce">string</ns1:FromStateCode>
+            <!--Optional:-->
+            <ns1:ToStateCode listID="string" listAgencyID="string" listAgencyName="string" listName="string" listVersionID="string" name="string" languageID="string" listURI="http://www.corp.com/pater/regina" listSchemeURI="http://www.any.com/scopuloque/sciret">string</ns1:ToStateCode>
+            <!--Optional:-->
+            <ns1:ChangeDateTime>2003-02-11-05:00</ns1:ChangeDateTime>
+            <!--Zero or more repetitions:-->
+            <ns1:Description languageID="string" type="string">string</ns1:Description>
+            <!--Zero or more repetitions:-->
+            <ns1:Note languageID="string" type="string" author="string" entryDateTime="2006-06-17-05:00" status="string">string</ns1:Note>
+          </ns1:StateChange>
+        </ns1:ChangeStatus>
+      </ns1:ResponseCriteria>
+    </ns:Confirm>
+    <!--1 or more repetitions:-->
+    <ns:BOD>
+      <!--Zero or more repetitions:-->
+      <ns1:Description languageID="string" type="string">string</ns1:Description>
+      <!--Zero or more repetitions:-->
+      <ns1:Note languageID="string" type="string" author="string" entryDateTime="2005-07-09" status="string">string</ns1:Note>
+      <!--Optional:-->
+      <ns1:BODFailureMessage>
+        <!--Zero or more repetitions:-->
+        <ns1:ErrorProcessMessage>
+          <!--Optional:-->
+          <ns1:ID schemeID="string" schemeName="string" schemeAgencyID="string" schemeAgencyName="string" schemeVersionID="string" schemeDataURI="http://www.any.com/murmure/claustra" schemeURI="http://www.my.com/tot/quippe">string</ns1:ID>
+          <!--Zero or more repetitions:-->
+          <ns1:Description languageID="string" type="string">string</ns1:Description>
+          <!--Zero or more repetitions:-->
+          <ns1:Note languageID="string" type="string" author="string" entryDateTime="2003-11-17-05:00" status="string">string</ns1:Note>
+          <!--Optional:-->
+          <ns1:Type listID="string" listAgencyID="string" listAgencyName="string" listName="string" listVersionID="string" name="string" languageID="string" listURI="http://www.test.edu/numen/mollitque" listSchemeURI="http://www.any.edu/in/premit">string</ns1:Type>
+          <!--Optional:-->
+          <ns1:ReasonCode listID="string" listAgencyID="string" listAgencyName="string" listName="string" listVersionID="string" name="string" languageID="string" listURI="http://www.your.org/sedet/sonoras" listSchemeURI="http://www.company.com/ventos/ventos">string</ns1:ReasonCode>
+          <!--Optional:-->
+          <ns1:DocumentDateTime>2016-04-09T16:55:00</ns1:DocumentDateTime>
+          <!--Optional:-->
+          <ns1:ApplicationReasonCode listID="string" listAgencyID="string" listAgencyName="string" listName="string" listVersionID="string" name="string" languageID="string" listURI="http://www.your.org/ventos/circum" listSchemeURI="http://www.corp.com/magno/acuto">string</ns1:ApplicationReasonCode>
+          <!--Optional:-->
+          <ns1:ReferencedName languageID="string">string</ns1:ReferencedName>
+          <!--Optional:-->
+          <ns1:ReferencedValue languageID="string">string</ns1:ReferencedValue>
+        </ns1:ErrorProcessMessage>
+        <!--Zero or more repetitions:-->
+        <ns1:WarningProcessMessage>
+          <!--Optional:-->
+          <ns1:ID schemeID="string" schemeName="string" schemeAgencyID="string" schemeAgencyName="string" schemeVersionID="string" schemeDataURI="http://www.my.com/sciret/ac" schemeURI="http://www.corp.edu/aeolus/flammas">string</ns1:ID>
+          <!--Zero or more repetitions:-->
+          <ns1:Description languageID="string" type="string">string</ns1:Description>
+          <!--Zero or more repetitions:-->
+          <ns1:Note languageID="string" type="string" author="string" entryDateTime="13:26:53" status="string">string</ns1:Note>
+          <!--Optional:-->
+          <ns1:Type listID="string" listAgencyID="string" listAgencyName="string" listName="string" listVersionID="string" name="string" languageID="string" listURI="http://www.my.org/dare/vinclis" listSchemeURI="http://www.any.org/aeolus/talia">string</ns1:Type>
+          <!--Optional:-->
+          <ns1:ReasonCode listID="string" listAgencyID="string" listAgencyName="string" listName="string" listVersionID="string" name="string" languageID="string" listURI="http://www.any.org/ventis/ventis" listSchemeURI="http://www.any.com/flammato/claustra">string</ns1:ReasonCode>
+          <!--Optional:-->
+          <ns1:DocumentDateTime>16:53:44</ns1:DocumentDateTime>
+          <!--Optional:-->
+          <ns1:ApplicationReasonCode listID="string" listAgencyID="string" listAgencyName="string" listName="string" listVersionID="string" name="string" languageID="string" listURI="http://www.company.edu/rates/et" listSchemeURI="http://www.my.org/gente/incedo">string</ns1:ApplicationReasonCode>
+          <!--Optional:-->
+          <ns1:ReferencedName languageID="string">string</ns1:ReferencedName>
+          <!--Optional:-->
+          <ns1:ReferencedValue languageID="string">string</ns1:ReferencedValue>
+        </ns1:WarningProcessMessage>
+        <!--Zero or more repetitions:-->
+        <ns1:NounFailureMessage>
+          <!--Zero or more repetitions:-->
+          <ns1:ErrorProcessMessage>
+            <!--Optional:-->
+            <ns1:ID schemeID="string" schemeName="string" schemeAgencyID="string" schemeAgencyName="string" schemeVersionID="string" schemeDataURI="http://www.test.com/patriam/aequora" schemeURI="http://www.your.com/animos/dare">string</ns1:ID>
+            <!--Zero or more repetitions:-->
+            <ns1:Description languageID="string" type="string">string</ns1:Description>
+            <!--Zero or more repetitions:-->
+            <ns1:Note languageID="string" type="string" author="string" entryDateTime="23:43:43-05:00" status="string">string</ns1:Note>
+            <!--Optional:-->
+            <ns1:Type listID="string" listAgencyID="string" listAgencyName="string" listName="string" listVersionID="string" name="string" languageID="string" listURI="http://www.company.org/et/metuens" listSchemeURI="http://www.your.com/verrantque/numen">string</ns1:Type>
+            <!--Optional:-->
+            <ns1:ReasonCode listID="string" listAgencyID="string" listAgencyName="string" listName="string" listVersionID="string" name="string" languageID="string" listURI="http://www.corp.edu/per/disiecitque" listSchemeURI="http://www.company.com/montis/ego">string</ns1:ReasonCode>
+            <!--Optional:-->
+            <ns1:DocumentDateTime>06:54:06-05:00</ns1:DocumentDateTime>
+            <!--Optional:-->
+            <ns1:ApplicationReasonCode listID="string" listAgencyID="string" listAgencyName="string" listName="string" listVersionID="string" name="string" languageID="string" listURI="http://www.company.org/et/et" listSchemeURI="http://www.any.org/iras/sedet">string</ns1:ApplicationReasonCode>
+            <!--Optional:-->
+            <ns1:ReferencedName languageID="string">string</ns1:ReferencedName>
+            <!--Optional:-->
+            <ns1:ReferencedValue languageID="string">string</ns1:ReferencedValue>
+          </ns1:ErrorProcessMessage>
+          <!--Zero or more repetitions:-->
+          <ns1:WarningProcessMessage>
+            <!--Optional:-->
+            <ns1:ID schemeID="string" schemeName="string" schemeAgencyID="string" schemeAgencyName="string" schemeVersionID="string" schemeDataURI="http://www.company.com/tempestatesque/certo" schemeURI="http://www.sample.org/divum/sciret">string</ns1:ID>
+            <!--Zero or more repetitions:-->
+            <ns1:Description languageID="string" type="string">string</ns1:Description>
+            <!--Zero or more repetitions:-->
+            <ns1:Note languageID="string" type="string" author="string" entryDateTime="21:21:30-05:00" status="string">string</ns1:Note>
+            <!--Optional:-->
+            <ns1:Type listID="string" listAgencyID="string" listAgencyName="string" listName="string" listVersionID="string" name="string" languageID="string" listURI="http://www.corp.org/soror/caelumque" listSchemeURI="http://www.sample.gov/imponet/nubibus">string</ns1:Type>
+            <!--Optional:-->
+            <ns1:ReasonCode listID="string" listAgencyID="string" listAgencyName="string" listName="string" listVersionID="string" name="string" languageID="string" listURI="http://www.corp.org/infixit/et" listSchemeURI="http://www.my.org/caelumque/claustra">string</ns1:ReasonCode>
+            <!--Optional:-->
+            <ns1:DocumentDateTime>12:13:48-05:00</ns1:DocumentDateTime>
+            <!--Optional:-->
+            <ns1:ApplicationReasonCode listID="string" listAgencyID="string" listAgencyName="string" listName="string" listVersionID="string" name="string" languageID="string" listURI="http://www.corp.org/laxas/rapidum" listSchemeURI="http://www.any.org/abdidit/laxas">string</ns1:ApplicationReasonCode>
+            <!--Optional:-->
+            <ns1:ReferencedName languageID="string">string</ns1:ReferencedName>
+            <!--Optional:-->
+            <ns1:ReferencedValue languageID="string">string</ns1:ReferencedValue>
+          </ns1:WarningProcessMessage>
+        </ns1:NounFailureMessage>
+        <!--Zero or more repetitions:-->
+        <ns1:NounSuccessMessage>
+          <!--Zero or more repetitions:-->
+          <ns1:ProcessMessage>
+            <!--Optional:-->
+            <ns1:ID schemeID="string" schemeName="string" schemeAgencyID="string" schemeAgencyName="string" schemeVersionID="string" schemeDataURI="http://www.your.com/annos/regina" schemeURI="http://www.my.org/annos/corripuit">string</ns1:ID>
+            <!--Zero or more repetitions:-->
+            <ns1:Description languageID="string" type="string">string</ns1:Description>
+            <!--Zero or more repetitions:-->
+            <ns1:Note languageID="string" type="string" author="string" entryDateTime="2007-05-05T08:13:00" status="string">string</ns1:Note>
+            <!--Optional:-->
+            <ns1:Type listID="string" listAgencyID="string" listAgencyName="string" listName="string" listVersionID="string" name="string" languageID="string" listURI="http://www.company.org/per/montis" listSchemeURI="http://www.my.edu/aeolus/metuens">string</ns1:Type>
+            <!--Optional:-->
+            <ns1:ReasonCode listID="string" listAgencyID="string" listAgencyName="string" listName="string" listVersionID="string" name="string" languageID="string" listURI="http://www.sample.gov/altos/dea" listSchemeURI="http://www.sample.org/iussus/evertitque">string</ns1:ReasonCode>
+            <!--Optional:-->
+            <ns1:DocumentDateTime>20:17:29-05:00</ns1:DocumentDateTime>
+            <!--Optional:-->
+            <ns1:ApplicationReasonCode listID="string" listAgencyID="string" listAgencyName="string" listName="string" listVersionID="string" name="string" languageID="string" listURI="http://www.any.com/imponet/cum" listSchemeURI="http://www.company.org/altos/premere">string</ns1:ApplicationReasonCode>
+            <!--Optional:-->
+            <ns1:ReferencedName languageID="string">string</ns1:ReferencedName>
+            <!--Optional:-->
+            <ns1:ReferencedValue languageID="string">string</ns1:ReferencedValue>
+          </ns1:ProcessMessage>
+          <!--Zero or more repetitions:-->
+          <ns1:WarningProcessMessage>
+            <!--Optional:-->
+            <ns1:ID schemeID="string" schemeName="string" schemeAgencyID="string" schemeAgencyName="string" schemeVersionID="string" schemeDataURI="http://www.company.edu/ni/disiecitque" schemeURI="http://www.corp.com/speluncis/vinclis">string</ns1:ID>
+            <!--Zero or more repetitions:-->
+            <ns1:Description languageID="string" type="string">string</ns1:Description>
+            <!--Zero or more repetitions:-->
+            <ns1:Note languageID="string" type="string" author="string" entryDateTime="2010-10-15T05:54:29-05:00" status="string">string</ns1:Note>
+            <!--Optional:-->
+            <ns1:Type listID="string" listAgencyID="string" listAgencyName="string" listName="string" listVersionID="string" name="string" languageID="string" listURI="http://www.sample.com/flammato/cum" listSchemeURI="http://www.corp.org/ignem/cum">string</ns1:Type>
+            <!--Optional:-->
+            <ns1:ReasonCode listID="string" listAgencyID="string" listAgencyName="string" listName="string" listVersionID="string" name="string" languageID="string" listURI="http://www.my.org/et/aeolus" listSchemeURI="http://www.your.org/feta/feta">string</ns1:ReasonCode>
+            <!--Optional:-->
+            <ns1:DocumentDateTime>2010-08-02T02:34:06-05:00</ns1:DocumentDateTime>
+            <!--Optional:-->
+            <ns1:ApplicationReasonCode listID="string" listAgencyID="string" listAgencyName="string" listName="string" listVersionID="string" name="string" languageID="string" listURI="http://www.corp.gov/fremunt/maria" listSchemeURI="http://www.my.com/aris/corde">string</ns1:ApplicationReasonCode>
+            <!--Optional:-->
+            <ns1:ReferencedName languageID="string">string</ns1:ReferencedName>
+            <!--Optional:-->
+            <ns1:ReferencedValue languageID="string">string</ns1:ReferencedValue>
+          </ns1:WarningProcessMessage>
+        </ns1:NounSuccessMessage>
+      </ns1:BODFailureMessage>
+      <!--Optional:-->
+      <ns1:BODSuccessMessage>
+        <!--Zero or more repetitions:-->
+        <ns1:WarningProcessMessage>
+          <!--Optional:-->
+          <ns1:ID schemeID="string" schemeName="string" schemeAgencyID="string" schemeAgencyName="string" schemeVersionID="string" schemeDataURI="http://www.corp.com/tempestatesque/molemque" schemeURI="http://www.any.org/vasto/atris">string</ns1:ID>
+          <!--Zero or more repetitions:-->
+          <ns1:Description languageID="string" type="string">string</ns1:Description>
+          <!--Zero or more repetitions:-->
+          <ns1:Note languageID="string" type="string" author="string" entryDateTime="23:57:28" status="string">string</ns1:Note>
+          <!--Optional:-->
+          <ns1:Type listID="string" listAgencyID="string" listAgencyName="string" listName="string" listVersionID="string" name="string" languageID="string" listURI="http://www.sample.com/evertitque/aut" listSchemeURI="http://www.your.com/foedere/sedet">string</ns1:Type>
+          <!--Optional:-->
+          <ns1:ReasonCode listID="string" listAgencyID="string" listAgencyName="string" listName="string" listVersionID="string" name="string" languageID="string" listURI="http://www.corp.com/vasto/coniunx" listSchemeURI="http://www.your.org/supplex/circum">string</ns1:ReasonCode>
+          <!--Optional:-->
+          <ns1:DocumentDateTime>10:44:23</ns1:DocumentDateTime>
+          <!--Optional:-->
+          <ns1:ApplicationReasonCode listID="string" listAgencyID="string" listAgencyName="string" listName="string" listVersionID="string" name="string" languageID="string" listURI="http://www.company.com/fremunt/disiecitque" listSchemeURI="http://www.company.com/molemque/ferant">string</ns1:ApplicationReasonCode>
+          <!--Optional:-->
+          <ns1:ReferencedName languageID="string">string</ns1:ReferencedName>
+          <!--Optional:-->
+          <ns1:ReferencedValue languageID="string">string</ns1:ReferencedValue>
+        </ns1:WarningProcessMessage>
+        <!--Zero or more repetitions:-->
+        <ns1:NounSuccessMessage>
+          <!--Zero or more repetitions:-->
+          <ns1:ProcessMessage>
+            <!--Optional:-->
+            <ns1:ID schemeID="string" schemeName="string" schemeAgencyID="string" schemeAgencyName="string" schemeVersionID="string" schemeDataURI="http://www.sample.com/celsa/incedo" schemeURI="http://www.any.org/coniunx/nubibus">string</ns1:ID>
+            <!--Zero or more repetitions:-->
+            <ns1:Description languageID="string" type="string">string</ns1:Description>
+            <!--Zero or more repetitions:-->
+            <ns1:Note languageID="string" type="string" author="string" entryDateTime="2011-10-22-05:00" status="string">string</ns1:Note>
+            <!--Optional:-->
+            <ns1:Type listID="string" listAgencyID="string" listAgencyName="string" listName="string" listVersionID="string" name="string" languageID="string" listURI="http://www.any.gov/atris/feta" listSchemeURI="http://www.my.gov/dare/terras">string</ns1:Type>
+            <!--Optional:-->
+            <ns1:ReasonCode listID="string" listAgencyID="string" listAgencyName="string" listName="string" listVersionID="string" name="string" languageID="string" listURI="http://www.sample.com/ignem/certo" listSchemeURI="http://www.company.com/et/animos">string</ns1:ReasonCode>
+            <!--Optional:-->
+            <ns1:DocumentDateTime>11:02:40</ns1:DocumentDateTime>
+            <!--Optional:-->
+            <ns1:ApplicationReasonCode listID="string" listAgencyID="string" listAgencyName="string" listName="string" listVersionID="string" name="string" languageID="string" listURI="http://www.my.gov/corde/altos" listSchemeURI="http://www.your.com/circum/ferant">string</ns1:ApplicationReasonCode>
+            <!--Optional:-->
+            <ns1:ReferencedName languageID="string">string</ns1:ReferencedName>
+            <!--Optional:-->
+            <ns1:ReferencedValue languageID="string">string</ns1:ReferencedValue>
+          </ns1:ProcessMessage>
+          <!--Zero or more repetitions:-->
+          <ns1:WarningProcessMessage>
+            <!--Optional:-->
+            <ns1:ID schemeID="string" schemeName="string" schemeAgencyID="string" schemeAgencyName="string" schemeVersionID="string" schemeDataURI="http://www.company.org/pectore/dare" schemeURI="http://www.corp.org/secum/ni">string</ns1:ID>
+            <!--Zero or more repetitions:-->
+            <ns1:Description languageID="string" type="string">string</ns1:Description>
+            <!--Zero or more repetitions:-->
+            <ns1:Note languageID="string" type="string" author="string" entryDateTime="2004-03-21T10:28:46" status="string">string</ns1:Note>
+            <!--Optional:-->
+            <ns1:Type listID="string" listAgencyID="string" listAgencyName="string" listName="string" listVersionID="string" name="string" languageID="string" listURI="http://www.company.com/ni/rapidi" listSchemeURI="http://www.corp.org/aeolus/claustra">string</ns1:Type>
+            <!--Optional:-->
+            <ns1:ReasonCode listID="string" listAgencyID="string" listAgencyName="string" listName="string" listVersionID="string" name="string" languageID="string" listURI="http://www.your.org/ac/rapidum" listSchemeURI="http://www.test.edu/sed/sceptra">string</ns1:ReasonCode>
+            <!--Optional:-->
+            <ns1:DocumentDateTime>05:56:10</ns1:DocumentDateTime>
+            <!--Optional:-->
+            <ns1:ApplicationReasonCode listID="string" listAgencyID="string" listAgencyName="string" listName="string" listVersionID="string" name="string" languageID="string" listURI="http://www.test.com/ipsa/supplex" listSchemeURI="http://www.company.com/ipsa/auras">string</ns1:ApplicationReasonCode>
+            <!--Optional:-->
+            <ns1:ReferencedName languageID="string">string</ns1:ReferencedName>
+            <!--Optional:-->
+            <ns1:ReferencedValue languageID="string">string</ns1:ReferencedValue>
+          </ns1:WarningProcessMessage>
+        </ns1:NounSuccessMessage>
+      </ns1:BODSuccessMessage>
+      <!--Optional:-->
+      <ns1:PartialBODFailureMessage>
+        <!--Zero or more repetitions:-->
+        <ns1:ErrorProcessMessage>
+          <!--Optional:-->
+          <ns1:ID schemeID="string" schemeName="string" schemeAgencyID="string" schemeAgencyName="string" schemeVersionID="string" schemeDataURI="http://www.sample.org/auras/indignantes" schemeURI="http://www.your.gov/exspirantem/per">string</ns1:ID>
+          <!--Zero or more repetitions:-->
+          <ns1:Description languageID="string" type="string">string</ns1:Description>
+          <!--Zero or more repetitions:-->
+          <ns1:Note languageID="string" type="string" author="string" entryDateTime="2007-10-26T12:06:39" status="string">string</ns1:Note>
+          <!--Optional:-->
+          <ns1:Type listID="string" listAgencyID="string" listAgencyName="string" listName="string" listVersionID="string" name="string" languageID="string" listURI="http://www.test.org/furentibus/illum" listSchemeURI="http://www.sample.com/claustra/e">string</ns1:Type>
+          <!--Optional:-->
+          <ns1:ReasonCode listID="string" listAgencyID="string" listAgencyName="string" listName="string" listVersionID="string" name="string" languageID="string" listURI="http://www.any.org/habenas/adorat" listSchemeURI="http://www.any.org/premere/incedo">string</ns1:ReasonCode>
+          <!--Optional:-->
+          <ns1:DocumentDateTime>2008-01-16</ns1:DocumentDateTime>
+          <!--Optional:-->
+          <ns1:ApplicationReasonCode listID="string" listAgencyID="string" listAgencyName="string" listName="string" listVersionID="string" name="string" languageID="string" listURI="http://www.corp.org/celsa/pater" listSchemeURI="http://www.any.com/et/sed">string</ns1:ApplicationReasonCode>
+          <!--Optional:-->
+          <ns1:ReferencedName languageID="string">string</ns1:ReferencedName>
+          <!--Optional:-->
+          <ns1:ReferencedValue languageID="string">string</ns1:ReferencedValue>
+        </ns1:ErrorProcessMessage>
+        <!--Zero or more repetitions:-->
+        <ns1:WarningProcessMessage>
+          <!--Optional:-->
+          <ns1:ID schemeID="string" schemeName="string" schemeAgencyID="string" schemeAgencyName="string" schemeVersionID="string" schemeDataURI="http://www.my.org/vasto/montis" schemeURI="http://www.corp.org/e/infixit">string</ns1:ID>
+          <!--Zero or more repetitions:-->
+          <ns1:Description languageID="string" type="string">string</ns1:Description>
+          <!--Zero or more repetitions:-->
+          <ns1:Note languageID="string" type="string" author="string" entryDateTime="04:46:32" status="string">string</ns1:Note>
+          <!--Optional:-->
+          <ns1:Type listID="string" listAgencyID="string" listAgencyName="string" listName="string" listVersionID="string" name="string" languageID="string" listURI="http://www.corp.com/altos/carcere" listSchemeURI="http://www.sample.com/in/molemque">string</ns1:Type>
+          <!--Optional:-->
+          <ns1:ReasonCode listID="string" listAgencyID="string" listAgencyName="string" listName="string" listVersionID="string" name="string" languageID="string" listURI="http://www.company.com/ni/bella" listSchemeURI="http://www.any.com/foedere/et">string</ns1:ReasonCode>
+          <!--Optional:-->
+          <ns1:DocumentDateTime>2014-07-28-05:00</ns1:DocumentDateTime>
+          <!--Optional:-->
+          <ns1:ApplicationReasonCode listID="string" listAgencyID="string" listAgencyName="string" listName="string" listVersionID="string" name="string" languageID="string" listURI="http://www.my.org/infixit/et" listSchemeURI="http://www.my.com/aequora/et">string</ns1:ApplicationReasonCode>
+          <!--Optional:-->
+          <ns1:ReferencedName languageID="string">string</ns1:ReferencedName>
+          <!--Optional:-->
+          <ns1:ReferencedValue languageID="string">string</ns1:ReferencedValue>
+        </ns1:WarningProcessMessage>
+        <!--Zero or more repetitions:-->
+        <ns1:NounFailureMessage>
+          <!--Zero or more repetitions:-->
+          <ns1:ErrorProcessMessage>
+            <!--Optional:-->
+            <ns1:ID schemeID="string" schemeName="string" schemeAgencyID="string" schemeAgencyName="string" schemeVersionID="string" schemeDataURI="http://www.company.com/pater/premit" schemeURI="http://www.any.com/iovis/omnipotens">string</ns1:ID>
+            <!--Zero or more repetitions:-->
+            <ns1:Description languageID="string" type="string">string</ns1:Description>
+            <!--Zero or more repetitions:-->
+            <ns1:Note languageID="string" type="string" author="string" entryDateTime="05:10:27-05:00" status="string">string</ns1:Note>
+            <!--Optional:-->
+            <ns1:Type listID="string" listAgencyID="string" listAgencyName="string" listName="string" listVersionID="string" name="string" languageID="string" listURI="http://www.my.edu/quippe/patriam" listSchemeURI="http://www.any.com/temperat/ac">string</ns1:Type>
+            <!--Optional:-->
+            <ns1:ReasonCode listID="string" listAgencyID="string" listAgencyName="string" listName="string" listVersionID="string" name="string" languageID="string" listURI="http://www.my.org/aequora/bella" listSchemeURI="http://www.my.edu/iovis/rapidi">string</ns1:ReasonCode>
+            <!--Optional:-->
+            <ns1:DocumentDateTime>10:51:59-05:00</ns1:DocumentDateTime>
+            <!--Optional:-->
+            <ns1:ApplicationReasonCode listID="string" listAgencyID="string" listAgencyName="string" listName="string" listVersionID="string" name="string" languageID="string" listURI="http://www.sample.org/turbine/abdidit" listSchemeURI="http://www.any.com/ast/illi">string</ns1:ApplicationReasonCode>
+            <!--Optional:-->
+            <ns1:ReferencedName languageID="string">string</ns1:ReferencedName>
+            <!--Optional:-->
+            <ns1:ReferencedValue languageID="string">string</ns1:ReferencedValue>
+          </ns1:ErrorProcessMessage>
+          <!--Zero or more repetitions:-->
+          <ns1:WarningProcessMessage>
+            <!--Optional:-->
+            <ns1:ID schemeID="string" schemeName="string" schemeAgencyID="string" schemeAgencyName="string" schemeVersionID="string" schemeDataURI="http://www.my.com/annos/rates" schemeURI="http://www.test.org/iunonis/circum">string</ns1:ID>
+            <!--Zero or more repetitions:-->
+            <ns1:Description languageID="string" type="string">string</ns1:Description>
+            <!--Zero or more repetitions:-->
+            <ns1:Note languageID="string" type="string" author="string" entryDateTime="2011-10-07T08:00:33-05:00" status="string">string</ns1:Note>
+            <!--Optional:-->
+            <ns1:Type listID="string" listAgencyID="string" listAgencyName="string" listName="string" listVersionID="string" name="string" languageID="string" listURI="http://www.sample.gov/gente/antro" listSchemeURI="http://www.company.org/pectore/vasto">string</ns1:Type>
+            <!--Optional:-->
+            <ns1:ReasonCode listID="string" listAgencyID="string" listAgencyName="string" listName="string" listVersionID="string" name="string" languageID="string" listURI="http://www.corp.com/talia/circum" listSchemeURI="http://www.any.edu/venit/nubibus">string</ns1:ReasonCode>
+            <!--Optional:-->
+            <ns1:DocumentDateTime>03:43:22</ns1:DocumentDateTime>
+            <!--Optional:-->
+            <ns1:ApplicationReasonCode listID="string" listAgencyID="string" listAgencyName="string" listName="string" listVersionID="string" name="string" languageID="string" listURI="http://www.sample.com/tenens/premit" listSchemeURI="http://www.my.org/et/feta">string</ns1:ApplicationReasonCode>
+            <!--Optional:-->
+            <ns1:ReferencedName languageID="string">string</ns1:ReferencedName>
+            <!--Optional:-->
+            <ns1:ReferencedValue languageID="string">string</ns1:ReferencedValue>
+          </ns1:WarningProcessMessage>
+        </ns1:NounFailureMessage>
+        <!--Zero or more repetitions:-->
+        <ns1:NounSuccessMessage>
+          <!--Zero or more repetitions:-->
+          <ns1:ProcessMessage>
+            <!--Optional:-->
+            <ns1:ID schemeID="string" schemeName="string" schemeAgencyID="string" schemeAgencyName="string" schemeVersionID="string" schemeDataURI="http://www.corp.com/quae/metuens" schemeURI="http://www.company.com/aeoliam/una">string</ns1:ID>
+            <!--Zero or more repetitions:-->
+            <ns1:Description languageID="string" type="string">string</ns1:Description>
+            <!--Zero or more repetitions:-->
+            <ns1:Note languageID="string" type="string" author="string" entryDateTime="04:01:36" status="string">string</ns1:Note>
+            <!--Optional:-->
+            <ns1:Type listID="string" listAgencyID="string" listAgencyName="string" listName="string" listVersionID="string" name="string" languageID="string" listURI="http://www.your.org/transfixo/annos" listSchemeURI="http://www.company.com/nimborum/quisquam">string</ns1:Type>
+            <!--Optional:-->
+            <ns1:ReasonCode listID="string" listAgencyID="string" listAgencyName="string" listName="string" listVersionID="string" name="string" languageID="string" listURI="http://www.any.org/fremunt/premit" listSchemeURI="http://www.your.com/auras/tot">string</ns1:ReasonCode>
+            <!--Optional:-->
+            <ns1:DocumentDateTime>2011-08-07T00:22:57-05:00</ns1:DocumentDateTime>
+            <!--Optional:-->
+            <ns1:ApplicationReasonCode listID="string" listAgencyID="string" listAgencyName="string" listName="string" listVersionID="string" name="string" languageID="string" listURI="http://www.my.com/carcere/infixit" listSchemeURI="http://www.test.edu/gente/ni">string</ns1:ApplicationReasonCode>
+            <!--Optional:-->
+            <ns1:ReferencedName languageID="string">string</ns1:ReferencedName>
+            <!--Optional:-->
+            <ns1:ReferencedValue languageID="string">string</ns1:ReferencedValue>
+          </ns1:ProcessMessage>
+          <!--Zero or more repetitions:-->
+          <ns1:WarningProcessMessage>
+            <!--Optional:-->
+            <ns1:ID schemeID="string" schemeName="string" schemeAgencyID="string" schemeAgencyName="string" schemeVersionID="string" schemeDataURI="http://www.company.com/antro/volutans" schemeURI="http://www.test.com/hoc/hoc">string</ns1:ID>
+            <!--Zero or more repetitions:-->
+            <ns1:Description languageID="string" type="string">string</ns1:Description>
+            <!--Zero or more repetitions:-->
+            <ns1:Note languageID="string" type="string" author="string" entryDateTime="2011-04-22T12:57:39" status="string">string</ns1:Note>
+            <!--Optional:-->
+            <ns1:Type listID="string" listAgencyID="string" listAgencyName="string" listName="string" listVersionID="string" name="string" languageID="string" listURI="http://www.your.org/cum/austris" listSchemeURI="http://www.test.com/iovisque/exspirantem">string</ns1:Type>
+            <!--Optional:-->
+            <ns1:ReasonCode listID="string" listAgencyID="string" listAgencyName="string" listName="string" listVersionID="string" name="string" languageID="string" listURI="http://www.test.org/quippe/aequora" listSchemeURI="http://www.any.com/flammato/sed">string</ns1:ReasonCode>
+            <!--Optional:-->
+            <ns1:DocumentDateTime>2008-07-17</ns1:DocumentDateTime>
+            <!--Optional:-->
+            <ns1:ApplicationReasonCode listID="string" listAgencyID="string" listAgencyName="string" listName="string" listVersionID="string" name="string" languageID="string" listURI="http://www.my.org/iovisque/una" listSchemeURI="http://www.corp.com/iussus/faciat">string</ns1:ApplicationReasonCode>
+            <!--Optional:-->
+            <ns1:ReferencedName languageID="string">string</ns1:ReferencedName>
+            <!--Optional:-->
+            <ns1:ReferencedValue languageID="string">string</ns1:ReferencedValue>
+          </ns1:WarningProcessMessage>
+        </ns1:NounSuccessMessage>
+      </ns1:PartialBODFailureMessage>
+    </ns:BOD>
+  </ns:ConfirmBODDataArea>
+</ns:ConfirmBOD>

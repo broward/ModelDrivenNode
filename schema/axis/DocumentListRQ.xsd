@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:element name="DocumentListRQ">
+		<xsd:annotation>
+			<xsd:documentation>root level of DocumentList message.
+
+Response is an item list if one or more matching tickets are found.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="SearchParameters">
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="Location">
+								<xsd:annotation>
+									<xsd:documentation>Agency IATA ID and PCCs to include in the query</xsd:documentation>
+								</xsd:annotation>
+								<xsd:complexType>
+									<xsd:sequence>
+										<xsd:element name="IATA">
+											<xsd:annotation>
+												<xsd:documentation>Agency IATA ID
+
+Mandatory and highest search level
+
+Example: 10834257</xsd:documentation>
+											</xsd:annotation>
+											<xsd:complexType>
+												<xsd:simpleContent>
+													<xsd:extension base="xsd:string">
+														<xsd:attribute name="AllPCCs">
+															<xsd:annotation>
+																<xsd:documentation>Y = will include all PCCs under specified IATA number to be included in query</xsd:documentation>
+															</xsd:annotation>
+														</xsd:attribute>
+													</xsd:extension>
+												</xsd:simpleContent>
+											</xsd:complexType>
+										</xsd:element>
+										<xsd:element name="PCC" minOccurs="0" maxOccurs="unbounded">
+											<xsd:annotation>
+												<xsd:documentation>List of all PCCs belonging to this IATA ID and to be included in this query</xsd:documentation>
+											</xsd:annotation>
+											<xsd:complexType>
+												<xsd:simpleContent>
+													<xsd:extension base="xsd:string">
+														<xsd:attribute name="AgentID">
+															<xsd:annotation>
+																<xsd:documentation>If entered only the transactions issued by this agent ID will be included</xsd:documentation>
+															</xsd:annotation>
+														</xsd:attribute>
+													</xsd:extension>
+												</xsd:simpleContent>
+											</xsd:complexType>
+										</xsd:element>
+									</xsd:sequence>
+								</xsd:complexType>
+							</xsd:element>
+							<xsd:choice minOccurs="0">
+								<xsd:element name="TravelerName">
+									<xsd:annotation>
+										<xsd:documentation>If included will search for tickets belonging to this particular passenger</xsd:documentation>
+									</xsd:annotation>
+									<xsd:complexType>
+										<xsd:sequence>
+											<xsd:element name="Surname">
+												<xsd:annotation>
+													<xsd:documentation>Traveler family (last) name.
+Example: SMITH</xsd:documentation>
+												</xsd:annotation>
+												<xsd:simpleType>
+													<xsd:restriction base="xsd:string">
+														<xsd:minLength value="1"/>
+													</xsd:restriction>
+												</xsd:simpleType>
+											</xsd:element>
+											<xsd:element name="GivenName">
+												<xsd:annotation>
+													<xsd:documentation>Traveler given (first) name.
+Example: JOHN</xsd:documentation>
+												</xsd:annotation>
+												<xsd:simpleType>
+													<xsd:restriction base="xsd:string">
+														<xsd:minLength value="1"/>
+													</xsd:restriction>
+												</xsd:simpleType>
+											</xsd:element>
+										</xsd:sequence>
+									</xsd:complexType>
+								</xsd:element>
+								<xsd:element ref="FrequentTravelerGroup"/>
+							</xsd:choice>
+							<xsd:element name="Carrier" minOccurs="0">
+								<xsd:annotation>
+									<xsd:documentation>Carrier group identifying the validating carriers for the tickets to be included in the search
+
+The validating carrier(s) here determine the source of the document issuing system, e.g. AA, EK</xsd:documentation>
+								</xsd:annotation>
+								<xsd:complexType>
+									<xsd:sequence>
+										<xsd:element name="ValidatingCarrier" minOccurs="0" maxOccurs="unbounded">
+											<xsd:annotation>
+												<xsd:documentation>Validating carrier code (IATA 2-letter airline code). Example: AA</xsd:documentation>
+											</xsd:annotation>
+											<xsd:simpleType>
+												<xsd:restriction base="xsd:string">
+													<xsd:length value="2"/>
+												</xsd:restriction>
+											</xsd:simpleType>
+										</xsd:element>
+									</xsd:sequence>
+								</xsd:complexType>
+							</xsd:element>
+							<xsd:element name="DocParameters" minOccurs="0">
+								<xsd:annotation>
+									<xsd:documentation>If this parameter is used, status and type must be provided, coupon status is optional</xsd:documentation>
+								</xsd:annotation>
+								<xsd:complexType>
+									<xsd:sequence>
+										<xsd:element name="Type">
+											<xsd:annotation>
+												<xsd:documentation>Allowed values:
+
+TKTT (ETkt)
+Y (EMD-A)
+J (EMD-S)
+M (MCO,VMD)
+</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="DocumentStatus">
+											<xsd:annotation>
+												<xsd:documentation>Values depend on specified type and are currently as follows:
+
+for TKTT (E-Tkt)
+"Ticketed" "TICKETED"
+"Refunded" "REFUNDED"
+"Voided" "VOIDED"
+"Exchanged""EXCHANGED" 
+
+for EMD
+"Issued" "ISSUED"
+"Refunded" "REFUNDED"
+"Voided" "VOIDED"
+"Exchanged""EXCHANGED" 
+</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="IssueDates">
+											<xsd:annotation>
+												<xsd:documentation>Establishes the start and end date of the query as it relates to the "TicketIssueDate" 
+as found in: TicketImage/TicketIdentification/TicketIssueDate
+
+If not provided the search will go back 365 days from current date.</xsd:documentation>
+											</xsd:annotation>
+											<xsd:complexType>
+												<xsd:sequence>
+													<xsd:element name="StartDate">
+														<xsd:annotation>
+															<xsd:documentation>the earliest date of issuance. Only tickets issued on a date equal or higher (after) than this date will be included.</xsd:documentation>
+														</xsd:annotation>
+													</xsd:element>
+													<xsd:element name="EndDate">
+														<xsd:annotation>
+															<xsd:documentation>the last date of issuance. Only tickets issued on a date equal or less (prior) than this date will be included.</xsd:documentation>
+														</xsd:annotation>
+													</xsd:element>
+												</xsd:sequence>
+											</xsd:complexType>
+										</xsd:element>
+										<xsd:element name="FCICode" minOccurs="0">
+											<xsd:annotation>
+												<xsd:documentation>If entered only the transactions carrying the specified FCI code will be included
+
+Allowed values:
+0 = auto priced
+1 = manually priced</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+									</xsd:sequence>
+								</xsd:complexType>
+							</xsd:element>
+							<xsd:element name="CouponParameters" minOccurs="0">
+								<xsd:complexType>
+									<xsd:sequence>
+										<xsd:element name="CouponStatus" minOccurs="0">
+											<xsd:annotation>
+												<xsd:documentation>Sample values are:
+
+O = Open for use
+E = Exchanged/Reissued
+F = Flown/Used
+V = Void
+R = Refunded,
+and others</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="TravelDates" minOccurs="0">
+											<xsd:annotation>
+												<xsd:documentation>Establishes the start and end date of the query as it relates to the Travel Dates 
+as found by looping through all coupons: TicketImage/Itinerary/TicketCoupon/Flight/Departure + Arrival nodes</xsd:documentation>
+											</xsd:annotation>
+											<xsd:complexType>
+												<xsd:sequence>
+													<xsd:element name="StartDate" minOccurs="0">
+														<xsd:annotation>
+															<xsd:documentation>the starting date of travel. Only tickets where the departure date of any coupon is EQUAL or HIGHER (after) to the date provided here are included in the result set.
+
+The date to compare is found by checking 1st coupon of ticket image: TicketImage/Itinerary/TicketCoupon/Flight/Departure/Date</xsd:documentation>
+														</xsd:annotation>
+													</xsd:element>
+													<xsd:element name="EndDate" minOccurs="0">
+														<xsd:annotation>
+															<xsd:documentation>the starting date of travel. Only tickets where the departure date of any coupon is EQUAL or LOWER (prior) to the date provided here are included in the result set.
+
+The date to compare is found by checking 1st coupon of ticket image: TicketImage/Itinerary/TicketCoupon/Flight/Departure/Date</xsd:documentation>
+														</xsd:annotation>
+													</xsd:element>
+												</xsd:sequence>
+											</xsd:complexType>
+										</xsd:element>
+									</xsd:sequence>
+								</xsd:complexType>
+							</xsd:element>
+						</xsd:sequence>
+						<xsd:attribute name="Source" use="required">
+							<xsd:annotation>
+								<xsd:documentation>Airline or GDS hosting the ticket database 
+Example: 1S</xsd:documentation>
+							</xsd:annotation>
+						</xsd:attribute>
+					</xsd:complexType>
+				</xsd:element>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="FrequentTravelerGroup">
+		<xsd:annotation>
+			<xsd:documentation>FrequentTravelerGroup</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="FFCompanyCode"/>
+				<xsd:element ref="FFNumber"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="FFCompanyCode" type="xsd:string">
+		<xsd:annotation>
+			<xsd:documentation>Frequent flyer company code.  Example: AF</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="FFNumber" type="xsd:string">
+		<xsd:annotation>
+			<xsd:documentation>Frequent flyer number.  Example: 0956301007</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+</xsd:schema>

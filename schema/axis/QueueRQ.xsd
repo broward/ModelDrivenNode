@@ -1,0 +1,477 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<xsd:include schemaLocation="CommonTypes.xsd"/>
+	<xsd:element name="QueueRQ">
+		<xsd:annotation>
+			<xsd:documentation>Queue request root element</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:choice>
+				<xsd:element ref="Access" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Access queue group. 
+ENTER QUEUE MODE (Lock session before!)</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element ref="Bounce" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>DEPRECATED
+
+Bounce queue group. Step through queue (must be in queue mode).</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element ref="Count" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Count queue group. 
+IMPORTANT: DO NOT USE IN QUEUE MODE (will result in error message)! </xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element ref="List" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>List group. 
+IMPORTANT: DO NOT USE IN QUEUE MODE (will result in error message)! </xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element ref="Move" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Move queue group. Use to move one or more PNRs from one queue (category) to another.
+
+IMPORTANT: DO NOT USE IN QUEUE MODE (will result in error message)! </xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element ref="Place" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Place queue group. 
+IMPORTANT: DO NOT USE IN QUEUE MODE (will result in error message)! </xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element ref="Remove" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Remove queue group. 
+IMPORTANT: DO NOT USE IN QUEUE MODE (will result in error message)! </xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element ref="Clean" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Removes from a specific queue, PNRs that have past dates or have no itinerarys. 
+IMPORTANT: DO NOT USE IN QUEUE MODE (will result in error message)! </xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element ref="Exit" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Exit queue group. 
+EXIT QUEUE MODE (Release session afterwards!)</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element ref="EndTransaction" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>End transaction (for use in queue mode).</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+			</xsd:choice>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="Move">
+		<xsd:annotation>
+			<xsd:documentation>Move queue group</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="FromQueue"/>
+				<xsd:element ref="ToQueue"/>
+				<xsd:choice minOccurs="0">
+					<xsd:element ref="RecordLocator">
+						<xsd:annotation>
+							<xsd:documentation>Record locator of a PNR to move from one queue to another.
+
+NOTE: Currently only supported for Amadeus!
+
+Example: LNJ20K</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element ref="NumberItems">
+						<xsd:annotation>
+							<xsd:documentation>Number of PNRs (starting from the head of the "from" queue) to be moved. 
+
+If both RecordLocator and NumberItems are left out, the first PNR on the "from" queue will be moved.
+
+Example: 50</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:choice>
+			</xsd:sequence>
+			<xsd:attribute ref="Source"/>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="FromQueue">
+		<xsd:annotation>
+			<xsd:documentation>Move from queue group</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="PseudoCityCode" minOccurs="0"/>
+				<xsd:element ref="QueueCategory" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Queue category.
+
+NOTE: Currently only supported for Amadeus!
+
+Example: 11</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:choice>
+					<xsd:element ref="QueueNumber"/>
+					<xsd:element ref="QueueName"/>
+				</xsd:choice>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="ToQueue">
+		<xsd:annotation>
+			<xsd:documentation>Move to queue group</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="PseudoCityCode" minOccurs="0"/>
+				<xsd:element ref="QueueCategory" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Queue category.
+
+NOTE: Currently only supported for Amadeus!
+
+Example: 11</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:choice>
+					<xsd:element ref="QueueNumber"/>
+					<xsd:element ref="QueueName"/>
+				</xsd:choice>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="NumberItems" type="xsd:positiveInteger">
+		<xsd:annotation>
+			<xsd:documentation>Number of queues to move.  Example: 50</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="List">
+		<xsd:annotation>
+			<xsd:documentation>List group</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="PseudoCityCode" minOccurs="0"/>
+				<xsd:element name="QueueCategory" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Queue category. Example: 7</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:simpleContent>
+							<xsd:extension base="xsd:string">
+								<xsd:attribute name="DateRange" type="xsd:string" use="optional" default="1">
+									<xsd:annotation>
+										<xsd:documentation>Date range identifier for a specific date range defined for this queue category. The format of the identifier is GDS/CRS specific.
+
+Example: 2</xsd:documentation>
+									</xsd:annotation>
+								</xsd:attribute>
+							</xsd:extension>
+						</xsd:simpleContent>
+					</xsd:complexType>
+				</xsd:element>
+				<xsd:element name="AgentID" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Returns only PNRs created by this AgentID.  Possible value: Y</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:choice>
+					<xsd:element ref="QueueNumber"/>
+					<xsd:element ref="QueueName"/>
+				</xsd:choice>
+			</xsd:sequence>
+			<xsd:attribute ref="Source"/>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="PseudoCityCode" type="xsd:string">
+		<xsd:annotation>
+			<xsd:documentation>Agency pseudo city code.  Example: B1TX</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="QueueNumber" type="xsd:string">
+		<xsd:annotation>
+			<xsd:documentation>Queue number.  Example: 5</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="Count">
+		<xsd:annotation>
+			<xsd:documentation>Count queue group</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="PseudoCityCode" minOccurs="0"/>
+				<xsd:element ref="QueueCategory" minOccurs="0"/>
+				<xsd:element name="AgentID" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Returns only PNRs created by this AgentID.  Possible value: Y</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:choice>
+					<xsd:element ref="QueueNumber"/>
+					<xsd:element ref="QueueName"/>
+					<xsd:element name="AllQueues">
+						<xsd:annotation>
+							<xsd:documentation>Retrieve the count of all queues. Possible value: Y
+Example: Y</xsd:documentation>
+						</xsd:annotation>
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:enumeration value="Y"/>
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+				</xsd:choice>
+			</xsd:sequence>
+			<xsd:attribute ref="Source"/>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="Bounce">
+		<xsd:annotation>
+			<xsd:documentation>Bounce queue group</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:choice>
+				<xsd:element ref="ForwardNumber"/>
+				<xsd:element ref="BackwardNumber"/>
+			</xsd:choice>
+			<xsd:attribute name="Action" use="required">
+				<xsd:annotation>
+					<xsd:documentation>Action to follow the bounce backward or forward of pnr while on queue.  Values are:
+I = Ignores pnr, following a backward or forward bounce 
+R = Removes current pnr, following a backward or forward bounce
+E = End transacts a request or change of pnr, following a backward or forward bounce
+
+Example: I </xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1"/>
+						<xsd:maxLength value="1"/>
+						<xsd:enumeration value="I"/>
+						<xsd:enumeration value="R"/>
+						<xsd:enumeration value="E"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:attribute>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="ForwardNumber" type="xsd:string">
+		<xsd:annotation>
+			<xsd:documentation>Allows the capability to move forward a specified number of pnrs or messages while working in a queue.  Example: 7</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="BackwardNumber" type="xsd:string">
+		<xsd:annotation>
+			<xsd:documentation>Allows the capability to move backward a specified number of pnrs or messages while working in a queue.  Example: 10</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="Clean">
+		<xsd:annotation>
+			<xsd:documentation>Removes from a specific queue, pnrs that have past dates or have no itinerarys</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="PseudoCityCode" minOccurs="0"/>
+				<xsd:choice>
+					<xsd:element ref="QueueNumber"/>
+					<xsd:element ref="QueueName"/>
+				</xsd:choice>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="Access">
+		<xsd:annotation>
+			<xsd:documentation>Access queue group</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="PseudoCityCode" minOccurs="0"/>
+				<xsd:element name="QueueCategory" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Queue category. Example: 7</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:simpleContent>
+							<xsd:extension base="xsd:string">
+								<xsd:attribute name="DateRange" type="xsd:string" use="optional" default="1">
+									<xsd:annotation>
+										<xsd:documentation>Date range identifier for a specific date range defined for this queue category. The format of the identifier is GDS/CRS specific.
+
+Example: 2</xsd:documentation>
+									</xsd:annotation>
+								</xsd:attribute>
+							</xsd:extension>
+						</xsd:simpleContent>
+					</xsd:complexType>
+				</xsd:element>
+				<xsd:choice>
+					<xsd:element ref="QueueNumber"/>
+					<xsd:element ref="QueueName"/>
+				</xsd:choice>
+			</xsd:sequence>
+			<xsd:attribute ref="Source"/>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="Exit">
+		<xsd:annotation>
+			<xsd:documentation>Exit queue group</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:attribute name="TransactionType" use="optional">
+				<xsd:annotation>
+					<xsd:documentation>Exit transaction type. Possible values are: 
+E =  Exit and End Transact   
+RN = Exit and Remove from Queue  
+QEP =  Exit and Queue place  
+I = Exit and Ignore
+OFF = Exit  Queue
+
+</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:enumeration value="E"/>
+						<xsd:enumeration value="I"/>
+						<xsd:enumeration value="OFF"/>
+						<xsd:enumeration value="RN"/>
+						<xsd:enumeration value="QEP"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:attribute>
+			<xsd:attribute ref="Source"/>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="Remove">
+		<xsd:annotation>
+			<xsd:documentation>Remove queue group</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="RecordLocator" type="xsd:string" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Record locator of a PNR to be removed from queue. If not present, either the current PNR (if there is one in the AAA) will be removed from the specified queue or all PNRs on this queue.</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element ref="PseudoCityCode" minOccurs="0"/>
+				<xsd:element ref="QueueCategory" minOccurs="0"/>
+				<xsd:choice>
+					<xsd:element ref="QueueNumber"/>
+					<xsd:element ref="QueueName"/>
+				</xsd:choice>
+			</xsd:sequence>
+			<xsd:attribute ref="Source"/>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="Place">
+		<xsd:annotation>
+			<xsd:documentation>Place queue group</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="RecordLocator" minOccurs="0" maxOccurs="unbounded">
+					<xsd:annotation>
+						<xsd:documentation>PNR record locator to place queue.  If multiple then any other values at this level apply to all mapped Record Locators
+
+Example: LNJ20K</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element ref="PseudoCityCode"/>
+				<xsd:element ref="QueueCategory" minOccurs="0"/>
+				<xsd:choice>
+					<xsd:element ref="QueueNumber"/>
+					<xsd:element ref="QueueName"/>
+				</xsd:choice>
+				<xsd:element name="FirstDate" type="Date" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>The first date to include this record locator in a result list.  When this date becomes equal or less than the query date will the record locator be included in the result set.
+
+Example: 2009-10-21</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="PNRActions" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>User instructions and/or alerts.  Note: In case multiple record locators are place simultaneous with this transaction all record locators will be updated with this set of data</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="Comment" minOccurs="0">
+								<xsd:annotation>
+									<xsd:documentation>Any instructions/alerts (entered by user or by robotic tools, such as QC applications)</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+							<xsd:element name="ReasonCode" minOccurs="0">
+								<xsd:annotation>
+									<xsd:documentation>Any structured codes (entered by user or by robotic tools, such as QC applications)</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+							<xsd:element name="ActionCode" minOccurs="0">
+								<xsd:annotation>
+									<xsd:documentation>Any structured codes (entered by user or by robotic tools, such as QC applications)</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+			</xsd:sequence>
+			<xsd:attribute ref="Source"/>
+			<xsd:attribute name="Duplicates">
+				<xsd:annotation>
+					<xsd:documentation>N = no duplicate placement allowed (default)
+Y = allow duplicates</xsd:documentation>
+				</xsd:annotation>
+			</xsd:attribute>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="EndTransaction">
+		<xsd:annotation>
+			<xsd:documentation>End transaction</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:attribute name="TransactionType" use="required">
+				<xsd:annotation>
+					<xsd:documentation>End transact request.  Values are: ER = End transaction and redisplay pnr while on queue IN = Ignore and place pnr back on queue/ displays next pnr on queue RN= End transaction and remove pnr from queue/ displays next pnr on queue
+LN = End transaction and leave pnr on queue/ displays next pnr on queue
+Example: IN</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:length value="2"/>
+						<xsd:enumeration value="ER"/>
+						<xsd:enumeration value="IN"/>
+						<xsd:enumeration value="RN"/>
+						<xsd:enumeration value="LN"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:attribute>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="QueueName" type="xsd:string">
+		<xsd:annotation>
+			<xsd:documentation>Queue name.  Example: Schedule Changes</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="QueueCategory">
+		<xsd:annotation>
+			<xsd:documentation>Queue category.  Example: 11</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:simpleContent>
+				<xsd:extension base="xsd:string"/>
+			</xsd:simpleContent>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="RecordLocator" type="xsd:string">
+		<xsd:annotation>
+			<xsd:documentation>PNR record locator to place queue.  Example: LNJ20K</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+</xsd:schema>

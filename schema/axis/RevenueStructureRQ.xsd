@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:element name="RevenueStructureRQ">
+		<xs:annotation>
+			<xs:documentation>Message used to retrieve revenue structure for a an agency/agent. This structure represents meta information about commissions/mark-ups that can be used also any other additional charges that mey or mey not be applied.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+</xs:schema>

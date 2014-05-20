@@ -1,0 +1,32 @@
+module.exports = function(app, express, models) {
+
+var kue = require('kue'),
+  redis = require('redis');
+
+var client = kue.redis.createClient = function() {
+  var client = redis.createClient(6379, 'nodejitsudb5397498914.redis.irstack.com');
+  client.auth('nodejitsudb5397498914.redis.irstack.com:f327cfe980c971946e80b8e975fbebb4');
+  return client;
+};
+  
+var jobs = kue.createQueue();
+
+jobs.create('email', {
+    title: 'welcome email for tj'
+  , to: 'tj@learnboost.com'
+  , template: 'welcome-email'
+}).save();
+
+
+kue.app.set('title', 'Kue Queues');
+
+// hook kue manager into our base app
+var hostname = 'localhost';
+if (process.env.SUBDOMAIN){
+  hostname = process.env.SUBDOMAIN + '.jit.su';
+}
+app.use(express.vhost(hostname, kue.app))
+console.log('kue loaded on ' + hostname);
+
+return kue;
+};

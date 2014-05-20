@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:star="http://www.starstandard.org/STAR/5"
+   xmlns:oacl="http://www.openapplications.org/oagis/9/codelists" xmlns:sqdt="http://www.starstandard.org/STAR/5/qualifieddatatypes/1.0"
+   xmlns="http://www.starstandard.org/STAR/5" xmlns:ccts="urn:un:unece:uncefact:documentation:1.1" xmlns:sudt="http://www.starstandard.org/STAR/5/unqualifieddatatypes/1.0"
+   xmlns:scl="http://www.starstandard.org/STAR/5/codelists" targetNamespace="http://www.starstandard.org/STAR/5"
+   elementFormDefault="qualified" attributeFormDefault="unqualified" blockDefault="#all"
+   xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1"
+   xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1"   
+>
+    <xsd:annotation>
+        <xsd:documentation source="http://www.starstandard.org/STAR/5">
+            This schema is made available under an Eclipse Public Licenses 1.0.  This
+            license may be found in the STAR/License directory as well as the STAR BOD
+            Guidelines.
+        </xsd:documentation>
+    </xsd:annotation>
+    <xsd:include schemaLocation="../Components/Common/Meta.xsd" />
+   <xsd:import namespace="http://www.starstandard.org/STAR/5/qualifieddatatypes/1.0" schemaLocation="../Components/Common/QualifiedDataTypes.xsd"/>
+   <xsd:import namespace="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" schemaLocation="../Components/OAGIS/CoreComponents/UnqualifiedDataTypes.xsd"/>
+   <xsd:import namespace="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1" schemaLocation="../Components/OAGIS/CoreComponents/QualifiedDataTypes.xsd"/>
+   <xsd:import namespace="http://www.starstandard.org/STAR/5/codelists" schemaLocation="../Components/Common/CodeLists.xsd"/>
+   <xsd:import namespace="http://www.openapplications.org/oagis/9" schemaLocation="../Components/OAGIS/Common/Components.xsd" />
+   <xsd:element name="ServicePlanInformation" type="ServicePlanInformationType">
+        <xsd:annotation>
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">
+                ServicePlanInformation holds the set of service plans 
+                available on a vehicle, including pricing information for each plan, and any 
+                existing active service plan contracts on the vehicle.                  
+            </xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    <xsd:element name="ServicePlanInformationHeader" type="ServicePlanInformationHeaderType">
+        <xsd:annotation>
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">
+                Service Plan Information Header
+            </xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    <xsd:element name="ServicePlanInformationLineItem" type="ServicePlanInformationLineItemType">
+        <xsd:annotation>
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">
+                Service Plan Information Line Item
+            </xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    <xsd:complexType name="ServicePlanInformationType">
+        <xsd:annotation xmlns="http://www.starstandards.org/STAR">
+        	<xsd:documentation></xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element ref="ServicePlanInformationHeader"/>
+            <xsd:element ref="ServicePlanInformationLineItem" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="ServicePlanInformationHeaderType">
+        <xsd:annotation xmlns="http://www.starstandards.org/STAR">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">The information found in the Header component applies to the entire Service Plan Information transaction.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="HeaderBaseType">
+                <xsd:sequence>
+                	<xsd:element ref="SalesPersonParty" minOccurs="0" maxOccurs="unbounded"/>
+                	<xsd:element ref="AcknowledgementStatus" minOccurs="0" maxOccurs="unbounded"/>                	
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:complexType name="ServicePlanInformationLineItemType">
+        <xsd:annotation xmlns="http://www.starstandards.org/STAR">
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Detailed line information related to the Service Plan Information transaction.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+        	<xsd:element ref="Vehicle"/>
+        	<xsd:element name="CommercialUsageIndicator" type="udt:IndicatorType" minOccurs="0">
+        		<xsd:annotation>
+        			<xsd:documentation source="http://www.starstandard.org/STAR/5">
+        				Indicates that the planned use of the vehicle is for commercial purposes.
+        			</xsd:documentation>
+        		</xsd:annotation>
+        	</xsd:element>
+        	<xsd:element ref="SoldServiceContract" minOccurs="0" maxOccurs="unbounded">
+        		<xsd:annotation>
+        			<xsd:documentation source="http://www.starstandard.org/STAR/5">
+        				Service Contracts already sold on the vehicle.
+        			</xsd:documentation>
+        		</xsd:annotation>
+        	</xsd:element>
+        	<xsd:element ref="ServicePlanPricing" minOccurs="0" maxOccurs="unbounded">
+        		<xsd:annotation>
+	        		<xsd:documentation source="http://www.starstandard.org/STAR/5">
+	        			Service Plan and Pricing Information
+	        		</xsd:documentation>
+        		</xsd:annotation>
+        	</xsd:element>
+        	<xsd:element name="OdometerStatus" type="udt:TextType" minOccurs="0" maxOccurs="1">
+            	<xsd:annotation>
+            		<xsd:documentation source="http://www.starstandard.org/STAR/5">
+            			Status of odometer . Example: Replaced, Tampered, Miles over 90,000, etc.
+            		</xsd:documentation>
+        		</xsd:annotation>
+    	    </xsd:element> 
+    	    <xsd:element ref="Warranty" minOccurs="0" maxOccurs="1"/>
+    	    <xsd:element minOccurs="0" name="OriginalInServiceDate" type="udt:DateType">
+				<xsd:annotation>
+                 	<xsd:documentation>
+                    	The date the vehicle went in service.
+					</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element minOccurs="0" name="CoverageEffectiveDate" type="udt:DateType">
+               	<xsd:annotation>
+                   	<xsd:documentation source="http://www.starstandard.org/STAR/5">
+                   		The date the coverage starts.
+                   	</xsd:documentation>
+               	</xsd:annotation>
+            </xsd:element>
+            <xsd:element name="CustomerSignatureDate" minOccurs="0" maxOccurs="1" type="udt:DateType">
+            	<xsd:annotation>
+            		<xsd:documentation source="http://www.starstandard.org/STAR/5">
+                   		The date the contract is signed.
+                   	</xsd:documentation>
+            	</xsd:annotation>
+            </xsd:element>
+			<xsd:element name="PlanCountryCode" type="scl:CountryEnumeratedType" minOccurs="0" maxOccurs="1">
+            	<xsd:annotation xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1" xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1">
+            		<xsd:documentation source="http://www.starstandard.org/STAR/5">
+            			ISO country code indicating where the Plans are/will be sold.
+            		</xsd:documentation>
+        		</xsd:annotation>
+         	</xsd:element>
+            <xsd:element ref="AdditionalDetailDescription" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+    </xsd:complexType>
+</xsd:schema>
+

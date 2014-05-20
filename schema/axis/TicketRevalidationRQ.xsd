@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:include schemaLocation="CommonTicketingTypes.xsd"/>
+	<xsd:element name="TicketRevalidationRQ">
+		<xsd:annotation>
+			<xsd:documentation>Ticket Revalidation Request</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="TicketNumber">
+					<xsd:annotation>
+						<xsd:documentation>The 13-digit ticket number (no check digit) holding the coupon(s) to be validated against flight segment(s) of the PNR. In case of a conjunctive ticket, tis must be the first ticket number of the conjunctive set.
+Example: 1761234567890</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:simpleContent>
+							<xsd:extension base="xsd:long">
+								<xsd:attribute name="ValidatingCarrier" type="xsd:string"/>
+							</xsd:extension>
+						</xsd:simpleContent>
+					</xsd:complexType>
+				</xsd:element>
+				<xsd:element name="RecordLocator">
+					<xsd:annotation>
+						<xsd:documentation>Record locator of the PNR holding the new flight segment to be validated against the coupon of a previously issued ticket.
+Example: R1A3SK</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:simpleContent>
+							<xsd:extension base="xsd:string">
+								<xsd:attribute name="Source">
+									<xsd:annotation>
+										<xsd:documentation>Identifies the source of this  element. In other words where the content originates from. Not limited to GDS, applicable to direct connect as well. Example: 1A, 1V, or other. </xsd:documentation>
+									</xsd:annotation>
+									<xsd:simpleType>
+										<xsd:restriction base="xsd:string">
+											<xsd:minLength value="1"/>
+										</xsd:restriction>
+									</xsd:simpleType>
+								</xsd:attribute>
+								<xsd:attribute name="SourceRef">
+									<xsd:annotation>
+										<xsd:documentation>PNR Record Locator associated to Source attribute.</xsd:documentation>
+									</xsd:annotation>
+									<xsd:simpleType>
+										<xsd:restriction base="xsd:string">
+											<xsd:minLength value="1"/>
+										</xsd:restriction>
+									</xsd:simpleType>
+								</xsd:attribute>
+							</xsd:extension>
+						</xsd:simpleContent>
+					</xsd:complexType>
+				</xsd:element>
+				<xsd:element name="ValidationRequest" maxOccurs="unbounded">
+					<xsd:annotation>
+						<xsd:documentation>A set of data to associate an issued ticket coupon number with a newly booked segment number</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="TicketData">
+								<xsd:annotation>
+									<xsd:documentation>Data of the coupon to be validated. .</xsd:documentation>
+								</xsd:annotation>
+								<xsd:complexType>
+									<xsd:sequence>
+										<xsd:element name="CouponNumber">
+											<xsd:annotation>
+												<xsd:documentation>The number of the coupon to be validated.
+Example: 1</xsd:documentation>
+											</xsd:annotation>
+											<xsd:complexType>
+												<xsd:simpleContent>
+													<xsd:extension base="xsd:int">
+														<xsd:attribute name="NotValidBefore" type="xsd:date" use="optional">
+															<xsd:annotation>
+																<xsd:documentation>If the fare does not permit travel to be commenced or completed before a certain date.</xsd:documentation>
+															</xsd:annotation>
+														</xsd:attribute>
+														<xsd:attribute name="NotValidAfter" type="xsd:date" use="optional">
+															<xsd:annotation>
+																<xsd:documentation>Date by which travel must be commenced/completed.</xsd:documentation>
+															</xsd:annotation>
+														</xsd:attribute>
+														<xsd:attribute name="CouponStatus" use="optional">
+															<xsd:annotation>
+																<xsd:documentation>The IATA coupon status code. Possible values:
+ A  AIRPORT CONTROL  
+ C  CHECKED IN     
+ E   EXCHANGED /  REISSUED 
+ F  FLOWN/USED
+ G  CONVERTED TO FIM 
+ I  IRREGULAR OPERATIONS
+ L  LIFTED/BOARDED  
+ N  COUPON NOTIFICATION
+ O  OPEN FOR USE  
+ P  PRINTED                     
+ R  REFUNDED                 
+ S  SUSPENDED    
+ T  PAPER TICKET              U  UNAVAILABLE
+ V  VOID
+ X  PRINT EXCHANGE
+ Z  CLOSED</xsd:documentation>
+															</xsd:annotation>
+															<xsd:simpleType>
+																<xsd:restriction base="xsd:string">
+																	<xsd:enumeration value="A"/>
+																	<xsd:enumeration value="C"/>
+																	<xsd:enumeration value="E"/>
+																	<xsd:enumeration value="F"/>
+																	<xsd:enumeration value="G"/>
+																	<xsd:enumeration value="I"/>
+																	<xsd:enumeration value="L"/>
+																	<xsd:enumeration value="N"/>
+																	<xsd:enumeration value="O"/>
+																	<xsd:enumeration value="P"/>
+																	<xsd:enumeration value="R"/>
+																	<xsd:enumeration value="S"/>
+																	<xsd:enumeration value="T"/>
+																	<xsd:enumeration value="U"/>
+																	<xsd:enumeration value="V"/>
+																	<xsd:enumeration value="X"/>
+																	<xsd:enumeration value="Z"/>
+																</xsd:restriction>
+															</xsd:simpleType>
+														</xsd:attribute>
+													</xsd:extension>
+												</xsd:simpleContent>
+											</xsd:complexType>
+										</xsd:element>
+										<xsd:element name="CouponDetails" minOccurs="0">
+											<xsd:annotation>
+												<xsd:documentation>Supplementary coupon details if needed by source system in addition to the CouponNumber.</xsd:documentation>
+											</xsd:annotation>
+											<xsd:complexType>
+												<xsd:sequence>
+													<xsd:element ref="Departure"/>
+													<xsd:element ref="Arrival"/>
+													<xsd:element ref="Carrier"/>
+													<xsd:element ref="ClassOfService"/>
+												</xsd:sequence>
+											</xsd:complexType>
+										</xsd:element>
+									</xsd:sequence>
+									<xsd:attribute name="TicketSetNumber" type="xsd:long">
+										<xsd:annotation>
+											<xsd:documentation>In case of a conjunctive ticket set, the last three digits (no check digit) of the actual ticket within the set needs to 
+Example: 890</xsd:documentation>
+										</xsd:annotation>
+									</xsd:attribute>
+								</xsd:complexType>
+							</xsd:element>
+							<xsd:element name="PNRData">
+								<xsd:annotation>
+									<xsd:documentation>Data of the PNR flight segment to be validated.</xsd:documentation>
+								</xsd:annotation>
+								<xsd:complexType>
+									<xsd:sequence>
+										<xsd:element name="SegmentNumber" type="xsd:int">
+											<xsd:annotation>
+												<xsd:documentation>The number of the flight segment to be validated.
+Example: 3</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="SegmentDetails" minOccurs="0">
+											<xsd:annotation>
+												<xsd:documentation>Supplementary coupon details if needed by source system in addition to the CouponNumber.</xsd:documentation>
+											</xsd:annotation>
+											<xsd:complexType>
+												<xsd:sequence>
+													<xsd:element ref="Departure"/>
+													<xsd:element ref="Arrival"/>
+													<xsd:element ref="Carrier"/>
+													<xsd:element ref="ClassOfService"/>
+													<xsd:element name="ActionCode">
+														<xsd:complexType>
+															<xsd:simpleContent>
+																<xsd:extension base="xsd:string">
+																	<xsd:attribute name="Status" use="required">
+																		<xsd:annotation>
+																			<xsd:documentation>Identifies for HK codes if the sell is confirmed (sold in carrier system). Values are:
+K - confirmed
+U - unknown</xsd:documentation>
+																		</xsd:annotation>
+																		<xsd:simpleType>
+																			<xsd:restriction base="xsd:string">
+																				<xsd:length value="1"/>
+																			</xsd:restriction>
+																		</xsd:simpleType>
+																	</xsd:attribute>
+																</xsd:extension>
+															</xsd:simpleContent>
+														</xsd:complexType>
+													</xsd:element>
+												</xsd:sequence>
+											</xsd:complexType>
+										</xsd:element>
+									</xsd:sequence>
+								</xsd:complexType>
+							</xsd:element>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+				<xsd:element name="ChangeFee" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Change Fee Information</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="MCONumber" type="xsd:long">
+								<xsd:annotation>
+									<xsd:documentation>The 13-digit MCO number used to collect any associated change fee.
+Example: 1761234567890</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+							<xsd:element ref="CurrencyCode"/>
+							<xsd:element name="Amount" type="xsd:integer">
+								<xsd:annotation>
+									<xsd:documentation>Amount of Change Fee collected via MCO
+Example: 6500</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+				<xsd:element name="ReasonText" type="xsd:string" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Any additional Freeflow text transmitted to airline.
+Example: "No Change Fee applies" or
+"Fee verified as per Fare Rules""
+</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>

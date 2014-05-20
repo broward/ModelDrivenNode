@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+	<xsd:include schemaLocation="CommonTypes.xsd"/>
+	<xsd:element name="MinimumConnectionTimeRS">
+		<xsd:annotation>
+			<xsd:documentation>Minimum connection time response root element</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="InfoGroup" minOccurs="0"/>
+				<xsd:sequence minOccurs="0">
+					<xsd:element ref="MoreInformation" minOccurs="0"/>
+					<xsd:element ref="CityCode"/>
+					<xsd:element ref="MoreToken" minOccurs="0"/>
+					<xsd:element ref="MinimumConnectInfo" maxOccurs="unbounded"/>
+				</xsd:sequence>
+			</xsd:sequence>
+			<xsd:attribute name="version" type="xsd:string" use="optional">
+				<xsd:annotation>
+					<xsd:documentation>Version number.  Example: 1.0</xsd:documentation>
+				</xsd:annotation>
+			</xsd:attribute>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="MoreInformation">
+		<xsd:annotation>
+			<xsd:documentation>Y or N is returned depending on whether additional screens are available.  Example: Y</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleType>
+			<xsd:restriction base="xsd:string">
+				<xsd:maxLength value="1"/>
+				<xsd:minLength value="1"/>
+				<xsd:enumeration value="Y"/>
+				<xsd:enumeration value="N"/>
+			</xsd:restriction>
+		</xsd:simpleType>
+	</xsd:element>
+	<xsd:element name="CityCode">
+		<xsd:annotation>
+			<xsd:documentation>City code.  Example: NYC</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleType>
+			<xsd:restriction base="xsd:string">
+				<xsd:maxLength value="3"/>
+				<xsd:minLength value="3"/>
+			</xsd:restriction>
+		</xsd:simpleType>
+	</xsd:element>
+	<xsd:element name="MinimumConnectInfo">
+		<xsd:annotation>
+			<xsd:documentation>Minimum connection info group</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="StandardTime" minOccurs="0"/>
+				<xsd:element ref="Exceptions" minOccurs="0"/>
+			</xsd:sequence>
+			<xsd:attribute name="ConnectionType" use="optional">
+				<xsd:annotation>
+					<xsd:documentation>Connection Type.  Values are: DD = Domestic to Domestic, DI = Domestic to International, ID = International to Domestic and II = International to International.  Example: DD</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:enumeration value="DD"/>
+						<xsd:enumeration value="DI"/>
+						<xsd:enumeration value="II"/>
+						<xsd:enumeration value="ID"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:attribute>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="StandardTime" type="xsd:string">
+		<xsd:annotation>
+			<xsd:documentation>The standard minimum connection time for this city code.  Example: 00:55 or 1:00.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="Exceptions">
+		<xsd:annotation>
+			<xsd:documentation>Exceptions group for exceptions to the standard time</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="ExceptionConnectionTime">
+					<xsd:annotation>
+						<xsd:documentation>Exception connection time between two airports of same city.  If no time is returned, NA will display. Does also return additional information from the GDS, like Prohibited or Supressed. 
+Possible values: 
+- SUPPRESSED
+- PROHIBITED
+- any time value
+Example: 3:00</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element ref="Inbound"/>
+				<xsd:element ref="Outbound"/>
+				<xsd:element ref="StartDate" minOccurs="0"/>
+				<xsd:element ref="EndDate" minOccurs="0"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="AirlineCode">
+		<xsd:annotation>
+			<xsd:documentation>Airline code of MCT exception.  If all airline codes are returned, then ALL will be displayed.  Example: AA</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:simpleContent>
+				<xsd:extension base="xsd:string"/>
+			</xsd:simpleContent>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="EndFlightNumberRange" type="xsd:string">
+		<xsd:annotation>
+			<xsd:documentation>Flight number range end of MCT exception.  Example: 9999</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="Inbound">
+		<xsd:annotation>
+			<xsd:documentation>Inbound group</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="AirlineCode"/>
+				<xsd:element name="FlightNumber" type="FlightNumberType" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Flight number - an integer value within the range of [0,9999].
+
+Example: 1234</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element ref="EndFlightNumberRange" minOccurs="0"/>
+				<xsd:element ref="Origin" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Origination of the incoming flight.  Example: LHR</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element ref="ArrivalAirport" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Arrival airport if change of airport in multi airport cities.  Example: JFK</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element ref="Terminal" minOccurs="0"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="Outbound">
+		<xsd:annotation>
+			<xsd:documentation>Outbound group</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="AirlineCode"/>
+				<xsd:element name="FlightNumber" type="FlightNumberType" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Flight number - an integer value within the range of [0,9999].
+
+Example: 1234</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element ref="EndFlightNumberRange" minOccurs="0"/>
+				<xsd:element ref="Terminal" minOccurs="0"/>
+				<xsd:element ref="DepartureAirport" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Departure airport if a change of airport in multi airport cities. 
+Example: LGA</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="ExceptionConnectionTime">
+		<xsd:annotation>
+			<xsd:documentation>Exception connection time between two airports of same city.  If no time is returned, NA will display.  Example: 3:00</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:simpleContent>
+				<xsd:extension base="xsd:string">
+					<xsd:attribute name="TravelType" type="xsd:string" use="optional">
+						<xsd:annotation>
+							<xsd:documentation>Type of travel between two airports of same city.  Example: Ground</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:simpleContent>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="StartDate" type="Date">
+		<xsd:annotation>
+			<xsd:documentation>Date in ISO 8601 format (yyyy-mm-dd).  Example: 2002-12-25</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="EndDate" type="Date">
+		<xsd:annotation>
+			<xsd:documentation>Date in ISO 8601 format (yyyy-mm-dd).  Example: 2002-12-25</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="Origin" type="xsd:string">
+		<xsd:annotation>
+			<xsd:documentation>Origination.  Example: MCT</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="ArrivalAirport" type="xsd:string">
+		<xsd:annotation>
+			<xsd:documentation>Arrival airport.  Example: JFK</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="Terminal" type="xsd:string">
+		<xsd:annotation>
+			<xsd:documentation>Terminal.  Example: T1</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="DepartureAirport" type="xsd:string">
+		<xsd:annotation>
+			<xsd:documentation>Departure airport.  Example: MIA</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="MoreToken" type="xsd:string">
+		<xsd:annotation>
+			<xsd:documentation>Indicates if more token information is available.  Values are: Y = Yes, N = No.  Example: Y </xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+</xsd:schema>

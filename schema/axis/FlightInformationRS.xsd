@@ -1,0 +1,713 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<xsd:include schemaLocation="CommonTypes.xsd"/>
+	<xsd:element name="FlightInformationRS">
+		<xsd:annotation>
+			<xsd:documentation>Flight information response root element</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="InfoGroup" minOccurs="0"/>
+				<xsd:sequence minOccurs="0">
+					<xsd:element ref="Flight"/>
+					<xsd:element ref="CityGroup" maxOccurs="unbounded"/>
+				</xsd:sequence>
+			</xsd:sequence>
+			<xsd:attribute name="version" type="xsd:string" use="optional">
+				<xsd:annotation>
+					<xsd:documentation>Version number.  Example: 1.0</xsd:documentation>
+				</xsd:annotation>
+			</xsd:attribute>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="AirlineCode">
+		<xsd:annotation>
+			<xsd:documentation>Airline code.  Example: AA</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleType>
+			<xsd:restriction base="xsd:string">
+				<xsd:minLength value="2"/>
+				<xsd:maxLength value="2"/>
+			</xsd:restriction>
+		</xsd:simpleType>
+	</xsd:element>
+	<xsd:element name="Date" type="xsd:date">
+		<xsd:annotation>
+			<xsd:documentation>Date in ISO 8601 format (yyyy-mm-dd).  Example: 2002-02-22</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="Time">
+		<xsd:annotation>
+			<xsd:documentation>Time in ISO 8601 format (hh:mm).  Example: 14:30 </xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleType>
+			<xsd:restriction base="xsd:string">
+				<xsd:pattern value="([0-1][0-9]|2[0-4]):[0-5][0-9]">
+					<xsd:annotation>
+						<xsd:documentation>
+</xsd:documentation>
+					</xsd:annotation>
+				</xsd:pattern>
+			</xsd:restriction>
+		</xsd:simpleType>
+	</xsd:element>
+	<xsd:element name="CityInfo">
+		<xsd:annotation>
+			<xsd:documentation>City information group</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="FromCity" minOccurs="0"/>
+				<xsd:element ref="ToCity" minOccurs="0"/>
+				<xsd:element ref="Text" minOccurs="0" maxOccurs="unbounded"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="CityGroup">
+		<xsd:annotation>
+			<xsd:documentation>City group</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="AirportCode"/>
+				<xsd:element ref="AirportName" minOccurs="0"/>
+				<xsd:element ref="EquipmentCode" minOccurs="0"/>
+				<xsd:element ref="EquipmentName" minOccurs="0"/>
+				<xsd:element ref="ElectronicTicketing" minOccurs="0"/>
+				<xsd:element ref="ScheduledDeparture" minOccurs="0"/>
+				<xsd:element ref="ScheduledArrival" minOccurs="0"/>
+				<xsd:element ref="OnTimeInfo" minOccurs="0"/>
+				<xsd:element ref="TrafficRestrictions" minOccurs="0"/>
+				<xsd:element ref="RealTimeInfo" minOccurs="0" maxOccurs="unbounded"/>
+				<xsd:element ref="Meals" minOccurs="0" maxOccurs="unbounded"/>
+				<xsd:element name="LegMiles" type="xsd:string" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Number of miles for segment.  Example: 2143</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element ref="CityInfo" minOccurs="0" maxOccurs="unbounded"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="Meals">
+		<xsd:annotation>
+			<xsd:documentation>Indicates what types of meals are served.  Meal codes are IATA standard.  Codes can be any combination of following codes. Values are:
+B = Breakfast
+K = Continental breakfast
+V = Continental breakfast
+L = Lunch
+D = Dinner
+S = Snack or brunch
+O = Cold meal
+H = Hot meal
+M = Meal (non-specific)
+R = Refreshment
+C = Alcoholic beverages complimentary
+F = Food for purchase
+P = Alcoholic beverages for purchase
+Y = Duty free sales available
+G = Light lunch
+Example: B</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:simpleContent>
+				<xsd:extension base="xsd:string">
+					<xsd:attribute name="Cabin">
+						<xsd:annotation>
+							<xsd:documentation>Cabin.  F = First, C = Business, Y = Economy</xsd:documentation>
+						</xsd:annotation>
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:enumeration value="F"/>
+								<xsd:enumeration value="C"/>
+								<xsd:enumeration value="Y"/>
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:attribute>
+					<xsd:attribute name="ClassOfService">
+						<xsd:annotation>
+							<xsd:documentation>Booking class of service.  Example: F</xsd:documentation>
+						</xsd:annotation>
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:minLength value="1"/>
+								<xsd:maxLength value="1"/>
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:simpleContent>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="Flight">
+		<xsd:annotation>
+			<xsd:documentation>Flight group</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="DateOfService" minOccurs="0"/>
+				<xsd:element ref="AirlineCode"/>
+				<xsd:element ref="AirlineName" minOccurs="0"/>
+				<xsd:element ref="FlightNumber"/>
+				<xsd:element ref="CodeSharing" minOccurs="0" maxOccurs="unbounded">
+					<xsd:annotation>
+						<xsd:documentation>Code sharing group
+
+Note: this will list all code share flights provided by OAG.  Any Operating Carrier data must be mapped to the new node "Operating Carrier",  introduced 03Feb2011</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="OperatingCarrier" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Operating carrier group</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element ref="AirlineCode"/>
+							<xsd:element ref="AirlineName"/>
+							<xsd:element ref="FlightNumber"/>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+				<xsd:element name="CheckIn" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Check In information. Usually associated with code  share flights where operating carrier is different from marketing carrier. The this group displays information where passengers should check-in.</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element ref="AirlineCode" minOccurs="0"/>
+							<xsd:element ref="AirlineName" minOccurs="0"/>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+				<xsd:element name="AircraftOwner" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Owner of the physical operating aircraft</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element ref="AirlineCode" minOccurs="0"/>
+							<xsd:element ref="AirlineName" minOccurs="0"/>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+				<xsd:element name="OperationalLeg" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Carrier operating the identified leg</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element ref="AirlineCode" minOccurs="0"/>
+							<xsd:element ref="AirlineName" minOccurs="0"/>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+				<xsd:element ref="Date"/>
+				<xsd:element ref="GlobalIndicator" minOccurs="0"/>
+				<xsd:element ref="NumberOfStops" minOccurs="0"/>
+				<xsd:element ref="Frequency" minOccurs="0"/>
+				<xsd:element ref="Smoking" minOccurs="0"/>
+				<xsd:element ref="MessageText" minOccurs="0" maxOccurs="unbounded"/>
+			</xsd:sequence>
+			<xsd:attribute name="SecureFlight" use="optional">
+				<xsd:annotation>
+					<xsd:documentation>Indicates if Secure Flight data is required for this flight.  
+Values:
+Y = Secure flight data must be provided
+N = (Default) flight does not require Secure Flight data</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:enumeration value="Y"/>
+						<xsd:enumeration value="N"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:attribute>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="AirlineName" type="xsd:string">
+		<xsd:annotation>
+			<xsd:documentation>Airline name.  Example: American Airlines</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="ScheduledDeparture">
+		<xsd:annotation>
+			<xsd:documentation>Scheduled departure group</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="Time" minOccurs="0"/>
+				<xsd:element ref="UTCOffset" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>The time difference between listed departure time at Point of Departure and GMT (Greenwhich Mean Time) in ISO 8601 format (hh:mm).  Example: 04:00 </xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element ref="Date" minOccurs="0"/>
+				<xsd:element ref="Gate" minOccurs="0"/>
+				<xsd:element ref="Terminal" minOccurs="0"/>
+				<xsd:element name="FlightDuration" type="TimeDurationHoursMinutes" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Segment total flying time in hours and minutes (HH:MM).
+Example: 12:30</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="ScheduledArrival">
+		<xsd:annotation>
+			<xsd:documentation>Scheduled arrival group</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="Time" minOccurs="0"/>
+				<xsd:element ref="UTCOffset" minOccurs="0"/>
+				<xsd:element ref="Date" minOccurs="0"/>
+				<xsd:element ref="ChangeOfDay" minOccurs="0" maxOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>DEPRECATED: Will no longer be returned in future since it is redundant. A change of day can be clearly seen in the Date values.
+
+Change of day information.  Example: +1</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element ref="Gate" minOccurs="0"/>
+				<xsd:element ref="Terminal" minOccurs="0"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="RealTimeInfo">
+		<xsd:annotation>
+			<xsd:documentation>Real time information group</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="Time"/>
+				<xsd:element name="TimeVariance" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>The TimeVariance is the difference between the Time reported by the RealTimeInfo element and the respective scheduled time in hours and minutes (HH:MM).
+Example: 00:10</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:simpleContent>
+							<xsd:extension base="TimeDurationHoursMinutes">
+								<xsd:attribute name="Indicator" use="required">
+									<xsd:annotation>
+										<xsd:documentation>Time variance indicator.  Values are:
+E = Early
+L = Late
+Example: E</xsd:documentation>
+									</xsd:annotation>
+									<xsd:simpleType>
+										<xsd:restriction base="xsd:string">
+											<xsd:minLength value="1"/>
+											<xsd:maxLength value="1"/>
+											<xsd:enumeration value="E"/>
+											<xsd:enumeration value="L"/>
+										</xsd:restriction>
+									</xsd:simpleType>
+								</xsd:attribute>
+							</xsd:extension>
+						</xsd:simpleContent>
+					</xsd:complexType>
+				</xsd:element>
+				<xsd:element ref="Text" minOccurs="0" maxOccurs="unbounded"/>
+			</xsd:sequence>
+			<xsd:attribute name="Qualifier" use="required">
+				<xsd:annotation>
+					<xsd:documentation>Time qualifier.  Values are:
+AD = Actual departure
+AA = Actual arrival
+ED = Estimated departure
+EA = Estimated arrival
+GD = Gate departure
+GA = Gate arrival
+RF = Runway off
+RN = Runway on
+DX = Departure canceled
+LX = Landing canceled
+DV = Diversion 
+Example: AD</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="2"/>
+						<xsd:maxLength value="2"/>
+						<xsd:enumeration value="AD"/>
+						<xsd:enumeration value="AA"/>
+						<xsd:enumeration value="ED"/>
+						<xsd:enumeration value="EA"/>
+						<xsd:enumeration value="GD"/>
+						<xsd:enumeration value="GA"/>
+						<xsd:enumeration value="RF"/>
+						<xsd:enumeration value="RN"/>
+						<xsd:enumeration value="DX"/>
+						<xsd:enumeration value="LX"/>
+						<xsd:enumeration value="DV"/>
+						<xsd:enumeration value="WH"/>
+						<xsd:enumeration value="EH"/>
+						<xsd:enumeration value="PA"/>
+						<xsd:enumeration value="AT"/>
+						<xsd:enumeration value="AP"/>
+						<xsd:enumeration value="TS"/>
+						<xsd:enumeration value="PO"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:attribute>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="AirportCode">
+		<xsd:annotation>
+			<xsd:documentation>Airport code.  Example: MIA</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:simpleContent>
+				<xsd:extension base="xsd:string">
+					<xsd:attribute name="Type" use="required">
+						<xsd:annotation>
+							<xsd:documentation>Indicates type of airport information.  Values are:
+D = Departure
+A = Arrival
+(If an airport is both departure and arrival point, it is marked with D.)
+ 
+Example: D</xsd:documentation>
+						</xsd:annotation>
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:minLength value="1"/>
+								<xsd:maxLength value="1"/>
+								<xsd:enumeration value="D"/>
+								<xsd:enumeration value="A"/>
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:simpleContent>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="AirportName" type="xsd:string">
+		<xsd:annotation>
+			<xsd:documentation>Airport name.  Example: JFK International Airport</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="Terminal" type="xsd:string">
+		<xsd:annotation>
+			<xsd:documentation>Airport terminal.  Example: 2B</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="EquipmentCode">
+		<xsd:annotation>
+			<xsd:documentation>Equipment code.  Example: 744</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleType>
+			<xsd:restriction base="xsd:string">
+				<xsd:minLength value="3"/>
+				<xsd:maxLength value="3"/>
+			</xsd:restriction>
+		</xsd:simpleType>
+	</xsd:element>
+	<xsd:element name="NumberOfStops">
+		<xsd:annotation>
+			<xsd:documentation>Number of stops.  Example: 1</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleType>
+			<xsd:restriction base="xsd:integer">
+				<xsd:minInclusive value="0"/>
+				<xsd:maxInclusive value="9"/>
+			</xsd:restriction>
+		</xsd:simpleType>
+	</xsd:element>
+	<xsd:element name="EquipmentName" type="xsd:string">
+		<xsd:annotation>
+			<xsd:documentation>Equipment name.  Example: Boeing 747-400 series</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="FlightDuration">
+		<xsd:annotation>
+			<xsd:documentation>Segment Total Flying Time.  Example: 12:30</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleType>
+			<xsd:restriction base="xsd:string">
+				<xsd:pattern value="[0-9][0-9]:[0-5][0-9]">
+					<xsd:annotation>
+						<xsd:documentation>
+</xsd:documentation>
+					</xsd:annotation>
+				</xsd:pattern>
+			</xsd:restriction>
+		</xsd:simpleType>
+	</xsd:element>
+	<xsd:element name="FromCity">
+		<xsd:annotation>
+			<xsd:documentation>From city code.  Example: MIA</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleType>
+			<xsd:restriction base="xsd:string">
+				<xsd:minLength value="3"/>
+				<xsd:maxLength value="3"/>
+			</xsd:restriction>
+		</xsd:simpleType>
+	</xsd:element>
+	<xsd:element name="ElectronicTicketing">
+		<xsd:annotation>
+			<xsd:documentation>Electronic ticketing indicator.  Values are:
+Y = eticket can be issued
+N = no eticket possible
+Example: Y</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleType>
+			<xsd:restriction base="xsd:string">
+				<xsd:minLength value="1"/>
+				<xsd:maxLength value="1"/>
+				<xsd:enumeration value="Y"/>
+				<xsd:enumeration value="N"/>
+			</xsd:restriction>
+		</xsd:simpleType>
+	</xsd:element>
+	<xsd:element name="MessageText" type="xsd:string">
+		<xsd:annotation>
+			<xsd:documentation>Flight information free flow text that applies for the whole flight. Example: Non smoking flight.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="ToCity" type="xsd:string">
+		<xsd:annotation>
+			<xsd:documentation>To city code.  Example: DFW</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="Gate" type="xsd:string">
+		<xsd:annotation>
+			<xsd:documentation>Arrival or departure gate information.  Example: B14</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="CodeSharing">
+		<xsd:annotation>
+			<xsd:documentation>Code sharing group</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="AirlineCode" minOccurs="0"/>
+				<xsd:element ref="AirlineName" minOccurs="0"/>
+				<xsd:element ref="FlightNumber" minOccurs="0"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="ChangeOfDay" type="xsd:string">
+		<xsd:annotation>
+			<xsd:documentation>Change of day information.  Example: +1</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="Smoking">
+		<xsd:annotation>
+			<xsd:documentation>Smoking information.  Values are: 
+Y = Yes 
+N = No
+Example: Y</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleType>
+			<xsd:restriction base="xsd:string">
+				<xsd:minLength value="1"/>
+				<xsd:maxLength value="1"/>
+				<xsd:enumeration value="Y"/>
+				<xsd:enumeration value="N"/>
+			</xsd:restriction>
+		</xsd:simpleType>
+	</xsd:element>
+	<xsd:element name="DateOfService">
+		<xsd:annotation>
+			<xsd:documentation>Date range for which the flight operates</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="EffectiveDate" type="xsd:date">
+					<xsd:annotation>
+						<xsd:documentation>Effective date in ISO 8601 format (yyyy-mm-dd).  Example: 2002-05-28</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="DiscontinuationDate" type="xsd:date">
+					<xsd:annotation>
+						<xsd:documentation>Discontinuation date in ISO 8601 format (yyyy-mm-dd).  Example: 2002-10-01</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="Frequency" type="xsd:string">
+		<xsd:annotation>
+			<xsd:documentation>This indicates which days of the week the flight operates on.  Values are:
+1 = Monday
+2 = Tuesday
+3 = Wednesday
+4 = Thursday
+5 = Friday
+6 = Saturday
+7 = Sunday
+Example: 1257</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="OnTimeInfo">
+		<xsd:annotation>
+			<xsd:documentation>Indicates the on time performance.  Valid values are:
+9 = 90-100 percent
+8 = 80-89 percent
+7 = 70-79 percent
+6 = 60-69 percent
+5 = 50-59 percent
+4 = 40-49 percent
+3 = 30-39 percent
+2 = 20-29 percent
+1 = 10-19 percent
+0 = Less than 10 percent
+N = New flight - no performance
+U = No flight data available
+X = International or city where reporting is not required.
+Example: 8</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleType>
+			<xsd:restriction base="xsd:string">
+				<xsd:minLength value="1"/>
+				<xsd:maxLength value="1"/>
+				<xsd:enumeration value="0"/>
+				<xsd:enumeration value="1"/>
+				<xsd:enumeration value="2"/>
+				<xsd:enumeration value="3"/>
+				<xsd:enumeration value="4"/>
+				<xsd:enumeration value="5"/>
+				<xsd:enumeration value="6"/>
+				<xsd:enumeration value="7"/>
+				<xsd:enumeration value="8"/>
+				<xsd:enumeration value="9"/>
+				<xsd:enumeration value="N"/>
+				<xsd:enumeration value="U"/>
+				<xsd:enumeration value="X"/>
+			</xsd:restriction>
+		</xsd:simpleType>
+	</xsd:element>
+	<xsd:element name="TrafficRestrictions">
+		<xsd:annotation>
+			<xsd:documentation>Traffic restriction information.  Valid values are:
+A = no local traffic
+B = local traffic only
+C = local and domestic connecting traffic only
+D = qualified international online connecting or stopover traffic only
+E = qualified online connecting or stopover traffic only
+F = local and online connecting traffic only
+G = qualified online connecting traffic only
+H = segment not to be displayed
+I = technical landing
+J = conditional traffic
+K = connecting traffic only
+L = online connex traffic
+M = international online stopover traffic only
+N = international connecting traffic only
+O = international online connecting traffic only
+P = subj to govt approval 
+Q = international online connecting or stopover traffic only
+R = permanent request  
+S = stopover traffic only 
+T = online stopover traffic only
+U = intl stopover traffic
+V = connecting or stopover traffic only
+W = international connecting or stopover traffic only
+X = online connecting or stopover traffic only
+Y = online connecting traffic only
+Z = tr do not apply equally to passenger/cargo/mail
+Example: X</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleType>
+			<xsd:restriction base="xsd:string">
+				<xsd:minLength value="1"/>
+				<xsd:maxLength value="1"/>
+				<xsd:enumeration value="A"/>
+				<xsd:enumeration value="B"/>
+				<xsd:enumeration value="C"/>
+				<xsd:enumeration value="D"/>
+				<xsd:enumeration value="E"/>
+				<xsd:enumeration value="F"/>
+				<xsd:enumeration value="G"/>
+				<xsd:enumeration value="H"/>
+				<xsd:enumeration value="I"/>
+				<xsd:enumeration value="J"/>
+				<xsd:enumeration value="K"/>
+				<xsd:enumeration value="L"/>
+				<xsd:enumeration value="M"/>
+				<xsd:enumeration value="N"/>
+				<xsd:enumeration value="O"/>
+				<xsd:enumeration value="P"/>
+				<xsd:enumeration value="Q"/>
+				<xsd:enumeration value="R"/>
+				<xsd:enumeration value="S"/>
+				<xsd:enumeration value="T"/>
+				<xsd:enumeration value="U"/>
+				<xsd:enumeration value="V"/>
+				<xsd:enumeration value="W"/>
+				<xsd:enumeration value="X"/>
+				<xsd:enumeration value="Y"/>
+				<xsd:enumeration value="Z"/>
+			</xsd:restriction>
+		</xsd:simpleType>
+	</xsd:element>
+	<xsd:element name="UTCOffset" block="extension">
+		<xsd:annotation>
+			<xsd:documentation>The time difference between listed departure time at Point of Departure and GMT (Greenwhich Mean Time) in ISO 8601 format (hh:mm).  Example: 04:00 </xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:simpleContent>
+				<xsd:extension base="TimeDurationHoursMinutes">
+					<xsd:attribute name="PlusMinus" use="required">
+						<xsd:annotation>
+							<xsd:documentation>Indicates if difference is ahead (+) or behind (-) GMT time.  Values are:
++
+-
+Example: +</xsd:documentation>
+						</xsd:annotation>
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:minLength value="1"/>
+								<xsd:maxLength value="1"/>
+								<xsd:enumeration value="+"/>
+								<xsd:enumeration value="-"/>
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:simpleContent>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="GlobalIndicator">
+		<xsd:annotation>
+			<xsd:documentation>Identifies the journey type by established industry values.  
+The following values are available:
+1) WH - Western Hemisphere: Any journey from one place to another in IATA area 1 is called Western Hemisphere.
+2) EH - Eastern Hemisphere: Any journey within IATA area 2 or area 3 or between area 2 and 3 is called Eastern Hemisphere.
+3) PA - Pacific Route: Any journey between IATA area 1 and area 3 via Pacific ocean is called Pacific route.
+4) AT - Atlantic Route: Any journey between IATA area 1 and area 2 via Atlantic ocean is called Atlantic route.
+5) AP - Atlantic and Pacific Route: Any journey between IATA area 2 and area 3 via Atlantic and Pacific ocean is called Atlantic and Pacific route.
+6) TS - Trans Siberian Route: Any journey from Europe to Far East via Moscow is called Trans Siberian route.
+7) PO - Polar Route: Any journey from Europe to Far East via Alaska is called Polar route.
+</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:simpleContent>
+				<xsd:extension base="xsd:decimal">
+					<xsd:attribute name="OverTheWater">
+						<xsd:annotation>
+							<xsd:documentation>Indicates if flight is an 'Over-the-water' (ocean) flight.
+
+Values are:
+N or blank - no
+Y - yes
+
+Example: Y</xsd:documentation>
+						</xsd:annotation>
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:minLength value="1"/>
+								<xsd:maxLength value="1"/>
+								<xsd:enumeration value="Y"/>
+								<xsd:enumeration value="N"/>
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:simpleContent>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>

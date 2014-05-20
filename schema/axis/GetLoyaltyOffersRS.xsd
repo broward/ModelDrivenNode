@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<xsd:element name="GetLoyaltyOffersRS">
+		<xsd:annotation>
+			<xsd:documentation>Profile create root element</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="InfoGroup" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Error and information group</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="ForInfo" minOccurs="0">
+								<xsd:annotation>
+									<xsd:documentation>Information group</xsd:documentation>
+								</xsd:annotation>
+								<xsd:complexType>
+									<xsd:sequence>
+										<xsd:element name="Text" type="xsd:string" maxOccurs="unbounded">
+											<xsd:annotation>
+												<xsd:documentation>Information text or error text. Example: Free flow text.  </xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+									</xsd:sequence>
+									<xsd:attribute ref="Source" use="optional">
+										<xsd:annotation>
+											<xsd:documentation>Identifies the source of the profile database.  Not limited to GDS, applicable to other DBs as well
+Example: 1A</xsd:documentation>
+										</xsd:annotation>
+									</xsd:attribute>
+								</xsd:complexType>
+							</xsd:element>
+							<xsd:element name="Error" minOccurs="0" maxOccurs="unbounded">
+								<xsd:annotation>
+									<xsd:documentation>Error group</xsd:documentation>
+								</xsd:annotation>
+								<xsd:complexType>
+									<xsd:sequence>
+										<xsd:element ref="Code"/>
+										<xsd:element name="Text" type="xsd:string" maxOccurs="unbounded">
+											<xsd:annotation>
+												<xsd:documentation>Information text or error text. Example: Free flow text.  </xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+									</xsd:sequence>
+									<xsd:attribute ref="Source" use="optional">
+										<xsd:annotation>
+											<xsd:documentation>Identifies the source of the profile database.  Not limited to GDS, applicable to other DBs as well
+Example: 1A</xsd:documentation>
+										</xsd:annotation>
+									</xsd:attribute>
+								</xsd:complexType>
+							</xsd:element>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+				<xsd:element name="LoyaltyMemberID">
+					<xsd:annotation>
+						<xsd:documentation>Account ID
+Example: AC7890</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="ProgramName">
+					<xsd:annotation>
+						<xsd:documentation>The loyalty program name
+Example: SME</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="GroupID" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Associates this account to a pre-defined group</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="OfferDataGroup">
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="Offer" maxOccurs="unbounded">
+								<xsd:complexType>
+									<xsd:sequence>
+										<xsd:element name="EventType">
+											<xsd:annotation>
+												<xsd:documentation>ENR = Enrollment        ANN = Anniversary
+REV = Revenue Treshold</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="OfferCodeID">
+											<xsd:annotation>
+												<xsd:documentation>ID for this offer as filed in rules engine
+Example: 0AR123</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="Description" minOccurs="0">
+											<xsd:annotation>
+												<xsd:documentation>Description of the offer</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="Units">
+											<xsd:annotation>
+												<xsd:documentation>The units credited based on the request type.
+Units may be number of services, cost of service in points, miles or awards
+
+Example: 
+5
+2.25</xsd:documentation>
+											</xsd:annotation>
+											<xsd:complexType>
+												<xsd:simpleContent>
+													<xsd:extension base="xsd:string">
+														<xsd:attribute name="DateControlled">
+															<xsd:annotation>
+																<xsd:documentation>default is "N"
+if set to "Y" the offer is not unit controlled and valid as per expiration date</xsd:documentation>
+															</xsd:annotation>
+														</xsd:attribute>
+													</xsd:extension>
+												</xsd:simpleContent>
+											</xsd:complexType>
+										</xsd:element>
+										<xsd:element name="DiscountLevel" minOccurs="0">
+											<xsd:annotation>
+												<xsd:documentation>identifies discount level to be applied </xsd:documentation>
+											</xsd:annotation>
+											<xsd:complexType>
+												<xsd:simpleContent>
+													<xsd:extension base="xsd:string">
+														<xsd:attribute name="Type">
+															<xsd:annotation>
+																<xsd:documentation>A = DiscountAmount
+P = DiscountPercentage</xsd:documentation>
+															</xsd:annotation>
+														</xsd:attribute>
+													</xsd:extension>
+												</xsd:simpleContent>
+											</xsd:complexType>
+										</xsd:element>
+										<xsd:element name="Threshold" minOccurs="0">
+											<xsd:annotation>
+												<xsd:documentation>Revenue threshold triggering this offer</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="TravelDates" minOccurs="0">
+											<xsd:complexType>
+												<xsd:choice>
+													<xsd:element ref="ApplicationPeriod"/>
+													<xsd:element ref="ValidityDates"/>
+												</xsd:choice>
+											</xsd:complexType>
+										</xsd:element>
+										<xsd:element name="BookingDates" minOccurs="0">
+											<xsd:complexType>
+												<xsd:choice>
+													<xsd:element ref="ApplicationPeriod"/>
+													<xsd:element ref="ValidityDates"/>
+												</xsd:choice>
+											</xsd:complexType>
+										</xsd:element>
+									</xsd:sequence>
+								</xsd:complexType>
+							</xsd:element>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="Code" type="xsd:string">
+		<xsd:annotation>
+			<xsd:documentation>Error code or equipment type code.  Example: 0104 (error code), 747 (equipment code)</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="ValidityDates">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="EffectiveDate" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Date in ISO 8601 format (yyyy-mm-dd).  Example: 2001-12-25</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:simpleContent>
+							<xsd:extension base="xsd:date">
+								<xsd:attribute name="Time">
+									<xsd:annotation>
+										<xsd:documentation>Date in ISO 8601 format (hh:mm).  
+Example: 14:55</xsd:documentation>
+									</xsd:annotation>
+								</xsd:attribute>
+							</xsd:extension>
+						</xsd:simpleContent>
+					</xsd:complexType>
+				</xsd:element>
+				<xsd:element name="ExpirationDate" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Date in ISO 8601 format (yyyy-mm-dd).  Example: 2001-12-25</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:simpleContent>
+							<xsd:extension base="xsd:date">
+								<xsd:attribute name="Time">
+									<xsd:annotation>
+										<xsd:documentation>Date in ISO 8601 format (hh:mm).  
+Example: 14:55</xsd:documentation>
+									</xsd:annotation>
+								</xsd:attribute>
+							</xsd:extension>
+						</xsd:simpleContent>
+					</xsd:complexType>
+				</xsd:element>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="ApplicationPeriod">
+		<xsd:complexType>
+			<xsd:simpleContent>
+				<xsd:extension base="xsd:string">
+					<xsd:attribute name="Type">
+						<xsd:annotation>
+							<xsd:documentation>D = Days
+W = Weeks
+M = Months
+Y = Years</xsd:documentation>
+						</xsd:annotation>
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:length value="1"/>
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:attribute>
+					<xsd:attribute name="EnrollmentBased">
+						<xsd:annotation>
+							<xsd:documentation>Indicates that the ApplicationPeriod is calculated based on EnrollmentDate (=Y) or on the date the Loyalty member receives the offer for credit (=N - default)</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:simpleContent>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:attribute name="Source">
+		<xsd:annotation>
+			<xsd:documentation>Identifies the source of this  element. In other words where the content originates from. Not limited to GDS, applicable to direct connect as well. Example: 1A, 1V, or other. </xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleType>
+			<xsd:restriction base="xsd:string">
+				<xsd:minLength value="1"/>
+			</xsd:restriction>
+		</xsd:simpleType>
+	</xsd:attribute>
+</xsd:schema>

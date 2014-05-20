@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<xsd:include schemaLocation="CommonTypes.xsd"/>
+	<xsd:element name="FlightInformationRQ">
+		<xsd:annotation>
+			<xsd:documentation>Flight information request root element</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="AirlineCode"/>
+				<xsd:element ref="FlightNumber"/>
+				<xsd:element ref="Departure"/>
+				<xsd:element ref="Arrival"/>
+			</xsd:sequence>
+			<xsd:attribute name="version" type="xsd:string" use="optional">
+				<xsd:annotation>
+					<xsd:documentation>Version number.  Example: 1.0</xsd:documentation>
+				</xsd:annotation>
+			</xsd:attribute>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="AirlineCode">
+		<xsd:annotation>
+			<xsd:documentation>Airline code.  Example: AA</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:simpleContent>
+				<xsd:extension base="xsd:string">
+					<xsd:attribute ref="Source"/>
+				</xsd:extension>
+			</xsd:simpleContent>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="Departure">
+		<xsd:annotation>
+			<xsd:documentation>Departure group</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="CityCode"/>
+				<xsd:element ref="Date"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="CityCode">
+		<xsd:annotation>
+			<xsd:documentation>City code.  Example: MIA</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleType>
+			<xsd:restriction base="xsd:string">
+				<xsd:maxLength value="3"/>
+				<xsd:minLength value="3"/>
+			</xsd:restriction>
+		</xsd:simpleType>
+	</xsd:element>
+	<xsd:element name="Date" type="xsd:date">
+		<xsd:annotation>
+			<xsd:documentation>Date in ISO 8601format (yyyy-mm-dd).  Example: 2002-02-22</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="Arrival">
+		<xsd:annotation>
+			<xsd:documentation>Arrival group</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="CityCode"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>

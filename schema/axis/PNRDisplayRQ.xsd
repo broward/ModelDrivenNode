@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<xsd:element name="PNRDisplayRQ">
+		<xsd:annotation>
+			<xsd:documentation>PNR retrieve request against local PNR database.
+
+A PNRViewRS is the response message but NO synchronization with any source record locator will have taken place.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="RecordLocator">
+					<xsd:annotation>
+						<xsd:documentation>Super PNR record locator reference of the PNR to retrieve (if no source based search is requested).  
+
+Note: If attribute indicates to search PNR DB by source rec locator, then the source record locator goes here in connection with a source attribute.
+
+Example: XDFWSE</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element ref="PseudoCityCode" minOccurs="0"/>
+				<xsd:element ref="Display" minOccurs="0"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="RecordLocator">
+		<xsd:annotation>
+			<xsd:documentation>Record locator reference of the PNR to retrieve.  Example: XDFWSE</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:simpleContent>
+				<xsd:extension base="xsd:string">
+					<xsd:attribute name="Source">
+						<xsd:annotation>
+							<xsd:documentation>Allows an advanced search against the Super PNR DB based on a source record locator.  Source can be defined specifically, e.g. 1A (GDS) or EK(Emirates), or by entering an * all sources defined for this PCC/Agency will be searched.
+
+The response will always have a PNRViewRS representing the Super PNR.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:simpleContent>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="PseudoCityCode">
+		<xsd:annotation>
+			<xsd:documentation>Pseudo city code for branch agreement retrieval.  Example: 1C1K</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:simpleContent>
+				<xsd:extension base="xsd:string"/>
+			</xsd:simpleContent>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="Display">
+		<xsd:annotation>
+			<xsd:documentation>Display group</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="History" minOccurs="0"/>
+				<xsd:element ref="HistoricalFares" minOccurs="0"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="History" default="N">
+		<xsd:annotation>
+			<xsd:documentation>Display PNR history.  Values are: Y = Yes, N = No.  Example: Y</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:simpleContent>
+				<xsd:restriction base="hist">
+					<xsd:length value="1"/>
+					<xsd:enumeration value="Y"/>
+					<xsd:enumeration value="N"/>
+				</xsd:restriction>
+			</xsd:simpleContent>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:complexType name="hist">
+		<xsd:simpleContent>
+			<xsd:extension base="xsd:string">
+				<xsd:attribute name="Category" use="optional">
+					<xsd:annotation>
+						<xsd:documentation>Category of PNR history to be displayed.  Values are: 
+ADR - address changes
+AIR - air segment changes
+PRI - stored fare changes
+CAR - car segment changes
+REM - general remarks history
+HTL - hotel segments history
+ITN - itinerary changes (includes car, hotel, air)
+OSI - other service information history
+TVL - passenger data changes/history
+SSR - special service request history
+Example: SSR</xsd:documentation>
+					</xsd:annotation>
+					<xsd:simpleType>
+						<xsd:restriction base="xsd:string">
+							<xsd:length value="3"/>
+							<xsd:enumeration value="ADR"/>
+							<xsd:enumeration value="AIR"/>
+							<xsd:enumeration value="PRI"/>
+							<xsd:enumeration value="CAR"/>
+							<xsd:enumeration value="REM"/>
+							<xsd:enumeration value="HTL"/>
+							<xsd:enumeration value="ITN"/>
+							<xsd:enumeration value="OSI"/>
+							<xsd:enumeration value="TVL"/>
+							<xsd:enumeration value="SSR"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:attribute>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:element name="HistoricalFares" default="N">
+		<xsd:annotation>
+			<xsd:documentation>Display history of fares.  Values are: Y = Yes, N = No.  Example: Y</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleType>
+			<xsd:restriction base="xsd:string">
+				<xsd:length value="1"/>
+				<xsd:enumeration value="Y"/>
+				<xsd:enumeration value="N"/>
+			</xsd:restriction>
+		</xsd:simpleType>
+	</xsd:element>
+</xsd:schema>

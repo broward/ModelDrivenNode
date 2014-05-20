@@ -1,0 +1,368 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:include schemaLocation="PNRCreateRQ.xsd"/>
+	<xsd:element name="InstantPurchaseRQ">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="PNRCreate">
+					<xsd:annotation>
+						<xsd:documentation>Imbedded PNR create request root element</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:sequence>
+							<!--xsd:element ref="FlightPassGroup" minOccurs="0"/-->
+							<xsd:element ref="SaleInfo" minOccurs="0"/>
+							<xsd:element ref="TicketingInfo" minOccurs="0"/>
+							<xsd:element ref="MoveFromProfile" minOccurs="0"/>
+							<xsd:element ref="CompletePNRElements" minOccurs="0"/>
+							<xsd:element ref="OtherPNRElements" minOccurs="0"/>
+							<xsd:element ref="PricingInfo" minOccurs="0" maxOccurs="unbounded"/>
+							<xsd:element ref="Display" minOccurs="0"/>
+							<xsd:element ref="EndTransaction" minOccurs="0"/>
+							<xsd:element ref="RecordLocator" minOccurs="0"/>
+						</xsd:sequence>
+						<xsd:attribute name="version" type="xsd:string" use="optional">
+							<xsd:annotation>
+								<xsd:documentation>Version number.  Example: 1.0</xsd:documentation>
+							</xsd:annotation>
+						</xsd:attribute>
+						<xsd:attribute name="RedisplayPNR" use="optional">
+							<xsd:annotation>
+								<xsd:documentation>Attribute used when the PNR Creation is done during a sessioned process. Indicates if the PNR has to be redisplayed after each message sent during an opened session. If attribute omitted or RedisplayPNR = "Y", PNR will be redisplayed with each response. If RedisplayPNR = "N", the PNR will not be redisplayed after each entry and a simple Info text with an * in it will indicate the successfull entry. Error message will be displayed if an error occurs for the entry.</xsd:documentation>
+							</xsd:annotation>
+							<xsd:simpleType>
+								<xsd:restriction base="xsd:string">
+									<xsd:length value="1"/>
+									<xsd:enumeration value="N"/>
+									<xsd:enumeration value="Y"/>
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:attribute>
+						<xsd:attribute name="UpdateFareGroups" use="optional" default="Y">
+							<xsd:annotation>
+								<xsd:documentation>Switch to disable fare validation and update functionality. This includes deletion of fares with invalid segment references (occurs on Apollo, Sabre and Worldspan) and (in the future) attempt to reprice and restore fares which have been rendered invalid by segment reordering. Values are: Y = Yes, N = No (Default is Yes). Example: Y</xsd:documentation>
+							</xsd:annotation>
+							<xsd:simpleType>
+								<xsd:restriction base="xsd:string">
+									<xsd:length value="1"/>
+									<xsd:enumeration value="Y"/>
+									<xsd:enumeration value="N"/>
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:attribute>
+						<xsd:attribute name="IgnoreWarning">
+							<xsd:annotation>
+								<xsd:documentation>This attribute is set in response to a previously returned Warning and after the user confirm the continuation of said transaction.
+
+Only value allowed is 'Y'.</xsd:documentation>
+							</xsd:annotation>
+						</xsd:attribute>
+					</xsd:complexType>
+				</xsd:element>
+				<xsd:element name="ProcessPayment">
+					<xsd:annotation>
+						<xsd:documentation>Process Payment element to issue a request to either charge or refund any item(s) listed in this request.
+
+Such items may be services and/or flights for a single or multiple traveler PNR.
+
+This request supports multiple FOPs to be provided.</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element ref="RecordLocator" minOccurs="0">
+								<xsd:annotation>
+									<xsd:documentation>PNR record locator for which this payment is submitted for.
+
+It is MANDATORY but may be added during processing (in case of an initial PNR Creation).
+
+In such case the record locator must be added by existing rule processing prior to submitting message to source adaptor. </xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+							<xsd:element name="Traveler" maxOccurs="unbounded">
+								<xsd:annotation>
+									<xsd:documentation>Items per traveler (services, air segments) for which charge or refund applies</xsd:documentation>
+								</xsd:annotation>
+								<xsd:complexType>
+									<xsd:sequence>
+										<xsd:element ref="TravelerElementNumber"/>
+										<xsd:sequence>
+											<xsd:element name="ServiceElementNumber" minOccurs="0" maxOccurs="unbounded">
+												<xsd:annotation>
+													<xsd:documentation>Element number of the service from the referenced PNR.  Example: 1</xsd:documentation>
+												</xsd:annotation>
+											</xsd:element>
+											<xsd:element ref="SegmentElementNumber" minOccurs="0" maxOccurs="unbounded">
+												<xsd:annotation>
+													<xsd:documentation>Element number of the flight from the referenced PNR.  Example: 1</xsd:documentation>
+												</xsd:annotation>
+											</xsd:element>
+										</xsd:sequence>
+									</xsd:sequence>
+								</xsd:complexType>
+							</xsd:element>
+							<xsd:element name="CurrencyCode">
+								<xsd:annotation>
+									<xsd:documentation>Currency code of Point of Sale (POS)  
+
+Example: USD</xsd:documentation>
+								</xsd:annotation>
+								<xsd:complexType>
+									<xsd:simpleContent>
+										<xsd:restriction base="CurrencyCodeType">
+											<xsd:attribute name="NumberOfDecimals" type="xsd:integer" use="required">
+												<xsd:annotation>
+													<xsd:documentation>Decimal position in fare amount.  Example: 2</xsd:documentation>
+												</xsd:annotation>
+											</xsd:attribute>
+										</xsd:restriction>
+									</xsd:simpleContent>
+								</xsd:complexType>
+							</xsd:element>
+							<xsd:element name="FormOfPayment" maxOccurs="unbounded">
+								<xsd:annotation>
+									<xsd:documentation>The form of payment(s) to be used for this payment ot refund request</xsd:documentation>
+								</xsd:annotation>
+								<xsd:complexType>
+									<xsd:sequence>
+										<xsd:annotation>
+											<xsd:documentation>Not supported functionality:
+
+Split FOP 
+Extended CC payment</xsd:documentation>
+										</xsd:annotation>
+										<xsd:element name="FOPTotal">
+											<xsd:annotation>
+												<xsd:documentation>Total amount to be charged or refunded with this request against this FOP (do not include CreditAmount from a previous credit)</xsd:documentation>
+											</xsd:annotation>
+											<xsd:complexType>
+												<xsd:attribute name="Total" type="xsd:integer" use="required">
+													<xsd:annotation>
+														<xsd:documentation>Total amount to be debited or credited with this request against this FOP (CC or Other).
+
+Example: 10675</xsd:documentation>
+													</xsd:annotation>
+												</xsd:attribute>
+											</xsd:complexType>
+										</xsd:element>
+										<xsd:element name="ServiceElementNumber" minOccurs="0" maxOccurs="unbounded">
+											<xsd:annotation>
+												<xsd:documentation>Element number of the service from the referenced PNR may be referenced directly to this FOP as well.  Note that any items mapped here must also be mapped under Traveler/ServiceElementNumber.
+
+Example: 1</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element ref="SegmentElementNumber" minOccurs="0" maxOccurs="unbounded">
+											<xsd:annotation>
+												<xsd:documentation>Element number of the flight from the referenced PNR.  Example: 1</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="PreviousCredits" minOccurs="0">
+											<xsd:annotation>
+												<xsd:documentation>Reference to any credit available and to be applied to the payment requested with this transaction.
+
+Any credit identified here is applied first, any remaining balance is then charged to credit card provided</xsd:documentation>
+											</xsd:annotation>
+											<xsd:complexType>
+												<xsd:sequence>
+													<xsd:element name="CreditReference" maxOccurs="unbounded">
+														<xsd:annotation>
+															<xsd:documentation>This can be a voucher, payment ID, credit reference or confirmation number associated to the amount listed under FOPTotal
+
+Example: 
+3665341</xsd:documentation>
+														</xsd:annotation>
+														<xsd:complexType>
+															<xsd:simpleContent>
+																<xsd:extension base="xsd:string">
+																	<xsd:attribute name="CreditAmount">
+																		<xsd:annotation>
+																			<xsd:documentation>The amount of credit available.  If entered, the amount is passed to vendor.  An error response is possible if amount does not match amount of record</xsd:documentation>
+																		</xsd:annotation>
+																	</xsd:attribute>
+																	<xsd:attribute name="BookingReference">
+																		<xsd:annotation>
+																			<xsd:documentation>This could be an additional reference, e.g. RecLoc or confirmation number associated to this credit</xsd:documentation>
+																		</xsd:annotation>
+																	</xsd:attribute>
+																</xsd:extension>
+															</xsd:simpleContent>
+														</xsd:complexType>
+													</xsd:element>
+												</xsd:sequence>
+											</xsd:complexType>
+										</xsd:element>
+										<xsd:choice minOccurs="0">
+											<xsd:element name="CreditCard">
+												<xsd:annotation>
+													<xsd:documentation>Credit card group</xsd:documentation>
+												</xsd:annotation>
+												<xsd:complexType>
+													<xsd:sequence>
+														<xsd:element name="CCCode">
+															<xsd:annotation>
+																<xsd:documentation>Credit card code.  Example: VI</xsd:documentation>
+															</xsd:annotation>
+															<xsd:simpleType>
+																<xsd:restriction base="xsd:string">
+																	<xsd:length value="2"/>
+																</xsd:restriction>
+															</xsd:simpleType>
+														</xsd:element>
+														<xsd:element name="CCNumber" type="xsd:string">
+															<xsd:annotation>
+																<xsd:documentation>Credit card number.  Example: 4011236654652341</xsd:documentation>
+															</xsd:annotation>
+														</xsd:element>
+														<xsd:element name="CCExpiration">
+															<xsd:annotation>
+																<xsd:documentation>Credit card expiration group</xsd:documentation>
+															</xsd:annotation>
+															<xsd:complexType>
+																<xsd:sequence>
+																	<xsd:element name="Month">
+																		<xsd:annotation>
+																			<xsd:documentation>Credit card expiration month.  Example: 02</xsd:documentation>
+																		</xsd:annotation>
+																		<xsd:simpleType>
+																			<xsd:restriction base="xsd:string">
+																				<xsd:length value="2"/>
+																			</xsd:restriction>
+																		</xsd:simpleType>
+																	</xsd:element>
+																	<xsd:element name="Year">
+																		<xsd:annotation>
+																			<xsd:documentation>Last two digits of the credit card expiration year.  Example: 06</xsd:documentation>
+																		</xsd:annotation>
+																		<xsd:simpleType>
+																			<xsd:restriction base="xsd:string">
+																				<xsd:length value="2"/>
+																				<xsd:pattern value="[0-9][0-9]"/>
+																			</xsd:restriction>
+																		</xsd:simpleType>
+																	</xsd:element>
+																</xsd:sequence>
+															</xsd:complexType>
+														</xsd:element>
+														<xsd:element name="SecurityID" type="xsd:string" minOccurs="0">
+															<xsd:annotation>
+																<xsd:documentation>Credit card security number for online transactions (referred to also as CVV2, CVC2, CSC or CID). This is a 3-digit (Visa, Master, Discover) or 4-digit (Amex) number.</xsd:documentation>
+															</xsd:annotation>
+														</xsd:element>
+														<xsd:element ref="Authorization" minOccurs="0"/>
+														<xsd:element name="ApprovalCode" type="xsd:string" minOccurs="0">
+															<xsd:annotation>
+																<xsd:documentation>MANUAL credit card approval code.  
+
+If a code exists here no authorization request will be performed.
+
+Example: 996456</xsd:documentation>
+															</xsd:annotation>
+														</xsd:element>
+														<xsd:choice minOccurs="0">
+															<xsd:sequence>
+																<xsd:element ref="CardholderFirstName" minOccurs="0"/>
+																<xsd:element ref="CardholderLastName"/>
+															</xsd:sequence>
+															<xsd:element name="CardholderFullName">
+																<xsd:annotation>
+																	<xsd:documentation>Credit cardholder full name as it appears on the card</xsd:documentation>
+																</xsd:annotation>
+																<xsd:simpleType>
+																	<xsd:restriction base="xsd:string">
+																		<xsd:minLength value="1"/>
+																	</xsd:restriction>
+																</xsd:simpleType>
+															</xsd:element>
+														</xsd:choice>
+														<xsd:element name="CCAddressGroup" minOccurs="0">
+															<xsd:annotation>
+																<xsd:documentation>Card holders address</xsd:documentation>
+															</xsd:annotation>
+															<xsd:complexType>
+																<xsd:sequence>
+																	<xsd:element ref="Address" maxOccurs="2"/>
+																	<xsd:element ref="City"/>
+																	<xsd:element ref="PostalCode"/>
+																	<xsd:element ref="StateCode" minOccurs="0"/>
+																	<xsd:element ref="CountryCode">
+																		<xsd:annotation>
+																			<xsd:documentation>ISO Country code. This element is introduced as mandatory although GDS implementation will not require its presence until 30MAR2008.
+
+Example: US</xsd:documentation>
+																		</xsd:annotation>
+																	</xsd:element>
+																</xsd:sequence>
+															</xsd:complexType>
+														</xsd:element>
+													</xsd:sequence>
+												</xsd:complexType>
+											</xsd:element>
+											<xsd:element name="Other">
+												<xsd:annotation>
+													<xsd:documentation>Other payment type. Possible values: CASH, CHECK.</xsd:documentation>
+												</xsd:annotation>
+												<xsd:simpleType>
+													<xsd:restriction base="xsd:string">
+														<xsd:enumeration value="CASH"/>
+														<xsd:enumeration value="CHECK"/>
+														<xsd:enumeration value=""/>
+													</xsd:restriction>
+												</xsd:simpleType>
+											</xsd:element>
+										</xsd:choice>
+									</xsd:sequence>
+								</xsd:complexType>
+							</xsd:element>
+							<xsd:element name="PymtTotal" minOccurs="0">
+								<xsd:annotation>
+									<xsd:documentation>Total amount to be charged or refunded with this request (sum of all FOPs)</xsd:documentation>
+								</xsd:annotation>
+								<xsd:complexType>
+									<xsd:attribute name="Total" type="xsd:integer">
+										<xsd:annotation>
+											<xsd:documentation>Total amount to be debited or credited with this request.
+
+Example: 10675</xsd:documentation>
+										</xsd:annotation>
+									</xsd:attribute>
+								</xsd:complexType>
+							</xsd:element>
+						</xsd:sequence>
+						<xsd:attribute name="Version" type="xsd:string">
+							<xsd:annotation>
+								<xsd:documentation>Version of the message to be used.
+Example: 2.2</xsd:documentation>
+							</xsd:annotation>
+						</xsd:attribute>
+					</xsd:complexType>
+				</xsd:element>
+			</xsd:sequence>
+			<xsd:attribute name="Version" type="xsd:string">
+				<xsd:annotation>
+					<xsd:documentation>Version number.
+Example: 2.0</xsd:documentation>
+				</xsd:annotation>
+			</xsd:attribute>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="TravelerElementNumber">
+		<xsd:annotation>
+			<xsd:documentation>Element number of traveler associated to this item.  Example: 1</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:simpleContent>
+				<xsd:extension base="xsd:string"/>
+			</xsd:simpleContent>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="SegmentElementNumber">
+		<xsd:annotation>
+			<xsd:documentation>Element number of the flight associated to this item.  Example: 1</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:simpleContent>
+				<xsd:extension base="xsd:string"/>
+			</xsd:simpleContent>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>

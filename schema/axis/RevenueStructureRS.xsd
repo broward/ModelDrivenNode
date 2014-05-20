@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:include schemaLocation="CommonTypes.xsd"/>
+	<xsd:element name="RevenueStructureRS">
+		<xsd:annotation>
+			<xsd:documentation>Message represents revenue structure for a an agency/agent. This structure represents meta information about commissions/mark-ups hat can be used also any other additional charges that mey or mey not be applied.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="InfoGroup" minOccurs="0"/>
+				<xsd:element name="CommissionGroup" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Represents a set of allowed commission/mark-up categories in requested context. Represents a meta information set. Defines ALL possible commission/mark-up entries that can be applied.</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="CommissionRule" maxOccurs="unbounded">
+								<xsd:annotation>
+									<xsd:documentation>Meta information about each allowed commission category.</xsd:documentation>
+								</xsd:annotation>
+								<xsd:complexType>
+									<xsd:attribute name="RuleCode" use="required">
+										<xsd:annotation>
+											<xsd:documentation>System defined commission processing code. 
+Example: XYZ</xsd:documentation>
+										</xsd:annotation>
+										<xsd:simpleType>
+											<xsd:restriction base="xsd:string">
+												<xsd:minLength value="1"/>
+											</xsd:restriction>
+										</xsd:simpleType>
+									</xsd:attribute>
+									<xsd:attribute name="RuleName" use="required">
+										<xsd:annotation>
+											<xsd:documentation>Associated commission processing rule name. Can be used to display the rule by name in human readable form.
+Example: Markup to be added to base fare and taken as commission dueing reporting.</xsd:documentation>
+										</xsd:annotation>
+										<xsd:simpleType>
+											<xsd:restriction base="xsd:string">
+												<xsd:maxLength value="30"/>
+											</xsd:restriction>
+										</xsd:simpleType>
+									</xsd:attribute>
+								</xsd:complexType>
+							</xsd:element>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>

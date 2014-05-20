@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:star="http://www.starstandard.org/STAR/5"
+            xmlns:oacl="http://www.openapplications.org/oagis/9/codelists"
+            xmlns:sqdt="http://www.starstandard.org/STAR/5/qualifieddatatypes/1.0"
+            xmlns="http://www.starstandard.org/STAR/5"
+            xmlns:ccts="urn:un:unece:uncefact:documentation:1.1"
+            xmlns:sudt="http://www.starstandard.org/STAR/5/unqualifieddatatypes/1.0"
+            xmlns:scl="http://www.starstandard.org/STAR/5/codelists"
+            xmlns:qdt="http://www.openapplications.org/oagis/9/qualifieddatatypes/1.1"
+            xmlns:udt="http://www.openapplications.org/oagis/9/unqualifieddatatypes/1.1">
+   <xsd:element name="Invoice" type="InvoiceType">
+      <xsd:annotation>
+         <xsd:documentation source="http://www.starstandard.org/STAR/5"> </xsd:documentation>
+      </xsd:annotation>
+   </xsd:element>
+   <xsd:element name="VehicleInvoiceVehicleLineItem" type="VehicleInvoiceVehicleLineItemType">
+      <xsd:annotation>
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">
+                Detail information regarding a vehicle for a particular invoice.
+            </xsd:documentation>
+        </xsd:annotation>
+   </xsd:element>
+   <xsd:element name="Vehicle" type="VehicleABIEType">
+      <xsd:annotation>
+            <xsd:documentation>Common vehicle component</xsd:documentation>
+        </xsd:annotation>
+   </xsd:element>
+   <xsd:element name="TransmissionGroup" type="TransmissionGroupType">
+      <xsd:annotation>
+            <xsd:documentation>Details describing the transmission of a vehicle, truck, boat,
+            etc..</xsd:documentation>
+        </xsd:annotation>
+   </xsd:element>
+   <xsd:element name="ColorGroup" type="ColorGroupType">
+      <xsd:annotation>
+            <xsd:documentation> </xsd:documentation>
+        </xsd:annotation>
+   </xsd:element>
+   <xsd:element name="Engine" type="EngineType">
+      <xsd:annotation>
+            <xsd:documentation>Information describing the components that are part of an
+            engine.</xsd:documentation>
+        </xsd:annotation>
+   </xsd:element>
+   <xsd:element name="EffectiveMeanPressureMeasure" type="MeasurementType">
+      <xsd:annotation>
+            <xsd:documentation>
+                <xsd:documentation>The mean effective pressure (MEP) is the average pressure exerted
+                    on the piston during each power stroke.</xsd:documentation>
+            </xsd:documentation>
+        </xsd:annotation>
+   </xsd:element>
+   <xsd:element name="PowerMeasure" type="MeasurementType">
+      <xsd:annotation>
+            <xsd:documentation>
+                <xsd:documentation>Defines the manufacturers rated output drive power of the
+                engine.</xsd:documentation>
+            </xsd:documentation>
+        </xsd:annotation>
+   </xsd:element>
+   <xsd:element name="MeanPistonSpeedMeasure" type="MeasurementType">
+      <xsd:annotation>
+            <xsd:documentation>
+                <xsd:documentation>Mean piston speed is the average speed of the piston in a
+                    reciprocating engine.</xsd:documentation>
+            </xsd:documentation>
+        </xsd:annotation>
+   </xsd:element>
+   <xsd:element name="TorqueMeasure" type="MeasurementType">
+      <xsd:annotation>
+            <xsd:documentation>
+                <xsd:documentation>Define the manufacturers rated torque output of the
+                engine</xsd:documentation>
+            </xsd:documentation>
+        </xsd:annotation>
+   </xsd:element>
+   <xsd:element name="GearRatioGroup" type="GearRatioGroupType">
+      <xsd:annotation>
+            <xsd:documentation> </xsd:documentation>
+        </xsd:annotation>
+   </xsd:element>
+   <xsd:element name="EngineDimensions" type="EngineDimensionsType">
+      <xsd:annotation>
+            <xsd:documentation> </xsd:documentation>
+        </xsd:annotation>
+   </xsd:element>
+   <xsd:element name="Chassis" type="ChassisType">
+      <xsd:annotation>
+            <xsd:documentation>A general term that refers to all of the mechanical parts of a car attached to a structural frame. In cars with unitized construction, the chassis comprises everything but the body of the car.</xsd:documentation>
+        </xsd:annotation>
+   </xsd:element>
+   <xsd:element name="BrandedInfo" type="BrandedInfoType">
+      <xsd:annotation>
+            <xsd:documentation>Vehicle Branding Information</xsd:documentation>
+        </xsd:annotation>
+   </xsd:element>
+   <xsd:element name="OwnerParty" type="PartyABIEType">
+      <xsd:annotation>
+            <xsd:documentation>The owner of a vehicle, boat, engine, truck, trailer, or other
+            item.</xsd:documentation>
+        </xsd:annotation>
+   </xsd:element>
+   <xsd:element name="AlternatePartyDocument" type="DocumentABIEType">
+      <xsd:annotation>
+            <xsd:documentation>
+                An alternate collection of data for a piece of written, printed, or
+                electronic matter that provides information or evidence of a party.
+            </xsd:documentation>
+        </xsd:annotation>
+   </xsd:element>
+   <xsd:element name="EffectivePeriod" type="PeriodABIEType">
+      <xsd:annotation>
+            <xsd:documentation>
+                A specific period of time such as the length of time between two
+                known date/time points, from a start date onwards, or up to an end date of when something is effective.
+            </xsd:documentation>
+        </xsd:annotation>
+   </xsd:element>
+   <xsd:element name="SpecifiedOrganization" type="OrganizationABIEType">
+      <xsd:annotation>
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">A specific organization
+                represented in a party, or other component.</xsd:documentation>
+        </xsd:annotation>
+   </xsd:element>
+   <xsd:element name="PrimaryContact" type="ContactABIEType">
+      <xsd:annotation>
+            <xsd:documentation>
+                <ccts:UniqueID/>
+                <ccts:Acronym>ABIE</ccts:Acronym>
+                <ccts:Version/>
+                A primary person or department that acts as a point of contact with
+                    another peson or department.
+                <ccts:ObjectClassQualifierTerm>Primary</ccts:ObjectClassQualifierTerm>
+                <ccts:ObjectClassTerm>Contact</ccts:ObjectClassTerm>
+            </xsd:documentation>
+        </xsd:annotation>
+   </xsd:element>
+   <xsd:element name="SpecifiedPerson" type="PersonType">
+      <xsd:annotation>
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">Identifies a specific
+                individual or person.</xsd:documentation>
+        </xsd:annotation>
+   </xsd:element>
+   <xsd:element name="ResidenceAddress" type="AddressABIEType">
+      <xsd:annotation>
+            <xsd:documentation>
+                The location at which a particular person may be found or reached.
+            </xsd:documentation>
+        </xsd:annotation>
+   </xsd:element>
+   <xsd:element name="TelephoneCommunication" type="CommunicationABIEType">
+      <xsd:annotation>
+            <xsd:documentation>
+                Telephone Communication information like phone number
+            </xsd:documentation>
+        </xsd:annotation>
+   </xsd:element>
+   <xsd:element name="UsagePreference" type="PreferenceABIEType">
+      <xsd:annotation>
+            <xsd:documentation>
+                Precedence, advantage, or choice of one person or thing over
+                another.
+            </xsd:documentation>
+        </xsd:annotation>
+   </xsd:element>
+   <xsd:element name="UnavailablePeriod" type="PeriodABIEType">
+      <xsd:annotation>
+            <xsd:documentation>
+                A specific period of time such as the length of time between two
+                known date/time points, from a start date onwards, or up to an end date of when something is unavailable.
+            </xsd:documentation>
+        </xsd:annotation>
+   </xsd:element>
+   <xsd:element name="AvailablePeriod" type="PeriodABIEType">
+      <xsd:annotation>
+            <xsd:documentation>
+                A specific period of time such as the length of time between two
+                known date/time points, from a start date onwards, or up to an end date of when something is avaialble..
+            </xsd:documentation>
+        </xsd:annotation>
+   </xsd:element>
+   <xsd:element name="Privacy" type="PrivacyType">
+      <xsd:annotation>
+            <xsd:documentation>Any privacy rights the
+                party has subscribed to or opted out of.</xsd:documentation>
+        </xsd:annotation>
+   </xsd:element>
+   <xsd:element name="PrivacyPeriod" type="PeriodABIEType">
+      <xsd:annotation>
+            <xsd:documentation>
+                The start and end dates for the period that privacy should be applied.
+            </xsd:documentation>
+        </xsd:annotation>
+   </xsd:element>
+   <xsd:element name="FaxCommunication" type="CommunicationABIEType">
+      <xsd:annotation>
+            <xsd:documentation>
+                Fax communication includes fax number or mailto address
+            </xsd:documentation>
+        </xsd:annotation>
+   </xsd:element>
+   <xsd:element name="URICommunication" type="CommunicationABIEType">
+      <xsd:annotation>
+            <xsd:documentation>
+                Email or web communication
+            </xsd:documentation>
+        </xsd:annotation>
+   </xsd:element>
+   <xsd:element name="PostalAddress" type="AddressABIEType">
+      <xsd:annotation>
+            <xsd:documentation>
+                The location at which mail is delivered.
+            </xsd:documentation>
+        </xsd:annotation>
+   </xsd:element>
+   <xsd:element name="PartyActionEvent" type="EventType">
+      <xsd:annotation>
+            <xsd:documentation source="http://www.starstandard.org/STAR/5">
+                An action taken for an event by or in behalf of the party.  This can be used to track the
+                creation of the party, deletion, or end date.  This action is dirrectly related to the party.
+            </xsd:documentation>
+        </xsd:annotation>
+   </xsd:element>
+   <xsd:element name="ShipToParty" type="PartyABIEType">
+      <xsd:annotation>
+            <xsd:documentation>The party receiving the goods or services.</xsd:documentation>
+        </xsd:annotation>
+   </xsd:element>
+   <xsd:element name="SoldToParty" type="PartyABIEType">
+      <xsd:annotation>
+            <xsd:documentation>The party to which good or services were sold.</xsd:documentation>
+        </xsd:annotation>
+   </xsd:element>
+   <xsd:element name="Pricing" type="PricingABIEType">
+      <xsd:annotation>
+            <xsd:documentation> Provides pricing infomation. </xsd:documentation>
+        </xsd:annotation>
+   </xsd:element>
+   <xsd:element name="Price" type="PriceABIEType">
+      <xsd:annotation>
+            <xsd:documentation>
+                Price information
+            </xsd:documentation>
+        </xsd:annotation>
+   </xsd:element>
+   <xsd:element name="ApplicableLocation" type="LocationABIEType">
+      <xsd:annotation>
+            <xsd:documentation>
+                A location where a particular set of information applies.  i.e. if found in the 
+                price component this specifies the location within a country that the price may
+                apply.
+            </xsd:documentation>
+        </xsd:annotation>
+   </xsd:element>
+   <xsd:element name="Tax" type="TaxType">
+      <xsd:annotation>
+            <xsd:documentation>The Tax component represents information about a particular tax including information about the type of tax and the amount of the tax.</xsd:documentation>
+        </xsd:annotation>
+   </xsd:element>
+   <xsd:element name="FleetAccount" type="FleetAccountType">
+      <xsd:annotation>
+            <xsd:documentation> </xsd:documentation>
+        </xsd:annotation>
+   </xsd:element>
+   <xsd:element name="FleetQuantity" type="FleetQuantityType">
+      <xsd:annotation>
+            <xsd:documentation>
+                This component keeps track of the number of vehicles, make, and vehicle class that are
+                currently on the Fleet Account.
+            </xsd:documentation>
+        </xsd:annotation>
+   </xsd:element>
+   <xsd:element name="Option" type="OptionABIEType">
+      <xsd:annotation>
+            <xsd:documentation>The Option represents information about a vehicle's options.</xsd:documentation>
+        </xsd:annotation>
+   </xsd:element>
+   <xsd:element name="OptionPricing" type="PricingABIEType">
+      <xsd:annotation>
+            <xsd:documentation> Option pricing. </xsd:documentation>
+        </xsd:annotation>
+   </xsd:element>
+   <xsd:element name="DefinedContact" type="ContactABIEType">
+      <xsd:annotation>
+            <xsd:documentation>
+                A defined person or department that acts as a point of contact with
+                    another peson or department.
+            </xsd:documentation>
+        </xsd:annotation>
+   </xsd:element>
+</xsd:schema>

@@ -1,0 +1,9 @@
+extends layout
+
+block content
+    h1= title
+    p
+      ol
+         h2
+           #doc
+              <pre><code>#{JSON.stringify(doc, null, 2)}</code></pre>

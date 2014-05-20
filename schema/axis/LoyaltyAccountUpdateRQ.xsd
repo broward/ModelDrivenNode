@@ -1,0 +1,582 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<xsd:element name="LoyaltyAccountUpdateRQ">
+		<xsd:annotation>
+			<xsd:documentation>Profile create root element</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="Updates" maxOccurs="unbounded">
+					<xsd:annotation>
+						<xsd:documentation>Each Update (at time of consumption event such as TKG, BKG, FLN) is grouped by Traveler/Ticket</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="LoyaltyMemberID">
+								<xsd:annotation>
+									<xsd:documentation>Account ID</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+							<xsd:element name="ProgramName">
+								<xsd:annotation>
+									<xsd:documentation>Program Name</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+							<xsd:element name="GroupID" minOccurs="0">
+								<xsd:annotation>
+									<xsd:documentation>Associates this account to a pre-defined group</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+							<xsd:element name="CreationAgent" type="xsd:string">
+								<xsd:annotation>
+									<xsd:documentation>Agent ID or Robot ID.  Example: RI17</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+							<xsd:sequence>
+								<xsd:element name="RevenueData" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>Earned revenue send by RoBo after segments are verified as flown; </xsd:documentation>
+									</xsd:annotation>
+									<xsd:complexType>
+										<xsd:sequence>
+											<xsd:element name="CreditUnits">
+												<xsd:annotation>
+													<xsd:documentation>Revenue units to be processed in various account balances</xsd:documentation>
+												</xsd:annotation>
+												<xsd:complexType>
+													<xsd:sequence>
+														<xsd:sequence minOccurs="0">
+															<xsd:element name="YearRev">
+																<xsd:annotation>
+																	<xsd:documentation>Units of revenue debited/credited to respective balance</xsd:documentation>
+																</xsd:annotation>
+																<xsd:complexType>
+																	<xsd:attribute name="Type">
+																		<xsd:annotation>
+																			<xsd:documentation>D = Debit
+C = Credit</xsd:documentation>
+																		</xsd:annotation>
+																	</xsd:attribute>
+																</xsd:complexType>
+															</xsd:element>
+															<xsd:element name="LifeTimeRev">
+																<xsd:annotation>
+																	<xsd:documentation>Units of revenue debited/credited to respective balance</xsd:documentation>
+																</xsd:annotation>
+																<xsd:complexType>
+																	<xsd:attribute name="Type">
+																		<xsd:annotation>
+																			<xsd:documentation>D = Debit
+C = Credit</xsd:documentation>
+																		</xsd:annotation>
+																	</xsd:attribute>
+																</xsd:complexType>
+															</xsd:element>
+														</xsd:sequence>
+														<xsd:element name="FutureRev" minOccurs="0">
+															<xsd:annotation>
+																<xsd:documentation>Units of revenue debited/credited to respective balance</xsd:documentation>
+															</xsd:annotation>
+															<xsd:complexType>
+																<xsd:attribute name="Type">
+																	<xsd:annotation>
+																		<xsd:documentation>D = Debit
+C = Credit</xsd:documentation>
+																	</xsd:annotation>
+																</xsd:attribute>
+															</xsd:complexType>
+														</xsd:element>
+													</xsd:sequence>
+													<xsd:attribute name="Type" use="required">
+														<xsd:annotation>
+															<xsd:documentation>BKG = Booking
+TKG = Ticketing
+FLN = Flown
+ADM = AdminTool</xsd:documentation>
+														</xsd:annotation>
+													</xsd:attribute>
+													<xsd:attribute name="Action">
+														<xsd:annotation>
+															<xsd:documentation>This attribute becomes mandatory ONLY in conjunction with Type = FLN
+
+Allowed values:
+USED
+VOID
+EXCH
+RFND</xsd:documentation>
+														</xsd:annotation>
+													</xsd:attribute>
+												</xsd:complexType>
+											</xsd:element>
+										</xsd:sequence>
+									</xsd:complexType>
+								</xsd:element>
+								<xsd:element name="OfferDataGroup" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>Used to add new offers or to adjust the units for existing offers</xsd:documentation>
+									</xsd:annotation>
+									<xsd:complexType>
+										<xsd:sequence>
+											<xsd:element name="Offer" maxOccurs="unbounded">
+												<xsd:complexType>
+													<xsd:sequence>
+														<xsd:element name="EventType">
+															<xsd:annotation>
+																<xsd:documentation>ENR = Enrollment
+BKG = Booking
+TKG = Ticketing
+FLN = Flown
+ANN = Anniversary
+REV = Revenue Treshold
+ADM = Administartion
+EXP = Expiration (removes expired units)</xsd:documentation>
+															</xsd:annotation>
+															<xsd:simpleType>
+																<xsd:restriction base="xsd:string">
+																	<xsd:enumeration value="ENR"/>
+																	<xsd:enumeration value="ANN"/>
+																	<xsd:enumeration value="REV"/>
+																	<xsd:enumeration value="BKG"/>
+																	<xsd:enumeration value="ADM"/>
+																	<xsd:enumeration value="EXP"/>
+																</xsd:restriction>
+															</xsd:simpleType>
+														</xsd:element>
+														<xsd:element name="OfferCodeID">
+															<xsd:annotation>
+																<xsd:documentation>ID for this offer as filed in rules engine
+Example: 0AR123</xsd:documentation>
+															</xsd:annotation>
+														</xsd:element>
+														<xsd:element name="Description" minOccurs="0">
+															<xsd:annotation>
+																<xsd:documentation>Description of the offer</xsd:documentation>
+															</xsd:annotation>
+														</xsd:element>
+														<xsd:element name="Units">
+															<xsd:annotation>
+																<xsd:documentation>The units credited based on the request type.
+Units may be number of services, cost of service in points, miles or awards
+
+Example: 
+5
+2.25</xsd:documentation>
+															</xsd:annotation>
+															<xsd:complexType>
+																<xsd:simpleContent>
+																	<xsd:extension base="xsd:string">
+																		<xsd:attribute name="DateControlled">
+																			<xsd:annotation>
+																				<xsd:documentation>default is "N"
+if set to "Y" the offer is not unit controlled and valid as per expiration date</xsd:documentation>
+																			</xsd:annotation>
+																		</xsd:attribute>
+																		<xsd:attribute name="OfferSubCode">
+																			<xsd:annotation>
+																				<xsd:documentation>used only at event type e.g. TKG, BKG or FLN</xsd:documentation>
+																			</xsd:annotation>
+																		</xsd:attribute>
+																	</xsd:extension>
+																</xsd:simpleContent>
+															</xsd:complexType>
+														</xsd:element>
+														<xsd:element name="DiscountLevel" minOccurs="0">
+															<xsd:annotation>
+																<xsd:documentation>identifies discount level to be applied </xsd:documentation>
+															</xsd:annotation>
+															<xsd:complexType>
+																<xsd:simpleContent>
+																	<xsd:extension base="xsd:string">
+																		<xsd:attribute name="Type">
+																			<xsd:annotation>
+																				<xsd:documentation>A = DiscountAmount
+P = DiscountPercentage</xsd:documentation>
+																			</xsd:annotation>
+																		</xsd:attribute>
+																	</xsd:extension>
+																</xsd:simpleContent>
+															</xsd:complexType>
+														</xsd:element>
+														<xsd:element name="Threshold" minOccurs="0">
+															<xsd:annotation>
+																<xsd:documentation>Identifies which revenue threshold triggered this transaction</xsd:documentation>
+															</xsd:annotation>
+														</xsd:element>
+														<xsd:element name="TravelDates" minOccurs="0">
+															<xsd:complexType>
+																<xsd:choice>
+																	<xsd:element ref="ApplicationPeriod"/>
+																	<xsd:element ref="ValidityDates"/>
+																</xsd:choice>
+															</xsd:complexType>
+														</xsd:element>
+														<xsd:element name="BookingDates" minOccurs="0">
+															<xsd:complexType>
+																<xsd:choice>
+																	<xsd:element ref="ApplicationPeriod"/>
+																	<xsd:element ref="ValidityDates"/>
+																</xsd:choice>
+															</xsd:complexType>
+														</xsd:element>
+													</xsd:sequence>
+													<xsd:attribute name="Type" use="required">
+														<xsd:annotation>
+															<xsd:documentation>D = Debit
+C = Credit
+N = to be set when offer is date controlled (not unit controlled)</xsd:documentation>
+														</xsd:annotation>
+													</xsd:attribute>
+												</xsd:complexType>
+											</xsd:element>
+										</xsd:sequence>
+									</xsd:complexType>
+								</xsd:element>
+								<xsd:element name="BookingReference" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>Not used when New Offers are added, otherwise mandatory</xsd:documentation>
+									</xsd:annotation>
+									<xsd:complexType>
+										<xsd:sequence>
+											<xsd:element name="TicketTrxID" minOccurs="0">
+												<xsd:annotation>
+													<xsd:documentation>transaction key generated by loyalty program server</xsd:documentation>
+												</xsd:annotation>
+												<xsd:complexType>
+													<xsd:simpleContent>
+														<xsd:extension base="xsd:string"/>
+													</xsd:simpleContent>
+												</xsd:complexType>
+											</xsd:element>
+											<xsd:element name="BookingOfficeID" type="xsd:string">
+												<xsd:annotation>
+													<xsd:documentation>Booking office Identification.  Example: KLTLOB</xsd:documentation>
+												</xsd:annotation>
+											</xsd:element>
+											<xsd:element ref="RecordLocator">
+												<xsd:annotation>
+													<xsd:documentation>PNR record locator associated with this transaction.  Example: R1A3SK</xsd:documentation>
+												</xsd:annotation>
+											</xsd:element>
+											<xsd:element ref="Remarks" minOccurs="0"/>
+											<xsd:element ref="VendorLocator"/>
+											<xsd:element name="TicketNumber" minOccurs="0">
+												<xsd:annotation>
+													<xsd:documentation>13-digit ticket number 
+Example: 1761233215673</xsd:documentation>
+												</xsd:annotation>
+												<xsd:complexType>
+													<xsd:simpleContent>
+														<xsd:extension base="xsd:string">
+															<xsd:attribute name="ConjTicketNumber">
+																<xsd:annotation>
+																	<xsd:documentation>13-digit ticket number of the LAST ticket of an conjunctive ticket set. 
+Example: 1761233215673</xsd:documentation>
+																</xsd:annotation>
+																<xsd:simpleType>
+																	<xsd:restriction base="xsd:string">
+																		<xsd:minLength value="1"/>
+																	</xsd:restriction>
+																</xsd:simpleType>
+															</xsd:attribute>
+															<xsd:attribute name="Status" use="required">
+																<xsd:annotation>
+																	<xsd:documentation>Possible Values:
+"TICKETED"
+"VOIDED"
+"EXCHANGED"
+"REFUNDED"</xsd:documentation>
+																</xsd:annotation>
+																<xsd:simpleType>
+																	<xsd:restriction base="xsd:string">
+																		<xsd:enumeration value="TICKETED"/>
+																		<xsd:enumeration value="VOIDED"/>
+																		<xsd:enumeration value="EXCHANGED"/>
+																		<xsd:enumeration value="REFUNDED"/>
+																	</xsd:restriction>
+																</xsd:simpleType>
+															</xsd:attribute>
+														</xsd:extension>
+													</xsd:simpleContent>
+												</xsd:complexType>
+											</xsd:element>
+											<xsd:element name="TravelerName">
+												<xsd:annotation>
+													<xsd:documentation>Name group</xsd:documentation>
+												</xsd:annotation>
+												<xsd:complexType>
+													<xsd:sequence>
+														<xsd:element ref="Surname"/>
+														<xsd:element ref="GivenName"/>
+														<xsd:element ref="Initial" minOccurs="0">
+															<xsd:annotation>
+																<xsd:documentation>Traveler initial or middle name (required by US Gov). Example: G or George</xsd:documentation>
+															</xsd:annotation>
+														</xsd:element>
+														<xsd:element name="FQTVData" minOccurs="0">
+															<xsd:annotation>
+																<xsd:documentation>Frequent flyer number.  Example: 0956301007</xsd:documentation>
+															</xsd:annotation>
+															<xsd:complexType>
+																<xsd:sequence>
+																	<xsd:element ref="FFCompanyCode"/>
+																	<xsd:element ref="FFNumber"/>
+																</xsd:sequence>
+															</xsd:complexType>
+														</xsd:element>
+													</xsd:sequence>
+												</xsd:complexType>
+											</xsd:element>
+											<xsd:element name="FlightReferences" maxOccurs="unbounded">
+												<xsd:annotation>
+													<xsd:documentation>Flight element associated to this transaction</xsd:documentation>
+												</xsd:annotation>
+												<xsd:complexType>
+													<xsd:sequence>
+														<xsd:element ref="AirlineCode"/>
+														<xsd:element ref="FlightNumber"/>
+														<xsd:element ref="ClassOfService"/>
+														<xsd:element ref="Date"/>
+														<xsd:element ref="Time"/>
+														<xsd:element ref="DepartureCode"/>
+														<xsd:element ref="ArrivalCode"/>
+													</xsd:sequence>
+													<xsd:attribute name="BookingDate" use="required">
+														<xsd:annotation>
+															<xsd:documentation>ISO format: yyyy-mm-dd</xsd:documentation>
+														</xsd:annotation>
+													</xsd:attribute>
+													<xsd:attribute name="BookingTime" use="required">
+														<xsd:annotation>
+															<xsd:documentation>ISO format: hh:mm</xsd:documentation>
+														</xsd:annotation>
+													</xsd:attribute>
+												</xsd:complexType>
+											</xsd:element>
+										</xsd:sequence>
+									</xsd:complexType>
+								</xsd:element>
+							</xsd:sequence>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="CurrencyCode">
+		<xsd:annotation>
+			<xsd:documentation>Currency code.  Example: USD</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:simpleContent>
+				<xsd:restriction base="CurrencyCodeType">
+					<xsd:pattern value="[A-Z0-9]{3}"/>
+					<xsd:attribute name="NumberOfDecimals" type="xsd:integer" use="required">
+						<xsd:annotation>
+							<xsd:documentation>Decimal position in fare amount.  Example: 2</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:restriction>
+			</xsd:simpleContent>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:complexType name="CurrencyCodeType">
+		<xsd:annotation>
+			<xsd:documentation>Defines currency code (ISO 3-letter code) and optional number of decimals. Not that for request messages the NumberOfDecimals has no effect and is not needed.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleContent>
+			<xsd:extension base="xsd:string">
+				<xsd:attribute name="NumberOfDecimals" type="xsd:integer" use="optional">
+					<xsd:annotation>
+						<xsd:documentation>Decimal position in fare amount.  Example: 2</xsd:documentation>
+					</xsd:annotation>
+				</xsd:attribute>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:element name="RecordLocator" type="xsd:string">
+		<xsd:annotation>
+			<xsd:documentation>PNR record locator.  Example: R1A3SK</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="Initial">
+		<xsd:annotation>
+			<xsd:documentation>Traveler middle initial (only one letter).  Example: G</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleType>
+			<xsd:restriction base="xsd:string">
+				<xsd:length value="1"/>
+			</xsd:restriction>
+		</xsd:simpleType>
+	</xsd:element>
+	<xsd:element name="Surname" type="xsd:string">
+		<xsd:annotation>
+			<xsd:documentation>Traveler family name.  Example: SMITH</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="GivenName" type="xsd:string">
+		<xsd:annotation>
+			<xsd:documentation>Traveler given (first) name. This field is populated by parsing the given name data returned by the GDS. Because the GDSs accept free form text for the given name (although there is a convention) this field may also contain second name, initials and/or title. NOTE: see also NativeGivenName field. Example: JANE</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="VendorLocator" type="xsd:string">
+		<xsd:annotation>
+			<xsd:documentation>Vendor record locator identification.  Example: RAS12T</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="ClassOfService" type="COSType">
+		<xsd:annotation>
+			<xsd:documentation>Class of service.  Example: B</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:simpleType name="COSType">
+		<xsd:annotation>
+			<xsd:documentation> Basic definition of air  ClassOfService. Alpha-coded. Usually single char.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="1"/>
+			<xsd:minLength value="1"/>
+			<xsd:pattern value="[A-Z]"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:element name="Date" type="Date">
+		<xsd:annotation>
+			<xsd:documentation>Specifies departure or arrival date in ISO 8601 format (yyyy-mm-dd). Example: 2001-12-25</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:simpleType name="Date">
+		<xsd:annotation>
+			<xsd:documentation>Date in ISO 8601 format (yyyy-mm-dd). Example: 2001-12-25</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:date"/>
+	</xsd:simpleType>
+	<xsd:element name="Time" type="Time">
+		<xsd:annotation>
+			<xsd:documentation>Departure or arrival time in ISO 8601 twenty-four hour clock format. Example: 14:00</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:simpleType name="Time">
+		<xsd:annotation>
+			<xsd:documentation>Time in ISO 8601 twenty-four hour clock format. Example: 14:00</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:length value="5"/>
+			<xsd:pattern value="([0-1][0-9]|2[0-3]):[0-5][0-9]"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:element name="DepartureCode" type="xsd:string">
+		<xsd:annotation>
+			<xsd:documentation>Departure airport or city code.  Example: MIA</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="ArrivalCode" type="xsd:string">
+		<xsd:annotation>
+			<xsd:documentation>Arrival airport or city code.  Example: NYC</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="FlightNumber" type="xsd:string">
+		<xsd:annotation>
+			<xsd:documentation>Flight number</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="AirlineCode">
+		<xsd:annotation>
+			<xsd:documentation>Number 3-digit airline code. AA - 001, LH - 220    Example: 001</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleType>
+			<xsd:restriction base="xsd:string">
+				<xsd:length value="3"/>
+			</xsd:restriction>
+		</xsd:simpleType>
+	</xsd:element>
+	<xsd:element name="FFCompanyCode" type="xsd:string">
+		<xsd:annotation>
+			<xsd:documentation>Frequent flyer company code.  Example: AF</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="Text" type="xsd:string">
+		<xsd:annotation>
+			<xsd:documentation>Information text or error text. Example: Free flow text.  </xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="FFNumber" type="xsd:string">
+		<xsd:annotation>
+			<xsd:documentation>Frequent flyer number.  Example: 0956301007</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="Remarks">
+		<xsd:annotation>
+			<xsd:documentation>Information group</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="Text" maxOccurs="unbounded"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="ValidityDates">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="EffectiveDate" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Date in ISO 8601 format (yyyy-mm-dd).  Example: 2001-12-25</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:simpleContent>
+							<xsd:extension base="xsd:date">
+								<xsd:attribute name="Time">
+									<xsd:annotation>
+										<xsd:documentation>Date in ISO 8601 format (hh:mm).  
+Example: 14:55</xsd:documentation>
+									</xsd:annotation>
+								</xsd:attribute>
+							</xsd:extension>
+						</xsd:simpleContent>
+					</xsd:complexType>
+				</xsd:element>
+				<xsd:element name="ExpirationDate" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Date in ISO 8601 format (yyyy-mm-dd).  Example: 2001-12-25</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:simpleContent>
+							<xsd:extension base="xsd:date">
+								<xsd:attribute name="Time">
+									<xsd:annotation>
+										<xsd:documentation>Date in ISO 8601 format (hh:mm).  
+Example: 14:55</xsd:documentation>
+									</xsd:annotation>
+								</xsd:attribute>
+							</xsd:extension>
+						</xsd:simpleContent>
+					</xsd:complexType>
+				</xsd:element>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="ApplicationPeriod">
+		<xsd:complexType>
+			<xsd:simpleContent>
+				<xsd:extension base="xsd:string">
+					<xsd:attribute name="Type">
+						<xsd:annotation>
+							<xsd:documentation>D = Days
+W = Weeks
+M = Months
+Y = Years</xsd:documentation>
+						</xsd:annotation>
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:length value="1"/>
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:attribute>
+					<xsd:attribute name="EnrollmentBased">
+						<xsd:annotation>
+							<xsd:documentation>Indicates that the ApplicationPeriod is calculated based on EnrollmentDate (=Y) or on the date the Loyalty member receives the offer for credit (=N - default)</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:simpleContent>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>

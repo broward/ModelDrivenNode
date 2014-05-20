@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:include schemaLocation="CommonTypes.xsd"/>
+	<xsd:element name="TicketRevalidationRS">
+		<xsd:annotation>
+			<xsd:documentation>Ticket Revalidation Response Root Element 
+
+Note: While in the case of failure only the couponnumber/ segmentnumber pair which caused the reject/failure is returned, all pairs as requested are returned in case of success.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="InfoGroup" minOccurs="0"/>
+				<xsd:element name="Result">
+					<xsd:annotation>
+						<xsd:documentation>Response if Revalidation request failed or succeeded</xsd:documentation>
+					</xsd:annotation>
+					<xsd:complexType>
+						<xsd:choice>
+							<xsd:element name="Failure">
+								<xsd:annotation>
+									<xsd:documentation>A failure node will be returned at first occurence of a coupon/segment validation request failing. Only the coupon/segment causing the rejection is returned.
+</xsd:documentation>
+								</xsd:annotation>
+								<xsd:complexType>
+									<xsd:sequence>
+										<xsd:element name="CouponNumber" type="xsd:int">
+											<xsd:annotation>
+												<xsd:documentation>The actual coupon number causing the (very first) reject by the target system.  </xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="SegmentNumber" type="xsd:int">
+											<xsd:annotation>
+												<xsd:documentation>The actual segment number causing the (very first) reject by the target system</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+									</xsd:sequence>
+									<xsd:attribute name="TicketNumber" type="xsd:long" use="required">
+										<xsd:annotation>
+											<xsd:documentation>The 13-digit ticket number (no check digit) from the TicketValidationRQ holding the coupon(s) used in the request(s).  
+Example: 1761234567890</xsd:documentation>
+										</xsd:annotation>
+									</xsd:attribute>
+									<xsd:attribute name="RecordLocator" type="xsd:string" use="required">
+										<xsd:annotation>
+											<xsd:documentation>Record locator from the TicketValidationRQ holding the flight segment requested to be validated.
+Example: R1A3SK</xsd:documentation>
+										</xsd:annotation>
+									</xsd:attribute>
+								</xsd:complexType>
+							</xsd:element>
+							<xsd:element name="Success" maxOccurs="unbounded">
+								<xsd:annotation>
+									<xsd:documentation>A success node is returned when entire revalidation request was successful.  All validated coupon/segment pairs will be listed.</xsd:documentation>
+								</xsd:annotation>
+								<xsd:complexType>
+									<xsd:sequence>
+										<xsd:element name="CouponNumber" type="xsd:int">
+											<xsd:annotation>
+												<xsd:documentation>Returns separate element for each validated coupon number.  A sequential match with SegmentNumber of RecordLocator element </xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+										<xsd:element name="SegmentNumber" type="xsd:int">
+											<xsd:annotation>
+												<xsd:documentation>Returns separate element for each PNR segment associated to the validated coupon number.  A sequential match with CouponNumner of TicketNumber element</xsd:documentation>
+											</xsd:annotation>
+										</xsd:element>
+									</xsd:sequence>
+									<xsd:attribute name="TicketNumber" type="xsd:long" use="required">
+										<xsd:annotation>
+											<xsd:documentation>The 13-digit ticket number (no check digit) from the TicketValidationRQ holding the coupon(s) used in the request(s).  
+Example: 1761234567890</xsd:documentation>
+										</xsd:annotation>
+									</xsd:attribute>
+									<xsd:attribute name="RecordLocator" type="xsd:string" use="required">
+										<xsd:annotation>
+											<xsd:documentation>Record locator from the TicketValidationRQ holding the flight segment requested to be validated.
+Example: R1A3SK</xsd:documentation>
+										</xsd:annotation>
+									</xsd:attribute>
+								</xsd:complexType>
+							</xsd:element>
+						</xsd:choice>
+					</xsd:complexType>
+				</xsd:element>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>

@@ -1,0 +1,1884 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Copyright (c) 2000-2010 RIXML.org-->
+<!--RIXML Specification Version 2.3.1
+
+Not for distribution unless authorized by RIXML.org
+
+RIXML.org Limited ("RIXML") is a UK incorporated company.  Site content is provided solely by RIXML and is not representative of the views of any one shareholder.  Unless otherwise stated RIXML is solely responsible for site content. Terms and conditions of use are published on the web site at www.rixml.org.  Copyright 2000-2010. All rights reserved.-->
+<xs:schema xmlns:rixmldt="http://www.rixml.org/2010/1/RIXML-datatypes" xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://www.rixml.org/2010/1/RIXML-datatypes" schemaLocation="RIXML-datatypes-2_3_1.xsd"/>
+	<!--ComplexTypes for re-use-->
+	<xs:complexType name="ContactInfoType">
+		<xs:annotation>
+			<xs:documentation>ComplexType for ContactInfo</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element ref="InstantMessenger" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element ref="Email" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element ref="Phone" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element ref="Website" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element ref="Address" minOccurs="0"/>
+			<xs:element name="Description" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>A brief description of the contact information can be included here, if desired.  This element is intended to pick up where the purpose attribute leaves off.  It offers the ability to provide more detail.  </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="nature" type="rixmldt:ContactInfoNatureEnum" use="required">
+			<xs:annotation>
+				<xs:documentation>Used to indicate the nature of the contact information - business or personal.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="purpose" type="rixmldt:ContactInfoPurposeEnum" use="optional">
+			<xs:annotation>
+				<xs:documentation>Describes the intended purpose of the contact information.  Gives the reader an idea of what to expect on the far side.  </xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="PersonType">
+		<xs:annotation>
+			<xs:documentation>ComplexType for Person</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="JobRole" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Indicates the functional role played by the person relative to his/her job in the organization, for example, analyst, strategist, economist, etc.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="FamilyName" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Indicates the family name of the person.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="GivenName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Indicates the given name of the person.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="MiddleName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Indicates the middle name of the person.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DisplayName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Strongly Recommended. Indicates how the publisher or person wants the name to be presented, for example: Dr. John Doe Sr. CPA, CFA.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="JobTitle" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Indicates the official title of the person within an organization -- e.g. Managing Director, Vice President, etc. </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Division" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Indicates the division that the person officially works for within an organization.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element ref="ContactInfo" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element ref="PersonLabel" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+		<xs:attribute name="personID" type="xs:string" use="required">
+			<xs:annotation>
+				<xs:documentation>An identifier used to identify the person. For accurate identification it is required that the personID be unique for a given publisher, but the implementation of the ID is left to the publishers to implement as they deem fit.  Examples: combination of LastName and FirstName, combination of internal employee ID and RIXML publisher ID. </xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="FinancialsType">
+		<xs:annotation>
+			<xs:documentation>Complex Type for Financials</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Currency" type="rixmldt:ISO4217CurrencyType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Indicates the currency of the issuer financials.  Represented by the three letter alpha code defined by ISO 4217.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Source" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Free-text tag to indicate the source of the numbers. Example: the name of the company that provides the consensus figures.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element ref="FinancialValue" maxOccurs="unbounded"/>
+		</xs:sequence>
+		<xs:attribute name="gaapType" type="rixmldt:FinancialStatementGAAPTypeEnum" use="optional">
+			<xs:annotation>
+				<xs:documentation>Generally Accepted Accounting Principles.  </xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="restated" type="rixmldt:YesNoEnum" use="optional">
+			<xs:annotation>
+				<xs:documentation>To state in a new form a company's financial statements, perhaps to reflect a current period item back through prior periods.  </xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="proForma" type="rixmldt:YesNoEnum" use="optional">
+			<xs:annotation>
+				<xs:documentation>A hypothetical financial model based on a set of assumptions.  </xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="publisherDefinedValue" type="xs:string" use="optional"/>
+		<xs:attribute name="displayName" type="xs:string" use="optional">
+			<xs:annotation>
+				<xs:documentation>If a publisher-defined value, or a value defined by RIXML but the publisher wishes to call the value by another name  (e.g., Turnover instead of Sales), this attribute should be used to provide the desired value name.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="yearType" type="rixmldt:YearTypeEnum" use="optional">
+			<xs:annotation>
+				<xs:documentation>Indicates whether the year specified is a fiscal year or calendar year</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="priorCurrent" type="rixmldt:PriorCurrentTypeEnum" use="optional">
+			<xs:annotation>
+				<xs:documentation>Indicates whether the financials are current or prior. Defaulted to currentPrior is used to indicate what the prior figure was for the period specified in order to give context to the current figure, not to provide the figure for a prior time period.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="FinancialValueType">
+		<xs:annotation>
+			<xs:documentation>ComplexType for FinancialValue</xs:documentation>
+		</xs:annotation>
+		<xs:simpleContent>
+			<xs:extension base="xs:string">
+				<xs:attribute name="estimateActual" type="rixmldt:EstimateActualEnum" use="required">
+					<xs:annotation>
+						<xs:documentation>Indicates whether a financial figure is actual or estimated.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="period" type="rixmldt:PeriodEnum" use="optional">
+					<xs:annotation>
+						<xs:documentation>Used together with periodYear and periodEnd to indicate the applicable period for a financial value. Example: Q4 2000 ending 31 December.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="periodEnd" type="xs:dateTime" use="optional">
+					<xs:annotation>
+						<xs:documentation>Used together with period and periodYear to indicate the applicable period for a financial value. Example: Q4 2000 ending 31 December.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="periodYear" type="xs:integer" use="optional">
+					<xs:annotation>
+						<xs:documentation>The four-digit year used together with period and periodEnd to indicate the applicable period for a financial value. Example: Q4 2000 ending 31 December.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="duration" type="xs:duration" use="optional">
+					<xs:annotation>
+						<xs:documentation>Time duration that is being addressed.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="dateTime" type="xs:dateTime" use="optional">
+					<xs:annotation>
+						<xs:documentation>Exact date and time applicable to a financial data item, expressed using ISO 8601 (as refined by the World Wide Web Consortium's note http://www.w3.org/TR/NOTE-datetime).  In addition, RIXML requires the use of Zulu time or Z-time (GMT +/- n hours:minute:seconds).  All times are absolute and easier to compute, rather than using a relative (i.e. 08:30 +5) time.  Generally dateTime is used instead of period, periodYear and periodEnd when a specific date can be assigned to a financial data item, for example, Total Assets as of 31 January 2000.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="estimateAction" type="rixmldt:EstimateEnum" use="optional">
+					<xs:annotation>
+						<xs:documentation>If this financial value is an estimate, the estimateAction attribute can be used to indicate an action, such as reiterate or upgrade, that applies to this estimate.  Intended to provide support for the case where an author is including more than one estimate action in the same report -- for example, reiterating his current fiscal year estimate and upgrading his next fiscal year estimate.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="ContentType">
+		<xs:annotation>
+			<xs:documentation>ComplexType for Content</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Description" type="xs:string" minOccurs="0"/>
+			<xs:element ref="Title">
+				<xs:annotation>
+					<xs:documentation>This is the primary title of the product.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element ref="SubTitle" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>This is the sub title of the product.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element ref="Abstract" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>A summary of the information contained in the product.  Highlights the salient issues in the document or provides a brief description of the event. Suggested maximum length is 3000 characters.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element ref="Synopsis" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>A very brief statement of the subject addressed in the product. This is typically only a few lines and would be appropriate for highly abbreviated displays. Suggested maximum length is 300 characters.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element ref="Resource" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ProductDetailsType">
+		<xs:annotation>
+			<xs:documentation>ComplexType for ProductDetails</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element ref="ProductCategory"/>
+			<xs:element ref="ProductFocus" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element ref="ProductSeries" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element ref="EntitlementGroup" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element ref="ProductName" minOccurs="0"/>
+		</xs:sequence>
+		<xs:attribute name="publicationDateTime" type="xs:dateTime" use="required">
+			<xs:annotation>
+				<xs:documentation>Indicates the date and time at which the product was officially published.  This is the date and time that would appear on the product itself, or be displayed to a reader.  It is expressed using ISO 8601 as refined by the World Wide Web Consortium's note http://www.w3.org/TR/NOTE-datetime.  In addition, RIXML requires the use of Zulu time or Z-time (GMT +/- n hours:minute:seconds).  All times are absolute and easier to compute, rather than using a relative (i.e. 08:30 +5) time.  </xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="periodicalIndicator" type="rixmldt:YesNoEnum" use="optional">
+			<xs:annotation>
+				<xs:documentation>Indicates whether or not the content is a periodical.  </xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="ProductClassificationsType">
+		<xs:annotation>
+			<xs:documentation>ComplexType for ProductClassifications</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element ref="KeywordClassifications" minOccurs="0"/>
+			<xs:element ref="Discipline" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element ref="Subject" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element ref="Index" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element ref="Country" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element ref="Region" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element ref="AssetClass" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element ref="AssetType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element ref="SecurityType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element ref="SectorIndustry" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element ref="Currency" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="EventDetailsType">
+		<xs:annotation>
+			<xs:documentation>ComplexType for EventDetails</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="EventType" type="rixmldt:EventTypeEnum">
+				<xs:annotation>
+					<xs:documentation>Indicates the type of the event.  </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="EventSponsor" type="rixmldt:OrganizationTypeEnum"/>
+			<xs:element ref="EventVenue" minOccurs="0"/>
+			<xs:element ref="EventHost" minOccurs="0"/>
+			<xs:element ref="RegistrationInformation" minOccurs="0"/>
+			<xs:element ref="ContactInfo" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="IssuerDetailsType">
+		<xs:annotation>
+			<xs:documentation>ComplexType for IssuerDetails</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element ref="Issuer" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="EntitlementType">
+		<xs:annotation>
+			<xs:documentation>ComplexType for Entitlement</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element ref="AudienceTypeEntitlement" minOccurs="0"/>
+			<xs:element ref="CountryEntitlement" minOccurs="0"/>
+			<xs:element ref="SectorIndustryEntitlement" minOccurs="0"/>
+			<xs:element ref="TimeEntitlement" minOccurs="0"/>
+			<xs:element ref="RegionEntitlement" minOccurs="0"/>
+		</xs:sequence>
+		<xs:attribute name="sequence" type="xs:integer" use="optional">
+			<xs:annotation>
+				<xs:documentation>If there are multiple Entitlements, and they should take precedence in a certain order when the content is published, indicate the desired order by associating the appropriate sequence number to each Entitlement.  </xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="primaryIndicator" type="rixmldt:YesNoEnum" use="required">
+			<xs:annotation>
+				<xs:documentation>If necessary, indicates which entitlement is primary.  </xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="includeExcludeIndicator" type="rixmldt:IncludeExcludeEnum" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="LegalType">
+		<xs:annotation>
+			<xs:documentation>ComplexType for Legal</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Copyright" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Copyright information relating to the product.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Disclaimer" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Disclaimer is the long generic legalese that automatically gets pasted into a note/report that 'disclaims' against liabilities for losses associated with buying/selling stocks etc. This could also include generic disclaimers when a report discusses MSCI indexes.  This section changes infrequently.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element ref="IssuerSecurityID" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="SecurityTypeX">
+		<xs:annotation>
+			<xs:documentation>ComplexType for Security</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element ref="SecurityID" maxOccurs="unbounded"/>
+			<xs:element ref="FinancialDates" minOccurs="0"/>
+			<xs:element ref="SecurityFinancials" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element ref="SectorIndustry" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element ref="Weighting" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="SecurityName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The name of the Security.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="SecurityShortName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Optional short name commonly used to identify the Security.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element ref="AssetClass"/>
+			<xs:element ref="AssetType"/>
+			<xs:element ref="SecurityType" minOccurs="0"/>
+			<xs:element ref="Rating" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+		<xs:attribute name="targetPriceAction" type="rixmldt:TargetPriceEnum" use="optional">
+			<xs:annotation>
+				<xs:documentation>Highlights an action taken by the publisher. Indicates that the publisher is changing their target price estimate for a Security. Example: a publisher increases a target price for Security ABC to $100.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="estimateAction" type="rixmldt:EstimateEnum" use="optional">
+			<xs:annotation>
+				<xs:documentation>Highlights an action taken by the publisher. Indicates that the publisher is changing their earnings estimates for a Security. Example: a publisher lowers all their earnings estimates for Security ABC.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="sequence" type="xs:integer" use="optional">
+			<xs:annotation>
+				<xs:documentation>If there are multiple Securities, and they should appear in a certain order when the content is published, indicate the desired order by associating the appropriate sequence number to each Security.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="primaryIndicator" type="rixmldt:YesNoEnum" use="required">
+			<xs:annotation>
+				<xs:documentation>Indicates the primary Security or Securities discussed in the research product. If the product is focused at the Security level (i.e. the ProductFocus tag is set to Security), then at least one Security must be marked as primary.  Otherwise primaryIndicator is optional.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attributeGroup ref="actionAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="SecurityDetailsType">
+		<xs:annotation>
+			<xs:documentation>ComplexType for SecurityDetails</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element ref="Security" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="SectorIndustryType">
+		<xs:annotation>
+			<xs:documentation>ComplexType for SectorIndustry</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element ref="Rating" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element ref="Weighting" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element ref="SectorIndustry" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="ShortName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>A short name for the sector. Example: Pharma may be used for Major Pharmaceuticals.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Name" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Indicates the name of the sector.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Description" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>A textual description of the sector.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="code" type="xs:string" use="required">
+			<xs:annotation>
+				<xs:documentation>Identifies the sector under consideration. Refer to the RIXML sector-industry code document for a valid list of RIXML-defined codes.  Publisher defined codes can be used in addition to, but not instead of, the RIXML-defined codes.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="level" type="xs:string" use="required">
+			<xs:annotation>
+				<xs:documentation>Since sectors are organized in a hierarchical fashion, the level element indicates the level that a specific SectorIndustry element is at in this hierarchy. There are four levels within the GICS classification scheme, with level 1 referring to Sectors, level 2 to Industry Groups, level 3 to Industries and level 4 to Sub Industries.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="classificationType" type="rixmldt:SectorIndustryClassificationTypeEnum" use="required">
+			<xs:annotation>
+				<xs:documentation>Name of the classification method used. Options are GICS or PublisherDefined.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="sequence" type="xs:integer" use="optional">
+			<xs:annotation>
+				<xs:documentation>If there are multiple Sectors and/or Industries, and they should appear in a certain order when the content is published, indicate the desired order by associating the appropriate sequence number to each Sector or Industry.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="focusLevel" type="rixmldt:YesNoEnum" use="required">
+			<xs:annotation>
+				<xs:documentation>Indicates whether the current level is the main focus of the product being published. This tag is used in conjunction with the ProductFocus tag to determine the focus of a product. Example: a product focusing on the Entertainment sub-industry, would have the ProductFocus.focus tag set to SectorIndustry, and in the correct SectorIndustry element the following values would be set:
+SectorIndustry.classificationType = GICS
+SectorIndustry.level = 4
+SectorIndustry.focusLevel = Yes
+SectorIndustry.primaryIndicator = Yes
+SectorIndustry.name = Entertainment.
+This allows a consumer to determine the exact focus of the product.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="primaryIndicator" type="rixmldt:YesNoEnum" use="required">
+			<xs:annotation>
+				<xs:documentation>Indicates the primary SectorIndustry or SectorIndustries discussed in the product. If the product is focused on the SectorIndustry level  (i.e. the ProductFocus tag is set to SectorIndustry), then at least one SectorIndustry must be marked as primary.  </xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="officiallyClassified" type="rixmldt:YesNoEnum" use="optional">
+			<xs:annotation>
+				<xs:documentation>Indicates whether the specified SectorIndustry is an official classification.  Specifically, if the classificationType is "GICS", then this value must be supplied and set to "Yes" to indicate a mapping that complies with the official GICS classification.  Likewise, this value must be supplied and set to "No" if the related Issuer or Security is mapped only on a best-guess basis and is not part of the official GICS classification.  If this optional attribute is not supplied and the classificationType is "GICS", the consumer should assume a value of "No". </xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attributeGroup ref="actionAttributeGroup"/>
+	</xs:complexType>
+	<xs:complexType name="OrganizationType">
+		<xs:annotation>
+			<xs:documentation>ComplexType for Organisation</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="LogoURL" type="xs:anyURI" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Indicates the URL location of the logo of the organization.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PublisherDefinedValue" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>For the cases in which the type attribute has the value PublisherDefined, the PublisherDefinedValue element is used to hold the organization's own description of the type.  </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element ref="OrganizationID" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element ref="OrganizationName" maxOccurs="unbounded"/>
+			<xs:element ref="PersonGroup" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element ref="ContactInfo" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="Description" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Optional description of the organization.  Used to include any additional information about the organization.  </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="sequence" type="xs:integer" use="optional">
+			<xs:annotation>
+				<xs:documentation>If there are multiple Organizations, and they should appear in a certain order when the content is published, indicate the desired order by associating the appropriate sequence number to each Organization.  </xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="primaryIndicator" type="rixmldt:YesNoEnum" use="required">
+			<xs:annotation>
+				<xs:documentation>Indicates the primary organization relative to others that may be specified.  When multiple organizations (subsidiaries of the same organization or different organizations) come together on a product, one must be listed as primary (generally the parent organization or the name of the joint venture).</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="type" type="rixmldt:OrganizationTypeEnum" use="required">
+			<xs:annotation>
+				<xs:documentation>The type of the organization.  </xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<!--AttributeGroups for reuse of attributes-->
+	<xs:attributeGroup name="actionAttributeGroup">
+		<xs:annotation>
+			<xs:documentation>AttributeGroup for rating, coverage and weighting actions</xs:documentation>
+		</xs:annotation>
+		<xs:attribute name="coverageAction" type="rixmldt:CoverageActionEnum" use="optional">
+			<xs:annotation>
+				<xs:documentation>Highlights an action taken by the publisher. Indicates that the publisher is changing the coverage status of a Security. Example: a publisher initiates coverage of Security ABC.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="ratingAction" type="rixmldt:RatingActionEnum" use="optional">
+			<xs:annotation>
+				<xs:documentation>Highlights an action taken by the publisher. Indicates that the publisher is changing their rating on a Security. Example: a publisher downgrades Security ABC.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attributeGroup ref="weightingAttributeGroup"/>
+	</xs:attributeGroup>
+	<xs:attributeGroup name="weightingAttributeGroup">
+		<xs:annotation>
+			<xs:documentation>Attribute group for weighting action alone</xs:documentation>
+		</xs:annotation>
+		<xs:attribute name="weightingAction" type="rixmldt:WeightingActionEnum" use="optional">
+			<xs:annotation>
+				<xs:documentation>Highlights an action taken by the publisher.  Indicates that the publisher is changing the weighting of the security type.  </xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:attributeGroup>
+	<xs:attributeGroup name="researchAttributeGroup">
+		<xs:annotation>
+			<xs:documentation>Attribute group for Research</xs:documentation>
+		</xs:annotation>
+		<xs:attribute name="researchID" type="xs:string" use="required">
+			<xs:annotation>
+				<xs:documentation>This is to facilitate the unique identification of a particular bundling of products.  This is added with some forward thought to hypothetical research distribution systems that may wish to label and refer to result sets.  
+
+To ensure uniqueness it is recommended that a Universal Unique IDentifier (UUID) be used as the productID. UUIDs can be generated on any computer, regardless of platform or operating system. A UUID is a 128-bit (16-byte) integer that is virtually guaranteed to be unique in the world across space and time. The Open Software Foundation (OSF) created UUIDs, as part of their Distributed Computing Environment (DCE).</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="createDateTime" type="xs:dateTime" use="required">
+			<xs:annotation>
+				<xs:documentation>This marks the date/time at which this research bundle was formed.  It is expressed using ISO 8601 as refined by the World Wide Web Consortium's note http://www.w3.org/TR/NOTE-datetime.  In addition, RIXML requires the use of Zulu time or Z-time (GMT +/- n hours:minute:seconds).  All times are absolute and easier to compute, rather than using a relative (i.e. 08:30 +5) time.  </xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="language" type="rixmldt:ISO639-2LanguageType" use="required">
+			<xs:annotation>
+				<xs:documentation>Indicates the language of the RIXML document -- i.e. the language of the publisher-supplied tag values contained in the RIXML-based XML file for this research item.  Described using the ISO 639-2/T Code. </xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:attributeGroup>
+	<xs:element name="RelatedProduct">
+		<xs:annotation>
+			<xs:documentation>Describes how content contained in this product is associated with other products, or how content in other products is associated with this one. Can have none or any number of relationships to other products. </xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="RelationshipDescription" type="xs:string" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>The description of the relationship between the current product and the other product to which it is related.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+			<xs:attribute name="relatedProductID" type="xs:string" use="required">
+				<xs:annotation>
+					<xs:documentation>The unique productID of the product to which this product is related (as stored in Product.productID of the related document)</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="relationshipType" type="rixmldt:ProductRelationshipTypeEnum" use="required">
+				<xs:annotation>
+					<xs:documentation>Indicates the type of relationship between this product and another product.</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+	<!--Elements for Package 1-SourcePackage-->
+	<xs:element name="Source">
+		<xs:annotation>
+			<xs:documentation>The top-level element of the Source section.  Used to specify the organization(s) from which this research item originated.  Organizations given here are defined as publishers.  </xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="Organization" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="PersonGroup">
+		<xs:annotation>
+			<xs:documentation>The PersonGroup element is used to hold the name(s) of the individual person(s) and/or the name of the group.  In the case of an individual person, the person tag and its associated personID are used (no personGroupID or description is needed).  PersonGroups can be formally organized groups or they can be fluid groups that come together to deliver content.   If the "group" consists of only one person, there is no need to define a group ID and description; it is sufficient to have the 'person' tag and the associated personID under the 'group' tag.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="Name" type="xs:string" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Indicates the name of the group.  This is not required, but can be used where groups are formally named or if there is a name created for the group involved with a publication or event.  </xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="PublisherDefinedValue" type="xs:string" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>If the role attribute has the value PublisherDefined, this element is used to hold the publisher's own description of the role.  </xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element ref="PersonGroupMember" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="ContactInfo" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:attribute name="personGroupID" type="xs:string" use="optional">
+				<xs:annotation>
+					<xs:documentation>Some unique label used to reference a particular group of people.  </xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="sequence" type="xs:integer" use="optional">
+				<xs:annotation>
+					<xs:documentation>If there are multiple PersonGroups, and they should appear in a certain order when the content is published, indicate the desired order by associating an appropriate sequence number to each one.  </xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="primaryIndicator" type="rixmldt:YesNoEnum" use="optional">
+				<xs:annotation>
+					<xs:documentation>Indicates the primary PersonGroup, when more than one are specified.  </xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="role" type="rixmldt:RoleEnum" use="optional">
+				<xs:annotation>
+					<xs:documentation>The role of the group relative to this research item.  This is especially useful if only the group is specified without any members or if all members share the same role -- as in a group of document authors or meeting attendees.  </xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="PersonGroupMember">
+		<xs:annotation>
+			<xs:documentation>Used to define the members of a group, for example, the author(s) of the product. The PersonGroupMember highlights primary persons, and describes the display order of multiple persons.  </xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="PublisherDefinedValue" type="xs:string" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>If the role attribute has value PublisherDefined, then the publisher indicates the role in this element.  </xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element ref="Person"/>
+			</xs:sequence>
+			<xs:attribute name="sequence" type="xs:integer" use="optional">
+				<xs:annotation>
+					<xs:documentation>If there are multiple PersonGroupMembers, and they should appear in a certain order when the content is published, indicate the desired order by associating the appropriate sequence number to each PersonGroupMember.</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="primaryIndicator" type="rixmldt:YesNoEnum" use="optional">
+				<xs:annotation>
+					<xs:documentation>Indicates which member is primary relative to the product.  A person group can have more than one primary member.  </xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="role" type="rixmldt:RoleEnum" use="optional">
+				<xs:annotation>
+					<xs:documentation>The role of this individual person relative to this research item.  </xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Person" type="PersonType">
+		<xs:annotation>
+			<xs:documentation>Describes an individual involved in the product in some capacity.  </xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="PersonLabel">
+		<xs:annotation>
+			<xs:documentation>This element can be used to include a label by which this person is known in the context named in the personLabelContext attribute.  Useful for supplying author codes that have meaning on specific vendor platforms.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="xs:string">
+					<xs:attribute name="personLabelContext" type="xs:string" use="optional">
+						<xs:annotation>
+							<xs:documentation>This attribute must be used to indicate the specific context for the person label.  This would typically be a mnemonic for an individual vendor platform in which the labeled person has a presence.  For example, it may be useful for identifying authors of research contributed to a particular vendor platform.  Here, a vendor is defined as an organization outside the buy-side and sell-side community of financial services firms which provides platforms or tools used by participants in the investment research economy.</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="OrganizationName">
+		<xs:annotation>
+			<xs:documentation>The name of the organization.  An organization can have multiple names as enumerated in the Name Types.  At least one name is required for the content to be valid.  Display name is the preferred name if only one name is provided.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="xs:string">
+					<xs:attribute name="nameType" type="rixmldt:OrganizationNameTypeEnum" use="required">
+						<xs:annotation>
+							<xs:documentation>The name can be one of the following types - legal, local, display, or parent.  Use Display if using only one nameType, unless one of the other nameTypes is preferred.</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="OrganizationID">
+		<xs:annotation>
+			<xs:documentation>An identifier used to identify the organization -- multiple are possible. For example, for a product distributed via multiple vendors, each vendor may require a different OrganizationID, with the idType for each OrganizationID identifying the name of the vendor in the manner specified by the vendor.  The actual ID is stored as free text in the content of the OrganizationID node. 
+A UUID can also be used as one of the IDs.  This is to facilitate the unique identification of a particular organization.  To ensure uniqueness it is recommended that a Universal Unique IDentifier (UUID) be used as the productID. UUIDs can be generated on any computer, regardless of platform or operating system. A UUID is a 128-bit (16-byte) integer that is virtually guaranteed to be unique in the world across space and time. The Open Software Foundation (OSF) created UUIDs, as part of their Distributed Computing Environment (DCE).</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="xs:string">
+					<xs:attribute name="idType" type="xs:string" use="required">
+						<xs:annotation>
+							<xs:documentation>Indicates the type of ID used. Examples: CUSIP, VendorCode.</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Organization" type="OrganizationType">
+		<xs:annotation>
+			<xs:documentation>Describes an organization related to the research item.  Multiple organizations may be related to one research item.  These organizations can be subsidiaries of the same parent or different organizations (as in a joint venture) working together on a publication or event.  However, there can only be one primary publisher organization, which is captured by the primaryIndicator, when contained by the Source element. </xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<!--Elements for Package 2-ContactInfoPackage-->
+	<xs:element name="Address">
+		<xs:annotation>
+			<xs:documentation>Strongly Recommended.  Describes the street address.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="AddressLine1" type="xs:string">
+					<xs:annotation>
+						<xs:documentation>Indicates the first line of the street address.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="AddressLine2" type="xs:string" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Indicates the second line of the street address.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="AddressLine3" type="xs:string" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Indicates the third line of the street address.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="AddressLine4" type="xs:string" minOccurs="0"/>
+				<xs:element name="AddressLine5" type="xs:string" minOccurs="0"/>
+				<xs:element name="City" type="xs:string" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Indicates the city where the street address is located.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="StateProvince" type="xs:string" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Indicates the State/Province/Canton/County information of the address.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="PostalCode" type="xs:string" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Indicates the Postal code, quadrant, zone or Zip code.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="Country" type="xs:string">
+					<xs:annotation>
+						<xs:documentation>This field indicates the country, as it should be displayed.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Email">
+		<xs:annotation>
+			<xs:documentation>Strongly Recommended.  Indicates the email address.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="xs:string"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Phone">
+		<xs:annotation>
+			<xs:documentation>Strongly Recommended.  Describes the telephone, fax or pager numbers.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="CountryCode" type="xs:string">
+					<xs:annotation>
+						<xs:documentation>Telephone country code for the phone number.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="Number" type="xs:string">
+					<xs:annotation>
+						<xs:documentation>Phone number including area code. </xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="ExtensionPIN" type="xs:string" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Used for extension number for a phone or a PIN.  PINs are sometimes associated with pagers.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+			<xs:attribute name="type" type="rixmldt:PhoneTypeEnum" use="required">
+				<xs:annotation>
+					<xs:documentation>Phone numbers can be one of the following types - voice, fax, or pager.  </xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="location" type="rixmldt:PhoneLocationEnum" use="optional">
+				<xs:annotation>
+					<xs:documentation>Describes the location of the phone at this number -- i.e. office, home, moblie.  </xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Website">
+		<xs:annotation>
+			<xs:documentation>Strongly Recommended.  Provides a URI reference for a web site.  </xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="URL" type="xs:anyURI">
+					<xs:annotation>
+						<xs:documentation>Web address associated with the person or organization.  </xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="InstantMessenger">
+		<xs:annotation>
+			<xs:documentation>Describes an Instant Messenger address.  </xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="xs:string">
+					<xs:attribute name="type" type="rixmldt:InstantMessengerTypeEnum" use="required">
+						<xs:annotation>
+							<xs:documentation>Indicates the Instant Messenger protocol type -- i.e. AIM, ICQ, MSN, SMS, Yahoo, etc.  </xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+					<xs:attribute name="publisherDefinedValue" type="xs:string" use="optional">
+						<xs:annotation>
+							<xs:documentation>For specifying other IM systems. </xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="ContactInfo" type="ContactInfoType">
+		<xs:annotation>
+			<xs:documentation>The top-level element of the ContactInfo section.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<!--Elements for Package 3-ContentPackage-->
+	<xs:element name="Resource">
+		<xs:annotation>
+			<xs:documentation>Describes the resource that contains the media representation of the research product. For example, can describe a file, URL, or encoded data that represents the product. There can be any number of Resource elements associated with a product. For example, a product may consist of both a PDF document (one resource) and an Excel spreadsheet (another resource), or there could be multiple language versions of the same document (each one a resource).</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="Protocol" type="xs:string" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Indicates the protocol (rules determining format and transmission). This eliminates the need for parsing this information from the URL.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element ref="Length" minOccurs="0"/>
+				<xs:element ref="StatusInfo" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="Price" minOccurs="0"/>
+				<xs:element name="MIMEType" type="xs:string">
+					<xs:annotation>
+						<xs:documentation>Indicates the type of media used to store the content. MIMEType is used to determine the software product(s) that can read the content.  MIMETypes are described in RFC 2046.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="Name" type="xs:string" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>The Name element is intended to provide a research consumer with a suggestion on how to store the particular resource, whether is comes via an actual file, embedded data or remote URL.  If this RIXML file arrives with a companion file (PDF, Word, text, etc.) representing this resource, then the Name value is used to match the resource with right companion file.  If a payload file is embedded data, the Name value is used by the publisher to suggest a file name to the consumer, who may choose to store the embedded data locally.  If a payload file is referenced via URL, the Name value is similarly used by the publisher to suggest a file name to the consumer for local storage.  </xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="Comments" type="xs:string" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Any additional comments that are deemed necessary. For example, which software version is required to open the document?  Or, how does this resource relate to the others for this product?  </xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="URL" type="xs:anyURI" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Indicates the URL at which the resource can be found. </xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="Data" type="xs:base64Binary" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Used when the content (data) of the research product needs to be included within the RIXML document. The data must be base64-encoded.  </xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="XMLData" minOccurs="0">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:any namespace="http://www.xbrl.org/2003/instance" processContents="lax" maxOccurs="unbounded"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+			<xs:attribute name="resourceID" type="xs:string" use="required">
+				<xs:annotation>
+					<xs:documentation>The unique identifier of the resource within the product. The implementation of the resourceID is left for the publishers of content to implement as they deem fit. At a minimum, the resourceID is required to be unique within the product(s) it appears under. </xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="language" type="rixmldt:ISO639-2LanguageType" use="optional">
+				<xs:annotation>
+					<xs:documentation>Indicates the language of the resource, described using the ISO 639-2/T Code. Highly recommended, especially when multiple resources are included that are different translations of the same product. Whereas the language attribute of the Research element represents the language of the metadata describing the Research, the language attribute of the Resource element represents the language of the media representation (often a file) of the product. These two language attributes may be different. </xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="sizeInBytes" type="xs:string" use="optional">
+				<xs:annotation>
+					<xs:documentation>Indicates the size of the resource in bytes. Could be used by the end user to estimate the download time and storage needs.</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="primaryIndicator" type="rixmldt:YesNoEnum" use="required">
+				<xs:annotation>
+					<xs:documentation>Indicates the primary Resource. At least one Resource must be set to Primary.</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="sequence" type="xs:integer" use="optional">
+				<xs:annotation>
+					<xs:documentation>If there are multiple Resources, and they should appear in a certain order when the content is published, indicate the desired order by associating the appropriate sequence number to each Resource.</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="type" type="rixmldt:ResourceTypeEnum" use="optional"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Price">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="xs:string">
+					<xs:attribute name="currency" type="rixmldt:ISO4217CurrencyType" use="required">
+						<xs:annotation>
+							<xs:documentation>The currency used to express the price value.  Represented by the three letter alpha code defined by ISO 4217.</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<!--Elements for Package 4-ContextPackage-->
+	<xs:element name="Discipline">
+		<xs:annotation>
+			<xs:documentation>Describes the high level content classification of a research product based on its intellectual and analytical approach.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="xs:string">
+					<xs:attribute name="disciplineType" type="rixmldt:DisciplineTypeEnum" use="required">
+						<xs:annotation>
+							<xs:documentation>Indicates the high level discipline of the research product. </xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+					<xs:attribute name="researchApproach" type="rixmldt:ResearchApproachEnum" use="optional">
+						<xs:annotation>
+							<xs:documentation>Indicates the analytical technique used to create the content of the research product. Required when disciplineType is Strategy or Investment.</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="ProductSeries">
+		<xs:annotation>
+			<xs:documentation>Used for publications issued as a series / periodical.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="Periodicity" minOccurs="0"/>
+				<xs:element name="SeriesName" type="xs:string">
+					<xs:annotation>
+						<xs:documentation>Indicates the name of the publication series. The series name should appear in the same way for all items in the series.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+			<xs:attribute name="volume" type="xs:string" use="optional">
+				<xs:annotation>
+					<xs:documentation>Volume number.</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="number" type="xs:string" use="optional">
+				<xs:annotation>
+					<xs:documentation>Publication number in a volume.</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="ProductFocus">
+		<xs:annotation>
+			<xs:documentation>Indicates the primary focus of the product. This tag is used in conjunction with the primaryIndicator fields in SectorIndustry, Discipline, Issuer, Region, Country, AssetClass, AssetType, SecurityType, Index to indicate the primary topic of the product.  
+EXAMPLE 1: a report that is an overview of French securities, with a few brief comments about the household durables and insurance industries would have 
+ProductFocus.focus = Country
+ProductFocus.primaryIndicator = Yes 
+Context.Country.countryCode = FR
+Context.Country.countryName = France 
+Context.Country.primaryIndicator = Yes 
+Because the product only briefly mentions the household durables and insurance industries, these would both have the Context.sectorIndustry.primaryIndicator set to No.  If other countries are mentioned, these additional Context.Country.countryCodes can be listed, with the respective primaryIndicator set to No.  
+EXAMPLE 2: a company report on a bank that briefly discusses how changes in the banking industry may affect aspects of the real estate industry, would have 
+ProductFocus.focus = Issuer
+ProductFocus.primaryIndicator = Yes 
+Context.SectorIndustry.sectorIndustryCode = 4010
+Context. SectorIndustry.Name = Banks
+Context. SectorIndustry.primaryIndicator = Yes 
+Context.SectorIndustry.sectorIndustryCode = 4040
+Context. SectorIndustry.Name = Real Estate
+Context. SectorIndustry.primaryIndicator = No.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="xs:string">
+					<xs:attribute name="focus" type="rixmldt:FocusEnum" use="required">
+						<xs:annotation>
+							<xs:documentation>Focus indicates whether the product discusses any of certain attributes (such as SectorIndustry, Issuer, Country, etc.).  A report primarily about one company would have a focus of Issuer, while a country overview would have a focus of Country.</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+					<xs:attribute name="primaryIndicator" type="rixmldt:YesNoEnum" use="required">
+						<xs:annotation>
+							<xs:documentation>Used to indicate which of various focus attributes in the product is the primary topic of the product.</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Keyword">
+		<xs:annotation>
+			<xs:documentation>Free-text keywords relevant to the product, which the consumers may want to search on.  There is no maximum length, but should only be populated with terms that would help users locate relevant research products. These keywords, like all other metadata, will be in the language of the Research.Language.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="xs:string"/>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Periodicity">
+		<xs:annotation>
+			<xs:documentation>Indicates the frequency with which the publication is published or the event occurs.  </xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="xs:string">
+					<xs:attribute name="periodicityValue" type="rixmldt:PeriodicityEnum" use="required">
+						<xs:annotation>
+							<xs:documentation>This is the frequency with which this product is published or this event is held.  </xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+					<xs:attribute name="publisherDefinedValue" type="xs:string" use="optional">
+						<xs:annotation>
+							<xs:documentation>If Periodicity.Value = PublisherDefined, then the publisher can indicate a frequency not in the PeriodicityEnum list.</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="ProductCategory">
+		<xs:annotation>
+			<xs:documentation>Describes the manner or format that information is presented within the product.  Product categories include Comment, Report, Model, Chart, etc.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="xs:string">
+					<xs:attribute name="productCategory" type="rixmldt:ProductCategoryEnum" use="required">
+						<xs:annotation>
+							<xs:documentation>The category that the product fits into.</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+					<xs:attribute name="publisherDefinedValue" type="xs:string" use="optional">
+						<xs:annotation>
+							<xs:documentation>If productCategory is PublisherDefined, then the publisher can indicate what type of product this is.  </xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Subject">
+		<xs:annotation>
+			<xs:documentation>Strongly recommended.  Indicates the subject of the product.  There is a standard set of subjects defined by RIXML including market opening comments, accounting and tax policy, and earnings surprise.  If these do not fully represent the subject, the publisher may use a publisher defined Subject value.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="xs:string">
+					<xs:attribute name="subjectValue" type="rixmldt:SubjectEnum" use="required">
+						<xs:annotation>
+							<xs:documentation>The main topic covered in the product.</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+					<xs:attribute name="publisherDefinedValue" type="xs:string" use="optional">
+						<xs:annotation>
+							<xs:documentation>If the Subject.Value = PublisherDefined, then the publisher can indicate a subject not in the SubjectEnum list.</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Index">
+		<xs:annotation>
+			<xs:documentation>Indicates an index mentioned in the product.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="PublisherDefinedValue" type="xs:string" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>(DEPRECATED.  Use IndexID instead.)  Used to indicate the index name, when the name attribute is PublisherDefined.  This is for cases where the relevant index is not already on the enumeration list.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element ref="Country" minOccurs="0"/>
+				<xs:element ref="Region" minOccurs="0"/>
+				<xs:element ref="SectorIndustry" minOccurs="0"/>
+				<xs:element ref="Weighting" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="Rating" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="IndexID" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:attribute name="type" type="rixmldt:IndexTypeEnum" use="optional">
+				<xs:annotation>
+					<xs:documentation>An indication of the type of index.  Typically market, industry or country.  </xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="name" type="rixmldt:IndexEnum" use="optional">
+				<xs:annotation>
+					<xs:documentation>(DEPRECATED.  Use IndexID instead.)  This is the index name.</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="displayName" type="xs:string" use="optional">
+				<xs:annotation>
+					<xs:documentation>A descriptive name of the index suitable for display purposes.</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="IndexID">
+		<xs:annotation>
+			<xs:documentation>Identifies an index mentioned in the product via an ID symbol of type specified in the idType attribute.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:attribute name="idType" type="rixmldt:IssuerSecurityIDTypeEnum" use="required">
+				<xs:annotation>
+					<xs:documentation>Indicates the protocol used for the index identifier (i.e. the classification scheme). Examples include CUSIP, RIC, BloombergCode, etc.</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="publisherDefinedValue" type="xs:string" use="optional">
+				<xs:annotation>
+					<xs:documentation>If the IndexID.idType = PublisherDefined, then the publisher can indicate a type of index identifier not in the IssuerSecurityIDTypeEnum list.</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="idValue" type="xs:string" use="required">
+				<xs:annotation>
+					<xs:documentation>The actual symbol identifying the index.</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="KeywordClassifications">
+		<xs:annotation>
+			<xs:documentation>KeywordClassifications grouping element that groups or bounds multiple keyword elements.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="Keyword" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Currency">
+		<xs:annotation>
+			<xs:documentation>Some research products discuss financial values without mapping to any issuers or securities.  Having currency as a possible product classification enables more accurate tagging in those cases.  This element requires that a specific currency is indicated.  For products discussing currencies in general, publishers should tag the asset class as currencies. </xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="xs:string">
+					<xs:attribute name="currency" type="rixmldt:ISO4217CurrencyType" use="required">
+						<xs:annotation>
+							<xs:documentation>Represented by the three letter alpha code defined by ISO 4217.</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<!--Elements for Issuer-->
+	<xs:element name="Issuer">
+		<xs:annotation>
+			<xs:documentation>Describes the Issuer of a security.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="LogoURL" type="xs:anyURI" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Indicates the URL where the Issuer's logo may be found.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element ref="FinancialDates" minOccurs="0"/>
+				<xs:element ref="IssuerFinancials" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="SectorIndustry" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="SecurityDetails" minOccurs="0"/>
+				<xs:element ref="Weighting" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="IssuerID" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="IssuerName" maxOccurs="unbounded"/>
+				<xs:element name="Description" type="xs:string" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>A text description (name) of the Issuer. Strongly Recommended element.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element ref="Rating" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="ResourceLink" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:attribute name="issuerType" type="rixmldt:IssuerTypeEnum" use="required">
+				<xs:annotation>
+					<xs:documentation>Indicates the type of Issuer. For example, can be agency, government or corporate.</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="domicileCountryCode" type="rixmldt:ISO3166-1CountryType" use="optional">
+				<xs:annotation>
+					<xs:documentation>Indicates the country where the Issuer is domiciled, represented by the ISO 3166-1 country code.</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="fiscalYearEnd" type="xs:gMonthDay" use="optional">
+				<xs:annotation>
+					<xs:documentation>Combination of Day and Month that indicates the fiscal year end of the Issuer.</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="sequence" type="xs:integer" use="optional">
+				<xs:annotation>
+					<xs:documentation>If there are multiple Issuers, and they should appear in a certain order when the content is published, indicate the desired order by associating the appropriate sequence number to each Issuer.</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="primaryIndicator" type="rixmldt:YesNoEnum" use="required">
+				<xs:annotation>
+					<xs:documentation>Indicates the primary Issuer(s) discussed in the research product. If the product is focused at the Issuer level (i.e. the ProductFocus tag is set to Issuer), then at least one Issuer must be marked as primary.  </xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attributeGroup ref="actionAttributeGroup"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Rating">
+		<xs:annotation>
+			<xs:documentation>This is information regarding ratings.  These can be about the issuer of a security or a security itself, an industry, a country, or other entities.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="PublisherDefinedValue" type="xs:string" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Used when the rating value is PublisherDefined.  </xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element ref="RatingEntity"/>
+				<xs:element name="Description" type="xs:string" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>A description of the rating.  May include time horizon.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+			<xs:attribute name="timeFrame" type="rixmldt:TermEnum" use="optional">
+				<xs:annotation>
+					<xs:documentation>This is the period for which the rating is relevant, as of the date it was established by the authoring entity.  </xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="priorCurrent" type="rixmldt:PriorCurrentTypeEnum" use="optional">
+				<xs:annotation>
+					<xs:documentation>Used to indicate whether the rating is current or prior (current is the default).  Prior is only used to give reference for a change from a prior rating.  Prior is used to indicate what the prior figure was for the period specified in order to give context to the current figure, not to provide the figure for a prior time period.</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="relationship" type="rixmldt:RatingRelationshipEnum" use="optional">
+				<xs:annotation>
+					<xs:documentation>Provides a context for the rating.  </xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="volatile" type="rixmldt:YesNoEnum" use="optional">
+				<xs:annotation>
+					<xs:documentation>Indicates the volatility of the rated entity.  </xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="volatilityRisk" type="rixmldt:RatingVolatilityRiskEnum" use="optional">
+				<xs:annotation>
+					<xs:documentation>An indication of the potential price fluctuation of the rated entity.  </xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="rating" type="rixmldt:RatingEnum" use="required">
+				<xs:annotation>
+					<xs:documentation>The actual rating as issued by the authoring entity.  </xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="RatingEntity">
+		<xs:annotation>
+			<xs:documentation>The rating entity featured in the research item.  This may be a publisher or an independent agency.    </xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="PublisherDefinedValue" type="xs:string" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Used when the ratingEntity value is PublisherDefined.  </xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+			<xs:attribute name="ratingEntity" type="rixmldt:RatingEntityEnum" use="required"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="FinancialValue" type="FinancialValueType">
+		<xs:annotation>
+			<xs:documentation>Stores a specific financial data item for an issuer or a security.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="IssuerFinancials">
+		<xs:annotation>
+			<xs:documentation>Financial data related to the issuer of a security.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="FinancialsType">
+					<xs:attribute name="issuerFinancialsType" type="rixmldt:IssuerFinancialsTypeEnum" use="required"/>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="SectorIndustry" type="SectorIndustryType">
+		<xs:annotation>
+			<xs:documentation>Strongly recommended.  The sector or industry classification to which a security belongs, or about which the research product is written. 
+
+GICS has been accepted as the official RIXML sector / industry classification scheme  . Publishers are required to use this classification scheme to provide the correct GICS sector / industry for a research product. This gives  consumers a standardized means of determining the sector / industry that a research product is written about. 
+The GICS sector / industry classification must be provided for each primary security mentioned in the product. Should the product be focused on the sector / industry level, publishers must provide the GICS sector / industry classification that most closely matches what the product is written about.  
+
+Publishers are also able to provide publisher defined sector / industry tags,  giving them the flexibility to tag their research using their own industry classification scheme. However, should they do so, they must also provide the closest match from the GICS scheme to ensure consistency on the consumption side.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="SecurityID">
+		<xs:annotation>
+			<xs:documentation>Used to uniquely identify the security</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="TradingExchange" minOccurs="0"/>
+			</xs:sequence>
+			<xs:attribute name="idType" type="rixmldt:IssuerSecurityIDTypeEnum" use="required">
+				<xs:annotation>
+					<xs:documentation>Indicates the organization or company's protocol used for the security identifier (i.e. the Security classification scheme). Examples include CUSIP, RIC, BloombergCode, etc.</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="publisherDefinedValue" type="xs:string" use="optional">
+				<xs:annotation>
+					<xs:documentation>If the SecurityID.idType = PublisherDefined, then the publisher can indicate a type of security identifier not in the IssuerSecurityIDTypeEnum list.</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="idValue" type="xs:string" use="required">
+				<xs:annotation>
+					<xs:documentation>The actual unique identifier for this security. Example: MSFT.O is correct idValue for Microsoft Common Shares using the Reuters RIC scheme.</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="tradingCountryCode" type="rixmldt:ISO3166-1CountryType" use="optional">
+				<xs:annotation>
+					<xs:documentation>The ISO 3166-1 Country code for the country in which the exchange operates.</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="TradingExchange">
+		<xs:annotation>
+			<xs:documentation>Used to identify the exchange upon which the security trades.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="xs:string">
+					<xs:attribute name="tradingExchangeCode" type="rixmldt:ISO10383ExchangeType" use="optional">
+						<xs:annotation>
+							<xs:documentation>ISO 10383 Market Identifier Code (MIC) used to precisely identify the exchange upon which the security trades.</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="IssuerID">
+		<xs:annotation>
+			<xs:documentation>Used to uniquely identify the issuer.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="xs:string">
+					<xs:attribute name="idType" type="rixmldt:IssuerSecurityIDTypeEnum" use="required">
+						<xs:annotation>
+							<xs:documentation>Indicates the organization or company's protocol used for the issuer identifier (i.e. the Issuer classification scheme). Note that since their is no universally accepted means of identifying an Issuer (as opposed to a specific security), IssuerID allows the use of what are technically security identifers as a means of identifying an Issuer (CUSIP, SEDOL, etc).</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+					<xs:attribute name="publisherDefinedValue" type="xs:string" use="optional">
+						<xs:annotation>
+							<xs:documentation>If the IssuerID.idType = PublisherDefined, then the publisher can indicate what type of identifier has been used.</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+					<xs:attribute name="idValue" type="xs:string" use="required">
+						<xs:annotation>
+							<xs:documentation>The actual identifier for this issuer.</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="IssuerName">
+		<xs:annotation>
+			<xs:documentation>This is the name of the issuer related to the IssuerID.idValue.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="PublisherDefinedValue" type="xs:string" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>If the IssuerName.NameType = PublisherDefined, then the publisher can indicate what type of name has been used. </xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="NameValue" type="xs:string">
+					<xs:annotation>
+						<xs:documentation>The name that is associated with the IssuerID.idValue above.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+			<xs:attribute name="nameType" type="rixmldt:IssuerNameTypeEnum" use="required">
+				<xs:annotation>
+					<xs:documentation>An issuer can have multiple names. The names can be one or more of the following types: legal, local, display, parent, trading. Use Display if using only one nameType, unless one of the other nameTypes is preferred.</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="SecurityFinancials">
+		<xs:annotation>
+			<xs:documentation>Describes the financials associated with a security.  </xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="FinancialsType">
+					<xs:attribute name="securityFinancialsType" type="rixmldt:SecurityFinancialsTypeEnum" use="required"/>
+					<xs:attribute name="dilution" type="rixmldt:SecurityDilutionEnum" use="optional"/>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="FinancialDates">
+		<xs:annotation>
+			<xs:documentation>Relevant dates related to Issuer and/or Security financial data.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="xs:string">
+					<xs:attribute name="lastReportedPeriod" type="rixmldt:PeriodEnum" use="optional">
+						<xs:annotation>
+							<xs:documentation>Used together with lastReportedYear to indicate the period when the financials were last reported. For example, Q1 2000.</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+					<xs:attribute name="lastReportedYear" type="xs:integer" use="optional">
+						<xs:annotation>
+							<xs:documentation>Used together with lastReportedPeriod to indicate the period when the financials were last reported. For example, Q1 2000.</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+					<xs:attribute name="reportingDate" type="xs:dateTime" use="optional">
+						<xs:annotation>
+							<xs:documentation>Represents the date the numbers were actually published. Expressed using ISO 8601 (as refined by the World Wide Web Consortium's note http://www.w3.org/TR/NOTE-datetime).  In addition, RIXML requires the use of Zulu time or Z-time (GMT +/- n hours:minute:seconds).  All times are absolute and easier to compute, rather than using a relative (i.e. 08:30 +5) time.  </xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="SecurityType">
+		<xs:annotation>
+			<xs:documentation>Indicates the type of security. Typically used in conjunction with AssetClass and AssetType. Can be attached to a Context element or to a Security element. Example values include stock, convertible, high yield credit, investment grade credit.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="Rating" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="Weighting" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:attribute name="securityType" type="rixmldt:SecurityTypeEnum" use="required">
+				<xs:annotation>
+					<xs:documentation>Indicates the security type.</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="publisherDefinedValue" type="xs:string" use="optional">
+				<xs:annotation>
+					<xs:documentation>Used when SecurityType.Value = PublisherDefined to indicate a type of security not in the SecurityTypeEnum list.</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attributeGroup ref="weightingAttributeGroup"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="SecurityDetails" type="SecurityDetailsType">
+		<xs:annotation>
+			<xs:documentation>This is the container class for all the tags available for use when describing an Security.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="Security" type="SecurityTypeX">
+		<xs:annotation>
+			<xs:documentation>Information about a particular security that describes the type of security and how to identify it.  A security is always issued by an issuer, therefore, if a security is being mentioned, it must be attached to an Issuer element.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="AssetClass">
+		<xs:annotation>
+			<xs:documentation>When attached to a Context element, indicates the asset class that the research product focuses on. When attached to a Security element, indicates the asset class of the security. Typically used in conjunction with AssetType and SecurityType. One of the following: equity, fixed income, commodity or currency.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="Rating" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="Weighting" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:attribute name="assetClass" type="rixmldt:AssetClassEnum" use="required">
+				<xs:annotation>
+					<xs:documentation>Indicates the asset class.</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attributeGroup ref="weightingAttributeGroup"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="AssetType">
+		<xs:annotation>
+			<xs:documentation>Indicates the asset type. Typically used in conjunction with AssetClass and SecurityType. Can be attached to a Context element or to a Security element. For equities, examples include stocks, convertibles, warrants and preferred stocks.  For bonds, examples include the major fixed income sectors typically used in major fixed income index benchmarks.  These include U.S. Treasuries, Corporate High Yield and Municipals, among others.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="Rating" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="Weighting" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:attribute name="assetType" type="rixmldt:AssetTypeEnum" use="required">
+				<xs:annotation>
+					<xs:documentation>Indicates the asset type.</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="publisherDefinedValue" type="xs:string" use="optional">
+				<xs:annotation>
+					<xs:documentation>Used when AssetType.Value = PublisherDefined to indicate a type of asset not in the AssetTypeEnum list.</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attributeGroup ref="weightingAttributeGroup"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Country">
+		<xs:annotation>
+			<xs:documentation>Strongly recommended.  Indicates the country or countries that are discussed in a research product.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="Rating" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="Weighting" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:attribute name="code" type="rixmldt:ISO3166-1CountryType" use="required">
+				<xs:annotation>
+					<xs:documentation>The ISO 3166-1 code for the country.</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="emergingIndicator" type="rixmldt:YesNoEnum" use="optional">
+				<xs:annotation>
+					<xs:documentation>Indicates whether the publisher defines this country as an emerging market.</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="sequence" type="xs:integer" use="optional">
+				<xs:annotation>
+					<xs:documentation>If there are multiple Countries, and they should appear in a certain order when the content is published, indicate the desired order by associating the appropriate sequence number to each Country.</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="primaryIndicator" type="rixmldt:YesNoEnum" use="required">
+				<xs:annotation>
+					<xs:documentation>Indicates the primary country or countries discussed in the research product. If the product is focused on the Country level (i.e. the ProductFocus tag is set to Country), then at least one Country must be marked as primary.  </xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attributeGroup ref="actionAttributeGroup"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Region">
+		<xs:annotation>
+			<xs:documentation>Indicates a region discussed in the product.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="Rating" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="Weighting" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:attribute name="emergingIndicator" type="rixmldt:YesNoEnum" use="optional">
+				<xs:annotation>
+					<xs:documentation>Indicates whether this Region is defined by the publisher as an emerging market.</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="sequence" type="xs:integer" use="optional">
+				<xs:annotation>
+					<xs:documentation>If there are multiple Regions, and they should appear in a certain order when the content is published, indicate the desired order by associating the appropriate sequence number to each Region.</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="primaryIndicator" type="rixmldt:YesNoEnum" use="required">
+				<xs:annotation>
+					<xs:documentation>Indicates the primary Region(s) discussed in the product. If the product is focused on the Region level  (i.e. the ProductFocus tag is set to Region), then at least one Region must be marked as primary.  </xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="regionType" type="rixmldt:RegionTypeEnum" use="required"/>
+			<xs:attribute name="publisherDefinedValue" type="xs:string" use="optional"/>
+			<xs:attributeGroup ref="actionAttributeGroup"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Weighting">
+		<xs:annotation>
+			<xs:documentation>This is information regarding weightings.  These can be about the country, region, asset type, or other entities.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="PublisherDefinedValue" type="xs:string" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Used when the weighting value is PublisherDefined.  </xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="Description" type="xs:string" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>A description of the weighting.  May include time horizon.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+			<xs:attribute name="timeFrame" type="rixmldt:TermEnum" use="optional">
+				<xs:annotation>
+					<xs:documentation>This is the period for which the weighting is relevant, as of the date it was established by the authoring entity.  </xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="priorCurrent" type="rixmldt:PriorCurrentTypeEnum" use="optional">
+				<xs:annotation>
+					<xs:documentation>Used to indicate whether the weighting is current or prior (current is the default).  Prior is only used to give reference for a change from a prior weighting.  Prior is used to indicate what the prior figure was for the period specified in order to give context to the current figure, not to provide the figure for a prior time period.</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="weighting" type="rixmldt:WeightingEnum" use="required">
+				<xs:annotation>
+					<xs:documentation>The actual weighting as issued by the authoring entity.  </xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="EventVenue">
+		<xs:annotation>
+			<xs:documentation>Indicates the venue -- can by physical (one-on-one meeting) or virtual (conference call or webcast).  Strongly recommended for a location-based event.  Required when Product.eventIndicator=Yes or Product.Context.ProductDetails.ProductCategory.productCategory=Event.  </xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="Organization" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="EventDate" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="ContactInfo" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="EntitlementGroup" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:attribute name="type" type="rixmldt:EventVenueTypeEnum" use="required"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="EventHost">
+		<xs:annotation>
+			<xs:documentation>Describes the organization hosting the event.  Multiple hosts of one event are possible.  However, there can be only one primary host, which is captured by the Organizatoin primaryIndicator.  </xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="Organization" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="RegistrationInformation">
+		<xs:annotation>
+			<xs:documentation>Registration information relating to an event.  </xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="Organization" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="EventDate">
+		<xs:annotation>
+			<xs:documentation>Describes a date/time relevant to the event, and relative to the type attribute.  It is expressed using ISO 8601 as refined by the World Wide Web Consortium's note http://www.w3.org/TR/NOTE-datetime.  In addition, RIXML requires the use of Zulu time or Z-time (GMT +/- n hours:minute:seconds).  All times are absolute and easier to compute, rather than using a relative (i.e. 08:30 +5) time.  </xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="xs:string">
+					<xs:attribute name="type" type="rixmldt:EventDateTypeEnum" use="required">
+						<xs:annotation>
+							<xs:documentation>Describes the relevance of the date/time to the event.  </xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="EntitlementGroup">
+		<xs:annotation>
+			<xs:documentation>A composite restriction on the use of the product.  Each individual entitlement specification inside a single EntitlementGroup applies conjuctively with the others in the group -- i.e. they are AND-ed together.  For example, you could limit readership to American press agencies by including a LocationEntitlement (containing a Country element with the U.S. country code) and an AudienceTypeEntitlement (containing the Media audience type code).  Each EntitlementGroup applies disjunctively with the other EntitlementGroups -- i.e. they are OR-ed together.  </xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="Entitlement" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Entitlement" type="EntitlementType">
+		<xs:annotation>
+			<xs:documentation>A container for more specific entitlement types.  Mostly used as a convenient receptacle for attributes that apply to all lower entitlement types.  </xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="CountryEntitlement">
+		<xs:annotation>
+			<xs:documentation>An entitlement based on the country in which the research consumer is located.  </xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="Country" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="AudienceTypeEntitlement">
+		<xs:annotation>
+			<xs:documentation>An entitlement based on the type of audience.   </xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="xs:string">
+					<xs:attribute name="audienceType" type="rixmldt:AudienceTypeEnum" use="required">
+						<xs:annotation>
+							<xs:documentation>Indicates the audience type that the author intended to address with the product.</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+					<xs:attribute name="external" type="rixmldt:YesNoEnum" use="optional">
+						<xs:annotation>
+							<xs:documentation>Indicates whether the audience described by the audienceType attribute is internal to the publisher's organization or external.  </xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+					<xs:attribute name="entitlementContext" type="xs:string" use="optional">
+						<xs:annotation>
+							<xs:documentation>Indicates the context in which the entitlement applies -- typically given as a mnemonic for an individual vendor platform.  Here, a vendor is defined as an organization outside the buy-side and sell-side community of financial services firms which provides platforms or tools used by participants in the investment research economy.</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="SectorIndustryEntitlement">
+		<xs:annotation>
+			<xs:documentation>An entitlement based on the industry classification of the research consumer.  </xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="SectorIndustry" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="TimeEntitlement">
+		<xs:annotation>
+			<xs:documentation>Indicates the time during which this product should be read.  </xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="xs:string">
+					<xs:attribute name="startDateTime" type="xs:dateTime" use="optional">
+						<xs:annotation>
+							<xs:documentation>The date and time after which the product should be read.  It is optional because using only an endDateTime is also a meaningful use-case for products that are immediately readable, but expire at a certain time.  The startDateTime must be later on the time scale than the value of Product.publicationDateTime.  </xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+					<xs:attribute name="endDateTime" type="xs:dateTime" use="optional">
+						<xs:annotation>
+							<xs:documentation>The date and time after which the product should not be read.  It is optional because using only a startDateTime is also a meaningful use-case for products that are only readable after a time embargo, but never expire.  The endDateTime must be later on the time scale than the value of Product.publicationDateTime.  </xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="RegionEntitlement">
+		<xs:annotation>
+			<xs:documentation>An entitlement based on the region in which the research consumer is located.  </xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="Region" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<!--Elements for Package 5-LegalPackage-->
+	<xs:element name="Legal" type="LegalType">
+		<xs:annotation>
+			<xs:documentation>The top-level element of the Legal section.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="Disclosure">
+		<xs:annotation>
+			<xs:documentation>Disclosure information from the publisher that is required to accompany a research product.  Disclosure is 'proactive' in that it discloses current involvement and role in an offering or M&amp;A. This would also include disclosures of analyst holdings in stock mentioned, etc.  This section changes relatively frequently.  </xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="Description" type="xs:string">
+					<xs:annotation>
+						<xs:documentation>A description of the disclosure.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+			<xs:attribute name="code" type="xs:string" use="optional">
+				<xs:annotation>
+					<xs:documentation>Indicates the publisher defined disclosure code for a specific disclosure. For example, a publisher may need to disclose a banking relationship with a company, and may call this disclosure code A.</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="IssuerSecurityID">
+		<xs:annotation>
+			<xs:documentation>Links disclaimer information to specific issuers and securities. This allows consumers to determine the nature of disclosures and to which issuers and/or securities they apply.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="Disclosure" maxOccurs="unbounded"/>
+				<xs:element ref="Hedge" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:attribute name="issuerID" type="xs:string" use="optional">
+				<xs:annotation>
+					<xs:documentation>An IssuerID that also appears elsewhere in the metadata of the product, enabling the consumer to uniquely identify the issuer that is being referred to.</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="securityID" type="xs:string" use="optional">
+				<xs:annotation>
+					<xs:documentation>A SecurityID that also appears elsewhere in the metadata of the product, enabling the consumer to uniquely identify the security that is being referred to.</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Hedge">
+		<xs:annotation>
+			<xs:documentation>Hedge is a clause that notes if firm acted as manager or co-manager of a public offering of a company within the past three years, or some other stock-specific clause.  This section changes less frequently.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="Description" type="xs:string">
+					<xs:annotation>
+						<xs:documentation>A description of the hedge.  </xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+			<xs:attribute name="code" type="xs:string" use="optional">
+				<xs:annotation>
+					<xs:documentation>Indicates the publisher defined hedge code for a specific hedge.  For example, a publisher may need to disclose a banking relationship with a company, and may call this hedge code A.</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+	<!--Elements for Package 6-UtilityPackage-->
+	<xs:element name="Length">
+		<xs:annotation>
+			<xs:documentation>Indicates the length of the product. For example, if the product were a PDF file, the length would be in pages. </xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="xs:string">
+					<xs:attribute name="lengthUnit" type="rixmldt:LengthUnitEnum" use="required">
+						<xs:annotation>
+							<xs:documentation>Indicates the unit of length. For example pages, seconds, minutes.</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="StatusInfo">
+		<xs:annotation>
+			<xs:documentation>Describes the status of the product.  Multiple StatusInfo elements are permitted.  Each time the product status changes, and the publisher adds a StatusInfo element, the statusDateTime must be set to reflect the point of change, and the currentStatusIndicator must be updated so that only one StatusInfo is marked as current.  </xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="Version" type="xs:string" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Support for internal versioning of a given product.  </xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+			<xs:attribute name="statusType" type="rixmldt:StatusTypeEnum" use="required">
+				<xs:annotation>
+					<xs:documentation>Indicates the status of the product or resource.  </xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="statusDateTime" type="xs:dateTime" use="required">
+				<xs:annotation>
+					<xs:documentation>Indicates the date and time at which the status was assigned.  It is expressed using ISO 8601 as refined by the World Wide Web Consortium's note http://www.w3.org/TR/NOTE-datetime.  In addition, RIXML requires the use of Zulu time or Z-time (GMT +/- n hours:minute:seconds).  All times are absolute and easier to compute, rather than using a relative (i.e. 08:30 +5) time.  </xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="currentStatusIndicator" type="rixmldt:YesNoEnum" use="required">
+				<xs:annotation>
+					<xs:documentation>Indicates whether or not the statusType is current -- i.e. the most recent.  Note that while a product can have multiple statuses, only one of them can be current.</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="ProductName" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>The proprietary name of the product as defined by the research provider.  This can be used to express a brand name.  Examples of product names are "ABC Investment Bank's Tech Weekly", or "From the Floor in Asia".</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="Title" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>This is the primary title of the product.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="SubTitle" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>This is the sub title of the product.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="Abstract" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>A summary of the information contained in the product.  Highlights the salient issues in the document or provides a brief description of the event. Suggested maximum length is 3000 characters.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="Synopsis" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>A very brief statement of the subject addressed in the product. This is typically only a few lines and would be appropriate for highly abbreviated displays. Suggested maximum length is 300 characters.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="ResourceLink" nillable="true">
+		<xs:complexType>
+			<xs:attribute name="idRef" type="xs:string" use="required"/>
+			<xs:attribute name="type" type="rixmldt:ResourceTypeEnum" use="required"/>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

@@ -1,0 +1,256 @@
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<xsd:element name="TimeTableRQ">
+		<xsd:annotation>
+			<xsd:documentation>TimeTable RQ</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:choice>
+				<xsd:element ref="GeneralFlight" minOccurs="0"/>
+				<xsd:element ref="SpecificFlight" minOccurs="0"/>
+			</xsd:choice>
+			<xsd:attribute name="version" type="xsd:string" use="optional">
+				<xsd:annotation>
+					<xsd:documentation>Version number.  Example: 1.0</xsd:documentation>
+				</xsd:annotation>
+			</xsd:attribute>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="GeneralFlight">
+		<xsd:annotation>
+			<xsd:documentation>General flight group for non airline or flight specific TimeTable requests</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="Preferences" minOccurs="0"/>
+				<xsd:element ref="DepartureCityCode"/>
+				<xsd:element ref="ArrivalCityCode"/>
+				<xsd:element ref="DateWindow"/>
+				<xsd:element ref="TimeWindow"/>
+				<xsd:element ref="DayOfWeek"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="DepartureCityCode">
+		<xsd:annotation>
+			<xsd:documentation>Departure city code.  Example: LHR</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleType>
+			<xsd:restriction base="xsd:string">
+				<xsd:maxLength value="3"/>
+				<xsd:minLength value="3"/>
+			</xsd:restriction>
+		</xsd:simpleType>
+	</xsd:element>
+	<xsd:element name="ArrivalCityCode">
+		<xsd:annotation>
+			<xsd:documentation>Arrival city code.  Example: JFK</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleType>
+			<xsd:restriction base="xsd:string">
+				<xsd:maxLength value="3"/>
+				<xsd:minLength value="3"/>
+			</xsd:restriction>
+		</xsd:simpleType>
+	</xsd:element>
+	<xsd:element name="DateWindow">
+		<xsd:annotation>
+			<xsd:documentation>Date window group for time table search by date range Note: Not all GDS support this feature - see GDS limitations section</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="StartDate"/>
+				<xsd:element ref="EndDate"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="StartDate" type="xsd:date">
+		<xsd:annotation>
+			<xsd:documentation>Time table date range start date in ISO 8601 format (yyyy-mm-dd). 
+Example: 2001-12-25</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="EndDate" type="xsd:date">
+		<xsd:annotation>
+			<xsd:documentation>Time table date range end date in ISO 8601 format (yyyy-mm-dd). 
+Example: 2001-12-30</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="TimeWindow">
+		<xsd:annotation>
+			<xsd:documentation>Time window group for time table search by time range.  Note: Not all GDS support this feature - see GDS limitations section</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="StartTime"/>
+				<xsd:element ref="EndTime"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="StartTime">
+		<xsd:annotation>
+			<xsd:documentation>Time table time.  Range start time in ISO 8601 format (hh:mm).  Example: 09:00</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleType>
+			<xsd:restriction base="xsd:string">
+				<xsd:pattern value="([0-1][0-9]|2[0-4]):[0-5][0-9]">
+					<xsd:annotation>
+						<xsd:documentation>
+</xsd:documentation>
+					</xsd:annotation>
+				</xsd:pattern>
+			</xsd:restriction>
+		</xsd:simpleType>
+	</xsd:element>
+	<xsd:element name="EndTime">
+		<xsd:annotation>
+			<xsd:documentation>Time table time.  Range end time in ISO 8601 format (hh:mm).  Example: 17:00</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleType>
+			<xsd:restriction base="xsd:string">
+				<xsd:pattern value="([0-1][0-9]|2[0-4]):[0-5][0-9]">
+					<xsd:annotation>
+						<xsd:documentation>
+</xsd:documentation>
+					</xsd:annotation>
+				</xsd:pattern>
+			</xsd:restriction>
+		</xsd:simpleType>
+	</xsd:element>
+	<xsd:element name="DayOfWeek" type="xsd:string">
+		<xsd:annotation>
+			<xsd:documentation>Day of week.  Valid values are: 1, 2, 3, 4, 5, 6, 7 for each day of the week starting 1=Monday, 2=Tuesday, 3=Wednesday, 4=Thursday, 5=Frinday, 6=Saturday, 7=Sunday.  Note: Not all GDS support multiple DayOfWeek requests.  Check GDS Limitations section.  Example: 237 or 1234567</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="SpecificFlight">
+		<xsd:annotation>
+			<xsd:documentation>Specific flight group for airline specific and/or flight specific Time table requests.  Some GDS do not support flight number specific requests - check GDS limitations.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="Carrier"/>
+				<xsd:element ref="Departure"/>
+				<xsd:element ref="Arrival"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="Carrier">
+		<xsd:annotation>
+			<xsd:documentation>Carrier group for airline and flight number</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="AirlineCode"/>
+				<xsd:element ref="FlightNumber"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="AirlineCode">
+		<xsd:annotation>
+			<xsd:documentation>Airline code.  Example: UA</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleType>
+			<xsd:restriction base="xsd:string">
+				<xsd:maxLength value="2"/>
+				<xsd:minLength value="2"/>
+			</xsd:restriction>
+		</xsd:simpleType>
+	</xsd:element>
+	<xsd:element name="FlightNumber">
+		<xsd:annotation>
+			<xsd:documentation>Flight number.  Example: 0100</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:simpleContent>
+				<xsd:extension base="xsd:string">
+					<xsd:attribute name="Suffix" type="xsd:string" use="optional">
+						<xsd:annotation>
+							<xsd:documentation>Flight number alpha qualifier.  Values are:
+A
+B
+C
+D
+Example: A</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:extension>
+			</xsd:simpleContent>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="Departure">
+		<xsd:annotation>
+			<xsd:documentation>Departure group for specific time table request</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="CityCode"/>
+				<xsd:element ref="Date"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="CityCode">
+		<xsd:annotation>
+			<xsd:documentation>City code.  Example: LHR</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleType>
+			<xsd:restriction base="xsd:string">
+				<xsd:maxLength value="3"/>
+				<xsd:minLength value="3"/>
+			</xsd:restriction>
+		</xsd:simpleType>
+	</xsd:element>
+	<xsd:element name="Date" type="xsd:date">
+		<xsd:annotation>
+			<xsd:documentation>Time table specific request date in ISO 8601 format (yyyy-mm-dd). 
+Example: 2001-12-25</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="Arrival">
+		<xsd:annotation>
+			<xsd:documentation>Arrival group for specific time table group</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="CityCode"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="Airline">
+		<xsd:annotation>
+			<xsd:documentation>Airline preference group</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:choice>
+				<xsd:element ref="Include">
+					<xsd:annotation>
+						<xsd:documentation>Airline code for carriers to be included in the search.  Maximum 3 or ATA/IATA airline codes to use as connection.  Example: airline code: AF</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element ref="Exclude">
+					<xsd:annotation>
+						<xsd:documentation>Airline code for carriers to be excluded in the search.  Maximum 3 or ATA/IATA airline codes to use as connection.  Example: airline code: AF</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+			</xsd:choice>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="Include" type="xsd:string">
+		<xsd:annotation>
+			<xsd:documentation>Airline code for carriers to be included in the search.  Maximum 3 or ATA/IATA airport code to use as connection.  Example: airline code: AF, airport code: JFK</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="Exclude" type="xsd:string">
+		<xsd:annotation>
+			<xsd:documentation>Airline code for carriers to be excluded in the search.  Maximum 3 or ATA/IATA airport code to exclude as connection.  Example: airline code: DL, airport code: DFW</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="Preferences">
+		<xsd:annotation>
+			<xsd:documentation>Preferences group</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="Airline"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>

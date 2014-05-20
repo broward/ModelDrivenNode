@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:element name="CCReportingDataRQ">
+		<xsd:annotation>
+			<xsd:documentation>root of message to request reporting elements required for a specific corporate credit card, e.g. UATP/AirPlus cards</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="CreditCardData" maxOccurs="unbounded">
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element ref="CCCode">
+								<xsd:annotation>
+									<xsd:documentation>Credit card code.  Example: TP</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+							<xsd:element ref="CCNumber">
+								<xsd:annotation>
+									<xsd:documentation>Credit card number.  Example: 1920236654652341</xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+							<xsd:element ref="CCExpiration" minOccurs="0"/>
+							<xsd:element name="SecurityID" type="xsd:string" minOccurs="0">
+								<xsd:annotation>
+									<xsd:documentation>Credit card security number for online transactions (referred to also as CVV2, CVC2, CSC or CID). This is a 3-digit (Visa, Master, Discover) or 4-digit (Amex) number. </xsd:documentation>
+								</xsd:annotation>
+							</xsd:element>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="CCCode" type="xsd:string">
+		<xsd:annotation>
+			<xsd:documentation>Credit card code.  Example: VI</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="CCNumber" type="xsd:string">
+		<xsd:annotation>
+			<xsd:documentation>Credit card number.  Example: 4011236654652341</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="CCExpiration">
+		<xsd:annotation>
+			<xsd:documentation>Credit card expiration group</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="Month"/>
+				<xsd:element ref="Year">
+					<xsd:annotation>
+						<xsd:documentation>Last two digits of the credit card expiration year.  Example: 16</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="Month">
+		<xsd:annotation>
+			<xsd:documentation>Credit card expiration month.  Example: 02</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleType>
+			<xsd:restriction base="xsd:string">
+				<xsd:length value="2"/>
+			</xsd:restriction>
+		</xsd:simpleType>
+	</xsd:element>
+	<xsd:element name="Year">
+		<xsd:annotation>
+			<xsd:documentation>Last two digits of the credit card expiration year.  Example: 06</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleType>
+			<xsd:restriction base="xsd:string">
+				<xsd:length value="2"/>
+			</xsd:restriction>
+		</xsd:simpleType>
+	</xsd:element>
+</xsd:schema>
