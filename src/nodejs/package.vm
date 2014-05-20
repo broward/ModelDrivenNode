@@ -17,7 +17,9 @@
     "portfinder": ">= 0.2.1",
     "redis": "latest",
     "kue": "latest",
-    "http-proxy": "latest"
+    "http-proxy": "latest",
+    "jquery": "latest",
+    "angular": "latest"
   },
   "engines": {
     "node": "0.8.x",
