@@ -19,8 +19,6 @@ Remaining tasks:
 
 8) Generate fn(){} shells for socket.io server/client
 
-9) Better configuration for external references, i.e. database schemas
-
 10) Add reflective editor in angular for 'add' and 'edit'
 
 11) Fill in how MDN tagging works, is read and applied
