@@ -33,11 +33,31 @@ var getAPI = app.routes.get;
 app.get(globalAppRootUrl + '/Api', function(req, res){
   res.header('Access-Control-Allow-Origin', '*');
   var paths = [];
+ 
+  // build get api listing
   for (index = 0; index < app.routes.get.length; index++) {
      var route = {};
+     route.VERB = 'Get';
      route.URL = app.routes.get[index]['path'];
      paths.push(route);
   }
+
+  // build post api listing
+  for (index = 0; index < app.routes.post.length; index++) {
+     var route = {}; 
+     route.VERB = 'Post';
+     route.URL = app.routes.post[index]['path']; 
+     paths.push(route);
+  }
+
+  // build delete api listing
+  for (index = 0; index < app.routes.delete.length; index++) {
+     var route = {};
+     route.VERB = 'Delete';
+     route.URL = app.routes.delete[index]['path'];
+     paths.push(route);
+  }
+
   res.json(paths);
 });
 

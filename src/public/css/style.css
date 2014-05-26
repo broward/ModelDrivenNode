@@ -5,7 +5,6 @@
     float: left;
     margin-left: 20px;
     margin-top: 20px;
-    margin-bottom: 40px;
 }
 
 .gridStyle {
@@ -20,27 +19,13 @@
 
 .apiGridStyle {
     border: 1px solid rgb(212,212,212);
-    width: 350px; 
+    width: 400px; 
     height: 400px;
     float: left;
     margin-left: 20px;
     margin-top: 20px;
     margin-bottom: 40px;
 }
-
-.textarea {
-    border: 1px solid rgb(212,212,212);
-    width: 500px; 
-    height: 440px;
-    float: left;
-    margin: 10px;
-    margin-top: 20px;
-    overflow: scroll;
-    overflow-y: scroll;
-    overflow-x: scroll;
-    overflow:-moz-scrollbars-horizontal;
-}
-
 
 .tab { margin-left: 20px;
        margin-right: 40px;
@@ -51,6 +36,7 @@
    width: 280px;
    margin-top: 10px;
    margin-left: 20px;
+   margin-bottom: 10px;
 }
 
 .label {
@@ -58,4 +44,16 @@
    margin-left: 20px;
    width: 700px;
    margin-right: 20%;
+}
+
+.buttons {
+   float: left;
+   height: 100px;
+}
+
+.docLabel {
+   float: left;
+   margin-left: 10px;
+   margin-top: 5px;
+   font-weight: bold;
 }

@@ -16,7 +16,7 @@ import org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader;
  * 
  */
 public class ModelDrivenNode {
-	public static String APPLICATION = "ModelDrivenNodeA";
+	public static String APPLICATION = "modeldrivennode";
 	public static String APPINSTANCE = "AppA";
 	public static String VERSION = "v1";
 	public static String ROOT = "/Dev/nodejs/mdn/";
@@ -119,7 +119,7 @@ public class ModelDrivenNode {
 		// Build first schema
 		ModelDrivenNode nb = new ModelDrivenNode();
 		nb.clean();
-		ModelDrivenNode.APPLICATION = "ModelDrivenNode";
+		ModelDrivenNode.APPLICATION = "modeldrivennode";
 		ModelDrivenNode.APPINSTANCE = "AppA";
 		ModelDrivenNode.URL_ROOT = "Mdn/" + APPINSTANCE + "/" + VERSION;
 		nb.buildServer("schema/OTA/OTA_HotelEvent.xsd"); 

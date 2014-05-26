@@ -3,15 +3,23 @@
         <meta charset="utf-8">
         <title>Model-Driven Node: Reference Implementation</title>  
         <link rel="stylesheet" type="text/css" href="css/ng-grid.css" />
+        <link rel="stylesheet" type="text/css" href="css/editor-styles.css" />
+        <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
         <link rel="stylesheet" type="text/css" href="css/style.css" />
+
         <script type="text/javascript" src="jquery.min.js"></script>
         <script type="text/javascript" src="angular.min.js"></script>
         <script type="text/javascript" src="ng-grid-2.0.11.min.js"></script>
         <script type="text/javascript" src="collections.js"></script> 
 
+        <script src="jquery-ui.min.js"></script>
+        <script src="angular-ui.js"></script>
+        <script src="multiSortable.js"></script>
+
+        <script src="JSONedit.js"></script>
     </head>
     <body ng-app="myApp">          
-       <img src="ReferenceImplementationCombo.png"/>
+       <img src="img/ReferenceImplementationCombo.png"/>
 
 <p class='tab'>This page is part of the preceding diagram. You're running the reference implementation right now. This MEAN stack was generated with 15 java classes, 10 velocity templates and 1 xsd schema to 
 demonstrate what an enterprise-level suite might look like with componentized node.js applications.</p>
@@ -31,9 +39,18 @@ the parts hold together more consistently and require less testing.</p>
               <p class="label"><b>  Select a collection, then select a record from that collection:</b></p>
               <div class="firstGridStyle" ng-grid="gridOptions"></div>      
               <div class="gridStyle" ng-grid="recordOptions"></div>
+
+              <div class="mainView" ng-controller="MainViewCtrl">
+                <div class="textarea" defocus>
+                  <label class="docLabel">Document</label><p style="text-align:center;">
+                    <a href="https://github.com/mb21/JSONedit" >*** JSONEdit Source ***</a>
+                  </p>
+                  <json child="jsonData" type="'object'"></json>
+                </div>
+               <span class="buttons">               </span>
+              </div>
             </div>   
           </div>       
-          <textarea id="myTextarea" class="textarea">Json Record from MongoDB</textarea>
 
           <div ng-controller="ApiCtrl"> 
             <div class="apiGridStyle" ng-grid="apiOptions"></div>

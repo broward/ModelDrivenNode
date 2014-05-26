@@ -67,9 +67,9 @@ module.exports = function(app, mongoose, models){
 
 
    /**
-   *  delete a document.  yes I know the verb thing.
+   *  delete a document.  
    */ 
-  app.get(globalAppRootUrl + '/Schemas/delete/:collection/:id', function(req, res){
+  app.delete(globalAppRootUrl + '/Schemas/:collection/:id', function(req, res){
 
     mongoose.model(req.params.collection).findById(req.params.id, function(err, doc){
          doc.remove();
@@ -82,6 +82,17 @@ module.exports = function(app, mongoose, models){
      });
   });
 
+
+   /**
+   *  add a document.
+   */ 
+  app.post(globalAppRootUrl + '/Schemas/:collection/:id', function(req, res){
+
+    mongoose.model(req.params.collection).findById(req.params.id, function(err, doc){
+	    console.log('placeholder');
+         res.redirect('/');
+     });
+  });
 
 /**
  *  Build list of collections with an object graph deeper than 3 (for now)
