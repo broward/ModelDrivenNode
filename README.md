@@ -1,7 +1,7 @@
 ModelDrivenNode
 ===============
 
-[Model Driven Node Project](https://broward.ghost.io/2022/01/31/model-driven-node/)
+[Model Driven Node Design](https://broward.ghost.io/2022/01/31/model-driven-node/)
 
 Model Driven Node.js REST server generated via xsd.
 
